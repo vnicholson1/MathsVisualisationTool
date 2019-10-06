@@ -16,13 +16,19 @@ using System.Windows.Shapes;
 namespace MathsVisualisationTool
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MathsVisualizationToolHome.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class MathsVisualizationToolHome : Page
     {
-        public MainWindow()
+        public MathsVisualizationToolHome()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MathsVisualisationToolReportPage reportPage = new MathsVisualisationToolReportPage(this.peopleListBox.SelectedItem);
+            NavigationService.Navigate(reportPage);
         }
     }
 }

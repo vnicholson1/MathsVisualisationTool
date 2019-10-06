@@ -16,13 +16,20 @@ using System.Windows.Shapes;
 namespace MathsVisualisationTool
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MathsVisualizationToolReportPage.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class MathsVisualisationToolReportPage : Page
     {
-        public MainWindow()
+        public MathsVisualisationToolReportPage()
         {
             InitializeComponent();
+        }
+
+        //Custom constructor to pass expense report data
+        public MathsVisualisationToolReportPage(object data):this()
+        {
+            //Bind the report data onto this object
+            this.DataContext = data;
         }
     }
 }
