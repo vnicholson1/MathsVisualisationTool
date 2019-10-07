@@ -6,8 +6,8 @@
         mc:Ignorable="d"
         Title="ProjectCalamari" Height="541.871" Width="949.366">
 
-    <DockPanel>
-        <Menu DockPanel.Dock="Top" FontSize="14">
+    <DockPanel Style="{StaticResource dockPanelStyle}">
+        <Menu Style="{StaticResource menuStyle}">
             <MenuItem Header="File">
                 <MenuItem Header="New" />
                 <MenuItem Header="Open" />
@@ -31,6 +31,6 @@
                 <MenuItem Header="Command Keyboard"/>
             </MenuItem>
         </Menu>
-        <TextBox AcceptsReturn="True" />
+        <TextBox AcceptsReturn="True" Margin="0,192,0,0" />
     </DockPanel>
 </Window>
