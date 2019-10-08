@@ -1,0 +1,10 @@
+/*
+ * The configuration file for the interpreter.
+ */
+{
+  "INTERPRETER_CONFIG": {
+    "SUPPORTED_TYPES" : [ "INTEGER" ],
+    "SUPPORTED_OPS": [ "PLUS" ],
+    "MISC" :  ["EOF"]
+  }
+}

@@ -32,7 +32,7 @@ namespace MathsVisualisationTool
          */
         private void enterButtonPressed(object sender, RoutedEventArgs e)
         {
-            typingBox.Clear();
+            handleTextEnter();
         }
 
         /*
@@ -42,11 +42,21 @@ namespace MathsVisualisationTool
         {
             if(e.Key == Key.Return)
             {
-                string content = typingBox.Text;
-                Console.WriteLine(content);
-                typingBox.Clear();
+                handleTextEnter();
                 e.Handled = true;
             }
+        }
+
+        /*
+         * handle the text enter and put the contents of the text box into the interpreter.
+         */ 
+        private void handleTextEnter()
+        {
+            string content = typingBox.Text;
+            typingBox.Clear();
+
+            Interpreter interp = new Interpreter();
+            interp.runInterpreter(content);
         }
     }
 }
