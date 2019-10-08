@@ -62,9 +62,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="common\CommandBinding.cs" />
+    <Compile Include="common\MainWindowController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="interpreter\Lexer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
