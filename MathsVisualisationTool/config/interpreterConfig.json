@@ -3,8 +3,8 @@
  */
 {
   "INTERPRETER_CONFIG": {
-    "SUPPORTED_TYPES" : [ "INTEGER" ],
-    "SUPPORTED_OPS": [ "PLUS" ],
-    "MISC" :  ["EOF"]
+    "SUPPORTED_DATA_TYPES" : [ "INTEGER" ],
+    "SUPPORTED_OPS": [ "PLUS", "MINUS", "DIVISION", "MULTIPLICATION" ],
+    "MISC" :  ["EOL"]
   }
 }
