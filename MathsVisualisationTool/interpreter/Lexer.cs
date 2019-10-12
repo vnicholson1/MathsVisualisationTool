@@ -9,14 +9,13 @@ using Newtonsoft.Json.Linq;
 
 namespace MathsVisualisationTool
 {
+
+    public enum SUPPORTED_TOKENS { INTEGER, //supported data types.
+                                   PLUS, MINUS, DIVISION, MULTIPLICATION, //supported ops.
+                                   EOL, WHITE_SPACE}; //Miscellaneous characters.
+
     class Lexer
     {
-        //Supported data types by the lexer.
-        private readonly string [] SUPPORTED_DATA_TYPES = new string [] { "INTEGER" };
-        //Supported operations by the lexer.
-        private readonly string [] SUPPORTED_OPS = new string[] { "PLUS", "MINUS", "DIVISION", "MULTIPLICATION" };
-        //Miscellaneous characters.
-        private readonly string[] MISC = new string [] { "EOL" };
 
         private List<Token> tokens;
         
@@ -30,69 +29,109 @@ namespace MathsVisualisationTool
          */
         public void tokeniseInput(string input)
         {
-
-            Token tokenToAdd = new Token();
+            SUPPORTED_TOKENS typeInList = SUPPORTED_TOKENS.WHITE_SPACE;
+            List<char> characters = new List<char>();
+            Token tokenToAdd;
 
             //Go through the line of code added by the user.
             foreach( char c in input)
             {
                 if(char.IsWhiteSpace(c))
                 {
-                    //if there where values added 
-                    if (!tokenToAdd.isEmpty())
-                    {
-                        tokens.Add(tokenToAdd);
-                        tokenToAdd = new Token();
-                    }
+                    continue;
                 }
 
                 //Is it a digit?
                 if(char.IsDigit(c))
                 {
-                    //if the previous token wasn't an integer
-                    if (tokenToAdd.getType() != SUPPORTED_DATA_TYPES[0])
+                    
+                    if(typeInList.Equals(SUPPORTED_TOKENS.INTEGER))
                     {
-                        tokens.Add(tokenToAdd);
-                    } else if (!tokenToAdd.isEmpty())
-                    {
-                        //the previous token was an integer before so append it
-                        tokenToAdd.appendToValue(c);
+                        characters.Add(c);
                     } else
                     {
-                        tokenToAdd = new Token(SUPPORTED_DATA_TYPES[0], char.ToString(c));
-                    }
                         
+                        //create a new token and add it to the list.
+                        if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
+                        {
+                            tokenToAdd = tokeniseList(characters, typeInList);
+                            tokens.Add(tokenToAdd);
+                        }
+                        characters = new List<char>(){c};
+                        typeInList = SUPPORTED_TOKENS.INTEGER;
+                    }
                 }
 
                 if(c == '+')
                 {
-                    //if the previous token wasn't an integer
-                    if (tokenToAdd.getType() != SUPPORTED_OPS[0])
+                    //For now if there are consecutive '+' ops it labels them as two seperate + symbols.
+                    if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
                     {
+                        tokenToAdd = tokeniseList(characters, typeInList);
                         tokens.Add(tokenToAdd);
                     }
-                    else if (!tokenToAdd.isEmpty())
+                    characters = new List<char>() { c };
+                    typeInList = SUPPORTED_TOKENS.PLUS;
+                }
+
+                if (c == '-')
+                {
+                    if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
                     {
-                        throw new Exception(" '++' is not a valid expression");
+                        tokenToAdd = tokeniseList(characters, typeInList);
+                        tokens.Add(tokenToAdd);
                     }
-                    else
+                    characters = new List<char>() { c };
+                    typeInList = SUPPORTED_TOKENS.MINUS;
+                }
+
+                if (c == '*')
+                {
+                    if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
                     {
-                        tokenToAdd = new Token(SUPPORTED_OPS[0], char.ToString(c));
+                        tokenToAdd = tokeniseList(characters, typeInList);
+                        tokens.Add(tokenToAdd);
                     }
+                    characters = new List<char>() { c };
+                    typeInList = SUPPORTED_TOKENS.MULTIPLICATION;
+                }
+
+                if (c == '/')
+                {
+                    if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
+                    {
+                        tokenToAdd = tokeniseList(characters, typeInList);
+                        tokens.Add(tokenToAdd);
+                    }
+                    characters = new List<char>() { c };
+                    typeInList = SUPPORTED_TOKENS.DIVISION;
                 }
             }
 
-            if(!tokenToAdd.isEmpty())
+            if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
             {
+                tokenToAdd = tokeniseList(characters, typeInList);
                 tokens.Add(tokenToAdd);
             }
 
-            foreach(Token t in tokens)
+            foreach (Token t in tokens)
             {
                 Console.WriteLine(t.ToString());
             }
 
             Console.WriteLine("--------------------------------------------------");
+        }
+
+        private Token tokeniseList(List<char>listOfCharacters, SUPPORTED_TOKENS listType)
+        {
+            string value = "";
+
+            foreach(char c in listOfCharacters)
+            {
+                value += c;
+            }
+
+            return new Token(listType,value);
         }
 
         /*
@@ -117,54 +156,86 @@ namespace MathsVisualisationTool
 
     class Token
     {
-        private string type;
+        private SUPPORTED_TOKENS type;
         private string value;
 
         public Token()
         {
-            this.type = "";
-            this.value = "";
+            type = SUPPORTED_TOKENS.WHITE_SPACE;
+            value = "";
         }
 
-        public Token(string type, string value)
+        public Token(SUPPORTED_TOKENS type, string value)
         {
             this.type = type;
             this.value = value;
         }
 
+        /**
+         * Method to add a character onto the existing token
+         */
         public void appendToValue(char valueToAppend)
         {
-            this.value += valueToAppend;
+            value += valueToAppend;
         }
 
-        public string getType()
+        /*
+         * Get the type of token.
+         */
+        public SUPPORTED_TOKENS getType()
         {
             return type;
         }
 
+        /*
+         * Get the value of the token.
+         */
         public string getValue()
         {
             return value;
         }
 
-        public void setType(string type)
+        /*
+         * Set the token type.
+         */
+        public void setType(SUPPORTED_TOKENS type)
         {
             this.type = type;
         }
 
+        /*
+         * Set the value of the token.
+         */
         public void setValue(string value)
         {
             this.value = value;
         }
 
+        /// <summary>
+        /// Method to set the field values of this token class.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="value"></param>
+        public void setFieldValues(SUPPORTED_TOKENS type, string value)
+        {
+            this.type = type;
+            this.value = value;
+        }
+
+        /*
+         * Test if this token's value is empty.
+         */
         public bool isEmpty()
         {
             return (value.Length == 0); 
         }
 
+        /*
+         * String representation of a Token.
+         */
         public override string ToString()
         {
-            return "(" + this.type + "," + this.value + ")";
+            return "(" + type + "," + value + ")";
         }
     }
 }
