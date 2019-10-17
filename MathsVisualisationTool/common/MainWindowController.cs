@@ -56,7 +56,7 @@ namespace MathsVisualisationTool
             typingBox.Clear();
 
             Interpreter interp = new Interpreter();
-            interp.runInterpreter(content);
+            interp.RunInterpreter(content);
         }
     }
 }

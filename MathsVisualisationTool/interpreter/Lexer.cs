@@ -9,29 +9,28 @@ using Newtonsoft.Json.Linq;
 
 namespace MathsVisualisationTool
 {
-
+    
     public enum SUPPORTED_TOKENS { INTEGER, //supported data types.
                                    PLUS, MINUS, DIVISION, MULTIPLICATION, //supported ops.
                                    EOL, WHITE_SPACE}; //Miscellaneous characters.
 
     class Lexer
     {
-
-        private List<Token> tokens;
         
         public Lexer()
         {
-            tokens = new List<Token>();
+
         }
 
         /*
          * Function to tokenise the user's input. 
          */
-        public void tokeniseInput(string input)
+        public List<Token> TokeniseInput(string input)
         {
             SUPPORTED_TOKENS typeInList = SUPPORTED_TOKENS.WHITE_SPACE;
             List<char> characters = new List<char>();
             Token tokenToAdd;
+            List<Token> tokens = new List<Token>();
 
             //Go through the line of code added by the user.
             foreach( char c in input)
@@ -54,7 +53,7 @@ namespace MathsVisualisationTool
                         //create a new token and add it to the list.
                         if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
                         {
-                            tokenToAdd = tokeniseList(characters, typeInList);
+                            tokenToAdd = TokeniseList(characters, typeInList);
                             tokens.Add(tokenToAdd);
                         }
                         characters = new List<char>(){c};
@@ -67,7 +66,7 @@ namespace MathsVisualisationTool
                     //For now if there are consecutive '+' ops it labels them as two seperate + symbols.
                     if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
                     {
-                        tokenToAdd = tokeniseList(characters, typeInList);
+                        tokenToAdd = TokeniseList(characters, typeInList);
                         tokens.Add(tokenToAdd);
                     }
                     characters = new List<char>() { c };
@@ -78,7 +77,7 @@ namespace MathsVisualisationTool
                 {
                     if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
                     {
-                        tokenToAdd = tokeniseList(characters, typeInList);
+                        tokenToAdd = TokeniseList(characters, typeInList);
                         tokens.Add(tokenToAdd);
                     }
                     characters = new List<char>() { c };
@@ -89,7 +88,7 @@ namespace MathsVisualisationTool
                 {
                     if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
                     {
-                        tokenToAdd = tokeniseList(characters, typeInList);
+                        tokenToAdd = TokeniseList(characters, typeInList);
                         tokens.Add(tokenToAdd);
                     }
                     characters = new List<char>() { c };
@@ -100,7 +99,7 @@ namespace MathsVisualisationTool
                 {
                     if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
                     {
-                        tokenToAdd = tokeniseList(characters, typeInList);
+                        tokenToAdd = TokeniseList(characters, typeInList);
                         tokens.Add(tokenToAdd);
                     }
                     characters = new List<char>() { c };
@@ -110,10 +109,22 @@ namespace MathsVisualisationTool
 
             if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
             {
-                tokenToAdd = tokeniseList(characters, typeInList);
+                tokenToAdd = TokeniseList(characters, typeInList);
                 tokens.Add(tokenToAdd);
             }
 
+            PrintTokens(tokens);
+
+            return tokens;
+        }
+
+        /// <summary>
+        /// Method to print out the list of collected tokens. Mainly for debugging purposes.
+        /// </summary>
+        /// <param name="tokens"></param>
+        /// <returns></returns>
+        private void PrintTokens(List<Token> tokens)
+        {
             foreach (Token t in tokens)
             {
                 Console.WriteLine(t.ToString());
@@ -122,7 +133,13 @@ namespace MathsVisualisationTool
             Console.WriteLine("--------------------------------------------------");
         }
 
-        private Token tokeniseList(List<char>listOfCharacters, SUPPORTED_TOKENS listType)
+        /// <summary>
+        /// Convert the array of characters into a list of tokens.
+        /// </summary>
+        /// <param name="listOfCharacters"></param>
+        /// <param name="listType"></param>
+        /// <returns></returns>
+        private Token TokeniseList(List<char>listOfCharacters, SUPPORTED_TOKENS listType)
         {
             string value = "";
 
@@ -134,10 +151,11 @@ namespace MathsVisualisationTool
             return new Token(listType,value);
         }
 
-        /*
-         * Function to load the interpreter's configuration file stored in config.
-         */
-        private JToken loadInterpreterConfig()
+        /// <summary>
+        /// Function to load the interpreter's configuration file stored in config.
+        /// </summary>
+        /// <returns></returns>
+        private JToken LoadInterpreterConfig()
         {
             //Get current WORKING directory (i.e. \bin\debug)
             string workingDirectory = Directory.GetCurrentDirectory();
@@ -171,18 +189,10 @@ namespace MathsVisualisationTool
             this.value = value;
         }
 
-        /**
-         * Method to add a character onto the existing token
-         */
-        public void appendToValue(char valueToAppend)
-        {
-            value += valueToAppend;
-        }
-
         /*
          * Get the type of token.
          */
-        public SUPPORTED_TOKENS getType()
+        public SUPPORTED_TOKENS GetType()
         {
             return type;
         }
@@ -190,7 +200,7 @@ namespace MathsVisualisationTool
         /*
          * Get the value of the token.
          */
-        public string getValue()
+        public string GetValue()
         {
             return value;
         }
@@ -198,7 +208,7 @@ namespace MathsVisualisationTool
         /*
          * Set the token type.
          */
-        public void setType(SUPPORTED_TOKENS type)
+        public void SetType(SUPPORTED_TOKENS type)
         {
             this.type = type;
         }
@@ -206,28 +216,9 @@ namespace MathsVisualisationTool
         /*
          * Set the value of the token.
          */
-        public void setValue(string value)
+        public void SetValue(string value)
         {
             this.value = value;
-        }
-
-        /// <summary>
-        /// Method to set the field values of this token class.
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="value"></param>
-        public void setFieldValues(SUPPORTED_TOKENS type, string value)
-        {
-            this.type = type;
-            this.value = value;
-        }
-
-        /*
-         * Test if this token's value is empty.
-         */
-        public bool isEmpty()
-        {
-            return (value.Length == 0); 
         }
 
         /*

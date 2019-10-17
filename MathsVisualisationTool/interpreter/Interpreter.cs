@@ -10,16 +10,19 @@ namespace MathsVisualisationTool
     {
 
         private Lexer lexer;
+        private Parser parser;
 
         public Interpreter()
         {
             lexer = new Lexer();
         }
 
-        public void runInterpreter(string codeToRun)
+        public void RunInterpreter(string codeToRun)
         {
             //Use the lexer to tokenise the input
-            lexer.tokeniseInput(codeToRun);
+            List<Token> tokens = lexer.TokeniseInput(codeToRun);
+
+            parser.AnalyseTokens(tokens);
         }
 
     }
