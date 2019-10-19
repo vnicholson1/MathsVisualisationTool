@@ -56,7 +56,16 @@ namespace MathsVisualisationTool
             typingBox.Clear();
 
             Interpreter interp = new Interpreter();
-            interp.RunInterpreter(content);
+
+            try
+            {
+                string output = interp.RunInterpreter(content);
+                Console.WriteLine(output);
+            } catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+           
         }
     }
 }

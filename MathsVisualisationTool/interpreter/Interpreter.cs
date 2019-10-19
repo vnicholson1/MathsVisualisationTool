@@ -17,12 +17,16 @@ namespace MathsVisualisationTool
             lexer = new Lexer();
         }
 
-        public void RunInterpreter(string codeToRun)
+        public string RunInterpreter(string codeToRun)
         {
             //Use the lexer to tokenise the input
             List<Token> tokens = lexer.TokeniseInput(codeToRun);
+            parser = new Parser(tokens);
+            parser.AnalyseTokens();
 
-            parser.AnalyseTokens(tokens);
+            //run the code
+
+            return "yes";
         }
 
     }

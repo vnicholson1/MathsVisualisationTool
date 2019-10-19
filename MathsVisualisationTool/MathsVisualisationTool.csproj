@@ -68,6 +68,7 @@
     <Compile Include="common\MainWindowController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="interpreter\Executer.cs" />
     <Compile Include="interpreter\Interpreter.cs" />
     <Compile Include="interpreter\Lexer.cs" />
     <Compile Include="interpreter\Parser.cs" />
