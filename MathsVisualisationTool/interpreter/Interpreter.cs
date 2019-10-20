@@ -15,14 +15,15 @@ namespace MathsVisualisationTool
         public Interpreter()
         {
             lexer = new Lexer();
+            parser = new Parser();
         }
 
         public string RunInterpreter(string codeToRun)
         {
             //Use the lexer to tokenise the input
             List<Token> tokens = lexer.TokeniseInput(codeToRun);
-            parser = new Parser(tokens);
-            parser.AnalyseTokens();
+            //Check if the syntax is okay - throws an error if not.
+            parser.AnalyseTokens(tokens);
 
             //run the code
 

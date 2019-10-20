@@ -68,10 +68,11 @@
     <Compile Include="common\MainWindowController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="interpreter\Executer.cs" />
     <Compile Include="interpreter\Interpreter.cs" />
     <Compile Include="interpreter\Lexer.cs" />
     <Compile Include="interpreter\Parser.cs" />
+    <Compile Include="ParseTree\ParseTree.cs" />
+    <Compile Include="ParseTree\ParseTreeNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

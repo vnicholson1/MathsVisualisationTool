@@ -60,10 +60,11 @@ namespace MathsVisualisationTool
             try
             {
                 string output = interp.RunInterpreter(content);
-                Console.WriteLine(output);
+                Console.WriteLine(output); //output onto the screen
             } catch (Exception e)
             {
-                Console.WriteLine(e);
+                string output = e.ToString();
+                Console.WriteLine(output); //output onto the screen but in red.
             }
            
         }
