@@ -41,9 +41,6 @@ namespace MathsVisualisationTool
             this.tokens = tokens;
             getNextToken();
 
-            //Add the expression node onto the tree.
-            tree.addLeftChild(GRAMMAR_TOKENS.EXPRESSION);
-            tree.goDownLeft();
             Expression();
 
             tree.traverseTree();
@@ -52,33 +49,15 @@ namespace MathsVisualisationTool
         //Expression = Term AND Expression1
         public void Expression()
         {
-            //Add the term node onto the tree.
-            tree.addLeftChild(GRAMMAR_TOKENS.TERM);
-            tree.goDownLeft();
             Term();
-
-            //Add the expression1 node onto the tree
-            tree.addRightChild(GRAMMAR_TOKENS.EXPRESSION1);
-            tree.goDownRight();
             Expression1();
-
-            tree.goUpOneLevel();
         }
 
         //Term = Factor AND Term1
         public void Term()
         {
-            //Add the factor node onto the tree.
-            tree.addLeftChild(GRAMMAR_TOKENS.FACTOR);
-            tree.goDownLeft();
             Factor();
-
-            //Add the term1 node
-            tree.addRightChild(GRAMMAR_TOKENS.TERM1);
-            tree.goDownRight();
             Term1();
-
-            tree.goUpOneLevel();
         }
 
         //Expression1 = PLUS (OR MINUS) AND Term AND EXPRESSION1 OR EMPTY
@@ -89,38 +68,24 @@ namespace MathsVisualisationTool
             if (nextToken.GetType().Equals(SUPPORTED_TOKENS.PLUS))
             {
                 //Add plus node
-                tree.addLeftChild(GRAMMAR_TOKENS.PLUS);
-                tree.goDownLeft();
-
+                tree.addChildAndGo(GRAMMAR_TOKENS.PLUS);
                 flag = true;
             }
             else if (nextToken.GetType().Equals(SUPPORTED_TOKENS.MINUS))
             {
                 //Add minus node
-                tree.addLeftChild(GRAMMAR_TOKENS.MINUS);
-                tree.goDownLeft();
-
+                tree.addChildAndGo(GRAMMAR_TOKENS.MINUS);
                 flag = true;
             }
 
             if(flag)
             {
                 getNextToken();
-
-                //Add a new term node
-                tree.addLeftChild(GRAMMAR_TOKENS.TERM);
-                tree.goDownLeft();
                 Term();
-
-                //Add a new expression 1 node
-                tree.addRightChild(GRAMMAR_TOKENS.EXPRESSION1);
-                tree.goDownRight();
                 Expression1();
             }
                 
             /* empty string */
-
-            tree.goUpOneLevel();
         }
 
         //Term1 = MULTIPLICATION (OR DIVISION) AND Factor AND Term1 OR EMPTY
@@ -131,37 +96,23 @@ namespace MathsVisualisationTool
             if(nextToken.GetType().Equals(SUPPORTED_TOKENS.MULTIPLICATION))
             {
                 //Add multiplication node
-                tree.addLeftChild(GRAMMAR_TOKENS.MULTIPLICATION);
-                tree.goDownLeft();
-
+                tree.addChildAndGo(GRAMMAR_TOKENS.MULTIPLICATION);
                 flag = true;
             } else if (nextToken.GetType().Equals(SUPPORTED_TOKENS.DIVISION))
             {
                 //Add division node
-                tree.addLeftChild(GRAMMAR_TOKENS.DIVISION);
-                tree.goDownLeft();
-
+                tree.addChildAndGo(GRAMMAR_TOKENS.DIVISION);
                 flag = true;
             }
 
             if(flag)
             {
                 getNextToken();
-
-                //Add a new factor node
-                tree.addLeftChild(GRAMMAR_TOKENS.FACTOR);
-                tree.goDownLeft();
                 Factor();
-
-                //Add a new term 1 node
-                tree.addRightChild(GRAMMAR_TOKENS.TERM1);
-                tree.goDownRight();
                 Term1();
             }
                 
             /*empty string */
-
-            tree.goUpOneLevel();
         }
 
         //FACTOR = [0-9]
@@ -169,7 +120,8 @@ namespace MathsVisualisationTool
         {
             if(nextToken.GetType().Equals(SUPPORTED_TOKENS.INTEGER))
             {
-                tree.addLeftChild(GRAMMAR_TOKENS.INTEGER);
+                tree.addChild(GRAMMAR_TOKENS.INTEGER);
+               
                 getNextToken();
             } else
             {

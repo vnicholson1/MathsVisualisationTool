@@ -30,29 +30,41 @@ namespace MathsVisualisationTool
             return pointer;
         }
 
-        /// <summary>
-        /// Add a left child onto the node the pointer is pointing to.
-        /// </summary>
-        /// <param name="newNode"></param>
-        public void addLeftChild(GRAMMAR_TOKENS newValue)
+        public void addChildAndGo(GRAMMAR_TOKENS newValue)
         {
             ParseTreeNode n = new ParseTreeNode(newValue, pointer);
-            pointer.getChildren()[0] = n;
+
+            if(pointer.getChildren()[0] == null)
+            {
+                pointer.getChildren()[0] = n;
+                goDownLeft();
+            } else
+            {
+                pointer.getChildren()[1] = n;
+                goDownRight();
+            }
         }
 
-        /// <summary>
-        /// Add a left child onto the node the pointer is pointing to.
-        /// </summary>
-        /// <param name="newNode"></param>
-        public void addRightChild(GRAMMAR_TOKENS newValue)
+        public void addChild(GRAMMAR_TOKENS newValue)
         {
             ParseTreeNode n = new ParseTreeNode(newValue, pointer);
-            pointer.getChildren()[1] = n;
+
+            if (pointer.getChildren()[0] == null)
+            {
+                pointer.getChildren()[0] = n;
+            }
+            else
+            {
+                pointer.getChildren()[1] = n;
+            }
         }
 
         public void goUpOneLevel()
         {
-            pointer = pointer.getParent();
+            if(pointer.getParent() != null)
+            {
+                pointer = pointer.getParent();
+            }
         }
 
         public void goDownLeft()
