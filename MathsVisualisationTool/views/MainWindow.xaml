@@ -3,55 +3,88 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MathsVisualisationTool"
         mc:Ignorable="d"
-        Title="ProjectCalamari" Height="516.697" Width="941.131">
+        Title="SolveIt Interpreter"
+        WindowState="Maximized"
+        WindowStyle="ThreeDBorderWindow"
+        Background="SlateGray"
+        Icon="../images/pi_Icon.ico" d:DesignWidth="835.5" d:DesignHeight="640">
 
-    <DockPanel Style="{StaticResource dockPanelStyle}">
-        <Menu Style="{StaticResource menuStyle}">
-            <MenuItem Header="File">
-                <MenuItem Header="New" />
-                <MenuItem Header="Open" />
-                <MenuItem Header="Save" />
-                <Separator />
-                <MenuItem Header="Exit" />
-            </MenuItem>
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <!-- MAIN MENU/NAVIGATION MENU-->
+            <Menu DockPanel.Dock="Top">
+                <!--MAIN TOP MENU - FILE DROP DOWN-->
+                <MenuItem Header="_File">
+                    <MenuItem Header="Save">
+                        <MenuItem Header="_Save"/>
+                        <MenuItem Header="_Save as"/>
+                        <MenuItem Header="_Save all"/>
+                    </MenuItem>
+                    <MenuItem Header="Exit"/>
+                </MenuItem>
+                <!--MAIN TOP MENU - EDIT DROPDOWN-->
+                <MenuItem Header="_Edit"></MenuItem>
+                <!--MAIN TOP MENU - VIEW DROPDOWN-->
+                <MenuItem Header="_View"></MenuItem>
+                <!--MAIN TOP MENU - TOOLS DROPDOWN-->
+                <MenuItem Header="_Tools"></MenuItem>
+                <!--MAIN TOP MENU - HELP DROPDOWN-->
+                <MenuItem Header="_Help">
+                    <MenuItem Header="View Help"/>
+                </MenuItem>
+            </Menu>
 
-            <MenuItem Header="Edit">
-                <MenuItem Command="Cut" />
-                <MenuItem Command="Copy" />
-                <MenuItem Command="Paste" />
-            </MenuItem>
+            <!-- BOTTOM SECTION OF DOCKPANEL -->
+            <!-- Although not the main bottom section of the interpreter
+            this section contains a status bar for the interpreter-->
+            <StatusBar Name="statBar" DockPanel.Dock="Bottom" Background="LightGray" VerticalAlignment="Bottom" Margin="0 3 0 0">
+                <StatusBarItem>
+                    <TextBlock FontSize="10">Ready...</TextBlock>
+                </StatusBarItem>
+            </StatusBar>
 
-            <MenuItem Header="View">
-                <MenuItem Header="Console Window"/>
-                <MenuItem Header="Variables"/>
-            </MenuItem>
-
-            <MenuItem Header="Tools">
-                <MenuItem Header="Command Keyboard"/>
-            </MenuItem>
-        </Menu>
-
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="45"/>
-            </Grid.RowDefinitions>
-
-            <TextBox x:Name="outputBox" Margin="20,20,20,20" Grid.Row="0" IsReadOnly="True" Text=">>" FontSize="18"/>
-
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="140" />
-                </Grid.ColumnDefinitions>
-
-                <TextBox x:Name="typingBox" Grid.Column="0" Height="25" Margin="20,0,20,15" FontSize="14" VerticalContentAlignment="Center"/>
-                <Button x:Name="button" Content="Enter" Height="25" Margin="0,0,20,15" Grid.Column="1" FontSize="14" Click="enterButtonPressed"/>
+            <!-- LEFT SECTION OF DOCKPANEL-->
+            <!-- Left Section to include a File Explorer setup
+            and links to documentation relevant to the interpreter-->
+            <Grid Name="leftGrid" DockPanel.Dock="Left" Margin="3 3 3 3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--<Button Margin="3" MaxWidth="300" MinWidth="200">Button 1</Button>
+                <Button Margin="3" MaxWidth="300" MinWidth="200">Button 2</Button>-->
+                <DocumentViewer Grid.Row="0" Width="200" Margin="3 3 0 0"></DocumentViewer>
+                <TreeView Grid.Row="1" MinHeight="200" VerticalAlignment="Top" Width="200" Margin="3 3 0 0"></TreeView>
             </Grid>
 
-        </Grid>
+            <!-- RIGHT SECTION OF DOCKPANEL-->
+            <!-- Right Section to include an index of variables
+            that are currently being stored and possibly "cheat sheet"
+            of quick commands-->
+            <Button DockPanel.Dock="Right" Margin="3">RIGHT</Button>
 
-        
-    </DockPanel>
+            <!-- BOTTOM SECTION OF DOCKPANEL -->
+            <!-- The bottom section of the interpreter is where the
+            input will be situated. i.e. user enters an equation into the 
+            text box at the base of this page -->
+            <Grid DockPanel.Dock="Bottom" Margin="3 0 3 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Margin="0 0 0 3" Name="typingBox" FontSize="14">TEXT</TextBox>
+                <Button Content="Submit"  Grid.Column="1" Margin="3 0 0 3" FontSize="14"/>
+                <!--="onSubmitClick"-->
+            </Grid>
+
+            <!-- TOP SECTION OF DOCK PANEL (EXCLUDING MAIN MENU)-->
+            <!-- This is the main section of where any outputs will be 
+            displayed. Possible introduce a tab system to view different
+            versions of an output i.e. graphical to numerical-->
+            <TextBox DockPanel.Dock="Top" Margin="3" BorderBrush="Black" BorderThickness="2" Padding="5">TEXT</TextBox>
+
+        </DockPanel>
+    </Grid>
 </Window>

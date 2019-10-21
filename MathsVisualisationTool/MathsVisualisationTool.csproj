@@ -99,6 +99,10 @@
   <ItemGroup>
     <None Include="config\App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="images\alticon.png" />
+    <Resource Include="images\piIcon.png" />
+    <Resource Include="images\pi_Icon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
