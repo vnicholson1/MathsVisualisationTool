@@ -14,51 +14,85 @@ namespace MathsVisualisationTool
         //current is just going to be a pointer to what ever current node the tree is looking at.
         private ParseTreeNode pointer;
 
+        /// <summary>
+        /// Construct a Parse Tree object with root defined as a null token and a pointer that points 
+        /// to the root of the tree.
+        /// </summary>
         public ParseTree()
         {
             root = new ParseTreeNode(GRAMMAR_TOKENS.NULL,null);
             pointer = root;
         }
 
+        /// <summary>
+        /// Return the root of the tree.
+        /// </summary>
+        /// <returns></returns>
         public ParseTreeNode getRoot()
         {
             return root;
         }
 
+        /// <summary>
+        /// Return the pointer of the tree.
+        /// </summary>
+        /// <returns></returns>
         public ParseTreeNode getPointer()
         {
             return pointer;
         }
 
-        public void addChildAndGo(GRAMMAR_TOKENS newValue)
+        /// <summary>
+        /// Add a left child onto the parse tree and descend onto that node.
+        /// </summary>
+        /// <param name="newValue"></param>
+        public void addLeftChildAndGo(GRAMMAR_TOKENS newValue)
         {
             ParseTreeNode n = new ParseTreeNode(newValue, pointer);
 
-            if(pointer.getChildren()[0] == null)
-            {
-                pointer.getChildren()[0] = n;
-                goDownLeft();
-            } else
-            {
-                pointer.getChildren()[1] = n;
-                goDownRight();
-            }
+            pointer.getChildren()[0] = n;
+
+            pointer = n;
         }
 
-        public void addChild(GRAMMAR_TOKENS newValue)
+        /// <summary>
+        /// Add a right child onto the parse tree and descend onto that node.
+        /// </summary>
+        /// <param name="newValue"></param>
+        public void addRightChildAndGo(GRAMMAR_TOKENS newValue)
         {
             ParseTreeNode n = new ParseTreeNode(newValue, pointer);
 
-            if (pointer.getChildren()[0] == null)
-            {
-                pointer.getChildren()[0] = n;
-            }
-            else
-            {
-                pointer.getChildren()[1] = n;
-            }
+            pointer.getChildren()[1] = n;
+
+            pointer = n;
         }
 
+        /// <summary>
+        /// Add a left child onto the parse tree but DO NOT descend onto that node.
+        /// </summary>
+        /// <param name="newValue"></param>
+        public void addLeftChild(GRAMMAR_TOKENS newValue)
+        {
+            ParseTreeNode n = new ParseTreeNode(newValue, pointer);
+
+            pointer.getChildren()[0] = n;
+        }
+
+        /// <summary>
+        /// Add a left child onto the parse tree but DO NOT descend onto that node.
+        /// </summary>
+        /// <param name="newValue"></param>
+        public void addRightChild(GRAMMAR_TOKENS newValue)
+        {
+            ParseTreeNode n = new ParseTreeNode(newValue, pointer);
+
+            pointer.getChildren()[1] = n;
+        }
+
+        /// <summary>
+        /// Go up to the parent of the node that the pointer object is currently pointing to.
+        /// </summary>
         public void goUpOneLevel()
         {
             if(pointer.getParent() != null)
@@ -67,16 +101,10 @@ namespace MathsVisualisationTool
             }
         }
 
-        public void goDownLeft()
-        {
-            pointer = pointer.getChildren()[0];
-        }
-
-        public void goDownRight()
-        {
-            pointer = pointer.getChildren()[1];
-        }
-
+        /// <summary>
+        /// Implement a Breath First Search of the tree.
+        /// Mainly for debugging purposes.
+        /// </summary>
         public void traverseTree()
         {
             Queue<ParseTreeNode> nodes_to_visit = new Queue<ParseTreeNode>();

@@ -68,13 +68,13 @@ namespace MathsVisualisationTool
             if (nextToken.GetType().Equals(SUPPORTED_TOKENS.PLUS))
             {
                 //Add plus node
-                tree.addChildAndGo(GRAMMAR_TOKENS.PLUS);
+                tree.addLeftChildAndGo(GRAMMAR_TOKENS.PLUS);
                 flag = true;
             }
             else if (nextToken.GetType().Equals(SUPPORTED_TOKENS.MINUS))
             {
                 //Add minus node
-                tree.addChildAndGo(GRAMMAR_TOKENS.MINUS);
+                tree.addRightChildAndGo(GRAMMAR_TOKENS.MINUS);
                 flag = true;
             }
 
@@ -84,7 +84,7 @@ namespace MathsVisualisationTool
                 Term();
                 Expression1();
             }
-                
+
             /* empty string */
         }
 
@@ -96,12 +96,12 @@ namespace MathsVisualisationTool
             if(nextToken.GetType().Equals(SUPPORTED_TOKENS.MULTIPLICATION))
             {
                 //Add multiplication node
-                tree.addChildAndGo(GRAMMAR_TOKENS.MULTIPLICATION);
+                tree.addLeftChildAndGo(GRAMMAR_TOKENS.MULTIPLICATION);
                 flag = true;
             } else if (nextToken.GetType().Equals(SUPPORTED_TOKENS.DIVISION))
             {
                 //Add division node
-                tree.addChildAndGo(GRAMMAR_TOKENS.DIVISION);
+                tree.addRightChildAndGo(GRAMMAR_TOKENS.DIVISION);
                 flag = true;
             }
 
@@ -111,7 +111,7 @@ namespace MathsVisualisationTool
                 Factor();
                 Term1();
             }
-                
+
             /*empty string */
         }
 
@@ -120,13 +120,14 @@ namespace MathsVisualisationTool
         {
             if(nextToken.GetType().Equals(SUPPORTED_TOKENS.INTEGER))
             {
-                tree.addChild(GRAMMAR_TOKENS.INTEGER);
+                tree.addLeftChild(GRAMMAR_TOKENS.INTEGER);
                
                 getNextToken();
             } else
             {
                 error("INTEGER EXPECTED at token position - " + (index-1));
             }
+
         }
 
         private void error(string msg)
