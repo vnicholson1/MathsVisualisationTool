@@ -85,6 +85,7 @@
             versions of an output i.e. graphical to numerical-->
             <TextBox DockPanel.Dock="Top" Margin="3" BorderBrush="Black" BorderThickness="2" Padding="5">TEXT</TextBox>
 
+            <!-- CHECK COMMIT -->
         </DockPanel>
     </Grid>
 </Window>
