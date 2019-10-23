@@ -6,128 +6,40 @@ using System.Threading.Tasks;
 
 
 namespace MathsVisualisationTool
-{
-    public enum GRAMMAR_TOKENS
-    {
-        EXPRESSION,
-        TERM, 
-        EXPRESSION1, 
-        TERM1,
-        PLUS,
-        MINUS,
-        DIVISION,
-        MULTIPLICATION,
-        FACTOR,
-        INTEGER,
-        NULL //For the tree as the root node
-    }
+{ 
 
+    public enum GRAMMAR_TOKENS { NULL};
     class Parser
     {
 
         private List<Token> tokens;
         private Token nextToken = null;
         private int index = 0;
-        private ParseTree tree;
-
+        //private ParseTree tree;
+        
 
         public Parser()
         {
-            tree = new ParseTree();
+            //tree = new ParseTree();
         }
 
         public void AnalyseTokens(List<Token> tokens)
         {
             this.tokens = tokens;
-            getNextToken();
-
-            Expression();
-
-            tree.traverseTree();
+            preProcessTokens();
         }
 
-        //Expression = Term AND Expression1
-        public void Expression()
+        /// <summary>
+        /// Method to perform certain preprocessing tasks on the tokens. 
+        /// 1) Check for consecutive operations.
+        /// 2) Add parenthesis onto the expression so that it follows bidmas e.g. 2+3*2 will
+        /// evaluate to 2+(3*2).
+        /// </summary>
+        /// <param name="tokens"></param>
+        public void preProcessTokens()
         {
-            Term();
-            Expression1();
-        }
-
-        //Term = Factor AND Term1
-        public void Term()
-        {
-            Factor();
-            Term1();
-        }
-
-        //Expression1 = PLUS (OR MINUS) AND Term AND EXPRESSION1 OR EMPTY
-        public void Expression1()
-        {
-            bool flag = false;
-
-            if (nextToken.GetType().Equals(SUPPORTED_TOKENS.PLUS))
-            {
-                //Add plus node
-                tree.addLeftChildAndGo(GRAMMAR_TOKENS.PLUS);
-                flag = true;
-            }
-            else if (nextToken.GetType().Equals(SUPPORTED_TOKENS.MINUS))
-            {
-                //Add minus node
-                tree.addRightChildAndGo(GRAMMAR_TOKENS.MINUS);
-                flag = true;
-            }
-
-            if(flag)
-            {
-                getNextToken();
-                Term();
-                Expression1();
-            }
-
-            /* empty string */
-        }
-
-        //Term1 = MULTIPLICATION (OR DIVISION) AND Factor AND Term1 OR EMPTY
-        public void Term1()
-        {
-            bool flag = false;
-
-            if(nextToken.GetType().Equals(SUPPORTED_TOKENS.MULTIPLICATION))
-            {
-                //Add multiplication node
-                tree.addLeftChildAndGo(GRAMMAR_TOKENS.MULTIPLICATION);
-                flag = true;
-            } else if (nextToken.GetType().Equals(SUPPORTED_TOKENS.DIVISION))
-            {
-                //Add division node
-                tree.addRightChildAndGo(GRAMMAR_TOKENS.DIVISION);
-                flag = true;
-            }
-
-            if(flag)
-            {
-                getNextToken();
-                Factor();
-                Term1();
-            }
-
-            /*empty string */
-        }
-
-        //FACTOR = [0-9]
-        public void Factor()
-        {
-            if(nextToken.GetType().Equals(SUPPORTED_TOKENS.INTEGER))
-            {
-                tree.addLeftChild(GRAMMAR_TOKENS.INTEGER);
-               
-                getNextToken();
-            } else
-            {
-                error("INTEGER EXPECTED at token position - " + (index-1));
-            }
-
+            PreProcessor p = new PreProcessor(tokens);
+            p.checkForConsecutiveOps();
         }
 
         private void error(string msg)
@@ -145,6 +57,67 @@ namespace MathsVisualisationTool
             {
                 nextToken = tokens[(tokens.Count - 1)];
             }
+        }
+    }
+
+    /// <summary>
+    /// Class specifically for the pre-processing of expressions.
+    /// </summary>
+    class PreProcessor
+    {
+
+        private List<Token> gatheredTokens;
+
+        public PreProcessor(List<Token> tokens)
+        {
+            gatheredTokens = tokens;
+        }
+
+        /// <summary>
+        /// Function to check if there are consecutive ops present e.g. '++' is not allowed.
+        /// </summary>
+        public void checkForConsecutiveOps()
+        {
+            int numOpTokens = 0;
+            int count = 0;
+            List<SUPPORTED_TOKENS> opTokens = new List<SUPPORTED_TOKENS>() {SUPPORTED_TOKENS.DIVISION,
+                                                                            SUPPORTED_TOKENS.MINUS,
+                                                                            SUPPORTED_TOKENS.MULTIPLICATION,
+                                                                            SUPPORTED_TOKENS.PLUS};
+            foreach (Token t in gatheredTokens)
+            {
+                if (opTokens.Contains(t.GetType()))
+                {
+                    if (numOpTokens != 0)
+                    {
+                        throw new Exception("Integer expected at token position - " + count);
+                    }
+                    else
+                    {
+                        numOpTokens++;
+                    }
+                }
+                else
+                {
+                    numOpTokens = 0;
+                }
+                count++;
+            }
+        }
+
+        /// <summary>
+        /// Function to add parenthesis to ensure the order of operations is correct.
+        /// </summary>
+        public List<Token> addParentheses()
+        {
+            //Firstly check for division
+
+
+            foreach(Token t in gatheredTokens)
+            {
+                Console.WriteLine(t.ToString());
+            }
+            return new List<Token>();
         }
     }
 }

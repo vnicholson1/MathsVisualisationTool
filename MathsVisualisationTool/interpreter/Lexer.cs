@@ -12,7 +12,7 @@ namespace MathsVisualisationTool
     
     public enum SUPPORTED_TOKENS { INTEGER, //supported data types.
                                    PLUS, MINUS, DIVISION, MULTIPLICATION, //supported ops.
-                                   EOL, WHITE_SPACE}; //Miscellaneous characters.
+                                   OPEN_BRACKET,CLOSE_BRACKET, WHITE_SPACE}; //Miscellaneous characters.
 
     class Lexer
     {
