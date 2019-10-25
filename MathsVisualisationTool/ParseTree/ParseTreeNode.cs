@@ -11,7 +11,7 @@ namespace MathsVisualisationTool
     {
 
         private ParseTreeNode [] children;
-        private GRAMMAR_TOKENS value;
+        private List<Token> value;
         ParseTreeNode parent;
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace MathsVisualisationTool
         /// </summary>
         /// <param name="value"></param>
         /// <param name="parent"></param>
-        public ParseTreeNode(GRAMMAR_TOKENS value,ParseTreeNode parent)
+        public ParseTreeNode(List<Token> value,ParseTreeNode parent)
         {
             this.value = value;
             children = new ParseTreeNode [2];
@@ -39,7 +39,7 @@ namespace MathsVisualisationTool
         /// Get the value stored in this node object.
         /// </summary>
         /// <returns></returns>
-        public GRAMMAR_TOKENS getValue()
+        public List<Token> getValue()
         {
             return value;
         }
@@ -57,7 +57,7 @@ namespace MathsVisualisationTool
         /// Set the value of the node.
         /// </summary>
         /// <param name="value"></param>
-        public void setValue(GRAMMAR_TOKENS value)
+        public void setValue(List<Token> value)
         {
             this.value = value;
         }
@@ -69,6 +69,52 @@ namespace MathsVisualisationTool
         public void setParent(ParseTreeNode parent)
         {
             this.parent = parent;
+        }
+
+        /// <summary>
+        /// Method for testing whether this node is a leaf node.
+        /// </summary>
+        /// <returns></returns>
+        public bool isLeafNode()
+        {
+            return ((children[0] == null) && (children[1] == null));
+        }
+
+        /// <summary>
+        /// Splits the node into two child nodes by the first occurance of the given operation and sets this node's
+        /// value as the given operation 
+        /// e.g. 2
+        /// </summary>
+        /// <param name="operation"></param>
+        /// <returns>True if the operation was split successfully, false otherwise (no operation was found).</returns>
+        public bool splitNodeByOp(SUPPORTED_TOKENS operation)
+        {
+            int index = 0;
+            foreach(Token t in value)
+            {
+                if(t.Equals(operation))
+                {
+                    //get the left hand side of the expression.
+                    List<Token> leftTokens = new List<Token>();
+                    for(int i=0;i<index;i++)
+                    {
+                        leftTokens.Add(value[i]);
+                    }
+                    //get the right hand side of the expression.
+                    List<Token> rightTokens = new List<Token>();
+                    for(int i=(index+1);i<value.Count;i++)
+                    {
+                        rightTokens.Add(value[i]);
+                    }
+
+                    children[0] = new ParseTreeNode(leftTokens, this);
+                    children[1] = new ParseTreeNode(rightTokens, this);
+                    value = new List<Token>() { new Token(operation, "") };
+                    return true;
+                }
+                index++;
+            }
+            return false;
         }
     }
 }
