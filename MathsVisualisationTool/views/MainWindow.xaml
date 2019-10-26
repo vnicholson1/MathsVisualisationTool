@@ -17,12 +17,12 @@
             <Menu DockPanel.Dock="Top">
                 <!--MAIN TOP MENU - FILE DROP DOWN-->
                 <MenuItem Header="_File">
-                    <MenuItem Header="Save">
+                    <MenuItem Header="Save" Icon="&#x1F4BE;">
                         <MenuItem Header="_Save"/>
                         <MenuItem Header="_Save as"/>
                         <MenuItem Header="_Save all"/>
                     </MenuItem>
-                    <MenuItem Header="Exit"/>
+                    <MenuItem Header="E_xit" Click="OnExitMenuClicked"/>
                 </MenuItem>
                 <!--MAIN TOP MENU - EDIT DROPDOWN-->
                 <MenuItem Header="_Edit"></MenuItem>
@@ -74,17 +74,17 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Margin="0 0 0 3" Name="typingBox" FontSize="14">TEXT</TextBox>
-                <Button Content="Submit"  Grid.Column="1" Margin="3 0 0 3" FontSize="14"/>
-                <!--="onSubmitClick"-->
+                <TextBox Grid.Column="0" Margin="0 0 0 3" Name="inputBox" FontSize="14"/>
+                <Button Content="Submit" IsDefault="True" Grid.Column="1" Margin="3 0 0 3" FontSize="14" Click="OnSubmitClicked" />
             </Grid>
 
             <!-- TOP SECTION OF DOCK PANEL (EXCLUDING MAIN MENU)-->
             <!-- This is the main section of where any outputs will be 
             displayed. Possible introduce a tab system to view different
             versions of an output i.e. graphical to numerical-->
-            <TextBox DockPanel.Dock="Top" Margin="3" BorderBrush="Black" BorderThickness="2" Padding="5">TEXT</TextBox>
+            <ListBox x:Name="Result" DockPanel.Dock="Top" Margin="3" BorderBrush="Black" BorderThickness="2" Padding="5"/>
 
+            <!-- TESTING TESTING -->
         </DockPanel>
     </Grid>
 </Window>
