@@ -84,6 +84,7 @@
             versions of an output i.e. graphical to numerical-->
             <ListBox x:Name="Result" DockPanel.Dock="Top" Margin="3" BorderBrush="Black" BorderThickness="2" Padding="5"/>
 
+            <!-- TESTING TESTING -->
         </DockPanel>
     </Grid>
 </Window>
