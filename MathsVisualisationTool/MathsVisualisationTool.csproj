@@ -104,5 +104,8 @@
     <Resource Include="images\piIcon.png" />
     <Resource Include="images\pi_Icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="exceptions\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
