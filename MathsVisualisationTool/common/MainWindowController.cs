@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace MathsVisualisationTool
 {
@@ -28,6 +29,11 @@ namespace MathsVisualisationTool
         }
 
 
+        public class VariableDataGrid
+        {
+            public string AssignedVariable { get; set; }
+            public string StoredValue { get; set; }
+        }
 
         /*
          * OnExitMenuClicked - Handle event if the Exit button is 

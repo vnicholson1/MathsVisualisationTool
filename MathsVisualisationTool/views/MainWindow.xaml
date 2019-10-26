@@ -9,7 +9,7 @@
         WindowState="Maximized"
         WindowStyle="ThreeDBorderWindow"
         Background="SlateGray"
-        Icon="../images/pi_Icon.ico" d:DesignWidth="835.5" d:DesignHeight="640">
+        Icon="../images/pi_Icon.ico" Width="1209.104" Height="839.797">
 
     <Grid>
         <DockPanel LastChildFill="True">
@@ -48,22 +48,34 @@
             <!-- LEFT SECTION OF DOCKPANEL-->
             <!-- Left Section to include a File Explorer setup
             and links to documentation relevant to the interpreter-->
-            <Grid Name="leftGrid" DockPanel.Dock="Left" Margin="3 3 3 3">
+            <Grid Name="leftGrid" DockPanel.Dock="Left" Margin="3 3 3 3" Width="350">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <!--<Button Margin="3" MaxWidth="300" MinWidth="200">Button 1</Button>
                 <Button Margin="3" MaxWidth="300" MinWidth="200">Button 2</Button>-->
-                <DocumentViewer Grid.Row="0" Width="200" Margin="3 3 0 0"></DocumentViewer>
-                <TreeView Grid.Row="1" MinHeight="200" VerticalAlignment="Top" Width="200" Margin="3 3 0 0"></TreeView>
+                <DocumentViewer Grid.Row="0" Margin="3 3 0 0"></DocumentViewer>
+                <TreeView Grid.Row="1" MinHeight="200" VerticalAlignment="Top" Margin="3 3 0 0"></TreeView>
             </Grid>
 
             <!-- RIGHT SECTION OF DOCKPANEL-->
             <!-- Right Section to include an index of variables
             that are currently being stored and possibly "cheat sheet"
             of quick commands-->
-            <Button DockPanel.Dock="Right" Margin="3">RIGHT</Button>
+            <Grid Name="rightGrid" DockPanel.Dock="Right" Margin="3" Width="300">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <DataGrid x:Name="varGrid" AutoGenerateColumns="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Variable" Binding="{Binding AssignedVariable}"/>
+                        <DataGridTextColumn Header="Stored Value" Binding="{Binding StoredValue}"/>
+                        <DataGridTextColumn Header="Type" Binding="{Binding TypeOfVariable}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
 
             <!-- BOTTOM SECTION OF DOCKPANEL -->
             <!-- The bottom section of the interpreter is where the
