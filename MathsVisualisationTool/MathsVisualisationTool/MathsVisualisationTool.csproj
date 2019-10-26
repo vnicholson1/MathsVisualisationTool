@@ -90,7 +90,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="documentation\testDoc.pdf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -104,9 +103,6 @@
     <Resource Include="images\alticon.png" />
     <Resource Include="images\piIcon.png" />
     <Resource Include="images\pi_Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="functions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
