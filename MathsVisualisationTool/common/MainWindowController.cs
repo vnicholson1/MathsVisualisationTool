@@ -24,36 +24,60 @@ namespace MathsVisualisationTool
         public MainWindow()
         {
             InitializeComponent();
-            typingBox.KeyDown += new KeyEventHandler(typingBox_KeyDown);
+            inputBox.KeyDown += new KeyEventHandler(InputBox_KeyDown);
         }
 
+
+
         /*
-         * Handle event if the enter button has been pressed.
+         * OnExitMenuClicked - Handle event if the Exit button is 
+         *                  clicked from the standard File Menu.
          */
-        private void enterButtonPressed(object sender, RoutedEventArgs e)
+        private void OnExitMenuClicked(object sender, RoutedEventArgs e) 
         {
-            handleTextEnter();
+            MessageBox.Show("Goodbye - Thankyou for using SolveIT!");
+            Environment.Exit(0);
         }
 
         /*
-         * Handle event if the return button has been pressed.
+         * OnSubmitClicked - Handle event if the Submit button is 
+         *                  clicked.
+         */
+        private void OnSubmitClicked(object sender, EventArgs e)
+        {
+            HandleTextEnter();
+        }
+
+        /*
+         * EnterKeyPressed - Handle event if the Enter key has been 
+         *                  pressed.
+         */
+        private void EnterKeyPressed(object sender, RoutedEventArgs e)
+        {
+            HandleTextEnter();
+        }
+
+        /*
+         * InputBox_KeyDown - Handle event if the return button has 
+         *                  been pressed.
          */ 
-        private void typingBox_KeyDown(object sender, KeyEventArgs e)
+        private void InputBox_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Return)
             {
-                handleTextEnter();
+                HandleTextEnter();
                 e.Handled = true;
             }
         }
 
         /*
-         * handle the text enter and put the contents of the text box into the interpreter.
+         * HandleTextEnter - Handle the text enter and put the contents 
+         *                  of the text box into the interpreter.
          */ 
-        private void handleTextEnter()
+        private void HandleTextEnter()
         {
-            string content = typingBox.Text;
-            typingBox.Clear();
+            string content = inputBox.Text;
+            inputBox.Clear();
 
             Interpreter interp = new Interpreter();
 
