@@ -22,12 +22,11 @@ namespace MathsVisualisationTool
         {
             //Use the lexer to tokenise the input
             List<Token> tokens = lexer.TokeniseInput(codeToRun);
-            //Check if the syntax is okay - throws an error if not.
-            parser.AnalyseTokens(tokens);
+            //Check if the syntax is okay - throws an error if not and 
+            //runs the code.
+            double result = parser.AnalyseTokens(tokens);
 
-            //run the code
-
-            return "yes";
+            return Convert.ToString(result);
         }
 
     }

@@ -20,7 +20,7 @@ namespace MathsVisualisationTool
         /// </summary>
         public ParseTree()
         {
-            root = new ParseTreeNode(GRAMMAR_TOKENS.NULL,null);
+            root = new ParseTreeNode(new List<Token>(),null);
             pointer = root;
         }
 
@@ -43,10 +43,44 @@ namespace MathsVisualisationTool
         }
 
         /// <summary>
+        /// Finds the leaf nodes in the tree through performing a Breadth first search.
+        /// </summary>
+        /// <returns></returns>
+        public List<ParseTreeNode> getLeafNodes()
+        {
+            Queue<ParseTreeNode> nodes_to_visit = new Queue<ParseTreeNode>();
+            nodes_to_visit.Enqueue(root);
+            List<ParseTreeNode> leafNodes = new List<ParseTreeNode>();
+
+            while (nodes_to_visit.Count != 0)
+            {
+                ParseTreeNode current = nodes_to_visit.Dequeue();
+                if (current is null)
+                {
+                    continue;
+                }
+                else
+                {
+                    if(current.isLeafNode())
+                    {
+                        leafNodes.Add(current);
+                    }
+                    for (int i = 0; i < 2; i++)
+                    {
+                        ParseTreeNode child = current.getChildren()[i];
+                        nodes_to_visit.Enqueue(child);
+                    }
+                }
+            }
+
+            return leafNodes;
+        }
+
+        /// <summary>
         /// Add a left child onto the parse tree and descend onto that node.
         /// </summary>
         /// <param name="newValue"></param>
-        public void addLeftChildAndGo(GRAMMAR_TOKENS newValue)
+        public void addLeftChildAndGo(List<Token> newValue)
         {
             ParseTreeNode n = new ParseTreeNode(newValue, pointer);
 
@@ -59,7 +93,7 @@ namespace MathsVisualisationTool
         /// Add a right child onto the parse tree and descend onto that node.
         /// </summary>
         /// <param name="newValue"></param>
-        public void addRightChildAndGo(GRAMMAR_TOKENS newValue)
+        public void addRightChildAndGo(List<Token> newValue)
         {
             ParseTreeNode n = new ParseTreeNode(newValue, pointer);
 
@@ -72,7 +106,7 @@ namespace MathsVisualisationTool
         /// Add a left child onto the parse tree but DO NOT descend onto that node.
         /// </summary>
         /// <param name="newValue"></param>
-        public void addLeftChild(GRAMMAR_TOKENS newValue)
+        public void addLeftChild(List<Token> newValue)
         {
             ParseTreeNode n = new ParseTreeNode(newValue, pointer);
 
@@ -83,7 +117,7 @@ namespace MathsVisualisationTool
         /// Add a left child onto the parse tree but DO NOT descend onto that node.
         /// </summary>
         /// <param name="newValue"></param>
-        public void addRightChild(GRAMMAR_TOKENS newValue)
+        public void addRightChild(List<Token> newValue)
         {
             ParseTreeNode n = new ParseTreeNode(newValue, pointer);
 
@@ -125,7 +159,6 @@ namespace MathsVisualisationTool
                     }
                     Console.WriteLine(current.getValue());
                 }
-                
             }
         }
 
