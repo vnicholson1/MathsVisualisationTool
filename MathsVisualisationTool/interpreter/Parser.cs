@@ -89,6 +89,8 @@ namespace MathsVisualisationTool
 
             double value = double.NaN;
 
+            List<double> listOfValues = new List<double>();
+
             while(nextToken != null)
             {
                 SUPPORTED_TOKENS tokenType = nextToken.GetType();
