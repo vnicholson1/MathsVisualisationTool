@@ -147,5 +147,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataDomain\DataDomain.csproj">
+      <Project>{e99a2845-a6ab-48aa-acfd-16fc9afce5cf}</Project>
+      <Name>DataDomain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
