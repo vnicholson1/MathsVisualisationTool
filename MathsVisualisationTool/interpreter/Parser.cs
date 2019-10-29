@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace MathsVisualisationTool
 { 
     public abstract class Expression
@@ -79,7 +78,7 @@ namespace MathsVisualisationTool
         
         public Parser()
         {
-
+            
         }
 
         public double AnalyseTokens(List<Token> tokens)
@@ -89,21 +88,31 @@ namespace MathsVisualisationTool
 
             double value = double.NaN;
 
-            List<double> listOfValues = new List<double>();
+            return analyseExpressions(value);
+        }
 
-            while(nextToken != null)
+
+        public double analyseExpressions(double value)
+        {
+            while (nextToken != null)
             {
                 SUPPORTED_TOKENS tokenType = nextToken.GetType();
 
-                if(tokenType.Equals(SUPPORTED_TOKENS.INTEGER))
+                if (tokenType == SUPPORTED_TOKENS.INTEGER)
                 {
                     value = Convert.ToDouble(nextToken.GetValue());
-                } else if(tokenType.Equals(SUPPORTED_TOKENS.DIVISION) || tokenType.Equals(SUPPORTED_TOKENS.MULTIPLICATION))
+                }
+                else if (tokenType == SUPPORTED_TOKENS.DIVISION || tokenType == SUPPORTED_TOKENS.MULTIPLICATION)
                 {
                     value = divisionAndMultHandle(value);
-                } else if (tokenType.Equals(SUPPORTED_TOKENS.PLUS) || tokenType.Equals(SUPPORTED_TOKENS.MINUS))
+                }
+                else if (tokenType == SUPPORTED_TOKENS.PLUS || tokenType == SUPPORTED_TOKENS.MINUS)
                 {
                     value = plusAndMinusHandle(value);
+                }
+                else if (tokenType == SUPPORTED_TOKENS.OPEN_BRACKET)
+                {
+
                 }
 
                 getNextToken();
@@ -112,6 +121,11 @@ namespace MathsVisualisationTool
             return value;
         }
 
+        /// <summary>
+        /// Function for handling division and multiplication when that operator has been found.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>  Returns the resuling value of that operator. </returns>
         private double divisionAndMultHandle(double value)
         {
 
@@ -132,9 +146,11 @@ namespace MathsVisualisationTool
             //check what the next token is as it should be either a plus, minus or and int.
             if(peekToken == null 
                 || peekToken.GetType().Equals(SUPPORTED_TOKENS.MULTIPLICATION) 
-                || peekToken.GetType().Equals(SUPPORTED_TOKENS.DIVISION))
+                || peekToken.GetType().Equals(SUPPORTED_TOKENS.DIVISION)
+                || peekToken.GetType().Equals(SUPPORTED_TOKENS.OPEN_BRACKET)
+                || peekToken.GetType().Equals(SUPPORTED_TOKENS.CLOSE_BRACKET))
             {
-                throw new Exception("Integer expected at token position " + (index + 1));
+                throw new Exception("Integer expected at token position " + index);
             } else
             {
                 //get the next token
@@ -168,6 +184,11 @@ namespace MathsVisualisationTool
             }
         }
 
+        /// <summary>
+        /// Function for handling the plus and minus operator when one has been found.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns> Returns the new value of the resulting calculation. </returns>
         private double plusAndMinusHandle(double value)
         {
             Expression left = null;

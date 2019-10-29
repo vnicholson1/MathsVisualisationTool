@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Parser.FSharpImplementation2;
 
 namespace MathsVisualisationTool
 {
@@ -25,6 +26,8 @@ namespace MathsVisualisationTool
             //Check if the syntax is okay - throws an error if not and 
             //runs the code.
             double result = parser.AnalyseTokens(tokens);
+
+            Example.add(1, 2);
 
             return Convert.ToString(result);
         }
