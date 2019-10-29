@@ -13,9 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace MathsVisualisationTool
 {
+    public class VariableDataGrid
+    {
+        public string AssignedVariable { get; set; }
+        public string StoredValue { get; set; }
+    }
+
     public partial class MainWindow : Window
     {
 
@@ -26,13 +33,6 @@ namespace MathsVisualisationTool
         {
             InitializeComponent();
             inputBox.KeyDown += new KeyEventHandler(InputBox_KeyDown);
-        }
-
-
-        public class VariableDataGrid
-        {
-            public string AssignedVariable { get; set; }
-            public string StoredValue { get; set; }
         }
 
         /*
@@ -49,9 +49,80 @@ namespace MathsVisualisationTool
          * OnSubmitClicked - Handle event if the Submit button is 
          *                  clicked.
          */
-        private void OnSubmitClicked(object sender, EventArgs e)
+        private void OnSubmitClicked(object sender, RoutedEventArgs e)
         {
-            HandleTextEnter();
+            //HandleTextEnter();
+            if (this.inputBox.Text != " ")
+            {
+                Results.Items.Add(this.inputBox.Text);
+                this.inputBox.Focus();
+                this.inputBox.Clear();
+               
+            }
+            else
+            {
+                MessageBox.Show("ERROR");
+                this.inputBox.Focus();
+            }       
+        }
+
+        private void OnDecimalClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnAnsClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void On0Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void On1Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void On2Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void On3Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void On4Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void On5Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void On6Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void On7Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void On8Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void On9Clicked(object sender, RoutedEventArgs e)
+        {
+
         }
 
         /*

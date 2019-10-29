@@ -63,7 +63,7 @@
             <!-- Right Section to include an index of variables
             that are currently being stored and possibly "cheat sheet"
             of quick commands-->
-            <Grid Name="rightGrid" DockPanel.Dock="Right" Margin="3" Width="350">
+            <Grid Name="rightGrid" DockPanel.Dock="Right" Margin="3" MaxWidth="280">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -75,12 +75,34 @@
                         <DataGridTextColumn Header="Type" Binding="{Binding TypeOfVariable}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Grid x:Name="functionSelector" Margin="3" Grid.Row="1">
+                <Grid x:Name="keypadSelector" Margin="3" Grid.Row="1" >
                     <TabControl>
+                        <TabItem Header="Numbers">
+                            <StackPanel Orientation="Horizontal">
+                                <WrapPanel x:Name="numberPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="320">
+                                    <!-- FIRST ROW OF 3 ITEMS/FUNCTIONS -->
+                                    <Button Content="7" Margin="3 6 3 3" FontSize="24" Click="On7clicked"/>
+                                    <Button Content="8" Margin="3 6 3 3" FontSize="24" Click="On8clicked"/>
+                                    <Button Content="9" Margin="3 6 3 3" FontSize="24" Click="On9clicked"/>
+                                    <!-- SECOND ROW OF 3 ITEMS/FUNCTIONS -->
+                                    <Button Content="4" Margin="3 6 3 3" FontSize="24" Click="On4clicked"/>
+                                    <Button Content="5" Margin="3 6 3 3" FontSize="24" Click="On5clicked"/>
+                                    <Button Content="6" Margin="3 6 3 3" FontSize="24" Click="On6clicked"/>
+                                    <!-- THIRD ROW OF 3 ITEMS/FUNCTIONS -->
+                                    <Button Content="1" Margin="3 6 3 3" FontSize="24" Click="On1clicked"/>
+                                    <Button Content="2" Margin="3 6 3 3" FontSize="24" Click="On2clicked"/>
+                                    <Button Content="3" Margin="3 6 3 3" FontSize="24" Click="On3clicked"/>
+                                    <!-- FOURTH ROW OF 3 ITEMS/FUNCTIONS -->
+                                    <Button Content="0" Margin="3 6 3 3" FontSize="24" Click="On0clicked"/>
+                                    <Button Content="." Margin="3 6 3 3" FontSize="24" Click="OnDecimalClicked"/>
+                                    <Button Content="Ans" Margin="3 6 3 3" FontSize="24" Click="OnAnsClicked"/>
+                                </WrapPanel>
+                            </StackPanel>
+                        </TabItem>
                         <TabItem Header="Arithmetic Functions">
                             <StackPanel Orientation="Horizontal">
-                                <WrapPanel x:Name="functionPanel" Margin="3" ItemWidth="82.5" ItemHeight="82.5" MaxWidth="330">
-                                    <!-- FIRST ROW OF 4 ITEMS/FUNCTIONS -->
+                                <WrapPanel x:Name="functionPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="320">
+                                    <!-- FIRST ROW OF 3 ITEMS/FUNCTIONS -->
                                     <Button Margin="3 6 3 3" FontSize="24" Padding="10">
                                         <StackPanel>
                                             <Image Source="../images/mul.png" />
@@ -88,48 +110,40 @@
                                     </Button>
                                     <Button Content="Item 2" Margin="3 6 3 3" FontSize="24"/>
                                     <Button Content="Item 3" Margin="3 6 3 3" FontSize="24"/>
-                                    <Button Content="Item 4" Margin="3 6 3 3" FontSize="24"/>
-                                    <!-- SECOND ROW OF 4 ITEMS/FUNCTIONS -->
+                                    <!-- SECOND ROW OF 3 ITEMS/FUNCTIONS -->
                                     <Button Content="Item 1" Margin="3 6 3 3" FontSize="24"/>
                                     <Button Content="Item 2" Margin="3 6 3 3" FontSize="24"/>
                                     <Button Content="Item 3" Margin="3 6 3 3" FontSize="24"/>
-                                    <Button Content="Item 4" Margin="3 6 3 3"  FontSize="24"/>
-                                    <!-- THIRD ROW OF 4 ITEMS/FUNCTIONS -->
+                                    <!-- THIRD ROW OF 3 ITEMS/FUNCTIONS -->
                                     <Button Content="Item 1" Margin="3 6 3 3" FontSize="24"/>
                                     <Button Content="Item 2" Margin="3 6 3 3" FontSize="24"/>
                                     <Button Content="Item 3" Margin="3 6 3 3" FontSize="24"/>
-                                    <Button Content="Item 4" Margin="3 6 3 3" FontSize="24"/>
-                                    <!-- FOURTH ROW OF 4 ITEMS/FUNCTIONS -->
+                                    <!-- FOURTH ROW OF 3 ITEMS/FUNCTIONS -->
                                     <Button Content="Item 1" Margin="3 6 3 3" FontSize="24"/>
                                     <Button Content="Item 2" Margin="3 6 3 3" FontSize="24"/>
                                     <Button Content="Item 3" Margin="3 6 3 3" FontSize="24"/>
-                                    <Button Content="Item 4" Margin="3 6 3 3" FontSize="24"/>
                                 </WrapPanel>
                             </StackPanel>
                         </TabItem>
                         <TabItem Header="Greek Characters">
                             <StackPanel Orientation="Horizontal">
-                                <WrapPanel x:Name="greekPanel" Margin="3" ItemWidth="82.5" ItemHeight="82.5" MaxWidth="330">
-                                    <!-- FIRST ROW OF 4 ITEMS/GREEK CHARACTERS -->
+                                <WrapPanel x:Name="greekPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="320">
+                                    <!-- FIRST ROW OF 3 ITEMS/GREEK CHARACTERS -->
                                     <Label Content="Item 1" Background="LightGray" Margin="3 6 3 3" Foreground="White" FontSize="24"/>
                                     <Label Content="Item 2" Background="LightGray" Margin="3 6 3 3" Foreground="White" FontSize="24"/>
                                     <Label Content="Item 3" Background="LightGray" Margin="3 6 3 3" Foreground="White" FontSize="24"/>
-                                    <Label Content="Item 4" Background="LightGray" Margin="3 6 3 3" Foreground="White" FontSize="24"/>
-                                    <!-- SECOND ROW OF 4 ITEMS/GREEK CHARACTERS -->
+                                    <!-- SECOND ROW OF 3 ITEMS/GREEK CHARACTERS -->
                                     <Label Content="Item 1" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
                                     <Label Content="Item 2" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
                                     <Label Content="Item 3" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
-                                    <Label Content="Item 4" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
-                                    <!-- THIRD ROW OF 4 ITEMS/GREEK CHARACTERS -->
+                                    <!-- THIRD ROW OF 3 ITEMS/GREEK CHARACTERS -->
                                     <Label Content="Item 1" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
                                     <Label Content="Item 2" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
                                     <Label Content="Item 3" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
-                                    <Label Content="Item 4" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
-                                    <!-- FOURTH ROW OF 4 ITEMS/GREEK CHARACTERS -->
+                                    <!-- FOURTH ROW OF 3 ITEMS/GREEK CHARACTERS -->
                                     <Label Content="Item 1" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
                                     <Label Content="Item 2" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
                                     <Label Content="Item 3" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
-                                    <Label Content="Item 4" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
                                 </WrapPanel>
                             </StackPanel>
                         </TabItem>
@@ -146,8 +160,8 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Margin="0 0 0 3" Name="inputBox" FontSize="14"/>
-                <Button Content="Submit" IsDefault="True" Grid.Column="1" Margin="3 0 0 3" FontSize="14" Click="OnSubmitClicked" />
+                <TextBox Grid.Column="0" Margin="0 0 0 3" Name="inputBox" FontSize="20" Padding="5"/>
+                <Button Name="submitBtn" Click="OnSubmitClicked" Content="Submit" IsDefault="True" Grid.Column="1" Margin="3 0 0 3" FontSize="20" Padding="5"/>
             </Grid>
 
             <!-- TOP SECTION OF DOCK PANEL (EXCLUDING MAIN MENU)-->
@@ -157,7 +171,8 @@
             <Grid x:Name="topDock" DockPanel.Dock="Top" Margin="3">
                 <TabControl>
                     <TabItem Header="Tab 1">
-                        <ListBox x:Name="Result" DockPanel.Dock="Top" Margin="3" BorderBrush="Black" BorderThickness="2" Padding="5"/>
+                        <!--<TextBlock Name="Results" Margin="3" Padding="5" Text="{Binding ElementName=inputBox, Path=Text, Mode=OneWay, UpdateSourceTrigger=Explicit}"/>-->
+                        <ListBox Name="Results" Margin="3" BorderBrush="Black" BorderThickness="2" Padding="5" FontSize="24"/>
                     </TabItem>
                     <TabItem Header="Tab 2">
                         <TextBlock Text="Graphs will go here..."/>
