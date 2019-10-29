@@ -12,7 +12,7 @@ namespace MathsVisualisationTool
     
     public enum SUPPORTED_TOKENS { INTEGER, //supported data types.
                                    PLUS, MINUS, DIVISION, MULTIPLICATION, //supported ops.
-                                   WHITE_SPACE}; //Miscellaneous characters mainly used by the parser and the lexer.
+                                   WHITE_SPACE, OPEN_BRACKET, CLOSE_BRACKET}; //Miscellaneous characters.
 
     class Lexer
     {
@@ -104,6 +104,28 @@ namespace MathsVisualisationTool
                     }
                     characters = new List<char>() { c };
                     typeInList = SUPPORTED_TOKENS.DIVISION;
+                }
+
+                if (c == '(')
+                {
+                    if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
+                    {
+                        tokenToAdd = TokeniseList(characters, typeInList);
+                        tokens.Add(tokenToAdd);
+                    }
+                    characters = new List<char>() { c };
+                    typeInList = SUPPORTED_TOKENS.OPEN_BRACKET;
+                }
+
+                if (c == ')')
+                {
+                    if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
+                    {
+                        tokenToAdd = TokeniseList(characters, typeInList);
+                        tokens.Add(tokenToAdd);
+                    }
+                    characters = new List<char>() { c };
+                    typeInList = SUPPORTED_TOKENS.CLOSE_BRACKET;
                 }
             }
 
