@@ -26,8 +26,8 @@ namespace MathsVisualisationTool
             List<Token> tokens = lexer.TokeniseInput(codeToRun);
             //Check if the syntax is okay - throws an error if not and 
             //runs the code.
-            double result = Expressions.expression(tokens);
-            //double result = parser.AnalyseTokens(tokens);
+            //double result = Expressions.expression(tokens);
+            double result = parser.AnalyseTokens(tokens);
 
             return Convert.ToString(result);
         }

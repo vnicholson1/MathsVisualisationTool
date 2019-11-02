@@ -8,88 +8,35 @@ using DataDomain;
 
 namespace MathsVisualisationTool
 { 
-    public abstract class Expression
-    {
-        /// <summary>
-        /// Evaluate function that will give the value of the given class.
-        /// </summary>
-        /// <param name="vars"></param>
-        /// <returns></returns>
-        public abstract double Evaluate();
-    }
-
-    /// <summary>
-    /// Class representing a constant i.e. 1,2,3,4,5,6,7,8 etc.
-    /// </summary>
-    public class Constant : Expression
-    {
-        private double value;
-
-        public Constant(double value)
-        {
-            this.value = value;
-        }
-
-        /// <summary>
-        /// Evaluate the value of this class. As it's a constant it's just evaluated as the value.
-        /// </summary>
-        /// <param name="vars"></param>
-        /// <returns></returns>
-        public override double Evaluate()
-        {
-            return value;
-        }
-    }
-
-    public class Operation : Expression
-    {
-        private Expression left;
-        private string op;
-        private Expression right;
-
-        public Operation(Expression left, string op, Expression right)
-        {
-            this.left = left;
-            this.op = op;
-            this.right = right;
-        }
-
-        public override double Evaluate()
-        {
-            double x = left.Evaluate();
-            double y = right.Evaluate();
-
-            switch(op)
-            {
-                case "+": return x + y;
-                case "-": return x - y;
-                case "*": return x * y;
-                case "/": return x / y;
-            }
-            throw new Exception("Unrecognised operator - " + op);
-        }
-    }
-
     class Parser
     {
-
+        //List of tokens gathered by the lexer.
         private List<Token> tokens;
+        //Variable to store the current token that the parser is analysing.
         private Token nextToken = null;
+        //the index of the NEXT token to be analysed when getNextToken() is called.
         private int index = 0;
+        //bracketLevel is for storing the bracket level of an expression
+        // i.e. ( will set the bracket Level to 1 but a ) will set it back to 0 again.
+        private int bracketLevel = 0;
         
         public Parser()
         {
             
         }
 
+        /// <summary>
+        /// Method called by the interpreter to analyse the set of tokens gathered by the lexer.
+        /// </summary>
+        /// <param name="tokens"></param>
+        /// <returns> the value of the given expression.</returns>
         public double AnalyseTokens(List<Token> tokens)
         {
             this.tokens = tokens;
             getNextToken();
 
-            double value = double.NaN;
-
-            return analyseExpressions(value);
+            double value = analyseExpressions(double.NaN);
+            return value;
         }
 
 
@@ -98,27 +45,38 @@ namespace MathsVisualisationTool
             while (nextToken != null)
             {
                 SUPPORTED_TOKENS tokenType = nextToken.GetType();
-
                 if (tokenType == SUPPORTED_TOKENS.INTEGER)
                 {
                     value = Convert.ToDouble(nextToken.GetValue());
+                    getNextToken();
                 }
                 else if (tokenType == SUPPORTED_TOKENS.DIVISION || tokenType == SUPPORTED_TOKENS.MULTIPLICATION)
                 {
                     value = divisionAndMultHandle(value);
+                    getNextToken();
                 }
                 else if (tokenType == SUPPORTED_TOKENS.PLUS || tokenType == SUPPORTED_TOKENS.MINUS)
                 {
                     value = plusAndMinusHandle(value);
+                    getNextToken();
                 }
                 else if (tokenType == SUPPORTED_TOKENS.OPEN_BRACKET)
                 {
-
+                    bracketLevel++;
+                    getNextToken();
+                    value = analyseExpressions(value);
+                } else if (tokenType == SUPPORTED_TOKENS.CLOSE_BRACKET)
+                {
+                    //Cannot have a closing bracket without an open bracket.
+                    if(bracketLevel == 0)
+                    {
+                        throw new Exception("Unrecognised character ')' at token position " + index);
+                    }
+                    bracketLevel--;
+                    getNextToken();
+                    return value;
                 }
-
-                getNextToken();
             }
-
             return value;
         }
 
@@ -132,7 +90,7 @@ namespace MathsVisualisationTool
 
             Expression left;
             Expression right;
-            string op = nextToken.GetValue();
+            SUPPORTED_TOKENS op = nextToken.GetType();
 
             //so there is nothing before 
             if (double.IsNaN(value))
@@ -140,28 +98,30 @@ namespace MathsVisualisationTool
                 throw new Exception("Integer expected at token position " + (index - 1));
             }
 
+            //Find the left and right hand side of the expression.
             left = new Constant(value);
 
             Token peekToken = peek();
 
             //check what the next token is as it should be either a plus, minus or and int.
-            if(peekToken == null 
-                || peekToken.GetType().Equals(SUPPORTED_TOKENS.MULTIPLICATION) 
-                || peekToken.GetType().Equals(SUPPORTED_TOKENS.DIVISION)
-                || peekToken.GetType().Equals(SUPPORTED_TOKENS.OPEN_BRACKET)
-                || peekToken.GetType().Equals(SUPPORTED_TOKENS.CLOSE_BRACKET))
+            if(peekToken == null || 
+                !(peekToken.GetType() == SUPPORTED_TOKENS.PLUS) 
+                && !(peekToken.GetType() == SUPPORTED_TOKENS.MINUS)
+                && !(peekToken.GetType() == SUPPORTED_TOKENS.INTEGER)
+                && !(peekToken.GetType() == SUPPORTED_TOKENS.OPEN_BRACKET))
             {
                 throw new Exception("Integer expected at token position " + index);
             } else
             {
                 //get the next token
                 getNextToken();
+            
                 double multiplier = 1;
 
                 //gather the multiplier for situations like 8*-8 = -64 rather than 64.
-                while(nextToken.GetType().Equals(SUPPORTED_TOKENS.PLUS) || nextToken.GetType().Equals(SUPPORTED_TOKENS.MINUS))
+                while(nextToken.GetType() == SUPPORTED_TOKENS.PLUS || nextToken.GetType() == SUPPORTED_TOKENS.MINUS)
                 {
-                    if(nextToken.GetType().Equals(SUPPORTED_TOKENS.PLUS))
+                    if(nextToken.GetType() == SUPPORTED_TOKENS.PLUS)
                     {
                         multiplier *= 1;
                     } else
@@ -170,14 +130,27 @@ namespace MathsVisualisationTool
                     }
                     getNextToken();
                 }
-                
+
+                double rightValue = 0.0;
+
+                //If a bracket has been found then analyse the expression inside the bracket first.
+                if (nextToken.GetType() == SUPPORTED_TOKENS.OPEN_BRACKET)
+                {
+                    bracketLevel++;
+                    getNextToken();
+                    rightValue = multiplier*analyseExpressions(value);
+                } else
+                {
+                    rightValue = multiplier * Convert.ToDouble(nextToken.GetValue());
+                }
+
+                right = new Constant(rightValue);
+
                 //Prevent division by zero
-                if (Convert.ToDouble(nextToken.GetValue()) == 0 && op == "/")
+                if (rightValue == 0 && op == SUPPORTED_TOKENS.DIVISION)
                 {
                     throw new Exception("Cannot divide by zero");
                 }
-
-                right = new Constant(Convert.ToDouble(nextToken.GetValue()) * multiplier);
 
                 Expression ne = new Operation(left, op, right);
 
@@ -194,9 +167,9 @@ namespace MathsVisualisationTool
         {
             Expression left = null;
             Expression right = null;
-            string op = nextToken.GetValue();
+            SUPPORTED_TOKENS op = nextToken.GetType();
 
-            //so there is nothing before 
+            //so there is nothing before as a situation like '+3' is allowed in the language. 
             if (double.IsNaN(value))
             {
                 left = new Constant(0);
@@ -211,25 +184,34 @@ namespace MathsVisualisationTool
             //Check for invalid syntax and to evaluate situations like 3+-3 as you would want this to evaluate to 3-3 etc.
             while(!(peekToken == null))
             {
-                if (peekToken.GetType().Equals(SUPPORTED_TOKENS.PLUS))
+                //If its plus then don't change the sign.
+                if (peekToken.GetType() == SUPPORTED_TOKENS.PLUS)
                 {
                     multiplier *= 1;
-                } else if (peekToken.GetType().Equals(SUPPORTED_TOKENS.MINUS))
+                } else if (peekToken.GetType() == SUPPORTED_TOKENS.MINUS)
                 {
                     multiplier *= -1;
-                } else if (peekToken.GetType().Equals(SUPPORTED_TOKENS.MULTIPLICATION) || peekToken.Equals(SUPPORTED_TOKENS.DIVISION))
+                }  else if(peekToken.GetType() == SUPPORTED_TOKENS.INTEGER)
                 {
-                    throw new Exception("Invalid token at position - " + (index + 1));
-                } else if(peekToken.GetType().Equals(SUPPORTED_TOKENS.INTEGER))
-                {
+                    //found a number so stop.
                     right = new Constant(Convert.ToDouble(peekToken.GetValue()) * multiplier);
                     getNextToken();
                     break;
+                } else if (peekToken.GetType() == SUPPORTED_TOKENS.OPEN_BRACKET)
+                {
+                    getNextToken();
+                    bracketLevel++;
+                    right = new Constant(analyseExpressions(value));
+                    break;
+                } else
+                {
+                    throw new Exception("Invalid token at position - " + index);
                 }
                 getNextToken();
                 peekToken = peek();
             }
 
+            //so if there is no right hand expression.
             if(right == null)
             {
                 throw new Exception("Integer expected at position - " + (index));
