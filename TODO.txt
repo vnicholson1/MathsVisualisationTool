@@ -1,0 +1,3 @@
+Test interpreter for 2*3+2*5+3*7 as it doesn't give correct result.
+Test with negative numbers.
+Test with custom parenthesis.

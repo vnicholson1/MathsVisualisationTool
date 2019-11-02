@@ -134,7 +134,7 @@ namespace MathsVisualisationTool
 
             List<Token> updatedTokens = parenthesiseTokens(tokens);
 
-            PrintTokens(updatedTokens);
+            //PrintTokens(updatedTokens);
 
             return updatedTokens;
         }

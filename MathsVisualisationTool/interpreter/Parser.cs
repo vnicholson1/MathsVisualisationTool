@@ -45,6 +45,7 @@ namespace MathsVisualisationTool
             while (nextToken != null)
             {
                 SUPPORTED_TOKENS tokenType = nextToken.GetType();
+                Console.WriteLine(tokenType);
                 if (tokenType == SUPPORTED_TOKENS.INTEGER)
                 {
                     value = Convert.ToDouble(nextToken.GetValue());
