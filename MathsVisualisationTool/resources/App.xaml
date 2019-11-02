@@ -1,17 +1,17 @@
 ﻿<Application x:Class="MathsVisualisationTool.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:MathsVisualisationTool"
-             StartupUri="../views/MainWindow.xaml">
+             xmlns:local="clr-namespace:MathsVisualisationTool">
+    <!--StartupUri="../views/MainWindow.xaml">-->
     <Application.Resources>
-        <!-- Style sheet -->
-        
-        <!-- Dock Panel style -->
+        <!--Style sheet-->
+
+        <!--Dock Panel style-->
         <Style x:Key="dockPanelStyle">
             <Setter Property="DockPanel.Background" Value="#170181"/>
         </Style>
-        
-        <!-- Top Menu style -->
+
+        <!--Top Menu style-->
         <Style x:Key="menuStyle">
             <Setter Property="DockPanel.Dock" Value="Top"/>
             <Setter Property="Menu.FontSize" Value="14"/>
