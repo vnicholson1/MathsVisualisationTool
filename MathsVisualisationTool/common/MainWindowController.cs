@@ -35,6 +35,8 @@ namespace MathsVisualisationTool
             inputBox.KeyDown += new KeyEventHandler(InputBox_KeyDown);
         }
 
+        /************************************** STANDARD TOP MENU FUNCTIONS *********************************/
+        
         /*
          * OnExitMenuClicked - Handle event if the Exit button is 
          *                  clicked from the standard File Menu.
@@ -44,6 +46,8 @@ namespace MathsVisualisationTool
             MessageBox.Show("Goodbye - Thankyou for using SolveIT!");
             Environment.Exit(0);
         }
+
+        /********************************** END OF STANDARD TOP MENU FUNCTIONS ******************************/
 
         /*
          * OnSubmitClicked - Handle event if the Submit button is 
@@ -66,65 +70,497 @@ namespace MathsVisualisationTool
             }       
         }
 
-        private void OnDecimalClicked(object sender, RoutedEventArgs e)
-        {
+        /********************************* GREEK CHARACTERS KEYPAD FUNCTIONS ********************************/
 
+        /*
+         * onAlpha_Clicked -    Function for the Alpha Character Button on the
+         *                      keypad in the right side of the Main Window
+         *                      Dock Panel - NOTE: Character created with
+         *                      Unicode Escape Characters/Code
+         */
+        private void OnAlpha_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            this.inputBox.Text += "\u03B1";
         }
 
-        private void OnAnsClicked(object sender, RoutedEventArgs e)
+        /*
+         * onBeta_Clicked - Function for the Beta Character Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character created with
+         *                  Unicode Escape Characters/Code
+         */
+        private void OnBeta_Clicked(object sender, RoutedEventArgs e)
         {
-
+            // Use Unicode Escape Code/Characters
+            this.inputBox.Text += "\u03B2";
         }
+
+        /*
+         * onDelta_Clicked -    Function for the Delta Button Button on the
+         *                      keypad in the right side of the Main Window
+         *                      Dock Panel - NOTE: Character created with
+         *                      Unicode Escape Characters/Code
+         */
+        private void OnDelta_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            this.inputBox.Text += "\u0394";
+        }
+
+        /*
+         * on_delta_Clicked -   Function for the lower case delta Character Button
+         *                      on the keypad in the right side of the Main Window
+         *                      Dock Panel - NOTE: Character created with
+         *                      Unicode Escape Characters/Code
+         */
+        private void On_delta_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            this.inputBox.Text += "\u03B4";
+        }
+
+        /*
+         * onEpsilon_Clicked -  Function for the Epsilon Character Button on the
+         *                      keypad in the right side of the Main Window
+         *                      Dock Panel - NOTE: Character created with
+         *                      Unicode Escape Characters/Code
+         */
+        private void OnEpsilon_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            this.inputBox.Text += "\u03B5";
+        }
+
+        /*
+         * onGamma_Clicked -    Function for the Gamma Button Button on the
+         *                      keypad in the right side of the Main Window
+         *                      Dock Panel - NOTE: Character created with
+         *                      Unicode Escape Characters/Code
+         */
+        private void OnGamma_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            this.inputBox.Text += "\u03B3";
+        }
+
+        /*
+         * onLambda_Clicked -   Function for the Lambda Character Button on the
+         *                      keypad in the right side of the Main Window
+         *                      Dock Panel - NOTE: Character created with
+         *                      Unicode Escape Characters/Code
+         */
+        private void OnLambda_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            this.inputBox.Text += "\u03BB";
+        }
+
+        /*
+         * onTheta_Clicked -    Function for the Theta Character Button on the
+         *                      keypad in the right side of the Main Window
+         *                      Dock Panel - NOTE: Character created with
+         *                      Unicode Escape Characters/Code
+         */
+        private void OnTheta_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            this.inputBox.Text += "\u03B8";
+        }
+
+        /*
+         * onMu_Clicked -   Function for the Mu Button Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character created with
+         *                  Unicode Escape Characters/Code
+         */
+        private void OnMu_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            this.inputBox.Text += "\u03BC";
+        }
+
+        /*
+         * onOmega_Clicked -    Function for the Omega Character Button on the
+         *                      keypad in the right side of the Main Window
+         *                      Dock Panel - NOTE: Character created with
+         *                      Unicode Escape Characters/Code
+         */
+        private void OnOmega_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            this.inputBox.Text += "\u03A9";
+        }
+
+        /*
+         * on_omega_Clicked -   Function for the Lower case Omega Character Button
+         *                      on the keypad in the right side of the Main Window
+         *                      Dock Panel - NOTE: Character created with
+         *                      Unicode Escape Characters/Code
+         */
+        private void On_omega_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            this.inputBox.Text += "\u03C9";
+        }
+
+        /*
+         * onPhi_Clicked -  Function for the Phi Button Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character created with
+         *                  Unicode Escape Characters/Code
+         */
+        private void OnPhi_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            this.inputBox.Text += "\u03C6";
+        }
+
+        /*
+         * onPsi_Clicked -  Function for the Psi Character Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character created with
+         *                  Unicode Escape Characters/Code         */
+        private void OnPsi_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            this.inputBox.Text += "\u03C8";
+        }
+
+        /*
+         * onRho_Clicked -  Function for the Rho Character Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character created with
+         *                  Unicode Escape Characters/Code
+         */
+        private void OnRho_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            this.inputBox.Text += "\u03C1";
+        }
+
+        /*
+         * onSigma_Clicked - Function for the Sigma Button Button on the
+         *                   keypad in the right side of the Main Window
+         *                   Dock Panel - NOTE: Character created with
+         *                   Unicode Escape Characters/Code
+         */
+        private void OnSigma_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            this.inputBox.Text += "\u03A3";
+        }
+        /***************************** END OF GREEK CHARACTERS KEYPAD FUNCTIONS *****************************/
+
+        /************************** ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS *************************/
+
+        /*
+         * onLeftBracketClicked -   Function for the Left Bracket Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
+         */
+        private void OnLeftBracket_Clicked(object sender, RoutedEventArgs e)
+        {
+            // \u0028 => "(" => Left/Opening Parenthesis
+            this.inputBox.Text += "(";
+        }
+
+        /*
+         * onRightBracketClicked -  Function for the Right Bracket Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
+         */
+        private void OnRightBracket_Clicked(object sender, RoutedEventArgs e)
+        {
+            // \u0029 => ")" => Right/Closing Parenthesis
+            this.inputBox.Text += ")";
+        }
+
+        /*
+         * onIndiceClicked -    Function for the Indice Button on the
+         *                      keypad in the right side of the Main Window
+         *                      Dock Panel
+         */
+        private void OnIndice_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text += "^";
+        }
+
+        /*
+         * onMulClicked -   Function for the Multiplication Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character can be created
+         *                  with Unicode Escape Characters/Code
+         */
+        private void OnMul_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            // \u00D7 => \times => x
+            // \u00B7 => \cdot => . (but in the middle of the line!)
+            this.inputBox.Text += "\u00D7";
+        }
+
+        /*
+         * onDivClicked -   Function for the Division Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character created with
+         *                  Unicode Escape Characters/Code
+         */
+        private void OnDiv_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            // \u00F7 => Division Sign
+            // \u2215 => Division Slash => /
+            this.inputBox.Text += "\u00F7";
+        }
+
+        /*
+         * onFracClicked -  Function for the Fraction Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character can be created
+         *                  with Unicode Escape Characters/Code
+         */
+        private void OnFrac_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Need to think about symbol since it clashes with above
+            // OnDivClicked
+            // \u2044 => Fraction Slash (Unicode Charatcer)
+            this.inputBox.Text += "/";
+        }
+
+        /*
+         * onAddClicked -   Function for the Addition Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character can be created
+         *                  with Unicode Escape Characters/Code
+         */
+        private void OnAdd_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Code/Characters
+            // \u002B => + (Unicode Character)
+            this.inputBox.Text += "+";
+        }
+
+        /*
+         * onSubClicked -   Function for the Subtraction Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character can be created
+         *                  with Unicode Escape Characters/Code
+         */
+        private void OnSub_Clicked(object sender, RoutedEventArgs e)
+        {
+            // \u002D => Hypen-Minus in Unicode
+            this.inputBox.Text += "-";
+        }
+
+        /*
+         * onSqrtClicked -  Function for the Square Root Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character can be created
+         *                  with Unicode Escape Characters/Code
+         */
+        private void OnSqrt_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Characters/Code to render special Characters
+            // \u221A => Square Root
+            // \u221B => Cube Root
+            // \u221C => Fourth Root
+            this.inputBox.Text += "\u221A";
+        }
+
+        /*
+         * onExpoClicked -  Function for the Exponential Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel
+         */
+        private void OnExpo_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text += "*10^{}";
+        }
+
+        /*
+         * onPiClicked -    Function for the Pi Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character can be created
+         *                  with Unicode Escape Characters/Code
+         */
+        private void OnPi_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Use Unicode Escape Characters/Code to render special Characters
+            this.inputBox.Text += "\u03C0";
+        }
+
+        /*
+         * onN_SqrtClicked - Function for the N Square Root Button on the
+         *                   keypad in the right side of the Main Window
+         *                   Dock Panel - NOTE: Character can be created
+         *                   with Unicode Escape Characters/Code
+         */
+        private void OnN_Sqrt_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text += "{}\u221A{}";
+        }
+
+        /*
+         * onSinClicked -   Function for the Sin Button on the keypad
+         *                  in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character can be created
+         *                  with Unicode Escape Characters/Code
+         */
+        private void OnSin_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text += "/sin";
+        }
+
+        /*
+         * onCosClicked -   Function for the Cos Button on the keypad
+         *                  in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character can be created
+         *                  with Unicode Escape Characters/Code
+         */
+        private void OnCos_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text += "/cos";
+        }
+
+        /*
+         * onTanClicked -   Function for the Tan Button on the keypad
+         *                  in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character can be created
+         *                  with Unicode Escape Characters/Code
+         */
+        private void OnTan_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text += "/tan";
+        }
+        /********************** END OF ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS **********************/
+
+        /************************************** NUMERICAL KEYPAD FUNCTIONS **********************************/
+
+        /*
+         * onDecimalClicked -   Function for the Decimal Button on the
+         *                      keypad in the right side of the Main
+         *                      Window Dock Panel
+         */
+        private void OnDecimal_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text += ".";
+        }
+
+        /*
+         * onAnsClicked -   Function for the Ans Button on the
+         *                  keypad in the right side of the Main
+         *                  Window Dock Panel
+         */
+        private void OnAns_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text += "Ans";
+        }
+
+        /*
+         * on0_Clicked -    Function for the 0 Button on the
+         *                  keypad in the right side of the Main
+         *                  Window Dock Panel
+         */
         private void On0_Clicked(object sender, RoutedEventArgs e)
         {
-
+            this.inputBox.Text += "0";
         }
 
+        /*
+         * on1_Clicked -    Function for the 1 Button on the
+         *                  keypad in the right side of the Main
+         *                  Window Dock Panel
+         */
         private void On1_Clicked(object sender, RoutedEventArgs e)
         {
-
+            this.inputBox.Text += "1";
         }
 
+        /*
+         * on2_Clicked -    Function for the 2 Button on the
+         *                  keypad in the right side of the Main
+         *                  Window Dock Panel
+         */
         private void On2_Clicked(object sender, RoutedEventArgs e)
         {
-
+            this.inputBox.Text += "2";
         }
 
+        /*
+         * on3_Clicked -    Function for the 3 Button on the
+         *                  keypad in the right side of the Main
+         *                  Window Dock Panel
+         */
         private void On3_Clicked(object sender, RoutedEventArgs e)
         {
-
+            this.inputBox.Text += "3";
         }
 
+        /*
+         * on4_Clicked -    Function for the 4 Button on the
+         *                  keypad in the right side of the Main
+         *                  Window Dock Panel
+         */
         private void On4_Clicked(object sender, RoutedEventArgs e)
         {
-
+            this.inputBox.Text += "4";
         }
 
+        /*
+         * on5_Clicked -    Function for the 5 Button on the
+         *                  keypad in the right side of the Main
+         *                  Window Dock Panel
+         */
         private void On5_Clicked(object sender, RoutedEventArgs e)
         {
-
+            this.inputBox.Text += "5";
         }
 
+        /*
+         * on6_Clicked -    Function for the 6 Button on the
+         *                  keypad in the right side of the Main
+         *                  Window Dock Panel
+         */
         private void On6_Clicked(object sender, RoutedEventArgs e)
         {
-
+            this.inputBox.Text += "6";
         }
 
+        /*
+         * on7_Clicked -    Function for the 7 Button on the
+         *                  keypad in the right side of the Main
+         *                  Window Dock Panel
+         */
         private void On7_Clicked(object sender, RoutedEventArgs e)
         {
-
+            this.inputBox.Text += "7";
         }
 
+        /*
+         * on8_Clicked -    Function for the 8 Button on the
+         *                  keypad in the right side of the Main
+         *                  Window Dock Panel
+         */
         private void On8_Clicked(object sender, RoutedEventArgs e)
         {
-
+            this.inputBox.Text += "8";
         }
 
+        /*
+         * on9_Clicked -    Function for the 9 Button on the
+         *                  keypad in the right side of the Main
+         *                  Window Dock Panel
+         */
         private void On9_Clicked(object sender, RoutedEventArgs e)
         {
-
+            this.inputBox.Text += "9";
         }
 
+        /********************************** END OF NUMERICAL KEYPAD FUNCTIONS*******************************/
+        
         /*
          * EnterKeyPressed - Handle event if the Enter key has been 
          *                  pressed.
