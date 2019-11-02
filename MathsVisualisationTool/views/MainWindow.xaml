@@ -9,7 +9,7 @@
         WindowState="Maximized"
         WindowStyle="ThreeDBorderWindow"
         Background="SlateGray"
-        Icon="../images/pi_Icon.ico" Width="1209.104" Height="839.797">
+        Icon="../images/pi_Icon.ico" Width="1209.104" Height="1021.726">
 
     <Grid>
         <DockPanel LastChildFill="True">
@@ -75,25 +75,25 @@
                         <DataGridTextColumn Header="Type" Binding="{Binding TypeOfVariable}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Grid x:Name="keypadSelector" Margin="3" Grid.Row="1" >
+                <Grid x:Name="keypadSelector" Margin="3" Grid.Row="1">
                     <TabControl>
                         <TabItem Header="Numbers">
                             <StackPanel Orientation="Horizontal">
                                 <WrapPanel x:Name="numberPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="320">
                                     <!-- FIRST ROW OF 3 ITEMS/FUNCTIONS -->
-                                    <Button Content="7" Margin="3 6 3 3" FontSize="24" Click="On7clicked"/>
-                                    <Button Content="8" Margin="3 6 3 3" FontSize="24" Click="On8clicked"/>
-                                    <Button Content="9" Margin="3 6 3 3" FontSize="24" Click="On9clicked"/>
+                                    <Button Content="7" Margin="3 6 3 3" FontSize="24" Click="On7_Clicked"/>
+                                    <Button Content="8" Margin="3 6 3 3" FontSize="24" Click="On8_Clicked"/>
+                                    <Button Content="9" Margin="3 6 3 3" FontSize="24" Click="On9_Clicked"/>
                                     <!-- SECOND ROW OF 3 ITEMS/FUNCTIONS -->
-                                    <Button Content="4" Margin="3 6 3 3" FontSize="24" Click="On4clicked"/>
-                                    <Button Content="5" Margin="3 6 3 3" FontSize="24" Click="On5clicked"/>
-                                    <Button Content="6" Margin="3 6 3 3" FontSize="24" Click="On6clicked"/>
+                                    <Button Content="4" Margin="3 6 3 3" FontSize="24" Click="On4_Clicked"/>
+                                    <Button Content="5" Margin="3 6 3 3" FontSize="24" Click="On5_Clicked"/>
+                                    <Button Content="6" Margin="3 6 3 3" FontSize="24" Click="On6_Clicked"/>
                                     <!-- THIRD ROW OF 3 ITEMS/FUNCTIONS -->
-                                    <Button Content="1" Margin="3 6 3 3" FontSize="24" Click="On1clicked"/>
-                                    <Button Content="2" Margin="3 6 3 3" FontSize="24" Click="On2clicked"/>
-                                    <Button Content="3" Margin="3 6 3 3" FontSize="24" Click="On3clicked"/>
+                                    <Button Content="1" Margin="3 6 3 3" FontSize="24" Click="On1_Clicked"/>
+                                    <Button Content="2" Margin="3 6 3 3" FontSize="24" Click="On2_Clicked"/>
+                                    <Button Content="3" Margin="3 6 3 3" FontSize="24" Click="On3_Clicked"/>
                                     <!-- FOURTH ROW OF 3 ITEMS/FUNCTIONS -->
-                                    <Button Content="0" Margin="3 6 3 3" FontSize="24" Click="On0clicked"/>
+                                    <Button Content="0" Margin="3 6 3 3" FontSize="24" Click="On0_Clicked"/>
                                     <Button Content="." Margin="3 6 3 3" FontSize="24" Click="OnDecimalClicked"/>
                                     <Button Content="Ans" Margin="3 6 3 3" FontSize="24" Click="OnAnsClicked"/>
                                 </WrapPanel>
@@ -101,49 +101,203 @@
                         </TabItem>
                         <TabItem Header="Arithmetic Functions">
                             <StackPanel Orientation="Horizontal">
-                                <WrapPanel x:Name="functionPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="320">
+                                <WrapPanel x:Name="functionPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="400">
                                     <!-- FIRST ROW OF 3 ITEMS/FUNCTIONS -->
-                                    <Button Margin="3 6 3 3" FontSize="24" Padding="10">
-                                        <StackPanel>
-                                            <Image Source="../images/mul.png" />
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/leftBracket.png" Height="40"/>
+                                            <TextBlock Text="[Bracket]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
-                                    <Button Content="Item 2" Margin="3 6 3 3" FontSize="24"/>
-                                    <Button Content="Item 3" Margin="3 6 3 3" FontSize="24"/>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/rightBracket.png" Height="40"/>
+                                            <TextBlock Text="[Bracket]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/indice.png" Height="40"/>
+                                            <TextBlock Text="[Indice]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
                                     <!-- SECOND ROW OF 3 ITEMS/FUNCTIONS -->
-                                    <Button Content="Item 1" Margin="3 6 3 3" FontSize="24"/>
-                                    <Button Content="Item 2" Margin="3 6 3 3" FontSize="24"/>
-                                    <Button Content="Item 3" Margin="3 6 3 3" FontSize="24"/>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/mul.png" Height="40"/>
+                                            <TextBlock Text="[Multiply]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/div.png" Height="40"/>
+                                            <TextBlock Text="[Divide]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/frac.png" Height="40"/>
+                                            <TextBlock Text="[Fraction]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
                                     <!-- THIRD ROW OF 3 ITEMS/FUNCTIONS -->
-                                    <Button Content="Item 1" Margin="3 6 3 3" FontSize="24"/>
-                                    <Button Content="Item 2" Margin="3 6 3 3" FontSize="24"/>
-                                    <Button Content="Item 3" Margin="3 6 3 3" FontSize="24"/>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/add.png" Height="40"/>
+                                            <TextBlock Text="[Addition]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/sub.png" Height="40"/>
+                                            <TextBlock Text="[Subtract]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/sqrt.png" Height="40"/>
+                                            <TextBlock Text="[Square Root]" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="10"/>
+                                        </StackPanel>
+                                    </Button>
                                     <!-- FOURTH ROW OF 3 ITEMS/FUNCTIONS -->
-                                    <Button Content="Item 1" Margin="3 6 3 3" FontSize="24"/>
-                                    <Button Content="Item 2" Margin="3 6 3 3" FontSize="24"/>
-                                    <Button Content="Item 3" Margin="3 6 3 3" FontSize="24"/>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/exp.png" Height="40"/>
+                                            <TextBlock Text="[Exponential]" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="10"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/pi.png" Height="40"/>
+                                            <TextBlock Text="[Pi]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/nSqrt.png"  Height="40"/>
+                                            <TextBlock Text="[N Squared]" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="10"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <!-- FIFTH ROW OF 3 ITEMS/FUNCTIONS -->
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/sin.png" Height="40"/>
+                                            <TextBlock Text="[Sin]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/cos.png" Height="40"/>
+                                            <TextBlock Text="[Cos]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/tan.png" Height="40"/>
+                                            <TextBlock Text="[Tan]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
                                 </WrapPanel>
                             </StackPanel>
                         </TabItem>
                         <TabItem Header="Greek Characters">
                             <StackPanel Orientation="Horizontal">
-                                <WrapPanel x:Name="greekPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="320">
-                                    <!-- FIRST ROW OF 3 ITEMS/GREEK CHARACTERS -->
-                                    <Label Content="Item 1" Background="LightGray" Margin="3 6 3 3" Foreground="White" FontSize="24"/>
-                                    <Label Content="Item 2" Background="LightGray" Margin="3 6 3 3" Foreground="White" FontSize="24"/>
-                                    <Label Content="Item 3" Background="LightGray" Margin="3 6 3 3" Foreground="White" FontSize="24"/>
-                                    <!-- SECOND ROW OF 3 ITEMS/GREEK CHARACTERS -->
-                                    <Label Content="Item 1" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
-                                    <Label Content="Item 2" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
-                                    <Label Content="Item 3" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
-                                    <!-- THIRD ROW OF 3 ITEMS/GREEK CHARACTERS -->
-                                    <Label Content="Item 1" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
-                                    <Label Content="Item 2" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
-                                    <Label Content="Item 3" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
-                                    <!-- FOURTH ROW OF 3 ITEMS/GREEK CHARACTERS -->
-                                    <Label Content="Item 1" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
-                                    <Label Content="Item 2" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
-                                    <Label Content="Item 3" Background="LightGray" Margin="3" Foreground="White" FontSize="24"/>
+                                <WrapPanel x:Name="greekPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="400">
+                                    <!-- FIRST ROW OF 3 GREEK CHARACTERS -->
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/greek/alpha.png" Height="40" />
+                                            <TextBlock Text="[Alpha]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/greek/beta.png" Height="40"/>
+                                            <TextBlock Text="[Beta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/greek/Delta.png" Height="40"/>
+                                            <TextBlock Text="[Delta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <!-- SECOND ROW OF 3 GREEK CHARACTERS -->
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/greek/delt.png" Height="40"/>
+                                            <TextBlock Text="[delta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/greek/epsilon.png" Height="40"/>
+                                            <TextBlock Text="[Epsilon]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/greek/gamma.png" Height="40"/>
+                                            <TextBlock Text="[Gamma]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <!-- THIRD ROW OF 3 GREEK CHARACTERS -->
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/greek/lambda.png" Height="40"/>
+                                            <TextBlock Text="[Lambda]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/greek/theta.png" Height="40"/>
+                                            <TextBlock Text="[Theta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/greek/mu.png" Height="40"/>
+                                            <TextBlock Text="[Mu]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <!-- FOURTH ROW OF 3 GREEK CHARACTERS -->
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/greek/Ohm.png" Height="40"/>
+                                            <TextBlock Text="[Omega]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/greek/omega.png" Height="40"/>
+                                            <TextBlock Text="[omega]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/greek/phi.png" Height="40"/>
+                                            <TextBlock Text="[Phi]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <!-- FIFTH ROW OF 3 GREEK CHARACTERS -->
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/greek/psi.png" Height="40"/>
+                                            <TextBlock Text="[Psi]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/greek/rho.png" Height="40"/>
+                                            <TextBlock Text="[Rho]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" Padding="5">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/greek/Sigma.png" Height="40"/>
+                                            <TextBlock Text="[Sigma]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
                                 </WrapPanel>
                             </StackPanel>
                         </TabItem>

@@ -48,9 +48,7 @@ namespace MathsVisualisationTool
                 MessageBox.Show("Error-001A: Application is currently running!");
                 ActivateWindow();
                 Shutdown();
-
             }
         }
-    }   
+    }
 }
-

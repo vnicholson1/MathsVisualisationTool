@@ -75,52 +75,52 @@ namespace MathsVisualisationTool
         {
 
         }
-        private void On0Clicked(object sender, RoutedEventArgs e)
+        private void On0_Clicked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void On1Clicked(object sender, RoutedEventArgs e)
+        private void On1_Clicked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void On2Clicked(object sender, RoutedEventArgs e)
+        private void On2_Clicked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void On3Clicked(object sender, RoutedEventArgs e)
+        private void On3_Clicked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void On4Clicked(object sender, RoutedEventArgs e)
+        private void On4_Clicked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void On5Clicked(object sender, RoutedEventArgs e)
+        private void On5_Clicked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void On6Clicked(object sender, RoutedEventArgs e)
+        private void On6_Clicked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void On7Clicked(object sender, RoutedEventArgs e)
+        private void On7_Clicked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void On8Clicked(object sender, RoutedEventArgs e)
+        private void On8_Clicked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void On9Clicked(object sender, RoutedEventArgs e)
+        private void On9_Clicked(object sender, RoutedEventArgs e)
         {
 
         }
