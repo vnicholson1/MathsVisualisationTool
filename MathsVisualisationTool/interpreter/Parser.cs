@@ -45,7 +45,6 @@ namespace MathsVisualisationTool
             while (nextToken != null)
             {
                 SUPPORTED_TOKENS tokenType = nextToken.GetType();
-                Console.WriteLine(tokenType);
                 if (tokenType == SUPPORTED_TOKENS.INTEGER)
                 {
                     value = Convert.ToDouble(nextToken.GetValue());
@@ -59,7 +58,6 @@ namespace MathsVisualisationTool
                 else if (tokenType == SUPPORTED_TOKENS.PLUS || tokenType == SUPPORTED_TOKENS.MINUS)
                 {
                     value = plusAndMinusHandle(value);
-                    getNextToken();
                 }
                 else if (tokenType == SUPPORTED_TOKENS.OPEN_BRACKET)
                 {
@@ -182,20 +180,14 @@ namespace MathsVisualisationTool
             Token peekToken = peek();
             double multiplier = 1;
 
-            //Check for invalid syntax and to evaluate situations like 3+-3 as you would want this to evaluate to 3-3 etc.
             while(!(peekToken == null))
             {
-                //If its plus then don't change the sign.
-                if (peekToken.GetType() == SUPPORTED_TOKENS.PLUS)
-                {
-                    multiplier *= 1;
-                } else if (peekToken.GetType() == SUPPORTED_TOKENS.MINUS)
-                {
-                    multiplier *= -1;
-                }  else if(peekToken.GetType() == SUPPORTED_TOKENS.INTEGER)
+                if(peekToken.GetType() == SUPPORTED_TOKENS.INTEGER)
                 {
                     //found a number so stop.
                     right = new Constant(Convert.ToDouble(peekToken.GetValue()) * multiplier);
+                    //2 next token calls to skip to the next token after the integer token.
+                    getNextToken();
                     getNextToken();
                     break;
                 } else if (peekToken.GetType() == SUPPORTED_TOKENS.OPEN_BRACKET)
@@ -204,12 +196,10 @@ namespace MathsVisualisationTool
                     bracketLevel++;
                     right = new Constant(analyseExpressions(value));
                     break;
-                } else
+                } else 
                 {
                     throw new Exception("Invalid token at position - " + index);
                 }
-                getNextToken();
-                peekToken = peek();
             }
 
             //so if there is no right hand expression.
@@ -219,7 +209,6 @@ namespace MathsVisualisationTool
             }
 
             Expression ne = new Operation(left, op, right);
-
             return ne.Evaluate();
         }
 

@@ -132,10 +132,15 @@ namespace MathsVisualisationTool
                 tokens.Add(tokenToAdd);
             }
 
+            combinePlusAndMinusOps(tokens);
+
+            //createNegativeAndPositiveNumbers(tokens);
+
             List<Token> updatedTokens = parenthesiseTokens(tokens);
 
-            //PrintTokens(updatedTokens);
+            PrintTokens(updatedTokens);
 
+            //return tokens;
             return updatedTokens;
         }
 
@@ -190,8 +195,28 @@ namespace MathsVisualisationTool
                 }
             }
 
-
             return listOfExpressions[0];
+        }
+
+        /// <summary>
+        /// Method for creating a token that is negative or positive given certain conditions.
+        /// i.e. Nothing - int -> create negative token
+        /// * - int -> create a negative token.
+        /// / - int -> create a negative token.
+        /// </summary>
+        /// <param name="tokens"></param>
+        private void createNegativeAndPositiveNumbers(List<Token> tokens)
+        {
+            //worry about this later
+            for(int i=0;i<tokens.Count;i++)
+            {
+                if((tokens[0].GetType() == SUPPORTED_TOKENS.MINUS || tokens[0].GetType() == SUPPORTED_TOKENS.PLUS))
+                {
+                    string tokenValue = tokens[i].GetValue();
+                    tokens.RemoveRange(i, 2);
+
+                }
+            }
         }
 
         /// <summary>
@@ -280,6 +305,50 @@ namespace MathsVisualisationTool
             }
 
             return new Token(listType,value);
+        }
+
+        /// <summary>
+        /// Function to remove consecutive + and - operators.
+        /// </summary>
+        /// <param name="tokens"></param>
+        /// <returns></returns>
+        private void combinePlusAndMinusOps(List<Token> tokens)
+        {
+            int count = 0;
+            int multiplier = 1;
+
+            for (int i=0;i<tokens.Count; i++)
+            {
+                if(tokens[i].GetType() == SUPPORTED_TOKENS.PLUS || tokens[i].GetType() == SUPPORTED_TOKENS.MINUS)
+                {
+                    if(tokens[i].GetType() == SUPPORTED_TOKENS.PLUS)
+                    {
+                        multiplier *= 1;
+                    } else
+                    {
+                        multiplier *= -1;
+                    }
+                    count++;
+                } else
+                {
+                    if(count != 0)
+                    {
+                        //Remove all the tokens
+                        tokens.RemoveRange((i - count), count);
+                        //then insert one that evaluates to the same value as all of those tokens
+                        if(multiplier == 1)
+                        {
+                            tokens.Insert((i - count), new Token(SUPPORTED_TOKENS.PLUS, "+"));
+                        } else
+                        {
+                            tokens.Insert((i - count), new Token(SUPPORTED_TOKENS.MINUS, "-"));
+                        }
+                        i = i - count;
+                        count = 0;
+                        multiplier = 1;
+                    }
+                }
+            }
         }
 
         /// <summary>
