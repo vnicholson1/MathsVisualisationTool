@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Xps.Packaging;
+using System.IO;
 
 namespace MathsVisualisationTool
 {
@@ -35,19 +37,39 @@ namespace MathsVisualisationTool
             inputBox.KeyDown += new KeyEventHandler(InputBox_KeyDown);
         }
 
-        /************************************** STANDARD TOP MENU FUNCTIONS *********************************/
-        
-        /*
-         * OnExitMenuClicked - Handle event if the Exit button is 
-         *                  clicked from the standard File Menu.
-         */
-        private void OnExitMenuClicked(object sender, RoutedEventArgs e) 
+        private void OnDrag(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Goodbye - Thankyou for using SolveIT!");
-            Environment.Exit(0);
+            if(e.Source is Button draggedBtn)
+            {
+                DragDrop.DoDragDrop(draggedBtn, draggedBtn, DragDropEffects.Copy);
+            }
         }
 
-        /********************************** END OF STANDARD TOP MENU FUNCTIONS ******************************/
+        void onDrop(object sender, DragEventArgs e)
+        {
+            if(e.Data.GetData(e.Data.GetFormats()[0]) is Button droppedBtn)
+            {
+                functionPanel.Children.Remove(droppedBtn);
+                favsPanel.Children.Add(droppedBtn);
+            }
+        }
+
+        private void OnDrop(object sender, DragEventArgs e)
+        {
+            IDataObject draggedData = NewMethod(e);
+            if (draggedData.GetData(draggedData.GetFormats()[0]) is Button droppedBtn)
+            {
+                functionPanel.Children.Remove(droppedBtn);
+                favsPanel.Children.Add(droppedBtn);
+            }
+        }
+
+        private static IDataObject NewMethod(DragEventArgs e)
+        {
+            return e.Data;
+        }
+
+        /****************************************************************************************************/
 
         /*
          * OnSubmitClicked - Handle event if the Submit button is 
@@ -58,17 +80,39 @@ namespace MathsVisualisationTool
             //HandleTextEnter();
             if (this.inputBox.Text != " ")
             {
-                Results.Items.Add(this.inputBox.Text);
+                Results.Items.Add(">>> \t" + this.inputBox.Text);
                 this.inputBox.Focus();
                 this.inputBox.Clear();
-               
             }
             else
             {
                 MessageBox.Show("ERROR");
                 this.inputBox.Focus();
-            }       
+            }
         }
+        /****************************************************************************************************/
+        /************************************** STANDARD TOP MENU FUNCTIONS *********************************/
+
+        /*
+         * OnExitMenuClicked - Handle event if the Exit button is 
+         *                  clicked from the standard File Menu.
+         */
+        private void OnExitMenuClicked(object sender, RoutedEventArgs e) 
+        {
+            MessageBox.Show("Goodbye - Thankyou for using SolveIT!");
+            Environment.Exit(0);
+        }
+
+        /*
+         * OnTestDocClicked -  
+         */
+        private void OnTestDocClicked(object sender, RoutedEventArgs e)
+        {
+            XpsDocument testDocument = new XpsDocument("../MathsVisualisationTool/documentation/testDoc.xps", FileAccess.Read);
+            documentViewer.Document = testDocument.GetFixedDocumentSequence();
+        }
+
+        /********************************** END OF STANDARD TOP MENU FUNCTIONS ******************************/
 
         /********************************* GREEK CHARACTERS KEYPAD FUNCTIONS ********************************/
 
@@ -438,6 +482,36 @@ namespace MathsVisualisationTool
         /********************** END OF ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS **********************/
 
         /************************************** NUMERICAL KEYPAD FUNCTIONS **********************************/
+
+        /*
+         * onDecimalClicked -   Function for the Less Then Button on the
+         *                      keypad in the right side of the Main
+         *                      Window Dock Panel
+         */
+        private void OnLess_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text += "\u003C";
+        }
+
+        /*
+         * onGreat_Clicked - Function for the Greater Then Button on the
+         *                   keypad in the right side of the Main
+         *                   Window Dock Panel
+         */
+        private void OnGreat_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text += "\u003E";
+        }
+
+        /*
+         * onDel_Clicked -  Function for the Delete Button on the
+         *                  keypad in the right side of the Main
+         *                  Window Dock Panel
+         */
+        private void OnDel_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Need to have a think about this one
+        }
 
         /*
          * onDecimalClicked -   Function for the Decimal Button on the
