@@ -37,9 +37,11 @@ namespace MathsVisualisationTool
             inputBox.KeyDown += new KeyEventHandler(InputBox_KeyDown);
         }
 
+        /****************************************************************************************************/
+
         private void OnDrag(object sender, MouseButtonEventArgs e)
         {
-            if(e.Source is Button draggedBtn)
+            if (e.Source is Button draggedBtn)
             {
                 DragDrop.DoDragDrop(draggedBtn, draggedBtn, DragDropEffects.Copy);
             }
@@ -47,7 +49,7 @@ namespace MathsVisualisationTool
 
         void onDrop(object sender, DragEventArgs e)
         {
-            if(e.Data.GetData(e.Data.GetFormats()[0]) is Button droppedBtn)
+            if (e.Data.GetData(e.Data.GetFormats()[0]) is Button droppedBtn)
             {
                 functionPanel.Children.Remove(droppedBtn);
                 favsPanel.Children.Add(droppedBtn);
@@ -78,9 +80,24 @@ namespace MathsVisualisationTool
         private void OnSubmitClicked(object sender, RoutedEventArgs e)
         {
             //HandleTextEnter();
-            if (this.inputBox.Text != " ")
+            if (this.inputBox.Text != "")
             {
                 Results.Items.Add(">>> \t" + this.inputBox.Text);
+                //Interpreter String called results
+                Interpreter i = new Interpreter();
+                //string output = i.RunInterpreter(inputBox.Text);
+                Results.Items.Add("\t\t\t Ans = " + i.RunInterpreter(inputBox.Text));
+                /**************************************************************************************/
+                //Look at putting NaN "checker" here
+                //if (output != "NaN")
+                //{
+                //    Results.Items.Add("\t\t\t Ans = " + i.RunInterpreter(inputBox.Text));
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Error");
+                //}
+                /**************************************************************************************/
                 this.inputBox.Focus();
                 this.inputBox.Clear();
             }
@@ -97,7 +114,7 @@ namespace MathsVisualisationTool
          * OnExitMenuClicked - Handle event if the Exit button is 
          *                  clicked from the standard File Menu.
          */
-        private void OnExitMenuClicked(object sender, RoutedEventArgs e) 
+        private void OnExitMenuClicked(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Goodbye - Thankyou for using SolveIT!");
             Environment.Exit(0);
@@ -108,11 +125,71 @@ namespace MathsVisualisationTool
          */
         private void OnTestDocClicked(object sender, RoutedEventArgs e)
         {
-            XpsDocument testDocument = new XpsDocument("../MathsVisualisationTool/documentation/testDoc.xps", FileAccess.Read);
+            XpsDocument testDocument = new XpsDocument("../../documentation/testDoc.xps", FileAccess.Read);
             documentViewer.Document = testDocument.GetFixedDocumentSequence();
         }
 
         /********************************** END OF STANDARD TOP MENU FUNCTIONS ******************************/
+
+        /*
+         * EnterKeyPressed - Handle event if the Enter key has been 
+         *                  pressed.
+         */
+        //private void EnterKeyPressed(object sender, RoutedEventArgs e)
+        //{
+        //    HandleTextEnter();
+        //}
+
+        /*
+         * InputBox_KeyDown - Handle event if the return button has 
+         *                  been pressed.
+         */
+        private void InputBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                //HandleTextEnter();
+                e.Handled = true;
+                if (this.inputBox.Text != " ")
+                {
+                    Results.Items.Add(">>> \t" + this.inputBox.Text);
+                    //Interpreter String called results
+                    Interpreter i = new Interpreter();
+                    Results.Items.Add("\t\t\t Ans = " + i.RunInterpreter(inputBox.Text));
+                    this.inputBox.Focus();
+                    this.inputBox.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("ERROR");
+                    this.inputBox.Focus();
+                }
+            }
+        }
+
+        /*
+         * HandleTextEnter - Handle the text enter and put the contents 
+         *                  of the text box into the interpreter.
+         */
+        private void HandleTextEnter()
+        {
+            string content = inputBox.Text;
+            inputBox.Clear();
+
+            Interpreter interp = new Interpreter();
+
+            try
+            {
+                string output = interp.RunInterpreter(content);
+                Console.WriteLine(output); //output onto the screen
+            }
+            catch (Exception e)
+            {
+                string output = e.ToString();
+                Console.WriteLine(output); //output onto the screen but in red.
+            }
+
+        }
 
         /********************************* GREEK CHARACTERS KEYPAD FUNCTIONS ********************************/
 
@@ -634,50 +711,5 @@ namespace MathsVisualisationTool
         }
 
         /********************************** END OF NUMERICAL KEYPAD FUNCTIONS*******************************/
-        
-        /*
-         * EnterKeyPressed - Handle event if the Enter key has been 
-         *                  pressed.
-         */
-        private void EnterKeyPressed(object sender, RoutedEventArgs e)
-        {
-            HandleTextEnter();
-        }
-
-        /*
-         * InputBox_KeyDown - Handle event if the return button has 
-         *                  been pressed.
-         */ 
-        private void InputBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.Return)
-            {
-                HandleTextEnter();
-                e.Handled = true;
-            }
-        }
-
-        /*
-         * HandleTextEnter - Handle the text enter and put the contents 
-         *                  of the text box into the interpreter.
-         */ 
-        private void HandleTextEnter()
-        {
-            string content = inputBox.Text;
-            inputBox.Clear();
-
-            Interpreter interp = new Interpreter();
-
-            try
-            {
-                string output = interp.RunInterpreter(content);
-                Console.WriteLine(output); //output onto the screen
-            } catch (Exception e)
-            {
-                string output = e.ToString();
-                Console.WriteLine(output); //output onto the screen but in red.
-            }
-           
-        }
     }
 }
