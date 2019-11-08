@@ -173,10 +173,44 @@ namespace MathsVisualisationTool
                                                                                       SUPPORTED_TOKENS.MINUS};
 
             List<List<Token>> listOfExpressions = new List<List<Token>>();
-            //initially all lists in this expression only contain 1 element representing a token.
-            foreach(Token t in tokens)
+
+            //initially all lists in this expression only contain 1 element representing a token unless it is enclosed in brackets.
+            for (int i=0;i<tokens.Count;i++)
             {
-                listOfExpressions.Add(new List<Token>() { t });
+                //Record the end index of the expression enclosed in brackets
+                int endOfExp = -1;
+                if(tokens[i].GetType() == SUPPORTED_TOKENS.OPEN_BRACKET)
+                {
+                    int bracketLevel = 0;
+                    for(int j=i;j<tokens.Count;j++)
+                    {
+                        if(tokens[j].GetType() == SUPPORTED_TOKENS.OPEN_BRACKET)
+                        {
+                            bracketLevel++;
+                        } else if (tokens[j].GetType() == SUPPORTED_TOKENS.CLOSE_BRACKET)
+                        {
+                            if(bracketLevel != 0)
+                            {
+                                endOfExp = j;
+                                break;
+                            } else
+                            {
+                                bracketLevel--;
+                            }
+                        }
+                    }
+                    if(endOfExp == -1)
+                    {
+                        endOfExp = tokens.Count - 1;
+                    }
+                    //Collect the expression enclosed inside the bracket
+                    List<Token> gatheredExpression = tokens.GetRange(i, (endOfExp - i + 1));
+                    listOfExpressions.Add(gatheredExpression);
+                    i += gatheredExpression.Count - 1;
+                } else
+                {
+                    listOfExpressions.Add(new List<Token>() { tokens[i] });
+                }
             }
 
             foreach(SUPPORTED_TOKENS s in orderOfOperations)
@@ -260,64 +294,24 @@ namespace MathsVisualisationTool
         /// <returns></returns>
         private int convertListOfExpressions(List<List<Token>> list, int index)
         {
-            if(index == 0)
-            {
-                int right = index + 1;
+            int left = index - 1;
+            int right = index + 1;
 
-                //Lists to concatenate
-                List<Token> openBracket = new List<Token>() { new Token(SUPPORTED_TOKENS.OPEN_BRACKET, "(") };
-                List<Token> op = list[index];
-                List<Token> rightSide = list[right];
-                List<Token> closeBracket = new List<Token>() { new Token(SUPPORTED_TOKENS.CLOSE_BRACKET, ")") };
+            //Lists to concatenate
+            List<Token> openBracket = new List<Token>() { new Token(SUPPORTED_TOKENS.OPEN_BRACKET, "(") };
+            List<Token> leftSide = list[left];
+            List<Token> rightSide = list[right];
+            List<Token> op = list[index];
+            List<Token> closeBracket = new List<Token>() { new Token(SUPPORTED_TOKENS.CLOSE_BRACKET, ")") };
 
-                openBracket.AddRange(op);
-                openBracket.AddRange(rightSide);
-                openBracket.AddRange(closeBracket);
+            openBracket.AddRange(leftSide);
+            openBracket.AddRange(op);
+            openBracket.AddRange(rightSide);
+            openBracket.AddRange(closeBracket);
 
-                list.RemoveRange(index, 2);
-                list.Insert(index, openBracket);
-
-                return index;
-
-            } else if (index == (list.Count-1))
-            {
-                int left = index - 1;
-
-                //Lists to concatenate
-                List<Token> openBracket = new List<Token>() { new Token(SUPPORTED_TOKENS.OPEN_BRACKET, "(") };
-                List<Token> leftSide = list[left];
-                List<Token> op = list[index];
-                List<Token> closeBracket = new List<Token>() { new Token(SUPPORTED_TOKENS.CLOSE_BRACKET, ")") };
-
-                openBracket.AddRange(leftSide);
-                openBracket.AddRange(op);
-                openBracket.AddRange(closeBracket);
-
-                list.RemoveRange(left, 2);
-                list.Insert(left, openBracket);
-
-                return index-1;
-            } else
-            {
-                int left = index - 1;
-                int right = index + 1;
-
-                //Lists to concatenate
-                List<Token> openBracket = new List<Token>() { new Token(SUPPORTED_TOKENS.OPEN_BRACKET, "(") };
-                List<Token> leftSide = list[left];
-                List<Token> rightSide = list[right];
-                List<Token> op = list[index];
-                List<Token> closeBracket = new List<Token>() { new Token(SUPPORTED_TOKENS.CLOSE_BRACKET, ")") };
-
-                openBracket.AddRange(leftSide);
-                openBracket.AddRange(op);
-                openBracket.AddRange(rightSide);
-                openBracket.AddRange(closeBracket);
-
-                list.RemoveRange(left, 3);
-                list.Insert(left, openBracket);
-                return index - 1;
-            }
+            list.RemoveRange(left, 3);
+            list.Insert(left, openBracket);
+            return index - 1;
         }
 
         /// <summary>
