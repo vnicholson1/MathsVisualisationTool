@@ -134,7 +134,7 @@ namespace MathsVisualisationTool
 
             combinePlusAndMinusOps(tokens);
 
-            //createNegativeAndPositiveNumbers(tokens);
+            createNegativeAndPositiveNumbers(tokens);
 
             List<Token> updatedTokens = parenthesiseTokens(tokens);
 
@@ -207,14 +207,45 @@ namespace MathsVisualisationTool
         /// <param name="tokens"></param>
         private void createNegativeAndPositiveNumbers(List<Token> tokens)
         {
-            //worry about this later
-            for(int i=0;i<tokens.Count;i++)
+            //For situations like +3 or -3 as an input
+            switch (tokens[0].GetType())
             {
-                if((tokens[0].GetType() == SUPPORTED_TOKENS.MINUS || tokens[0].GetType() == SUPPORTED_TOKENS.PLUS))
-                {
-                    string tokenValue = tokens[i].GetValue();
-                    tokens.RemoveRange(i, 2);
+                case SUPPORTED_TOKENS.PLUS:
+                    if(tokens[1].GetType() == SUPPORTED_TOKENS.INTEGER)
+                    {
+                        string tokenValue = tokens[1].GetValue();
+                        tokens.RemoveRange(0, 2);
+                        tokens.Insert(0, new Token(SUPPORTED_TOKENS.INTEGER, tokenValue));
+                    }
+                    break;
+                case SUPPORTED_TOKENS.MINUS:
+                    if (tokens[1].GetType() == SUPPORTED_TOKENS.INTEGER)
+                    {
+                        string tokenValue = tokens[1].GetValue();
+                        tokens.RemoveRange(0, 2);
+                        tokens.Insert(0, new Token(SUPPORTED_TOKENS.INTEGER, "-" + tokenValue));
+                    }
+                    break;
+            }
 
+            //implementing solution for:
+            // (*) (-|+) number
+            // (/) (-|+) number
+            for (int i=0;i<tokens.Count;i++)
+            {
+                if(tokens[i].GetType() == SUPPORTED_TOKENS.MULTIPLICATION || tokens[i].GetType() == SUPPORTED_TOKENS.DIVISION)
+                {
+                    if(tokens[(i+1)].GetType() == SUPPORTED_TOKENS.MINUS)
+                    {
+                        string tokenValue = tokens[(i+2)].GetValue();
+                        tokens.RemoveRange((i+1), 2);
+                        tokens.Insert((i+1), new Token(SUPPORTED_TOKENS.INTEGER, "-" + tokenValue));
+                    } else if(tokens[(i+1)].GetType() == SUPPORTED_TOKENS.PLUS)
+                    {
+                        string tokenValue = tokens[(i + 2)].GetValue();
+                        tokens.RemoveRange((i + 1), 2);
+                        tokens.Insert((i+1) , new Token(SUPPORTED_TOKENS.INTEGER, tokenValue));
+                    }
                 }
             }
         }
