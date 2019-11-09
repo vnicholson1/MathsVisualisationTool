@@ -42,7 +42,7 @@ namespace DataDomain
     public class Operation : Expression
     {
         private Expression left;
-        private SUPPORTED_TOKENS op;
+        private readonly SUPPORTED_TOKENS op;
         private Expression right;
 
         public Operation(Expression left, SUPPORTED_TOKENS op, Expression right)

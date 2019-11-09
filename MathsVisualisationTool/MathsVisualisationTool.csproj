@@ -98,6 +98,8 @@
     <Compile Include="interpreter\Interpreter.cs" />
     <Compile Include="interpreter\Lexer.cs" />
     <Compile Include="interpreter\Parser.cs" />
+    <Compile Include="interpreter\Preprocessor.cs" />
+    <Compile Include="interpreter\SyntaxAnalyser.cs" />
     <Compile Include="ParseTree\ParseTree.cs" />
     <Compile Include="ParseTree\ParseTreeNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
