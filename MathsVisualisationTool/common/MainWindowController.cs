@@ -39,6 +39,13 @@ namespace MathsVisualisationTool
 
         /****************************************************************************************************/
 
+        private void CommonCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        /****************************************************************************************************/
+
         private void OnDrag(object sender, MouseButtonEventArgs e)
         {
             if (e.Source is Button draggedBtn)
@@ -374,6 +381,17 @@ namespace MathsVisualisationTool
         /***************************** END OF GREEK CHARACTERS KEYPAD FUNCTIONS *****************************/
 
         /************************** ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS *************************/
+        /*
+         * onEquivilantClicked -   Function for the Equiviliant Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
+         */
+        private void OnEquivilant_Clicked(object sender, RoutedEventArgs e)
+        {
+            // NEED TO THINK ABOUT THIS
+            //this.inputBox.Text += "(";
+        }
 
         /*
          * onLeftBracketClicked -   Function for the Left Bracket Button on the
@@ -397,6 +415,30 @@ namespace MathsVisualisationTool
         {
             // \u0029 => ")" => Right/Closing Parenthesis
             this.inputBox.Text += ")";
+        }
+
+        /*
+         * OnLessEqual_Clicked -   Function for the Less Than or Equal to Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
+         */
+        private void OnLessEqual_Clicked(object sender, RoutedEventArgs e)
+        {
+            // \u0028 => "(" => Left/Opening Parenthesis
+            this.inputBox.Text += "<=";
+        }
+
+        /*
+         * OnMoreEqual_Clicked -  Function for the Greater than or Equal to Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
+         */
+        private void OnMoreEqual_Clicked(object sender, RoutedEventArgs e)
+        {
+            // \u0029 => ")" => Right/Closing Parenthesis
+            this.inputBox.Text += ">=";
         }
 
         /*
@@ -492,13 +534,13 @@ namespace MathsVisualisationTool
         }
 
         /*
-         * onExpoClicked -  Function for the Exponential Button on the
+         * onPercentClicked -  Function for the Percentage Button on the
          *                  keypad in the right side of the Main Window
          *                  Dock Panel
          */
-        private void OnExpo_Clicked(object sender, RoutedEventArgs e)
+        private void OnPercent_Clicked(object sender, RoutedEventArgs e)
         {
-            this.inputBox.Text += "*10^{}";
+            this.inputBox.Text += "%";
         }
 
         /*
@@ -559,25 +601,40 @@ namespace MathsVisualisationTool
         /********************** END OF ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS **********************/
 
         /************************************** NUMERICAL KEYPAD FUNCTIONS **********************************/
-
         /*
-         * onDecimalClicked -   Function for the Less Then Button on the
-         *                      keypad in the right side of the Main
-         *                      Window Dock Panel
+         * onEqualClicked -    Function for the equals Button on the
+    *                          keypad in the right side of the Main Window
+    *                          Dock Panel - NOTE: Character can be created
+    *                          with Unicode Escape Characters/Code
          */
-        private void OnLess_Clicked(object sender, RoutedEventArgs e)
+        private void OnEqual_Clicked(object sender, RoutedEventArgs e)
         {
-            this.inputBox.Text += "\u003C";
+            // \u0028 => "(" => Left/Opening Parenthesis
+            this.inputBox.Text += "=";
         }
 
         /*
-         * onGreat_Clicked - Function for the Greater Then Button on the
-         *                   keypad in the right side of the Main
-         *                   Window Dock Panel
+         * onLessThanClicked -      Function for the Less than Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
          */
-        private void OnGreat_Clicked(object sender, RoutedEventArgs e)
+        private void OnLessThan_Clicked(object sender, RoutedEventArgs e)
         {
-            this.inputBox.Text += "\u003E";
+            // \u0028 => "(" => Left/Opening Parenthesis
+            this.inputBox.Text += "<";
+        }
+
+        /*
+         * onGreaterThanClicked -   Function for the Greater than Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
+         */
+        private void OnGreaterThan_Clicked(object sender, RoutedEventArgs e)
+        {
+            // \u0029 => ")" => Right/Closing Parenthesis
+            this.inputBox.Text += ">";
         }
 
         /*

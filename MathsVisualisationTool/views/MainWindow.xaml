@@ -9,7 +9,7 @@
         WindowState="Maximized"
         WindowStyle="ThreeDBorderWindow"
         Background="SlateGray"
-        Icon="../images/pi_Icon.ico" Width="1209.104" Height="1021.726">
+        Icon="../images/icons/pi_Icon.ico" Width="1209.104" Height="1021.726">
 
     <Grid>
         <DockPanel LastChildFill="True">
@@ -17,11 +17,15 @@
             <Menu DockPanel.Dock="Top">
                 <!--MAIN TOP MENU - FILE DROP DOWN-->
                 <MenuItem Header="_File">
-                    <MenuItem Header="Save" Icon="&#x1F4BE;">
-                        <MenuItem Header="_Save"/>
-                        <MenuItem Header="_Save as"/>
-                        <MenuItem Header="_Save all"/>
+                    <MenuItem Header="_New"/>
+                    <MenuItem Header="_Open" ToolTip="Open saved SolveIT file" Icon="&#x1F4C2;"/>
+                    <Separator/>
+                    <MenuItem Header="_Save" ToolTip="Save" Icon="&#x1F4BE;">
+                        <MenuItem Header="_Save" Icon="&#128190;"/>
+                        <MenuItem Header="Save as" Icon="&#128190;"/>
+                        <MenuItem Header="Save all"/>
                     </MenuItem>
+                    <Separator/>
                     <MenuItem Header="E_xit" Click="OnExitMenuClicked"/>
                 </MenuItem>
                 <!--MAIN TOP MENU - EDIT DROPDOWN-->
@@ -36,6 +40,31 @@
                     <MenuItem Header="View Help"/>
                 </MenuItem>
             </Menu>
+
+            <ToolBarTray DockPanel.Dock="Top">
+                <ToolBar>
+                    <Button Command="New" Content="New" ToolBar.OverflowMode="Never"/>
+                    <Button Command="Open" Content="Open" ToolBar.OverflowMode="Never"/>
+                    <Button Command="Save" Content="Save" ToolBar.OverflowMode="Never"/>
+                </ToolBar>
+                <ToolBar>
+                    <Button Command="Cut" ToolTip="Cut Selection to Windows Clipboard " Padding="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../images/icons/cut.png" Width="20"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Command="Copy" ToolTip="Copy Selection to Windows Clipboard " Padding="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../images/icons/copy.png" Width="20"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Command="Paste" ToolTip="Paste From Windows Clipboard" Padding="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../images/icons/paste.png" Width="20"/>
+                        </StackPanel>
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
 
             <!-- BOTTOM SECTION OF DOCKPANEL -->
             <!-- Although not the main bottom section of the interpreter
@@ -89,25 +118,55 @@
                             <StackPanel Orientation="Horizontal">
                                 <WrapPanel x:Name="numberPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="400">
                                     <!-- FIRST ROW OF 3 ITEMS/FUNCTIONS -->
-                                    <Button Content="&#x3c;" Margin="3 6 3 3" FontSize="30" Click="OnLess_Clicked"/>
-                                    <Button Content="&#x3e;" Margin="3 6 3 3" FontSize="30" Click="OnGreat_Clicked"/>
-                                    <Button Content="&#x2190;" Margin="3 6 3 3" FontSize="30" Click="OnDel_Clicked"/>
+                                    <Button Margin="3 6 3 3" FontSize="30" Click="OnLessThan_Clicked">
+                                        <Image Source="../images/numerical/lessThan.png" Height="40"/>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" FontSize="30" Click="OnEqual_Clicked">
+                                        <Image Source="../images/numerical/equal.png" Height="40"/>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" FontSize="30" Click="OnGreaterThan_Clicked">
+                                        <Image Source="../images/numerical/moreThan.png" Height="40"/>
+                                    </Button>
                                     <!-- SECOND ROW OF 3 ITEMS/FUNCTIONS -->
-                                    <Button Content="7" Margin="3 6 3 3" FontSize="24" Click="On7_Clicked"/>
-                                    <Button Content="8" Margin="3 6 3 3" FontSize="24" Click="On8_Clicked"/>
-                                    <Button Content="9" Margin="3 6 3 3" FontSize="24" Click="On9_Clicked"/>
+                                    <Button Margin="3 6 3 3" FontSize="24" Click="On7_Clicked">
+                                        <Image Source="../images/numerical/seven.png" Height="40"/>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" FontSize="24" Click="On8_Clicked">
+                                        <Image Source="../images/numerical/eight.png" Height="40"/>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" FontSize="24" Click="On9_Clicked">
+                                        <Image Source="../images/numerical/nine.png" Height="40"/>
+                                    </Button>
                                     <!-- THIRD ROW OF 3 ITEMS/FUNCTIONS -->
-                                    <Button Content="4" Margin="3 6 3 3" FontSize="24" Click="On4_Clicked"/>
-                                    <Button Content="5" Margin="3 6 3 3" FontSize="24" Click="On5_Clicked"/>
-                                    <Button Content="6" Margin="3 6 3 3" FontSize="24" Click="On6_Clicked"/>
+                                    <Button Margin="3 6 3 3" FontSize="24" Click="On4_Clicked">
+                                        <Image Source="../images/numerical/four.png" Height="40"/>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" FontSize="24" Click="On5_Clicked">
+                                        <Image Source="../images/numerical/five.png" Height="40"/>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" FontSize="24" Click="On6_Clicked">
+                                        <Image Source="../images/numerical/six.png" Height="40"/>
+                                    </Button>
                                     <!-- FOURTH ROW OF 3 ITEMS/FUNCTIONS -->
-                                    <Button Content="1" Margin="3 6 3 3" FontSize="24" Click="On1_Clicked"/>
-                                    <Button Content="2" Margin="3 6 3 3" FontSize="24" Click="On2_Clicked"/>
-                                    <Button Content="3" Margin="3 6 3 3" FontSize="24" Click="On3_Clicked"/>
+                                    <Button Margin="3 6 3 3" FontSize="24" Click="On1_Clicked">
+                                        <Image Source="../images/numerical/one.png" Height="40"/>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" FontSize="24" Click="On2_Clicked">
+                                        <Image Source="../images/numerical/two.png" Height="40"/>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" FontSize="24" Click="On3_Clicked">
+                                        <Image Source="../images/numerical/three.png" Height="40"/>
+                                    </Button>
                                     <!-- FIFTH ROW OF 3 ITEMS/FUNCTIONS -->
-                                    <Button Content="0" Margin="3 6 3 3" FontSize="24" Click="On0_Clicked"/>
-                                    <Button Content="." Margin="3 6 3 3" FontSize="24" Click="OnDecimal_Clicked"/>
-                                    <Button Content="Ans" Margin="3 6 3 3" FontSize="24" Click="OnAns_Clicked"/>
+                                    <Button Margin="3 6 3 3" FontSize="24" Click="On0_Clicked">
+                                        <Image Source="../images/numerical/zero.png" Height="40"/>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" FontSize="24" Click="OnDecimal_Clicked">
+                                        <Image Source="../images/numerical/decimal.png" Height="40"/>
+                                    </Button>
+                                    <Button Margin="3 6 3 3" FontSize="24" Click="OnAns_Clicked">
+                                        <Image Source="../images/numerical/ans.png" Height="40"/>
+                                    </Button>
                                 </WrapPanel>
                             </StackPanel>
                         </TabItem>
@@ -120,16 +179,41 @@
                                     <Button Margin="3 6 3 3" Padding="5" Click="OnLeftBracket_Clicked">
                                         <StackPanel Orientation="Vertical">
                                             <Image Source="../images/arithmetic/leftBracket.png" Height="40"/>
-                                            <!--<TextBlock Text="&#x28;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
+                                            <!--<TextBlock Text="&#x2b;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
                                             <TextBlock Text="[Bracket]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <!-- INDICE BUTTON-->
+                                    <Button Margin="3 6 3 3" Padding="5" Click="OnEquivilant_Clicked">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/equiv.png" Height="40"/>
+                                            <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
+                                            <TextBlock Text="[Equivilant]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
                                     <!-- RIGHT BRACKET BUTTON-->
                                     <Button Margin="3 6 3 3" Padding="5" Click="OnRightBracket_Clicked">
                                         <StackPanel Orientation="Vertical">
                                             <Image Source="../images/arithmetic/rightBracket.png" Height="40"/>
-                                            <!--<TextBlock Text="&#x29;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
+                                            <!--<TextBlock Text="&#x2d;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
                                             <TextBlock Text="[Bracket]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <!-- SECOND ROW OF 3 ITEMS/FUNCTIONS -->
+                                    <!-- ADDITION BUTTON-->
+                                    <Button Margin="3 6 3 3" Padding="5" Click="OnAdd_Clicked">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/add.png" Height="40"/>
+                                            <!--<TextBlock Text="&#xd7;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
+                                            <TextBlock Text="[Addition]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <!-- SUBTRACTION BUTTON-->
+                                    <Button Margin="3 6 3 3" Padding="5" Click="OnSub_Clicked">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="../images/arithmetic/sub.png" Height="40"/>
+                                            <!--<TextBlock Text="&#xf7;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
+                                            <TextBlock Text="[Subtract]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
                                     <!-- INDICE BUTTON-->
@@ -140,12 +224,12 @@
                                             <TextBlock Text="[Indice]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
-                                    <!-- SECOND ROW OF 3 ITEMS/FUNCTIONS -->
+                                    <!-- THIRD ROW OF 3 ITEMS/FUNCTIONS -->
                                     <!-- MULTIPLICATION BUTTON-->
                                     <Button Margin="3 6 3 3" Padding="5" Click="OnMul_Clicked">
                                         <StackPanel Orientation="Vertical">
                                             <Image Source="../images/arithmetic/mul.png" Height="40"/>
-                                            <!--<TextBlock Text="&#xd7;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
+                                            <!--<TextBlock Text="&#x2b;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
                                             <TextBlock Text="[Multiply]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
@@ -153,33 +237,8 @@
                                     <Button Margin="3 6 3 3" Padding="5" Click="OnDiv_Clicked">
                                         <StackPanel Orientation="Vertical">
                                             <Image Source="../images/arithmetic/div.png" Height="40"/>
-                                            <!--<TextBlock Text="&#xf7;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
-                                            <TextBlock Text="[Divide]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Button>
-                                    <!-- FRACTION BUTTON-->
-                                    <Button Margin="3 6 3 3" Padding="5" Click="OnFrac_Clicked">
-                                        <StackPanel Orientation="Vertical">
-                                            <Image Source="../images/arithmetic/frac.png" Height="40"/>
-                                            <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
-                                            <TextBlock Text="[Fraction]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Button>
-                                    <!-- THIRD ROW OF 3 ITEMS/FUNCTIONS -->
-                                    <!-- ADDITION BUTTON-->
-                                    <Button Margin="3 6 3 3" Padding="5" Click="OnAdd_Clicked">
-                                        <StackPanel Orientation="Vertical">
-                                            <Image Source="../images/arithmetic/add.png" Height="40"/>
-                                            <!--<TextBlock Text="&#x2b;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
-                                            <TextBlock Text="[Addition]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Button>
-                                    <!-- SUBTRACTION BUTTON-->
-                                    <Button Margin="3 6 3 3" Padding="5" Click="OnSub_Clicked">
-                                        <StackPanel Orientation="Vertical">
-                                            <Image Source="../images/arithmetic/sub.png" Height="40"/>
                                             <!--<TextBlock Text="&#x2d;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
-                                            <TextBlock Text="[Subtract]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="[Divide]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
                                     <!-- SQUARE ROOT BUTTON-->
@@ -191,12 +250,12 @@
                                         </StackPanel>
                                     </Button>
                                     <!-- FOURTH ROW OF 3 ITEMS/FUNCTIONS -->
-                                    <!-- EXPONENTIAL BUTTON-->
-                                    <Button Margin="3 6 3 3" Padding="5" Click="OnExpo_Clicked">
+                                    <!-- PERCENTAGE BUTTON-->
+                                    <Button Margin="3 6 3 3" Padding="5" Click="OnPercent_Clicked">
                                         <StackPanel Orientation="Vertical">
-                                            <Image Source="../images/arithmetic/exp.png" Height="40"/>
+                                            <Image Source="../images/arithmetic/percent.png" Height="40"/>
                                             <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
-                                            <TextBlock Text="[Exponential]" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="10"/>
+                                            <TextBlock Text="[Percent]" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="10"/>
                                         </StackPanel>
                                     </Button>
                                     <!-- PI BUTTON-->
