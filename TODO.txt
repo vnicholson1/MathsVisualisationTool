@@ -1,0 +1,1 @@
+Works well when input is valid - write the syntax analyser class for this.

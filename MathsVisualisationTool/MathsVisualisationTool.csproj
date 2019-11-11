@@ -106,6 +106,8 @@
     <Compile Include="interpreter\Interpreter.cs" />
     <Compile Include="interpreter\Lexer.cs" />
     <Compile Include="interpreter\Parser.cs" />
+    <Compile Include="interpreter\Preprocessor.cs" />
+    <Compile Include="interpreter\SyntaxAnalyser.cs" />
     <Compile Include="ParseTree\ParseTree.cs" />
     <Compile Include="ParseTree\ParseTreeNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -156,6 +158,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataDomain\DataDomain.csproj">
+      <Project>{e99a2845-a6ab-48aa-acfd-16fc9afce5cf}</Project>
+      <Name>DataDomain</Name>
+    </ProjectReference>
     <Resource Include="images\greek\alpha.png" />
     <Resource Include="images\greek\beta.png" />
     <Resource Include="images\greek\Delta.png" />
