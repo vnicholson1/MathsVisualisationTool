@@ -42,10 +42,6 @@ namespace MathsVisualisationTool
         /// <returns>Returns a list of tokens with brackets added.</returns>
         private List<Token> parenthesiseTokens(List<Token> tokens)
         {
-            List<SUPPORTED_TOKENS> orderOfOperations = new List<SUPPORTED_TOKENS>()  {SUPPORTED_TOKENS.DIVISION,
-                                                                                      SUPPORTED_TOKENS.MULTIPLICATION,
-                                                                                      SUPPORTED_TOKENS.PLUS,
-                                                                                      SUPPORTED_TOKENS.MINUS};
 
             List<List<Token>> listOfExpressions = new List<List<Token>>();
 
@@ -54,16 +50,16 @@ namespace MathsVisualisationTool
             {
                 //Record the end index of the expression enclosed in brackets
                 int endOfExp = -1;
-                if (tokens[i].GetType() == SUPPORTED_TOKENS.OPEN_BRACKET)
+                if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
                 {
                     int bracketLevel = -1;
                     for (int j = i; j < tokens.Count; j++)
                     {
-                        if (tokens[j].GetType() == SUPPORTED_TOKENS.OPEN_BRACKET)
+                        if (tokens[j].GetType() == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
                         {
                             bracketLevel++;
                         }
-                        else if (tokens[j].GetType() == SUPPORTED_TOKENS.CLOSE_BRACKET)
+                        else if (tokens[j].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
                         {
                             if (bracketLevel == 0)
                             {
@@ -94,7 +90,7 @@ namespace MathsVisualisationTool
                 }
             }
 
-            foreach (SUPPORTED_TOKENS s in orderOfOperations)
+            foreach (Globals.SUPPORTED_TOKENS s in Globals.orderOfOperators)
             {
                 int i;
                 for (i = 0; i < listOfExpressions.Count; i++)
@@ -126,20 +122,20 @@ namespace MathsVisualisationTool
             //For situations like +3 or -3 as an input
             switch (tokens[0].GetType())
             {
-                case SUPPORTED_TOKENS.PLUS:
-                    if (tokens[1].GetType() == SUPPORTED_TOKENS.INTEGER)
+                case Globals.SUPPORTED_TOKENS.PLUS:
+                    if (tokens[1].GetType() == Globals.SUPPORTED_TOKENS.INTEGER)
                     {
                         string tokenValue = tokens[1].GetValue();
                         tokens.RemoveRange(0, 2);
-                        tokens.Insert(0, new Token(SUPPORTED_TOKENS.INTEGER, tokenValue));
+                        tokens.Insert(0, new Token(Globals.SUPPORTED_TOKENS.INTEGER, tokenValue));
                     }
                     break;
-                case SUPPORTED_TOKENS.MINUS:
-                    if (tokens[1].GetType() == SUPPORTED_TOKENS.INTEGER)
+                case Globals.SUPPORTED_TOKENS.MINUS:
+                    if (tokens[1].GetType() == Globals.SUPPORTED_TOKENS.INTEGER)
                     {
                         string tokenValue = tokens[1].GetValue();
                         tokens.RemoveRange(0, 2);
-                        tokens.Insert(0, new Token(SUPPORTED_TOKENS.INTEGER, "-" + tokenValue));
+                        tokens.Insert(0, new Token(Globals.SUPPORTED_TOKENS.INTEGER, "-" + tokenValue));
                     }
                     break;
             }
@@ -149,19 +145,19 @@ namespace MathsVisualisationTool
             // (/) (-|+) number
             for (int i = 0; i < tokens.Count; i++)
             {
-                if (tokens[i].GetType() == SUPPORTED_TOKENS.MULTIPLICATION || tokens[i].GetType() == SUPPORTED_TOKENS.DIVISION)
+                if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.MULTIPLICATION || tokens[i].GetType() == Globals.SUPPORTED_TOKENS.DIVISION)
                 {
-                    if (tokens[(i + 1)].GetType() == SUPPORTED_TOKENS.MINUS)
+                    if (tokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.MINUS)
                     {
                         string tokenValue = tokens[(i + 2)].GetValue();
                         tokens.RemoveRange((i + 1), 2);
-                        tokens.Insert((i + 1), new Token(SUPPORTED_TOKENS.INTEGER, "-" + tokenValue));
+                        tokens.Insert((i + 1), new Token(Globals.SUPPORTED_TOKENS.INTEGER, "-" + tokenValue));
                     }
-                    else if (tokens[(i + 1)].GetType() == SUPPORTED_TOKENS.PLUS)
+                    else if (tokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.PLUS)
                     {
                         string tokenValue = tokens[(i + 2)].GetValue();
                         tokens.RemoveRange((i + 1), 2);
-                        tokens.Insert((i + 1), new Token(SUPPORTED_TOKENS.INTEGER, tokenValue));
+                        tokens.Insert((i + 1), new Token(Globals.SUPPORTED_TOKENS.INTEGER, tokenValue));
                     }
                 }
             }
@@ -181,11 +177,11 @@ namespace MathsVisualisationTool
             int right = index + 1;
 
             //Lists to concatenate
-            List<Token> openBracket = new List<Token>() { new Token(SUPPORTED_TOKENS.OPEN_BRACKET, "(") };
+            List<Token> openBracket = new List<Token>() { new Token(Globals.SUPPORTED_TOKENS.OPEN_BRACKET, "(") };
             List<Token> leftSide = list[left];
             List<Token> rightSide = list[right];
             List<Token> op = list[index];
-            List<Token> closeBracket = new List<Token>() { new Token(SUPPORTED_TOKENS.CLOSE_BRACKET, ")") };
+            List<Token> closeBracket = new List<Token>() { new Token(Globals.SUPPORTED_TOKENS.CLOSE_BRACKET, ")") };
 
             openBracket.AddRange(leftSide);
             openBracket.AddRange(op);
@@ -209,9 +205,9 @@ namespace MathsVisualisationTool
 
             for (int i = 0; i < tokens.Count; i++)
             {
-                if (tokens[i].GetType() == SUPPORTED_TOKENS.PLUS || tokens[i].GetType() == SUPPORTED_TOKENS.MINUS)
+                if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.PLUS || tokens[i].GetType() == Globals.SUPPORTED_TOKENS.MINUS)
                 {
-                    if (tokens[i].GetType() == SUPPORTED_TOKENS.PLUS)
+                    if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.PLUS)
                     {
                         multiplier *= 1;
                     }
@@ -230,11 +226,11 @@ namespace MathsVisualisationTool
                         //then insert one that evaluates to the same value as all of those tokens
                         if (multiplier == 1)
                         {
-                            tokens.Insert((i - count), new Token(SUPPORTED_TOKENS.PLUS, "+"));
+                            tokens.Insert((i - count), new Token(Globals.SUPPORTED_TOKENS.PLUS, "+"));
                         }
                         else
                         {
-                            tokens.Insert((i - count), new Token(SUPPORTED_TOKENS.MINUS, "-"));
+                            tokens.Insert((i - count), new Token(Globals.SUPPORTED_TOKENS.MINUS, "-"));
                         }
                         i = i - count;
                         count = 0;

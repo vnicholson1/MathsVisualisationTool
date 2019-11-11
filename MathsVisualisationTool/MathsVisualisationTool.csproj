@@ -103,6 +103,8 @@
     <Compile Include="common\MainWindowController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="errors\MathExceptions.cs" />
+    <Compile Include="errors\SyntaxExceptions.cs" />
     <Compile Include="interpreter\Interpreter.cs" />
     <Compile Include="interpreter\Lexer.cs" />
     <Compile Include="interpreter\Parser.cs" />

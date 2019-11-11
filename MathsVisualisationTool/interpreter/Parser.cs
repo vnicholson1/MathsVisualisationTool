@@ -55,30 +55,30 @@ namespace MathsVisualisationTool
         {
             while (nextToken != null)
             {
-                SUPPORTED_TOKENS tokenType = nextToken.GetType();
-                if (tokenType == SUPPORTED_TOKENS.INTEGER)
+                Globals.SUPPORTED_TOKENS tokenType = nextToken.GetType();
+                if (tokenType == Globals.SUPPORTED_TOKENS.INTEGER)
                 {
                     //If the next token is an int, then just collect the value
                     value = Convert.ToDouble(nextToken.GetValue());
                     getNextToken();
                 }
-                else if (tokenType == SUPPORTED_TOKENS.DIVISION || tokenType == SUPPORTED_TOKENS.MULTIPLICATION)
+                else if (tokenType == Globals.SUPPORTED_TOKENS.DIVISION || tokenType == Globals.SUPPORTED_TOKENS.MULTIPLICATION)
                 {
                     //If its division or multiplication, run the appropriate method.
                     value = divisionAndMultHandle(value);
                 }
-                else if (tokenType == SUPPORTED_TOKENS.PLUS || tokenType == SUPPORTED_TOKENS.MINUS)
+                else if (tokenType == Globals.SUPPORTED_TOKENS.PLUS || tokenType == Globals.SUPPORTED_TOKENS.MINUS)
                 {
                     //same for plus and minus.
                     value = plusAndMinusHandle(value);
                 }
-                else if (tokenType == SUPPORTED_TOKENS.OPEN_BRACKET)
+                else if (tokenType == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
                 {
                     //if its an open bracket then recursively call on the expression encapsulated inside
                     //the brackets.
                     getNextToken();
                     value = analyseExpressions(value);
-                } else if (tokenType == SUPPORTED_TOKENS.CLOSE_BRACKET)
+                } else if (tokenType == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
                 {
                     //if its a close bracket then just return.
                     getNextToken();
@@ -98,7 +98,7 @@ namespace MathsVisualisationTool
 
             Expression left;
             Expression right;
-            SUPPORTED_TOKENS op = nextToken.GetType();
+            Globals.SUPPORTED_TOKENS op = nextToken.GetType();
 
             //Find the left and right hand side of the expression.
             left = new Constant(value);
@@ -109,7 +109,7 @@ namespace MathsVisualisationTool
             double rightValue = 0.0;
 
             //If a bracket has been found then analyse the expression inside the bracket first.
-            if (nextToken.GetType() == SUPPORTED_TOKENS.OPEN_BRACKET)
+            if (nextToken.GetType() == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
             {
                 getNextToken();
                 rightValue = analyseExpressions(value);
@@ -122,7 +122,7 @@ namespace MathsVisualisationTool
             right = new Constant(rightValue);
 
             //Prevent division by zero
-            if (rightValue == 0 && op == SUPPORTED_TOKENS.DIVISION)
+            if (rightValue == 0 && op == Globals.SUPPORTED_TOKENS.DIVISION)
             {
                 throw new Exception("Cannot divide by zero");
             }
@@ -143,7 +143,7 @@ namespace MathsVisualisationTool
         {
             Expression left = null;
             Expression right = null;
-            SUPPORTED_TOKENS op = nextToken.GetType();
+            Globals.SUPPORTED_TOKENS op = nextToken.GetType();
 
             //Get the left hand side of the expression.
             left = new Constant(value);
@@ -151,13 +151,13 @@ namespace MathsVisualisationTool
             //Now look at the token after the operator
             getNextToken();
 
-            if(nextToken.GetType() == SUPPORTED_TOKENS.INTEGER)
+            if(nextToken.GetType() == Globals.SUPPORTED_TOKENS.INTEGER)
             {
                 //A number so just extract the value from it.
                 right = new Constant(Convert.ToDouble(nextToken.GetValue()));
                 //Then call get next token.
                 getNextToken();
-            } else if (nextToken.GetType() == SUPPORTED_TOKENS.OPEN_BRACKET)
+            } else if (nextToken.GetType() == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
             {
                 getNextToken();
                 //recursively call to analyse the expression enclosed in brackets.

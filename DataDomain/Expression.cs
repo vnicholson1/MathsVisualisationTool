@@ -42,10 +42,10 @@ namespace DataDomain
     public class Operation : Expression
     {
         private Expression left;
-        private readonly SUPPORTED_TOKENS op;
+        private readonly Globals.SUPPORTED_TOKENS op;
         private Expression right;
 
-        public Operation(Expression left, SUPPORTED_TOKENS op, Expression right)
+        public Operation(Expression left, Globals.SUPPORTED_TOKENS op, Expression right)
         {
             this.left = left;
             this.op = op;
@@ -59,10 +59,10 @@ namespace DataDomain
 
             switch (op)
             {
-                case SUPPORTED_TOKENS.PLUS: return x + y;
-                case SUPPORTED_TOKENS.MINUS: return x - y;
-                case SUPPORTED_TOKENS.MULTIPLICATION: return x * y;
-                case SUPPORTED_TOKENS.DIVISION: return x / y;
+                case Globals.SUPPORTED_TOKENS.PLUS: return x + y;
+                case Globals.SUPPORTED_TOKENS.MINUS: return x - y;
+                case Globals.SUPPORTED_TOKENS.MULTIPLICATION: return x * y;
+                case Globals.SUPPORTED_TOKENS.DIVISION: return x / y;
             }
             throw new Exception("Unrecognised operator - " + op);
         }
