@@ -6,25 +6,18 @@ using System.Threading.Tasks;
 
 namespace DataDomain
 {
-    public enum SUPPORTED_TOKENS
-    {
-        INTEGER, //supported data types.
-        PLUS, MINUS, DIVISION, MULTIPLICATION, //supported ops.
-        WHITE_SPACE, OPEN_BRACKET, CLOSE_BRACKET
-    }; //Miscellaneous characters.
-
     public class Token
     {
-        private SUPPORTED_TOKENS type;
+        private Globals.SUPPORTED_TOKENS type;
         private string value;
 
         public Token()
         {
-            type = SUPPORTED_TOKENS.WHITE_SPACE;
+            type = Globals.SUPPORTED_TOKENS.WHITE_SPACE;
             value = "";
         }
 
-        public Token(SUPPORTED_TOKENS type, string value)
+        public Token(Globals.SUPPORTED_TOKENS type, string value)
         {
             this.type = type;
             this.value = value;
@@ -33,7 +26,7 @@ namespace DataDomain
         /*
          * Get the type of token.
          */
-        public SUPPORTED_TOKENS GetType()
+        public Globals.SUPPORTED_TOKENS GetType()
         {
             return type;
         }
@@ -49,7 +42,7 @@ namespace DataDomain
         /*
          * Set the token type.
          */
-        public void SetType(SUPPORTED_TOKENS type)
+        public void SetType(Globals.SUPPORTED_TOKENS type)
         {
             this.type = type;
         }

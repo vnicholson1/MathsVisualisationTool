@@ -27,7 +27,25 @@ namespace MathsVisualisationTool
         /// </summary>
         public void checkTokens()
         {
+            int bracketLevel = 0;
 
+            for(int i=0;i<gatheredTokens.Count;i++)
+            {
+                /*if(gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.INTEGER)
+                {
+                    throw new SyntaxErrorException("Integer expected");
+                }*/
+            }
         }
+
+        /*
+         * Things the syntax analyser needs to check: 
+         * if there are the same number of open and close brackets.
+         * Cannot have consecutive ** or //
+         * Number must be followed by an operator.
+         * 
+         * 
+         * 
+         */
     }
 }
