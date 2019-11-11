@@ -84,10 +84,18 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="common\KeyPadController.cs" />
+    <Compile Include="resources\App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
     <ApplicationDefinition Include="resources\App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+    <Page Include="views\KeyPad.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    </Page>
     <Page Include="views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -154,6 +162,45 @@
       <Project>{e99a2845-a6ab-48aa-acfd-16fc9afce5cf}</Project>
       <Name>DataDomain</Name>
     </ProjectReference>
+    <Resource Include="images\greek\alpha.png" />
+    <Resource Include="images\greek\beta.png" />
+    <Resource Include="images\greek\Delta.png" />
+    <Resource Include="images\greek\epsilon.png" />
+    <Resource Include="images\greek\gamma.png" />
+    <Resource Include="images\greek\theta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\greek\lambda.png" />
+    <Resource Include="images\greek\mu.png" />
+    <Resource Include="images\greek\omega.png" />
+    <Resource Include="images\greek\phi.png" />
+    <Resource Include="images\greek\psi.png" />
+    <Resource Include="images\greek\Sigma.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\greek\delt.png" />
+    <Resource Include="images\greek\Ohm.png" />
+    <Resource Include="images\greek\rho.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\arithmetic\add.png" />
+    <Resource Include="images\arithmetic\cdot.png" />
+    <Resource Include="images\arithmetic\cos.png" />
+    <Resource Include="images\arithmetic\div.png" />
+    <Resource Include="images\arithmetic\exp.png" />
+    <Resource Include="images\arithmetic\frac.png" />
+    <Resource Include="images\arithmetic\indice.png" />
+    <Resource Include="images\arithmetic\leftBracket.png" />
+    <Resource Include="images\arithmetic\mul.png" />
+    <Resource Include="images\arithmetic\nSqrt.png" />
+    <Resource Include="images\arithmetic\rightBracket.png" />
+    <Resource Include="images\arithmetic\sin.png" />
+    <Resource Include="images\arithmetic\sqrt.png" />
+    <Resource Include="images\arithmetic\sub.png" />
+    <Resource Include="images\arithmetic\tan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\arithmetic\pi.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
