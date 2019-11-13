@@ -85,6 +85,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="common\KeyPadController.cs" />
+    <Compile Include="config\VariableJSONObject.cs" />
+    <Compile Include="interpreter\VariableFileHandle.cs" />
     <Compile Include="resources\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -129,6 +131,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="config\variables.json" />
     <None Include="documentation\testDoc.pdf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

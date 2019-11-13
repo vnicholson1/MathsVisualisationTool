@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Parser.FSharpImplementation;
 using DataDomain;
 
 namespace MathsVisualisationTool
@@ -13,13 +13,20 @@ namespace MathsVisualisationTool
 
         private Lexer lexer;
         private Parser parser;
+        private Hashtable vars;
 
         public Interpreter()
         {
             lexer = new Lexer();
-            parser = new Parser();
+            vars = VariableFileHandle.getVariables();
+            parser = new Parser(vars);
         }
 
+        /// <summary>
+        /// Method to run the interpreter given a certain input.
+        /// </summary>
+        /// <param name="codeToRun"></param>
+        /// <returns></returns>
         public string RunInterpreter(string codeToRun)
         {
             //Use the lexer to tokenise the input
@@ -28,6 +35,5 @@ namespace MathsVisualisationTool
             double result = parser.AnalyseTokens(tokens);
             return Convert.ToString(result);
         }
-
     }
 }

@@ -209,26 +209,6 @@ namespace MathsVisualisationTool
 
             return new Token(listType,value);
         }
-
-        /// <summary>
-        /// Function to load the interpreter's configuration file stored in config.
-        /// </summary>
-        /// <returns></returns>
-        private JToken LoadInterpreterConfig()
-        {
-            //Get current WORKING directory (i.e. \bin\debug)
-            string workingDirectory = Directory.GetCurrentDirectory();
-
-            //Get PROJECT directory 
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-
-            string filePath = Path.GetFullPath(Path.Combine(projectDirectory + "\\config\\InterpreterConfig.json"));
-            JObject jsonObject = JObject.Parse(File.ReadAllText(filePath));
-
-            JToken con = jsonObject["INTERPRETER_CONFIG"];
-
-            return con; 
-        }
     }
     
 }

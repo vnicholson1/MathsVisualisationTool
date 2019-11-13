@@ -16,10 +16,12 @@ namespace MathsVisualisationTool
         private Token nextToken = null;
         //the index of the NEXT token to be analysed when getNextToken() is called.
         private int index = 0;
-        
-        public Parser()
+        //Hashtable for storing a list of known variables
+        private Hashtable variables = null;
+
+        public Parser(Hashtable variables)
         {
-            
+            this.variables = variables;
         }
 
         /// <summary>
@@ -131,7 +133,7 @@ namespace MathsVisualisationTool
 
             getNextToken();
 
-            return ne.Evaluate();
+            return ne.Evaluate(variables);
         }
 
         /// <summary>
@@ -165,7 +167,7 @@ namespace MathsVisualisationTool
             }
 
             Expression ne = new Operation(left, op, right);
-            return ne.Evaluate();
+            return ne.Evaluate(variables);
         }
 
         /// <summary>

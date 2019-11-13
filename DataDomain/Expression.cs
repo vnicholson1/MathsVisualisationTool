@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace DataDomain
         /// </summary>
         /// <param name="vars"></param>
         /// <returns></returns>
-        public abstract double Evaluate();
+        public abstract double Evaluate(Hashtable vars);
     }
 
     /// <summary>
@@ -33,9 +34,31 @@ namespace DataDomain
         /// </summary>
         /// <param name="vars"></param>
         /// <returns></returns>
-        public override double Evaluate()
+        public override double Evaluate(Hashtable vars)
         {
             return value;
+        }
+    }
+
+    /// <summary>
+    /// Class representing a user defined variable reference.
+    /// </summary>
+    public class VariableRef : Expression
+    {
+        string name;
+        public VariableRef(string name)
+        {
+            this.name = name;
+        }
+
+        public override double Evaluate(Hashtable vars)
+        {
+            object value = vars[name];
+            if (value == null)
+            {
+                throw new Exception("Unknown variable: " + name);
+            }
+            return Convert.ToDouble(value);
         }
     }
 
@@ -52,10 +75,10 @@ namespace DataDomain
             this.right = right;
         }
 
-        public override double Evaluate()
+        public override double Evaluate(Hashtable vars)
         {
-            double x = left.Evaluate();
-            double y = right.Evaluate();
+            double x = left.Evaluate(vars);
+            double y = right.Evaluate(vars);
 
             switch (op)
             {

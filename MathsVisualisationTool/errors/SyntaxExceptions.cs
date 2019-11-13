@@ -17,4 +17,16 @@ namespace MathsVisualisationTool
         {
         }
     }
+
+    public class VariableReferenceException : SyntaxErrorException
+    {
+        public VariableReferenceException()
+        {
+        }
+
+        public VariableReferenceException(string message)
+        : base(message)
+        {
+        }
+    }
 }
