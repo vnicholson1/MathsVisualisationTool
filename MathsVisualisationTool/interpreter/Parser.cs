@@ -56,7 +56,7 @@ namespace MathsVisualisationTool
             while (nextToken != null)
             {
                 Globals.SUPPORTED_TOKENS tokenType = nextToken.GetType();
-                if (tokenType == Globals.SUPPORTED_TOKENS.INTEGER)
+                if (tokenType == Globals.SUPPORTED_TOKENS.CONSTANT_INT)
                 {
                     //If the next token is an int, then just collect the value
                     value = Convert.ToDouble(nextToken.GetValue());
@@ -124,7 +124,7 @@ namespace MathsVisualisationTool
             //Prevent division by zero
             if (rightValue == 0 && op == Globals.SUPPORTED_TOKENS.DIVISION)
             {
-                throw new Exception("Cannot divide by zero");
+                throw new DivideByZeroException("Cannot divide by zero");
             }
 
             Expression ne = new Operation(left, op, right);
@@ -151,7 +151,7 @@ namespace MathsVisualisationTool
             //Now look at the token after the operator
             getNextToken();
 
-            if(nextToken.GetType() == Globals.SUPPORTED_TOKENS.INTEGER)
+            if(nextToken.GetType() == Globals.SUPPORTED_TOKENS.CONSTANT_INT)
             {
                 //A number so just extract the value from it.
                 right = new Constant(Convert.ToDouble(nextToken.GetValue()));

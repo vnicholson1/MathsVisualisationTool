@@ -29,23 +29,72 @@ namespace MathsVisualisationTool
         {
             int bracketLevel = 0;
 
+            if(gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.MULTIPLICATION 
+                || gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.DIVISION
+                || gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
+            {
+                throw new SyntaxErrorException("Expression cannot start with a multiplication, division or a closing bracket.");
+            }
+
+            Globals.SUPPORTED_TOKENS previousToken = Globals.SUPPORTED_TOKENS.WHITE_SPACE;
+
             for(int i=0;i<gatheredTokens.Count;i++)
             {
-                /*if(gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.INTEGER)
+                switch (gatheredTokens[i].GetType())
                 {
-                    throw new SyntaxErrorException("Integer expected");
-                }*/
+                    case Globals.SUPPORTED_TOKENS.OPEN_BRACKET:
+                        bracketLevel++;
+                        break;
+
+                    case Globals.SUPPORTED_TOKENS.CLOSE_BRACKET:
+                        if(bracketLevel == 0)
+                        {
+                            throw new SyntaxErrorException("Close bracket found without supporting open bracket at position - " + i + " .");
+                        }
+                        bracketLevel--;
+                        break;
+
+                    case Globals.SUPPORTED_TOKENS.MULTIPLICATION:
+                        //prevent situations like 2+*3 because this doesn't make sense.
+                        multAndDivisionCheck(previousToken,i);
+                        break;
+
+                    case Globals.SUPPORTED_TOKENS.DIVISION:
+                        multAndDivisionCheck(previousToken,i);
+                        break;
+
+                    case Globals.SUPPORTED_TOKENS.VARIABLE_TYPE:
+                        //Variable type should be the first token.
+                        if(i != 0)
+                        {
+                            throw new SyntaxErrorException("Variable type found in unexpected position. ");
+                        }
+
+                        //Syntax should be VARIABLE_TYPE VARIABLE_NAME = ANYTHING
+                        break;
+
+                    default:
+                        break;
+                }
+
+                previousToken = gatheredTokens[i].GetType();
+            }
+
+            if(bracketLevel != 0)
+            {
+                throw new SyntaxErrorException("No supporting closing bracket found.");
             }
         }
 
-        /*
-         * Things the syntax analyser needs to check: 
-         * if there are the same number of open and close brackets.
-         * Cannot have consecutive ** or //
-         * Number must be followed by an operator.
-         * 
-         * 
-         * 
-         */
+        public void multAndDivisionCheck(Globals.SUPPORTED_TOKENS previousToken,int index)
+        {
+            if (previousToken == Globals.SUPPORTED_TOKENS.MINUS
+                            || previousToken == Globals.SUPPORTED_TOKENS.PLUS
+                            || previousToken == Globals.SUPPORTED_TOKENS.MULTIPLICATION
+                            || previousToken == Globals.SUPPORTED_TOKENS.DIVISION)
+            {
+                throw new SyntaxErrorException("Integer expected at token position - " + index + " .");
+            }
+        }
     }
 }

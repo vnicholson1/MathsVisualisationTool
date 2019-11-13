@@ -10,7 +10,6 @@ namespace MathsVisualisationTool
     {
         public SyntaxErrorException()
         {
-
         }
 
         public SyntaxErrorException(string message)

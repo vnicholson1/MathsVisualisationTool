@@ -30,23 +30,22 @@ namespace MathsVisualisationTool
             List<Token> tokens = new List<Token>();
 
             //Go through the line of code added by the user.
+            int index = 0;
             foreach( char c in input)
             {
-                if(char.IsWhiteSpace(c))
-                {
-                    continue;
-                }
-
                 //Is it a digit?
                 if(char.IsDigit(c))
                 {
-                    
-                    if(typeInList.Equals(Globals.SUPPORTED_TOKENS.INTEGER))
+                    //Variable names can contain numbers
+                    if(typeInList == Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
+                    {
+                        characters.Add(c);
+                    }
+                    else if(typeInList.Equals(Globals.SUPPORTED_TOKENS.CONSTANT_INT))
                     {
                         characters.Add(c);
                     } else
                     {
-                        
                         //create a new token and add it to the list.
                         if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                         {
@@ -54,13 +53,12 @@ namespace MathsVisualisationTool
                             tokens.Add(tokenToAdd);
                         }
                         characters = new List<char>(){c};
-                        typeInList = Globals.SUPPORTED_TOKENS.INTEGER;
+                        typeInList = Globals.SUPPORTED_TOKENS.CONSTANT_INT;
                     }
                 }
 
-                if(c == '+')
+                else if(c == '+')
                 {
-                    //For now if there are consecutive '+' ops it labels them as two seperate + symbols.
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
                         tokenToAdd = TokeniseList(characters, typeInList);
@@ -70,7 +68,7 @@ namespace MathsVisualisationTool
                     typeInList = Globals.SUPPORTED_TOKENS.PLUS;
                 }
 
-                if (c == '-')
+                else if (c == '-')
                 {
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
@@ -81,7 +79,7 @@ namespace MathsVisualisationTool
                     typeInList = Globals.SUPPORTED_TOKENS.MINUS;
                 }
 
-                if (c == '*')
+                else if (c == '*')
                 {
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
@@ -92,7 +90,7 @@ namespace MathsVisualisationTool
                     typeInList = Globals.SUPPORTED_TOKENS.MULTIPLICATION;
                 }
 
-                if (c == '/')
+                else if(c == '/')
                 {
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
@@ -103,7 +101,7 @@ namespace MathsVisualisationTool
                     typeInList = Globals.SUPPORTED_TOKENS.DIVISION;
                 }
 
-                if (c == '(')
+                else if(c == '(')
                 {
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
@@ -114,7 +112,7 @@ namespace MathsVisualisationTool
                     typeInList = Globals.SUPPORTED_TOKENS.OPEN_BRACKET;
                 }
 
-                if (c == ')')
+                else if(c == ')')
                 {
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
@@ -124,6 +122,48 @@ namespace MathsVisualisationTool
                     characters = new List<char>() { c };
                     typeInList = Globals.SUPPORTED_TOKENS.CLOSE_BRACKET;
                 }
+
+                else if(c == '=')
+                {
+                    if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
+                    {
+                        tokenToAdd = TokeniseList(characters, typeInList);
+                        tokens.Add(tokenToAdd);
+                    }
+                    characters = new List<char>() { c };
+                    typeInList = Globals.SUPPORTED_TOKENS.ASSIGNMENT;
+                }
+                else if (char.IsLetter(c))
+                {
+                    if (typeInList.Equals(Globals.SUPPORTED_TOKENS.VARIABLE_NAME))
+                    {
+                        characters.Add(c);
+                        //Check if a keyword has been found.
+                        string word = TokeniseList(characters, typeInList).GetValue();
+
+                        //Check if it is a reserved word and that the next character is whitespace
+                        if(Globals.reservedWords.Contains(word) && input[(index+1)] == ' ')
+                        {
+                            tokenToAdd = new Token(Globals.SUPPORTED_TOKENS.VARIABLE_TYPE, word);
+                            tokens.Add(tokenToAdd);
+
+                            characters = new List<char>();
+                            typeInList = Globals.SUPPORTED_TOKENS.WHITE_SPACE;
+                        }
+                    }
+                    else
+                    {
+                        //create a new token and add it to the list.
+                        if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
+                        {
+                            tokenToAdd = TokeniseList(characters, typeInList);
+                            tokens.Add(tokenToAdd);
+                        }
+                        characters = new List<char>() { c };
+                        typeInList = Globals.SUPPORTED_TOKENS.VARIABLE_NAME;
+                    }
+                }
+                index++;
             }
 
             if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
@@ -131,6 +171,8 @@ namespace MathsVisualisationTool
                 tokenToAdd = TokeniseList(characters, typeInList);
                 tokens.Add(tokenToAdd);
             }
+
+            PrintTokens(tokens);
 
             return tokens;
         }
