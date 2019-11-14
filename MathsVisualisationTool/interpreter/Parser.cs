@@ -16,7 +16,10 @@ namespace MathsVisualisationTool
         private Token nextToken = null;
         //the index of the NEXT token to be analysed when getNextToken() is called.
         private int index = 0;
-        //Hashtable for storing a list of known variables
+        //Hashtable for storing a list of known variables.
+        //It is stored in the form:
+        // key   -> Variable name.
+        // value -> A Tuple consisting of (Variable value, Variable type).
         private Hashtable variables = null;
 
         public Parser(Hashtable variables)
@@ -85,9 +88,34 @@ namespace MathsVisualisationTool
                     //if its a close bracket then just return.
                     getNextToken();
                     return value;
+                } else if (tokenType == Globals.SUPPORTED_TOKENS.VARIABLE_TYPE)
+                {
+                    //If a variable type has been found then means its a variable assignment
+                    variableAssignmentHandle();
                 }
             }
             return value;
+        }
+
+        /// <summary>
+        /// Function for handling when a new variable is being declared.
+        /// </summary>
+        private void variableAssignmentHandle()
+        {
+            //current token is the type.
+            string type = nextToken.GetValue();
+            getNextToken();
+
+            //next token will be its name
+            string name = nextToken.GetValue();
+            getNextToken();
+            //get the assignment operator
+            getNextToken();
+
+            //get the expression.
+            string value = Convert.ToString(analyseExpressions(double.NaN));
+
+            variables[name] = new Tuple<string, string>(type,value);
         }
 
         /// <summary>

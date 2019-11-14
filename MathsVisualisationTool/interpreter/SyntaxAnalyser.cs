@@ -70,7 +70,7 @@ namespace MathsVisualisationTool
                             throw new SyntaxErrorException("Variable type found in unexpected position. ");
                         }
 
-                        //Syntax should be VARIABLE_TYPE VARIABLE_NAME = ANYTHING
+                        //Syntax should be VARIABLE_TYPE VARIABLE_NAME = EXPRESSION
                         break;
 
                     default:
