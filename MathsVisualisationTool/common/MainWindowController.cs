@@ -37,6 +37,7 @@ namespace MathsVisualisationTool
             inputBox.KeyDown += new KeyEventHandler(InputBox_KeyDown);
         }
 
+
         /****************************************************************************************************/
 
         private void CommonCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -114,29 +115,7 @@ namespace MathsVisualisationTool
                 this.inputBox.Focus();
             }
         }
-        /****************************************************************************************************/
-        /************************************** STANDARD TOP MENU FUNCTIONS *********************************/
 
-        /*
-         * OnExitMenuClicked - Handle event if the Exit button is 
-         *                  clicked from the standard File Menu.
-         */
-        private void OnExitMenuClicked(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Goodbye - Thankyou for using SolveIT!");
-            Environment.Exit(0);
-        }
-
-        /*
-         * OnTestDocClicked -  
-         */
-        private void OnTestDocClicked(object sender, RoutedEventArgs e)
-        {
-            XpsDocument testDocument = new XpsDocument("../../documentation/testDoc.xps", FileAccess.Read);
-            documentViewer.Document = testDocument.GetFixedDocumentSequence();
-        }
-
-        /********************************** END OF STANDARD TOP MENU FUNCTIONS ******************************/
 
         /*
          * EnterKeyPressed - Handle event if the Enter key has been 
@@ -197,6 +176,124 @@ namespace MathsVisualisationTool
             }
 
         }
+
+        /****************************************************************************************************/
+        /************************************** STANDARD TOP MENU FUNCTIONS *********************************/
+
+        /*
+         * OnExitMenuClicked - Handle event if the Exit button is 
+         *                  clicked from the standard File Menu.
+         */
+        private void OnExitMenuClicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Goodbye - Thankyou for using SolveIT!");
+            Environment.Exit(0);
+        }
+
+        /*
+         * OnTestDocClicked -  
+         */
+        private void OnTestDocClicked(object sender, RoutedEventArgs e)
+        {
+            XpsDocument testDocument = new XpsDocument("../../documentation/testDoc.xps", FileAccess.Read);
+            documentViewer.Document = testDocument.GetFixedDocumentSequence();
+        }
+
+        /********************************** END OF STANDARD TOP MENU FUNCTIONS ******************************/
+
+        /**************************************** TOOLBAR MENU FUNCTIONS ************************************/
+
+        /*
+         * OnUndo_Clicked -  Handle event if the Undo button is 
+         *                      click from the toolbar
+         */
+        private void OnUndo_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Undo Clicked - Fix it");
+        }
+
+        /*
+         * OnRedo_Clicked -  Handle event if the Redo button is 
+         *                  click from the toolbar
+         */
+        private void OnRedo_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Redo Clicked - Fix it");
+        }
+
+        /*
+         * OnForward_Clicked -  Handle event if the Forward button is 
+         *                      click from the toolbar
+         */
+        private void OnForward_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Forward Clicked - Fix it");
+        }
+
+        /*
+         * OnBack_Clicked -  Handle event if the Back button is 
+         *                  click from the toolbar
+         */
+        private void OnBack_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Back Clicked - Fix it");
+        }
+
+        /*
+         * OnNew_Clicked -  Handle event if the New button is 
+         *                  click from the toolbar
+         */
+        private void OnNew_Clicked(object sender, RoutedEventArgs e)
+         {
+            MessageBox.Show("New Clicked - Fix it");
+         }
+
+        /*
+         * OnOpen_Clicked -  Handle event if the Open button is 
+         *                  click from the toolbar
+         */
+        private void OnOpen_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Open Clicked - Fix it");
+        }
+
+        /*
+         * OnSave_Clicked - Handle event if the Save button is 
+         *                  click from the toolbar
+         */
+        private void OnSave_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Save Clicked - Fix it");
+        }
+
+        /*
+         * OnCut_Clicked -  Handle event if the Cut button is 
+         *                  click from the toolbar
+         */
+        private void OnCut_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Cut Clicked - Fix it");
+        }
+
+        /*
+         * OnCopy_Clicked - Handle event if the Copy button is 
+         *                  click from the toolbar
+         */
+        private void OnCopy_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Copy Clicked - Fix it");
+        }
+
+        /*
+         * OnPaste_Clicked - Handle event if the Paste button is 
+         *                   click from the toolbar
+         */
+        private void OnPaste_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Paste Clicked - Fix it");
+        }
+
+        /************************************ END OF TOOLBAR MENU FUNCTIONS *********************************/
 
         /********************************* GREEK CHARACTERS KEYPAD FUNCTIONS ********************************/
 

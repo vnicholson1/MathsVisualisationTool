@@ -93,6 +93,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="styles\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="views\KeyPad.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -241,6 +245,17 @@
     <Resource Include="images\icons\services.png" />
     <Resource Include="images\icons\settings.png" />
     <Resource Include="images\icons\userMan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icons\newFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icons\altRedo.png" />
+    <Resource Include="images\icons\altUndo.png" />
+    <Resource Include="images\icons\back.png" />
+    <Resource Include="images\icons\forward.png" />
+    <Resource Include="images\icons\redo.png" />
+    <Resource Include="images\icons\undo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
