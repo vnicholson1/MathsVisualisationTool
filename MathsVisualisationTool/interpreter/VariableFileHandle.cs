@@ -50,12 +50,11 @@ namespace MathsVisualisationTool
         }
 
         /// <summary>
-        /// Method to update the variables gathered by the parser.
+        /// Method to save the gathered variables into the variables file.
         /// </summary>
-        /// <param name="newVars"></param>
-        public static void updateVariables(Hashtable newVars)
+        public static void saveVariables(Hashtable vars)
         {
-            throw new NotImplementedException();
+            WriteToVariableFile(vars);
         }
 
         /// <summary>

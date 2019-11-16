@@ -42,6 +42,23 @@ namespace MathsVisualisationTool
         /// <returns>Returns a list of tokens with brackets added.</returns>
         private List<Token> parenthesiseTokens(List<Token> tokens)
         {
+            //Removed tokens - to store tokens not part of an expression.
+            List<Token> removedTokens = new List<Token>();
+            //Check if the input contains any variable assignments
+            int index = 0;
+            foreach (Token t in tokens)
+            {
+                if(t.GetType() == Globals.SUPPORTED_TOKENS.ASSIGNMENT)
+                {
+                    for(int i=0;i<=index;i++)
+                    {
+                        removedTokens.Add(tokens[0]);
+                        tokens.RemoveAt(0);
+                    }
+                    break;
+                }
+                index++;
+            }
 
             List<List<Token>> listOfExpressions = new List<List<Token>>();
 
@@ -106,7 +123,9 @@ namespace MathsVisualisationTool
                 }
             }
 
-            return listOfExpressions[0];
+            removedTokens.AddRange(listOfExpressions[0]);
+
+            return removedTokens;
         }
 
 

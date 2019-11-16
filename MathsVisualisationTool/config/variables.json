@@ -1,7 +1,17 @@
 [
   {
     "name": "x",
-    "value": "3",
+    "value": "4",
+    "type": "int"
+  },
+  {
+    "name": "y",
+    "value": "4",
+    "type": "int"
+  },
+  {
+    "name": "z",
+    "value": "63",
     "type": "int"
   }
 ]

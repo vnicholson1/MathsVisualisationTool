@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using DataDomain;
 
 namespace MathsVisualisationTool
-{ 
+{
     class Parser
     {
         //List of tokens gathered by the lexer.
@@ -47,6 +47,9 @@ namespace MathsVisualisationTool
             getNextToken();
 
             double value = analyseExpressions(double.NaN);
+
+            VariableFileHandle.saveVariables(variables);
+
             return value;
         }
 
@@ -83,12 +86,14 @@ namespace MathsVisualisationTool
                     //the brackets.
                     getNextToken();
                     value = analyseExpressions(value);
-                } else if (tokenType == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
+                }
+                else if (tokenType == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
                 {
                     //if its a close bracket then just return.
                     getNextToken();
                     return value;
-                } else if (tokenType == Globals.SUPPORTED_TOKENS.VARIABLE_TYPE)
+                }
+                else if (tokenType == Globals.SUPPORTED_TOKENS.VARIABLE_TYPE)
                 {
                     //If a variable type has been found then means its a variable assignment
                     variableAssignmentHandle();
@@ -115,7 +120,7 @@ namespace MathsVisualisationTool
             //get the expression.
             string value = Convert.ToString(analyseExpressions(double.NaN));
 
-            variables[name] = new Tuple<string, string>(type,value);
+            variables[name] = new Tuple<string, string>(value, type);
         }
 
         /// <summary>
@@ -143,7 +148,8 @@ namespace MathsVisualisationTool
             {
                 getNextToken();
                 rightValue = analyseExpressions(value);
-            } else
+            }
+            else
             {
                 //else its just a number so extract the value of it.
                 rightValue = Convert.ToDouble(nextToken.GetValue());
@@ -181,13 +187,14 @@ namespace MathsVisualisationTool
             //Now look at the token after the operator
             getNextToken();
 
-            if(nextToken.GetType() == Globals.SUPPORTED_TOKENS.CONSTANT_INT)
+            if (nextToken.GetType() == Globals.SUPPORTED_TOKENS.CONSTANT_INT)
             {
                 //A number so just extract the value from it.
                 right = new Constant(Convert.ToDouble(nextToken.GetValue()));
                 //Then call get next token.
                 getNextToken();
-            } else if (nextToken.GetType() == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
+            }
+            else if (nextToken.GetType() == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
             {
                 getNextToken();
                 //recursively call to analyse the expression enclosed in brackets.
@@ -204,30 +211,14 @@ namespace MathsVisualisationTool
         /// </summary>
         private void getNextToken()
         {
-            if(index < tokens.Count)
+            if (index < tokens.Count)
             {
                 nextToken = tokens[index];
                 index++;
-            } else
-            {
-                nextToken = null;
-            }
-        }
-
-        /// <summary>
-        /// Private function to peek at the next token. Returns the next token without
-        /// setting nextToken. Returns null if there is no next token.
-        /// </summary>
-        /// <returns></returns>
-        private Token peek()
-        {
-            if (index < tokens.Count)
-            {
-                return tokens[index];
             }
             else
             {
-                return null;
+                nextToken = null;
             }
         }
     }
