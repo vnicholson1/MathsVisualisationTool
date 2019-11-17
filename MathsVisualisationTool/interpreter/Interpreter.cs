@@ -39,7 +39,7 @@ namespace MathsVisualisationTool
             if(double.IsNaN(result))
             {
                 //this means a variable assignment has occured
-                return "var " + parser.varName + " = \n\t\t" + vars[parser.varName];
+                return "\tvar " + parser.varName + " = \n\t\t" + vars[parser.varName];
             } else
             {
                 string res = Convert.ToString(result);
@@ -48,7 +48,7 @@ namespace MathsVisualisationTool
 
                 VariableFileHandle.saveVariables(vars);
 
-                return "var ANS = \n\t\t" + Convert.ToString(result);
+                return "\tvar ANS = \n\t\t" + Convert.ToString(result);
             }
             
         }
