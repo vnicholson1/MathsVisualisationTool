@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Xps.Packaging;
+using System.IO;
 
 namespace MathsVisualisationTool
 {
@@ -35,40 +37,308 @@ namespace MathsVisualisationTool
             inputBox.KeyDown += new KeyEventHandler(InputBox_KeyDown);
         }
 
-        /************************************** STANDARD TOP MENU FUNCTIONS *********************************/
-        
-        /*
-         * OnExitMenuClicked - Handle event if the Exit button is 
-         *                  clicked from the standard File Menu.
-         */
-        private void OnExitMenuClicked(object sender, RoutedEventArgs e) 
+
+        /****************************************************************************************************/
+
+        private void CommonCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            MessageBox.Show("Goodbye - Thankyou for using SolveIT!");
-            Environment.Exit(0);
+            e.CanExecute = true;
         }
 
-        /********************************** END OF STANDARD TOP MENU FUNCTIONS ******************************/
+        /****************************************************************************************************/
+
+        private void OnDrag(object sender, MouseButtonEventArgs e)
+        {
+            if (e.Source is Button draggedBtn)
+            {
+                DragDrop.DoDragDrop(draggedBtn, draggedBtn, DragDropEffects.Copy);
+            }
+        }
+
+        void onDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetData(e.Data.GetFormats()[0]) is Button droppedBtn)
+            {
+                functionPanel.Children.Remove(droppedBtn);
+                favsPanel.Children.Add(droppedBtn);
+            }
+        }
+
+        private void OnDrop(object sender, DragEventArgs e)
+        {
+            IDataObject draggedData = NewMethod(e);
+            if (draggedData.GetData(draggedData.GetFormats()[0]) is Button droppedBtn)
+            {
+                functionPanel.Children.Remove(droppedBtn);
+                favsPanel.Children.Add(droppedBtn);
+            }
+        }
+
+        private static IDataObject NewMethod(DragEventArgs e)
+        {
+            return e.Data;
+        }
+
+        /****************************************************************************************************/
 
         /*
-         * OnSubmitClicked - Handle event if the Submit button is 
+         * OnRun_Clicked - Handle event if the Run/Submit button is 
          *                  clicked.
          */
-        private void OnSubmitClicked(object sender, RoutedEventArgs e)
+        private void OnRun_Clicked(object sender, RoutedEventArgs e)
         {
             //HandleTextEnter();
-            if (this.inputBox.Text != " ")
+            if (this.inputBox.Text != "")
             {
-                Results.Items.Add(this.inputBox.Text);
+                Results.Items.Add(">>> \t" + this.inputBox.Text);
+                //Interpreter String called results
+                Interpreter i = new Interpreter();
+                //string output = i.RunInterpreter(inputBox.Text);
+                Results.Items.Add("\t\t\t Ans = " + i.RunInterpreter(inputBox.Text));
+                /**************************************************************************************/
+                //Look at putting NaN "checker" here
+                //if (output != "NaN")
+                //{
+                //    Results.Items.Add("\t\t\t Ans = " + i.RunInterpreter(inputBox.Text));
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Error");
+                //}
+                /**************************************************************************************/
                 this.inputBox.Focus();
                 this.inputBox.Clear();
-               
             }
             else
             {
                 MessageBox.Show("ERROR");
                 this.inputBox.Focus();
-            }       
+            }
         }
+
+
+        /*
+         * EnterKeyPressed - Handle event if the Enter key has been 
+         *                  pressed.
+         */
+        //private void EnterKeyPressed(object sender, RoutedEventArgs e)
+        //{
+        //    HandleTextEnter();
+        //}
+
+        /*
+         * InputBox_KeyDown - Handle event if the return button has 
+         *                  been pressed.
+         */
+        private void InputBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                //HandleTextEnter();
+                e.Handled = true;
+                if (this.inputBox.Text != " ")
+                {
+                    Results.Items.Add(">>> \t" + this.inputBox.Text);
+                    //Interpreter String called results
+                    Interpreter i = new Interpreter();
+                    Results.Items.Add("\t\t\t Ans = " + i.RunInterpreter(inputBox.Text));
+                    this.inputBox.Focus();
+                    this.inputBox.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("ERROR");
+                    this.inputBox.Focus();
+                }
+            }
+        }
+
+        /*
+         * HandleTextEnter - Handle the text enter and put the contents 
+         *                  of the text box into the interpreter.
+         */
+        private void HandleTextEnter()
+        {
+            string content = inputBox.Text;
+            inputBox.Clear();
+
+            Interpreter interp = new Interpreter();
+
+            try
+            {
+                string output = interp.RunInterpreter(content);
+                Console.WriteLine(output); //output onto the screen
+            }
+            catch (Exception e)
+            {
+                string output = e.ToString();
+                Console.WriteLine(output); //output onto the screen but in red.
+            }
+
+        }
+
+        /****************************************************************************************************/
+        /************************************** STANDARD TOP MENU FUNCTIONS *********************************/
+
+        /*
+         * OnExitMenuClicked - Handle event if the Exit button is 
+         *                  clicked from the standard File Menu.
+         */
+        private void OnExitMenuClicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Goodbye - Thankyou for using SolveIT!");
+            Environment.Exit(0);
+        }
+
+        /*
+         * OnTestDocClicked -  
+         */
+        private void OnTestDocClicked(object sender, RoutedEventArgs e)
+        {
+            XpsDocument testDocument = new XpsDocument("../../documentation/testDoc.xps", FileAccess.Read);
+            documentViewer.Document = testDocument.GetFixedDocumentSequence();
+        }
+
+        /********************************** END OF STANDARD TOP MENU FUNCTIONS ******************************/
+
+        /**************************************** TOOLBAR MENU FUNCTIONS ************************************/
+
+        /*
+         * OnUndo_Clicked -  Handle event if the Undo button is 
+         *                      click from the toolbar
+         */
+        private void OnUndo_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Undo Clicked - Fix it");
+        }
+
+        /*
+         * OnRedo_Clicked -  Handle event if the Redo button is 
+         *                  click from the toolbar
+         */
+        private void OnRedo_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Redo Clicked - Fix it");
+        }
+
+        /*
+         * OnForward_Clicked -  Handle event if the Forward button is 
+         *                      click from the toolbar
+         */
+        private void OnForward_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Forward Clicked - Fix it");
+        }
+
+        /*
+         * OnBack_Clicked -  Handle event if the Back button is 
+         *                  click from the toolbar
+         */
+        private void OnBack_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Back Clicked - Fix it");
+        }
+
+        /*
+         * OnNew_Clicked -  Handle event if the New button is 
+         *                  click from the toolbar
+         */
+        private void OnNew_Clicked(object sender, RoutedEventArgs e)
+         {
+            MessageBox.Show("New Clicked - Fix it");
+         }
+
+        /*
+         * OnOpen_Clicked -  Handle event if the Open button is 
+         *                  click from the toolbar
+         */
+        private void OnOpen_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Open Clicked - Fix it");
+        }
+
+        /*
+         * OnSave_Clicked - Handle event if the Save button is 
+         *                  click from the toolbar
+         */
+        private void OnSave_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Save Clicked - Fix it");
+        }
+
+        /*
+         * OnSaveAs_Clicked - Handle event if the Save As button is 
+         *                  click from the toolbar
+         */
+        private void OnSaveAs_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Save As Clicked - Fix it");
+        }
+
+        /*
+         * OnPrint_Clicked - Handle event if the Print button is 
+         *                  click from the toolbar
+         */
+        private void OnPrint_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Print Clicked - Fix it");
+        }
+
+        /*
+         * OnPageSetup_Clicked - Handle event if the Page Setup button is 
+         *                      click from the toolbar
+         */
+        private void OnPageSetup_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Page Setup Clicked - Fix it");
+        }
+
+        /*
+         * OnCut_Clicked -  Handle event if the Cut button is 
+         *                  click from the toolbar
+         */
+        private void OnCut_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Cut Clicked - Fix it");
+        }
+
+        /*
+         * OnCopy_Clicked - Handle event if the Copy button is 
+         *                  click from the toolbar
+         */
+        private void OnCopy_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Copy Clicked - Fix it");
+        }
+
+        /*
+         * OnPaste_Clicked - Handle event if the Paste button is 
+         *                   click from the toolbar
+         */
+        private void OnPaste_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Paste Clicked - Fix it");
+        }
+
+        /*
+         * OnSettings_Clicked - Handle event if the Settings button is 
+         *                  click from the toolbar
+         */
+        private void OnSettings_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Settings Clicked - Fix it");
+        }
+
+        /*
+         * OnHelp_Clicked - Handle event if the Help button is 
+         *                   click from the toolbar
+         */
+        private void OnHelp_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Help Clicked - Fix it");
+        }
+
+        /************************************ END OF TOOLBAR MENU FUNCTIONS *********************************/
 
         /********************************* GREEK CHARACTERS KEYPAD FUNCTIONS ********************************/
 
@@ -253,6 +523,17 @@ namespace MathsVisualisationTool
         /***************************** END OF GREEK CHARACTERS KEYPAD FUNCTIONS *****************************/
 
         /************************** ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS *************************/
+        /*
+         * onEquivilantClicked -   Function for the Equiviliant Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
+         */
+        private void OnEquivilant_Clicked(object sender, RoutedEventArgs e)
+        {
+            // NEED TO THINK ABOUT THIS
+            //this.inputBox.Text += "(";
+        }
 
         /*
          * onLeftBracketClicked -   Function for the Left Bracket Button on the
@@ -276,6 +557,30 @@ namespace MathsVisualisationTool
         {
             // \u0029 => ")" => Right/Closing Parenthesis
             this.inputBox.Text += ")";
+        }
+
+        /*
+         * OnLessEqual_Clicked -   Function for the Less Than or Equal to Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
+         */
+        private void OnLessEqual_Clicked(object sender, RoutedEventArgs e)
+        {
+            // \u0028 => "(" => Left/Opening Parenthesis
+            this.inputBox.Text += "<=";
+        }
+
+        /*
+         * OnMoreEqual_Clicked -  Function for the Greater than or Equal to Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
+         */
+        private void OnMoreEqual_Clicked(object sender, RoutedEventArgs e)
+        {
+            // \u0029 => ")" => Right/Closing Parenthesis
+            this.inputBox.Text += ">=";
         }
 
         /*
@@ -371,13 +676,13 @@ namespace MathsVisualisationTool
         }
 
         /*
-         * onExpoClicked -  Function for the Exponential Button on the
+         * onPercentClicked -  Function for the Percentage Button on the
          *                  keypad in the right side of the Main Window
          *                  Dock Panel
          */
-        private void OnExpo_Clicked(object sender, RoutedEventArgs e)
+        private void OnPercent_Clicked(object sender, RoutedEventArgs e)
         {
-            this.inputBox.Text += "*10^{}";
+            this.inputBox.Text += "%";
         }
 
         /*
@@ -438,6 +743,51 @@ namespace MathsVisualisationTool
         /********************** END OF ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS **********************/
 
         /************************************** NUMERICAL KEYPAD FUNCTIONS **********************************/
+        /*
+         * onEqualClicked -    Function for the equals Button on the
+    *                          keypad in the right side of the Main Window
+    *                          Dock Panel - NOTE: Character can be created
+    *                          with Unicode Escape Characters/Code
+         */
+        private void OnEqual_Clicked(object sender, RoutedEventArgs e)
+        {
+            // \u0028 => "(" => Left/Opening Parenthesis
+            this.inputBox.Text += "=";
+        }
+
+        /*
+         * onLessThanClicked -      Function for the Less than Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
+         */
+        private void OnLessThan_Clicked(object sender, RoutedEventArgs e)
+        {
+            // \u0028 => "(" => Left/Opening Parenthesis
+            this.inputBox.Text += "<";
+        }
+
+        /*
+         * onGreaterThanClicked -   Function for the Greater than Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
+         */
+        private void OnGreaterThan_Clicked(object sender, RoutedEventArgs e)
+        {
+            // \u0029 => ")" => Right/Closing Parenthesis
+            this.inputBox.Text += ">";
+        }
+
+        /*
+         * onDel_Clicked -  Function for the Delete Button on the
+         *                  keypad in the right side of the Main
+         *                  Window Dock Panel
+         */
+        private void OnDel_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Need to have a think about this one
+        }
 
         /*
          * onDecimalClicked -   Function for the Decimal Button on the
@@ -560,50 +910,5 @@ namespace MathsVisualisationTool
         }
 
         /********************************** END OF NUMERICAL KEYPAD FUNCTIONS*******************************/
-        
-        /*
-         * EnterKeyPressed - Handle event if the Enter key has been 
-         *                  pressed.
-         */
-        private void EnterKeyPressed(object sender, RoutedEventArgs e)
-        {
-            HandleTextEnter();
-        }
-
-        /*
-         * InputBox_KeyDown - Handle event if the return button has 
-         *                  been pressed.
-         */ 
-        private void InputBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.Return)
-            {
-                HandleTextEnter();
-                e.Handled = true;
-            }
-        }
-
-        /*
-         * HandleTextEnter - Handle the text enter and put the contents 
-         *                  of the text box into the interpreter.
-         */ 
-        private void HandleTextEnter()
-        {
-            string content = inputBox.Text;
-            inputBox.Clear();
-
-            Interpreter interp = new Interpreter();
-
-            try
-            {
-                string output = interp.RunInterpreter(content);
-                Console.WriteLine(output); //output onto the screen
-            } catch (Exception e)
-            {
-                string output = e.ToString();
-                Console.WriteLine(output); //output onto the screen but in red.
-            }
-           
-        }
     }
 }

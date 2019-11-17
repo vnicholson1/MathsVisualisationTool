@@ -68,6 +68,7 @@
     <Reference Include="Parser">
       <HintPath>..\Parser\obj\Debug\Parser.dll</HintPath>
     </Reference>
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -94,6 +95,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="styles\ButtonStyling.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="styles\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="views\KeyPad.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -132,7 +141,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="config\variables.json" />
-    <None Include="documentation\testDoc.pdf" />
+    <None Include="documentation\testDoc.xps" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -143,9 +152,7 @@
     <None Include="config\App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\alticon.png" />
-    <Resource Include="images\piIcon.png" />
-    <Resource Include="images\pi_Icon.ico" />
+    <Resource Include="images\icons\SolveIT.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="functions\" />
@@ -188,16 +195,36 @@
     <Resource Include="images\greek\rho.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\numerical\ans.png" />
+    <Resource Include="images\numerical\decimal.png" />
+    <Resource Include="images\numerical\eight.png" />
+    <Resource Include="images\numerical\five.png" />
+    <Resource Include="images\numerical\four.png" />
+    <Resource Include="images\numerical\nine.png" />
+    <Resource Include="images\numerical\one.png" />
+    <Resource Include="images\numerical\six.png" />
+    <Resource Include="images\numerical\three.png" />
+    <Resource Include="images\numerical\two.png" />
+    <Resource Include="images\numerical\zero.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\numerical\seven.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\numerical\lessThan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\numerical\moreThan.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="images\arithmetic\add.png" />
-    <Resource Include="images\arithmetic\cdot.png" />
     <Resource Include="images\arithmetic\cos.png" />
     <Resource Include="images\arithmetic\div.png" />
-    <Resource Include="images\arithmetic\exp.png" />
-    <Resource Include="images\arithmetic\frac.png" />
     <Resource Include="images\arithmetic\indice.png" />
     <Resource Include="images\arithmetic\leftBracket.png" />
     <Resource Include="images\arithmetic\mul.png" />
     <Resource Include="images\arithmetic\nSqrt.png" />
+    <Resource Include="images\arithmetic\pi.png" />
     <Resource Include="images\arithmetic\rightBracket.png" />
     <Resource Include="images\arithmetic\sin.png" />
     <Resource Include="images\arithmetic\sqrt.png" />
@@ -205,7 +232,52 @@
     <Resource Include="images\arithmetic\tan.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\arithmetic\pi.png" />
+    <Resource Include="images\arithmetic\percent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\arithmetic\equal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\numerical\approx.png" />
+    <Resource Include="images\arithmetic\equiv.png" />
+    <Resource Include="images\arithmetic\nEqual.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icons\copy.png" />
+    <Resource Include="images\icons\copyToClip.png" />
+    <Resource Include="images\icons\cut.png" />
+    <Resource Include="images\icons\error.png" />
+    <Resource Include="images\icons\folder.png" />
+    <Resource Include="images\icons\help.png" />
+    <Resource Include="images\icons\info.png" />
+    <Resource Include="images\icons\lifebuoy.png" />
+    <Resource Include="images\icons\openFolder.png" />
+    <Resource Include="images\icons\paste.png" />
+    <Resource Include="images\icons\save.png" />
+    <Resource Include="images\icons\saveAs.png" />
+    <Resource Include="images\icons\saveClose.png" />
+    <Resource Include="images\icons\search.png" />
+    <Resource Include="images\icons\services.png" />
+    <Resource Include="images\icons\settings.png" />
+    <Resource Include="images\icons\userMan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icons\newFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icons\back.png" />
+    <Resource Include="images\icons\forward.png" />
+    <Resource Include="images\icons\redo.png" />
+    <Resource Include="images\icons\undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icons\run.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icons\print.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icons\pageSetup.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
