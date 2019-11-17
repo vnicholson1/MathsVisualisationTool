@@ -33,7 +33,23 @@ namespace MathsVisualisationTool
             List<Token> tokens = lexer.TokeniseInput(codeToRun);
             //Then put the gathered tokens into the parser.
             double result = parser.AnalyseTokens(tokens);
-            return Convert.ToString(result);
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //VERY HACKY SOLUTION - WILL OPTIMISE IN LATER COMMITS.
+            if(double.IsNaN(result))
+            {
+                //this means a variable assignment has occured
+
+                //would like to print out say if someone puts x = 3,
+                //then output would be:
+                // var x =
+                //          3
+                return "";
+            } else
+            {
+                return "var ANS = \n\t\t" + Convert.ToString(result);
+            }
+            
         }
     }
 }

@@ -41,7 +41,7 @@ namespace MathsVisualisationTool
                     {
                         characters.Add(c);
                     }
-                    else if(typeInList.Equals(Globals.SUPPORTED_TOKENS.CONSTANT_INT))
+                    else if(typeInList.Equals(Globals.SUPPORTED_TOKENS.CONSTANT))
                     {
                         characters.Add(c);
                     } else
@@ -53,7 +53,7 @@ namespace MathsVisualisationTool
                             tokens.Add(tokenToAdd);
                         }
                         characters = new List<char>(){c};
-                        typeInList = Globals.SUPPORTED_TOKENS.CONSTANT_INT;
+                        typeInList = Globals.SUPPORTED_TOKENS.CONSTANT;
                     }
                 }
 
@@ -138,13 +138,11 @@ namespace MathsVisualisationTool
                     if (typeInList.Equals(Globals.SUPPORTED_TOKENS.VARIABLE_NAME))
                     {
                         characters.Add(c);
-                        //Check if a keyword has been found.
-                        string word = TokeniseList(characters, typeInList).GetValue();
 
-                        //Check if it is a reserved word and that the next character is whitespace
-                        if(Globals.reservedWords.Contains(word) && input[(index+1)] == ' ')
+                        //Check if there is whitespace after the name
+                        if (index + 1 == input.Length || input[(index + 1)] == ' ')
                         {
-                            tokenToAdd = new Token(Globals.SUPPORTED_TOKENS.VARIABLE_TYPE, word);
+                            tokenToAdd = TokeniseList(characters, typeInList);
                             tokens.Add(tokenToAdd);
 
                             characters = new List<char>();
@@ -161,6 +159,16 @@ namespace MathsVisualisationTool
                         }
                         characters = new List<char>() { c };
                         typeInList = Globals.SUPPORTED_TOKENS.VARIABLE_NAME;
+
+                        //if there is whitespace after, then add it to the list of tokens
+                        if(index + 1 == input.Length || input[(index+1)] == ' ')
+                        {
+                            tokenToAdd = TokeniseList(characters, typeInList);
+                            tokens.Add(tokenToAdd);
+
+                            characters = new List<char>();
+                            typeInList = Globals.SUPPORTED_TOKENS.WHITE_SPACE;
+                        }
                     }
                 }
                 index++;

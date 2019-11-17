@@ -142,19 +142,19 @@ namespace MathsVisualisationTool
             switch (tokens[0].GetType())
             {
                 case Globals.SUPPORTED_TOKENS.PLUS:
-                    if (tokens[1].GetType() == Globals.SUPPORTED_TOKENS.CONSTANT_INT)
+                    if (tokens[1].GetType() == Globals.SUPPORTED_TOKENS.CONSTANT)
                     {
                         string tokenValue = tokens[1].GetValue();
                         tokens.RemoveRange(0, 2);
-                        tokens.Insert(0, new Token(Globals.SUPPORTED_TOKENS.CONSTANT_INT, tokenValue));
+                        tokens.Insert(0, new Token(Globals.SUPPORTED_TOKENS.CONSTANT, tokenValue));
                     }
                     break;
                 case Globals.SUPPORTED_TOKENS.MINUS:
-                    if (tokens[1].GetType() == Globals.SUPPORTED_TOKENS.CONSTANT_INT)
+                    if (tokens[1].GetType() == Globals.SUPPORTED_TOKENS.CONSTANT)
                     {
                         string tokenValue = tokens[1].GetValue();
                         tokens.RemoveRange(0, 2);
-                        tokens.Insert(0, new Token(Globals.SUPPORTED_TOKENS.CONSTANT_INT, "-" + tokenValue));
+                        tokens.Insert(0, new Token(Globals.SUPPORTED_TOKENS.CONSTANT, "-" + tokenValue));
                     }
                     break;
             }
@@ -170,13 +170,13 @@ namespace MathsVisualisationTool
                     {
                         string tokenValue = tokens[(i + 2)].GetValue();
                         tokens.RemoveRange((i + 1), 2);
-                        tokens.Insert((i + 1), new Token(Globals.SUPPORTED_TOKENS.CONSTANT_INT, "-" + tokenValue));
+                        tokens.Insert((i + 1), new Token(Globals.SUPPORTED_TOKENS.CONSTANT, "-" + tokenValue));
                     }
                     else if (tokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.PLUS)
                     {
                         string tokenValue = tokens[(i + 2)].GetValue();
                         tokens.RemoveRange((i + 1), 2);
-                        tokens.Insert((i + 1), new Token(Globals.SUPPORTED_TOKENS.CONSTANT_INT, tokenValue));
+                        tokens.Insert((i + 1), new Token(Globals.SUPPORTED_TOKENS.CONSTANT, tokenValue));
                     }
                 }
             }

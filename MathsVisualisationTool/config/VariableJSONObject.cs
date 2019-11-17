@@ -16,13 +16,11 @@ namespace MathsVisualisationTool
         //Fields must be public so that they can be seralized.
         public string name;
         public string value;
-        public string type;
 
-        public VariableJSONObject(string name, string value, string type)
+        public VariableJSONObject(string name, string value)
         {
             this.name = name;
             this.value = value;
-            this.type = type;
         }
 
         /// <summary>
@@ -36,16 +34,13 @@ namespace MathsVisualisationTool
             List<VariableJSONObject> jsonObjects = new List<VariableJSONObject>();
             foreach (object o in vars.Keys)
             {
-                string variableName = (string)o;
+                string name = (string) o;
 
-                object values = vars[variableName];
+                object valueObj = vars[name];
 
-                Tuple<string, string> tuple = (Tuple<string, string>)values;
+                string value = (string) valueObj;
 
-                string variableValue = tuple.Item1;
-                string variableType = tuple.Item2;
-
-                jsonObjects.Add(new VariableJSONObject(variableName, variableValue, variableType));
+                jsonObjects.Add(new VariableJSONObject(name, value));
             }
 
             return jsonObjects;

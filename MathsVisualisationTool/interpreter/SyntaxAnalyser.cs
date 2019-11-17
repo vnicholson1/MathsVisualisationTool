@@ -63,14 +63,25 @@ namespace MathsVisualisationTool
                         multAndDivisionCheck(previousToken,i);
                         break;
 
-                    case Globals.SUPPORTED_TOKENS.VARIABLE_TYPE:
-                        //Variable type should be the first token.
-                        if(i != 0)
+                    case Globals.SUPPORTED_TOKENS.ASSIGNMENT:
+                        //assignment symbol should be in the 2nd position
+                        if(i == 1)
                         {
-                            throw new SyntaxErrorException("Variable type found in unexpected position. ");
-                        }
+                            //Only a variable name can be before assignment symbol.
+                            if(gatheredTokens[0].GetType() != Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
+                            {
+                                throw new SyntaxErrorException("Only a variable can be before assignment operator");
+                            }
 
-                        //Syntax should be VARIABLE_TYPE VARIABLE_NAME = EXPRESSION
+                            //Must have something after the assignment operator
+                            if( (i+1) == gatheredTokens.Count)
+                            {
+                                throw new SyntaxErrorException("Must have an expression that equates to a value after the assignment operator.");
+                            }
+                        } else
+                        {
+                            throw new SyntaxErrorException("Assignment operator found in unexpected token position - " + i + ".");
+                        }
                         break;
 
                     default:

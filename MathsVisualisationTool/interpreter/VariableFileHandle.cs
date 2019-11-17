@@ -31,11 +31,8 @@ namespace MathsVisualisationTool
             {
                 string variableName = variable["name"].ToString();
                 string variableValue = variable["value"].ToString();
-                string variableType = variable["type"].ToString();
 
-                Tuple<string, string> value = new Tuple<string, string>(variableValue, variableType);
-
-                vars.Add(variableName, value);
+                vars.Add(variableName, variableValue);
             }
 
             return vars;

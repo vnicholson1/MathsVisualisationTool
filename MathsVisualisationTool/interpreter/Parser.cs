@@ -64,7 +64,7 @@ namespace MathsVisualisationTool
             while (nextToken != null)
             {
                 Globals.SUPPORTED_TOKENS tokenType = nextToken.GetType();
-                if (tokenType == Globals.SUPPORTED_TOKENS.CONSTANT_INT)
+                if (tokenType == Globals.SUPPORTED_TOKENS.CONSTANT)
                 {
                     //If the next token is an int, then just collect the value
                     value = Convert.ToDouble(nextToken.GetValue());
@@ -93,10 +93,9 @@ namespace MathsVisualisationTool
                     getNextToken();
                     return value;
                 }
-                else if (tokenType == Globals.SUPPORTED_TOKENS.VARIABLE_TYPE)
+                else if (tokenType == Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
                 {
-                    //If a variable type has been found then means its a variable assignment
-                    variableAssignmentHandle();
+                    value = variableHandle(value);
                 }
             }
             return value;
@@ -105,22 +104,51 @@ namespace MathsVisualisationTool
         /// <summary>
         /// Function for handling when a new variable is being declared.
         /// </summary>
-        private void variableAssignmentHandle()
+        private double variableHandle(double value)
         {
-            //current token is the type.
-            string type = nextToken.GetValue();
-            getNextToken();
-
             //next token will be its name
             string name = nextToken.GetValue();
-            getNextToken();
-            //get the assignment operator
-            getNextToken();
+            Token peekToken = peek();
 
-            //get the expression.
-            string value = Convert.ToString(analyseExpressions(double.NaN));
+            //check if its the last token or is not an assignment operation
+            if(peekToken is null || !(peekToken.GetType() == Globals.SUPPORTED_TOKENS.ASSIGNMENT))
+            {
+                //if not then see if it has been assigned.
+                getNextToken();
+                try
+                {
+                    VariableRef var = new VariableRef(name);
+                    value = var.Evaluate(variables);
+                    return value;
+                }
+                catch (Exception e)
+                {
+                    //this means it hasn't been assigned yet.
+                    throw new VariableReferenceException(e.Message);
+                }
+            } else
+            {
+                getNextToken();
+                //now pointing to assignment operator.
+                getNextToken();
+                //now pointing to the start of the expression.
 
-            variables[name] = new Tuple<string, string>(value, type);
+                //get the expression.
+                double val = analyseExpressions(double.NaN);
+                string varValue = null;
+
+                if(double.IsNaN(val))
+                {
+                    throw new SyntaxErrorException("Expression must equate to a value");
+                } else
+                {
+                    varValue = Convert.ToString(val);
+                }
+                
+                variables[name] = varValue;
+
+                return value;
+            }
         }
 
         /// <summary>
@@ -151,8 +179,23 @@ namespace MathsVisualisationTool
             }
             else
             {
-                //else its just a number so extract the value of it.
-                rightValue = Convert.ToDouble(nextToken.GetValue());
+                if(nextToken.GetType() == Globals.SUPPORTED_TOKENS.CONSTANT)
+                {
+                    //its just a number so extract the value of it.
+                    rightValue = Convert.ToDouble(nextToken.GetValue());
+                } else
+                {
+                    //Gathered token is a variable reference
+                    VariableRef v = new VariableRef(nextToken.GetValue());
+                    try
+                    {
+                        rightValue = v.Evaluate(variables);
+                    } catch (Exception e)
+                    {
+                        throw new VariableReferenceException(e.Message);
+                    }
+                }
+                
             }
 
             right = new Constant(rightValue);
@@ -187,7 +230,7 @@ namespace MathsVisualisationTool
             //Now look at the token after the operator
             getNextToken();
 
-            if (nextToken.GetType() == Globals.SUPPORTED_TOKENS.CONSTANT_INT)
+            if (nextToken.GetType() == Globals.SUPPORTED_TOKENS.CONSTANT)
             {
                 //A number so just extract the value from it.
                 right = new Constant(Convert.ToDouble(nextToken.GetValue()));
@@ -199,6 +242,20 @@ namespace MathsVisualisationTool
                 getNextToken();
                 //recursively call to analyse the expression enclosed in brackets.
                 right = new Constant(analyseExpressions(value));
+            } else if (nextToken.GetType() == Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
+            {
+                //Found a variable reference.
+                VariableRef v = new VariableRef(nextToken.GetValue());
+                try
+                {
+                    double rightValue = v.Evaluate(variables);
+                    right = new Constant(rightValue);
+                }
+                catch (Exception e)
+                {
+                    throw new VariableReferenceException(e.Message);
+                }
+                getNextToken();
             }
 
             Expression ne = new Operation(left, op, right);
@@ -219,6 +276,23 @@ namespace MathsVisualisationTool
             else
             {
                 nextToken = null;
+            }
+        }
+
+        /// <summary>
+        /// Private function to peek at the next token. Returns the next token without
+        /// setting nextToken. Returns null if there is no next token.
+        /// </summary>
+        /// <returns></returns>
+        private Token peek()
+        {
+            if (index < tokens.Count)
+            {
+                return tokens[index];
+            }
+            else
+            {
+                return null;
             }
         }
     }
