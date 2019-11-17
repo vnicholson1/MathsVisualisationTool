@@ -46,8 +46,8 @@ namespace MathsVisualisationTool
             var mainWindow = new MainWindow();
             mainWindow.Show();
 
-            var keyPad = new KeyPad { Owner = mainWindow };
-            keyPad.Show();
+            //var keyPad = new KeyPad { Owner = mainWindow };
+            //keyPad.Show();
 
             var mutex = new Mutex(true, "MathsVisualisationTool", out bool isNewInstance);
             if (!isNewInstance)
