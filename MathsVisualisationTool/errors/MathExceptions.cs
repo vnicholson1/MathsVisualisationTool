@@ -8,5 +8,15 @@ using System.Threading.Tasks;
 
 namespace MathsVisualisationTool
 {
-    
+    public class DivideByZeroException : Exception
+    {
+        public DivideByZeroException()
+        {
+        }
+
+        public DivideByZeroException(string message)
+        : base(message)
+        {
+        }
+    }
 }

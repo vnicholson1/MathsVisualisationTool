@@ -42,6 +42,23 @@ namespace MathsVisualisationTool
         /// <returns>Returns a list of tokens with brackets added.</returns>
         private List<Token> parenthesiseTokens(List<Token> tokens)
         {
+            //Removed tokens - to store tokens not part of an expression.
+            List<Token> removedTokens = new List<Token>();
+            //Check if the input contains any variable assignments
+            int index = 0;
+            foreach (Token t in tokens)
+            {
+                if(t.GetType() == Globals.SUPPORTED_TOKENS.ASSIGNMENT)
+                {
+                    for(int i=0;i<=index;i++)
+                    {
+                        removedTokens.Add(tokens[0]);
+                        tokens.RemoveAt(0);
+                    }
+                    break;
+                }
+                index++;
+            }
 
             List<List<Token>> listOfExpressions = new List<List<Token>>();
 
@@ -106,7 +123,9 @@ namespace MathsVisualisationTool
                 }
             }
 
-            return listOfExpressions[0];
+            removedTokens.AddRange(listOfExpressions[0]);
+
+            return removedTokens;
         }
 
 
@@ -123,19 +142,19 @@ namespace MathsVisualisationTool
             switch (tokens[0].GetType())
             {
                 case Globals.SUPPORTED_TOKENS.PLUS:
-                    if (tokens[1].GetType() == Globals.SUPPORTED_TOKENS.INTEGER)
+                    if (tokens[1].GetType() == Globals.SUPPORTED_TOKENS.CONSTANT)
                     {
                         string tokenValue = tokens[1].GetValue();
                         tokens.RemoveRange(0, 2);
-                        tokens.Insert(0, new Token(Globals.SUPPORTED_TOKENS.INTEGER, tokenValue));
+                        tokens.Insert(0, new Token(Globals.SUPPORTED_TOKENS.CONSTANT, tokenValue));
                     }
                     break;
                 case Globals.SUPPORTED_TOKENS.MINUS:
-                    if (tokens[1].GetType() == Globals.SUPPORTED_TOKENS.INTEGER)
+                    if (tokens[1].GetType() == Globals.SUPPORTED_TOKENS.CONSTANT)
                     {
                         string tokenValue = tokens[1].GetValue();
                         tokens.RemoveRange(0, 2);
-                        tokens.Insert(0, new Token(Globals.SUPPORTED_TOKENS.INTEGER, "-" + tokenValue));
+                        tokens.Insert(0, new Token(Globals.SUPPORTED_TOKENS.CONSTANT, "-" + tokenValue));
                     }
                     break;
             }
@@ -151,13 +170,13 @@ namespace MathsVisualisationTool
                     {
                         string tokenValue = tokens[(i + 2)].GetValue();
                         tokens.RemoveRange((i + 1), 2);
-                        tokens.Insert((i + 1), new Token(Globals.SUPPORTED_TOKENS.INTEGER, "-" + tokenValue));
+                        tokens.Insert((i + 1), new Token(Globals.SUPPORTED_TOKENS.CONSTANT, "-" + tokenValue));
                     }
                     else if (tokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.PLUS)
                     {
                         string tokenValue = tokens[(i + 2)].GetValue();
                         tokens.RemoveRange((i + 1), 2);
-                        tokens.Insert((i + 1), new Token(Globals.SUPPORTED_TOKENS.INTEGER, tokenValue));
+                        tokens.Insert((i + 1), new Token(Globals.SUPPORTED_TOKENS.CONSTANT, tokenValue));
                     }
                 }
             }

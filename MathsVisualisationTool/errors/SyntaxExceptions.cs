@@ -10,10 +10,21 @@ namespace MathsVisualisationTool
     {
         public SyntaxErrorException()
         {
-
         }
 
         public SyntaxErrorException(string message)
+        : base(message)
+        {
+        }
+    }
+
+    public class VariableReferenceException : SyntaxErrorException
+    {
+        public VariableReferenceException()
+        {
+        }
+
+        public VariableReferenceException(string message)
         : base(message)
         {
         }

@@ -30,23 +30,22 @@ namespace MathsVisualisationTool
             List<Token> tokens = new List<Token>();
 
             //Go through the line of code added by the user.
+            int index = 0;
             foreach( char c in input)
             {
-                if(char.IsWhiteSpace(c))
-                {
-                    continue;
-                }
-
                 //Is it a digit?
                 if(char.IsDigit(c))
                 {
-                    
-                    if(typeInList.Equals(Globals.SUPPORTED_TOKENS.INTEGER))
+                    //Variable names can contain numbers
+                    if(typeInList == Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
+                    {
+                        characters.Add(c);
+                    }
+                    else if(typeInList.Equals(Globals.SUPPORTED_TOKENS.CONSTANT))
                     {
                         characters.Add(c);
                     } else
                     {
-                        
                         //create a new token and add it to the list.
                         if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                         {
@@ -54,13 +53,12 @@ namespace MathsVisualisationTool
                             tokens.Add(tokenToAdd);
                         }
                         characters = new List<char>(){c};
-                        typeInList = Globals.SUPPORTED_TOKENS.INTEGER;
+                        typeInList = Globals.SUPPORTED_TOKENS.CONSTANT;
                     }
                 }
 
-                if(c == '+')
+                else if(c == '+')
                 {
-                    //For now if there are consecutive '+' ops it labels them as two seperate + symbols.
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
                         tokenToAdd = TokeniseList(characters, typeInList);
@@ -70,7 +68,7 @@ namespace MathsVisualisationTool
                     typeInList = Globals.SUPPORTED_TOKENS.PLUS;
                 }
 
-                if (c == '-')
+                else if (c == '-')
                 {
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
@@ -81,7 +79,7 @@ namespace MathsVisualisationTool
                     typeInList = Globals.SUPPORTED_TOKENS.MINUS;
                 }
 
-                if (c == '*')
+                else if (c == '*')
                 {
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
@@ -92,7 +90,7 @@ namespace MathsVisualisationTool
                     typeInList = Globals.SUPPORTED_TOKENS.MULTIPLICATION;
                 }
 
-                if (c == '/')
+                else if(c == '/')
                 {
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
@@ -103,7 +101,7 @@ namespace MathsVisualisationTool
                     typeInList = Globals.SUPPORTED_TOKENS.DIVISION;
                 }
 
-                if (c == '(')
+                else if(c == '(')
                 {
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
@@ -114,7 +112,7 @@ namespace MathsVisualisationTool
                     typeInList = Globals.SUPPORTED_TOKENS.OPEN_BRACKET;
                 }
 
-                if (c == ')')
+                else if(c == ')')
                 {
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
@@ -124,6 +122,56 @@ namespace MathsVisualisationTool
                     characters = new List<char>() { c };
                     typeInList = Globals.SUPPORTED_TOKENS.CLOSE_BRACKET;
                 }
+
+                else if(c == '=')
+                {
+                    if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
+                    {
+                        tokenToAdd = TokeniseList(characters, typeInList);
+                        tokens.Add(tokenToAdd);
+                    }
+                    characters = new List<char>() { c };
+                    typeInList = Globals.SUPPORTED_TOKENS.ASSIGNMENT;
+                }
+                else if (char.IsLetter(c))
+                {
+                    if (typeInList.Equals(Globals.SUPPORTED_TOKENS.VARIABLE_NAME))
+                    {
+                        characters.Add(c);
+
+                        //Check if there is whitespace after the name
+                        if (index + 1 == input.Length || input[(index + 1)] == ' ')
+                        {
+                            tokenToAdd = TokeniseList(characters, typeInList);
+                            tokens.Add(tokenToAdd);
+
+                            characters = new List<char>();
+                            typeInList = Globals.SUPPORTED_TOKENS.WHITE_SPACE;
+                        }
+                    }
+                    else
+                    {
+                        //create a new token and add it to the list.
+                        if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
+                        {
+                            tokenToAdd = TokeniseList(characters, typeInList);
+                            tokens.Add(tokenToAdd);
+                        }
+                        characters = new List<char>() { c };
+                        typeInList = Globals.SUPPORTED_TOKENS.VARIABLE_NAME;
+
+                        //if there is whitespace after, then add it to the list of tokens
+                        if(index + 1 == input.Length || input[(index+1)] == ' ')
+                        {
+                            tokenToAdd = TokeniseList(characters, typeInList);
+                            tokens.Add(tokenToAdd);
+
+                            characters = new List<char>();
+                            typeInList = Globals.SUPPORTED_TOKENS.WHITE_SPACE;
+                        }
+                    }
+                }
+                index++;
             }
 
             if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
@@ -131,6 +179,8 @@ namespace MathsVisualisationTool
                 tokenToAdd = TokeniseList(characters, typeInList);
                 tokens.Add(tokenToAdd);
             }
+
+            PrintTokens(tokens);
 
             return tokens;
         }
@@ -166,26 +216,6 @@ namespace MathsVisualisationTool
             }
 
             return new Token(listType,value);
-        }
-
-        /// <summary>
-        /// Function to load the interpreter's configuration file stored in config.
-        /// </summary>
-        /// <returns></returns>
-        private JToken LoadInterpreterConfig()
-        {
-            //Get current WORKING directory (i.e. \bin\debug)
-            string workingDirectory = Directory.GetCurrentDirectory();
-
-            //Get PROJECT directory 
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-
-            string filePath = Path.GetFullPath(Path.Combine(projectDirectory + "\\config\\InterpreterConfig.json"));
-            JObject jsonObject = JObject.Parse(File.ReadAllText(filePath));
-
-            JToken con = jsonObject["INTERPRETER_CONFIG"];
-
-            return con; 
         }
     }
     
