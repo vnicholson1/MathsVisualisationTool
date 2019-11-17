@@ -93,6 +93,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="styles\ButtonStyling.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="styles\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -141,7 +145,7 @@
     <None Include="config\App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\icons\pi_Icon.ico" />
+    <Resource Include="images\icons\SolveIT.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="functions\" />
@@ -250,12 +254,19 @@
     <Resource Include="images\icons\newFile.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\icons\altRedo.png" />
-    <Resource Include="images\icons\altUndo.png" />
     <Resource Include="images\icons\back.png" />
     <Resource Include="images\icons\forward.png" />
     <Resource Include="images\icons\redo.png" />
     <Resource Include="images\icons\undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icons\run.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icons\print.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icons\pageSetup.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

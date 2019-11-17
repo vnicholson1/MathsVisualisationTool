@@ -82,10 +82,10 @@ namespace MathsVisualisationTool
         /****************************************************************************************************/
 
         /*
-         * OnSubmitClicked - Handle event if the Submit button is 
+         * OnRun_Clicked - Handle event if the Run/Submit button is 
          *                  clicked.
          */
-        private void OnSubmitClicked(object sender, RoutedEventArgs e)
+        private void OnRun_Clicked(object sender, RoutedEventArgs e)
         {
             //HandleTextEnter();
             if (this.inputBox.Text != "")
@@ -267,6 +267,33 @@ namespace MathsVisualisationTool
         }
 
         /*
+         * OnSaveAs_Clicked - Handle event if the Save As button is 
+         *                  click from the toolbar
+         */
+        private void OnSaveAs_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Save As Clicked - Fix it");
+        }
+
+        /*
+         * OnPrint_Clicked - Handle event if the Print button is 
+         *                  click from the toolbar
+         */
+        private void OnPrint_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Print Clicked - Fix it");
+        }
+
+        /*
+         * OnPageSetup_Clicked - Handle event if the Page Setup button is 
+         *                      click from the toolbar
+         */
+        private void OnPageSetup_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Page Setup Clicked - Fix it");
+        }
+
+        /*
          * OnCut_Clicked -  Handle event if the Cut button is 
          *                  click from the toolbar
          */
@@ -291,6 +318,24 @@ namespace MathsVisualisationTool
         private void OnPaste_Clicked(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Paste Clicked - Fix it");
+        }
+
+        /*
+         * OnSettings_Clicked - Handle event if the Settings button is 
+         *                  click from the toolbar
+         */
+        private void OnSettings_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Settings Clicked - Fix it");
+        }
+
+        /*
+         * OnHelp_Clicked - Handle event if the Help button is 
+         *                   click from the toolbar
+         */
+        private void OnHelp_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Help Clicked - Fix it");
         }
 
         /************************************ END OF TOOLBAR MENU FUNCTIONS *********************************/

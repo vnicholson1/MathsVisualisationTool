@@ -9,12 +9,13 @@
         WindowState="Maximized"
         WindowStyle="ThreeDBorderWindow"
         Background="#424242"
-        Icon="../images/icons/pi_Icon.ico" Width="1209.104" Height="1021.726">
+        Icon="../images/icons/SolveIT.ico" Width="1209.104" Height="1021.726">
 
     <Window.CommandBindings>
         <CommandBinding Command="New" CanExecute="CommonCommandBinding_CanExecute"/>
         <CommandBinding Command="Open" CanExecute="CommonCommandBinding_CanExecute"/>
         <CommandBinding Command="Save" CanExecute="CommonCommandBinding_CanExecute"/>
+        <CommandBinding Command="SaveAs" CanExecute="CommonCommandBinding_CanExecute"/>
         
         <CommandBinding Command="Cut" CanExecute="CommonCommandBinding_CanExecute"/>
         <CommandBinding Command="Copy" CanExecute="CommonCommandBinding_CanExecute"/>
@@ -56,41 +57,77 @@
             <!-- TOOL BAR MENU -->
             <ToolBarTray DockPanel.Dock="Top">
                 <ToolBar>
+                    <!-- BACK BUTTON -->
                     <Button x:Name="Back" ToolBar.OverflowMode="AsNeeded" ToolTip="Navigate Back" Click="OnBack_Clicked">
                         <Image Source="../images/icons/back.png" Width="20"/>
                     </Button>
+                    <!-- FOREWARD BUTTON -->
                     <Button x:Name="Forward" ToolBar.OverflowMode="AsNeeded" ToolTip="Navigate Forward" Click="OnForward_Clicked">
                         <Image Source="../images/icons/forward.png" Width="20"/>
                     </Button>
                 </ToolBar>
                 <ToolBar>
-                    <Button Command="New" Content="New" ToolBar.OverflowMode="AsNeeded" ToolTip="Open New SolveIT" Click="OnNew_Clicked"/>
-                    <Button Command="Open" Content="Open" ToolBar.OverflowMode="AsNeeded" ToolTip="Open Previous SolveIT Solutions" Click="OnOpen_Clicked"/>
-                    <Button Command="Save" Content="Save" ToolBar.OverflowMode="AsNeeded" ToolTip="Save Current SolveIT Solution" Click="OnSave_Clicked"/>
+                    <!-- NEW BUTTON -->
+                    <Button Command="New" ToolBar.OverflowMode="AsNeeded" ToolTip="New SolveIT" Click="OnNew_Clicked">
+                        <Image Source="../images/icons/newFile.png" Width="20"/>
+                    </Button>
+                    <!-- OPEN BUTTON -->
+                    <Button Command="Open" ToolBar.OverflowMode="AsNeeded" ToolTip="Open Previous SolveIT Solutions" Click="OnOpen_Clicked">
+                        <Image Source="../images/icons/openFolder.png" Width="20"/>
+                    </Button>
+                    <!-- SAVE BUTTON -->
+                    <Button Command="Save" ToolBar.OverflowMode="AsNeeded" ToolTip="Save" Click="OnSave_Clicked">
+                        <Image Source="../images/icons/save.png" Width="20"/>
+                    </Button>
+                    <!-- SAVE AS BUTTON -->
+                    <Button Command="SaveAs" ToolBar.OverflowMode="AsNeeded" ToolTip="Save As" Click="OnSaveAs_Clicked">
+                        <Image Source="../images/icons/saveAs.png" Width="20"/>
+                    </Button>
+                    <!-- PRINT BUTTON -->
+                    <Button ToolBar.OverflowMode="AsNeeded" ToolTip="Print SolveIT Solution" Click="OnPrint_Clicked">
+                        <Image Source="../images/icons/print.png" Width="20"/>
+                    </Button>
+                    <!-- PAGE SETUP BUTTON -->
+                    <Button ToolBar.OverflowMode="AsNeeded" ToolTip="Print SolveIT Solution" Click="OnPageSetup_Clicked">
+                        <Image Source="../images/icons/pageSetup.png" Width="20"/>
+                    </Button>
                 </ToolBar>
                 <ToolBar>
+                    <!-- CUT BUTTON -->
                     <Button Command="Cut" ToolTip="Cut Selection to Windows Clipboard " Padding="2" Click="OnCut_Clicked">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="../images/icons/cut.png" Width="20"/>
-                        </StackPanel>
+                        <Image Source="../images/icons/cut.png" Width="20"/>
                     </Button>
+                    <!-- COPY BUTTON -->
                     <Button Command="Copy" ToolTip="Copy Selection to Windows Clipboard " Padding="2" Click="OnCopy_Clicked">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="../images/icons/copy.png" Width="20"/>
-                        </StackPanel>
+                        <Image Source="../images/icons/copy.png" Width="20"/>
                     </Button>
+                    <!-- PASTE BUTTON -->
                     <Button Command="Paste" ToolTip="Paste From Windows Clipboard" Padding="2" Click="OnPaste_Clicked">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="../images/icons/paste.png" Width="20"/>
-                        </StackPanel>
+                        <Image Source="../images/icons/paste.png" Width="20"/>
                     </Button>
-                </ToolBar>
-                <ToolBar>
+                    <!-- UNDO BUTTON -->
                     <Button Command="Undo" ToolTip="Undo" Padding="2" Click="OnUndo_Clicked">
                         <Image Source="../images/icons/undo.png" Width="20"/>
                     </Button>
+                    <!-- REDO BUTTON -->
                     <Button Command="Redo" ToolTip="Redo" Padding="2" Click="OnRedo_Clicked">
                         <Image Source="../images/icons/redo.png" Width="20"/>
+                    </Button>
+                </ToolBar>
+                <ToolBar>
+                    <!-- RUN/SUBMIT BUTTON -->
+                    <Button ToolTip="Run Input" Padding="2" Click="OnRun_Clicked">
+                        <Image Source="../images/icons/run.png" Width="20"/>
+                    </Button>
+                </ToolBar>
+                <ToolBar>
+                    <!-- SETTINGS BUTTON -->
+                    <Button x:Name="SettingsBtn" ToolTip="SolveIT Settings" Padding="2" Click="OnSettings_Clicked">
+                        <Image Source="../images/icons/settings.png" Width="20"/>
+                    </Button>
+                    <!-- HELP BUTTON -->
+                    <Button x:Name="HelpBtn" ToolTip="SolveIT Help" Padding="2" Click="OnHelp_Clicked">
+                        <Image Source="../images/icons/lifebuoy.png" Width="20"/>
                     </Button>
                 </ToolBar>
             </ToolBarTray>
@@ -462,7 +499,14 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Column="0" Margin="0 0 0 3" Name="inputBox" FontSize="20" Padding="5"/>
-                <Button Name="submitBtn" Click="OnSubmitClicked" Content="Submit" IsDefault="True" Grid.Column="1" Margin="3 0 0 3" FontSize="20" Padding="5"/>
+
+                <Button Name="submitBtn" Click="OnRun_Clicked" IsDefault="True" Grid.Column="1" Margin="3 0 0 3"  Padding="5">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Run" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="26" Margin="6 3 0 3 "/>
+                        <Image Source="../images/icons/run.png" Height="40"  Margin="6 0 3 3"/>
+                        <!--<TextBlock Text="&#x2b;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
+                    </StackPanel>
+                </Button>
             </Grid>
 
             <!-- TOP SECTION OF DOCK PANEL (EXCLUDING MAIN MENU)-->
@@ -472,8 +516,23 @@
             <Grid x:Name="topDock" DockPanel.Dock="Top" Margin="3">
                 <TabControl>
                     <TabItem Header="Tab 1">
+                        <ListBox Name="Results" Margin="3" BorderBrush="Black" BorderThickness="2" Padding="5" FontSize="24">
+                            <ToolBarTray Orientation="Vertical">
+                                <ToolBar>
+                                    <Button x:Name="listCut" ToolBar.OverflowMode="AsNeeded" ToolTip="Cut" Click="OnCut_Clicked">
+                                        <Image Source="../images/icons/cut.png" Width="20"/>
+                                    </Button>
+                                    <Button x:Name="listCopy" ToolBar.OverflowMode="AsNeeded" ToolTip="Cut" Click="OnCopy_Clicked">
+                                        <Image Source="../images/icons/copy.png" Width="20"/>
+                                    </Button>
+                                    <Button x:Name="listPaste" ToolBar.OverflowMode="AsNeeded" ToolTip="Cut" Click="OnPaste_Clicked">
+                                        <Image Source="../images/icons/paste.png" Width="20"/>
+                                    </Button>
+                                </ToolBar>
+                            </ToolBarTray>
+                        </ListBox>
+                        
                         <!--<TextBlock Name="Results" Margin="3" Padding="5" Text="{Binding ElementName=inputBox, Path=Text, Mode=OneWay, UpdateSourceTrigger=Explicit}"/>-->
-                        <ListBox Name="Results" Margin="3" BorderBrush="Black" BorderThickness="2" Padding="5" FontSize="24"/>
                     </TabItem>
                     <TabItem Header="Tab 2">
                         <TextBlock Text="Graphs will go here..."/>
