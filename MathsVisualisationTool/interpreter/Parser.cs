@@ -19,8 +19,11 @@ namespace MathsVisualisationTool
         //Hashtable for storing a list of known variables.
         //It is stored in the form:
         // key   -> Variable name.
-        // value -> A Tuple consisting of (Variable value, Variable type).
+        // value -> Variable value.
         private Hashtable variables = null;
+        //Variable to store the newly added variable.
+        public string varName = null;
+
 
         public Parser(Hashtable variables)
         {
@@ -146,6 +149,8 @@ namespace MathsVisualisationTool
                 }
                 
                 variables[name] = varValue;
+
+                varName = name;
 
                 return value;
             }

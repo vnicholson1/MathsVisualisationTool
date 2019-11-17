@@ -17,7 +17,7 @@ namespace MathsVisualisationTool
         /// </summary>
         /// <returns> A hashmap of the form:
         /// key -> Variable name.
-        /// value -> A Tuple consisting of (Variable value, Variable type).
+        /// value -> Variable value.
         /// </returns>
         public static Hashtable getVariables()
         {

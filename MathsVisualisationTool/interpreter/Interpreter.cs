@@ -39,14 +39,15 @@ namespace MathsVisualisationTool
             if(double.IsNaN(result))
             {
                 //this means a variable assignment has occured
-
-                //would like to print out say if someone puts x = 3,
-                //then output would be:
-                // var x =
-                //          3
-                return "";
+                return "var " + parser.varName + " = \n\t\t" + vars[parser.varName];
             } else
             {
+                string res = Convert.ToString(result);
+
+                vars["ANS"] = res;
+
+                VariableFileHandle.saveVariables(vars);
+
                 return "var ANS = \n\t\t" + Convert.ToString(result);
             }
             
