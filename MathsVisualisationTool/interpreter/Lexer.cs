@@ -6,13 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using DataDomain;
 
 namespace MathsVisualisationTool
 {
-    
-    public enum SUPPORTED_TOKENS { INTEGER, //supported data types.
-                                   PLUS, MINUS, DIVISION, MULTIPLICATION, //supported ops.
-                                   WHITE_SPACE, OPEN_BRACKET, CLOSE_BRACKET}; //Miscellaneous characters.
 
     class Lexer
     {
@@ -27,115 +24,163 @@ namespace MathsVisualisationTool
          */
         public List<Token> TokeniseInput(string input)
         {
-            SUPPORTED_TOKENS typeInList = SUPPORTED_TOKENS.WHITE_SPACE;
+            Globals.SUPPORTED_TOKENS typeInList = Globals.SUPPORTED_TOKENS.WHITE_SPACE;
             List<char> characters = new List<char>();
             Token tokenToAdd;
             List<Token> tokens = new List<Token>();
 
             //Go through the line of code added by the user.
+            int index = 0;
             foreach( char c in input)
             {
-                if(char.IsWhiteSpace(c))
-                {
-                    continue;
-                }
-
                 //Is it a digit?
                 if(char.IsDigit(c))
                 {
-                    
-                    if(typeInList.Equals(SUPPORTED_TOKENS.INTEGER))
+                    //Variable names can contain numbers
+                    if(typeInList == Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
+                    {
+                        characters.Add(c);
+                    }
+                    else if(typeInList.Equals(Globals.SUPPORTED_TOKENS.CONSTANT))
                     {
                         characters.Add(c);
                     } else
                     {
-                        
                         //create a new token and add it to the list.
-                        if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
+                        if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                         {
                             tokenToAdd = TokeniseList(characters, typeInList);
                             tokens.Add(tokenToAdd);
                         }
                         characters = new List<char>(){c};
-                        typeInList = SUPPORTED_TOKENS.INTEGER;
+                        typeInList = Globals.SUPPORTED_TOKENS.CONSTANT;
                     }
                 }
 
-                if(c == '+')
+                else if(c == '+')
                 {
-                    //For now if there are consecutive '+' ops it labels them as two seperate + symbols.
-                    if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
+                    if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
                         tokenToAdd = TokeniseList(characters, typeInList);
                         tokens.Add(tokenToAdd);
                     }
                     characters = new List<char>() { c };
-                    typeInList = SUPPORTED_TOKENS.PLUS;
+                    typeInList = Globals.SUPPORTED_TOKENS.PLUS;
                 }
 
-                if (c == '-')
+                else if (c == '-')
                 {
-                    if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
+                    if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
                         tokenToAdd = TokeniseList(characters, typeInList);
                         tokens.Add(tokenToAdd);
                     }
                     characters = new List<char>() { c };
-                    typeInList = SUPPORTED_TOKENS.MINUS;
+                    typeInList = Globals.SUPPORTED_TOKENS.MINUS;
                 }
 
-                if (c == '*')
+                else if (c == '*')
                 {
-                    if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
+                    if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
                         tokenToAdd = TokeniseList(characters, typeInList);
                         tokens.Add(tokenToAdd);
                     }
                     characters = new List<char>() { c };
-                    typeInList = SUPPORTED_TOKENS.MULTIPLICATION;
+                    typeInList = Globals.SUPPORTED_TOKENS.MULTIPLICATION;
                 }
 
-                if (c == '/')
+                else if(c == '/')
                 {
-                    if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
+                    if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
                         tokenToAdd = TokeniseList(characters, typeInList);
                         tokens.Add(tokenToAdd);
                     }
                     characters = new List<char>() { c };
-                    typeInList = SUPPORTED_TOKENS.DIVISION;
+                    typeInList = Globals.SUPPORTED_TOKENS.DIVISION;
                 }
 
-                if (c == '(')
+                else if(c == '(')
                 {
-                    if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
+                    if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
                         tokenToAdd = TokeniseList(characters, typeInList);
                         tokens.Add(tokenToAdd);
                     }
                     characters = new List<char>() { c };
-                    typeInList = SUPPORTED_TOKENS.OPEN_BRACKET;
+                    typeInList = Globals.SUPPORTED_TOKENS.OPEN_BRACKET;
                 }
 
-                if (c == ')')
+                else if(c == ')')
                 {
-                    if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
+                    if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
                         tokenToAdd = TokeniseList(characters, typeInList);
                         tokens.Add(tokenToAdd);
                     }
                     characters = new List<char>() { c };
-                    typeInList = SUPPORTED_TOKENS.CLOSE_BRACKET;
+                    typeInList = Globals.SUPPORTED_TOKENS.CLOSE_BRACKET;
                 }
+
+                else if(c == '=')
+                {
+                    if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
+                    {
+                        tokenToAdd = TokeniseList(characters, typeInList);
+                        tokens.Add(tokenToAdd);
+                    }
+                    characters = new List<char>() { c };
+                    typeInList = Globals.SUPPORTED_TOKENS.ASSIGNMENT;
+                }
+                else if (char.IsLetter(c))
+                {
+                    if (typeInList.Equals(Globals.SUPPORTED_TOKENS.VARIABLE_NAME))
+                    {
+                        characters.Add(c);
+
+                        //Check if there is whitespace after the name
+                        if (index + 1 == input.Length || input[(index + 1)] == ' ')
+                        {
+                            tokenToAdd = TokeniseList(characters, typeInList);
+                            tokens.Add(tokenToAdd);
+
+                            characters = new List<char>();
+                            typeInList = Globals.SUPPORTED_TOKENS.WHITE_SPACE;
+                        }
+                    }
+                    else
+                    {
+                        //create a new token and add it to the list.
+                        if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
+                        {
+                            tokenToAdd = TokeniseList(characters, typeInList);
+                            tokens.Add(tokenToAdd);
+                        }
+                        characters = new List<char>() { c };
+                        typeInList = Globals.SUPPORTED_TOKENS.VARIABLE_NAME;
+
+                        //if there is whitespace after, then add it to the list of tokens
+                        if(index + 1 == input.Length || input[(index+1)] == ' ')
+                        {
+                            tokenToAdd = TokeniseList(characters, typeInList);
+                            tokens.Add(tokenToAdd);
+
+                            characters = new List<char>();
+                            typeInList = Globals.SUPPORTED_TOKENS.WHITE_SPACE;
+                        }
+                    }
+                }
+                index++;
             }
 
-            if (!typeInList.Equals(SUPPORTED_TOKENS.WHITE_SPACE))
+            if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
             {
                 tokenToAdd = TokeniseList(characters, typeInList);
                 tokens.Add(tokenToAdd);
             }
 
-            //PrintTokens(tokens);
+            PrintTokens(tokens);
 
             return tokens;
         }
@@ -161,7 +206,7 @@ namespace MathsVisualisationTool
         /// <param name="listOfCharacters"></param>
         /// <param name="listType"></param>
         /// <returns></returns>
-        private Token TokeniseList(List<char>listOfCharacters, SUPPORTED_TOKENS listType)
+        private Token TokeniseList(List<char>listOfCharacters, Globals.SUPPORTED_TOKENS listType)
         {
             string value = "";
 
@@ -172,83 +217,6 @@ namespace MathsVisualisationTool
 
             return new Token(listType,value);
         }
-
-        /// <summary>
-        /// Function to load the interpreter's configuration file stored in config.
-        /// </summary>
-        /// <returns></returns>
-        private JToken LoadInterpreterConfig()
-        {
-            //Get current WORKING directory (i.e. \bin\debug)
-            string workingDirectory = Directory.GetCurrentDirectory();
-
-            //Get PROJECT directory 
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-
-            string filePath = Path.GetFullPath(Path.Combine(projectDirectory + "\\config\\InterpreterConfig.json"));
-            JObject jsonObject = JObject.Parse(File.ReadAllText(filePath));
-
-            JToken con = jsonObject["INTERPRETER_CONFIG"];
-
-            return con; 
-        }
     }
-
-    class Token
-    {
-        private SUPPORTED_TOKENS type;
-        private string value;
-
-        public Token()
-        {
-            type = SUPPORTED_TOKENS.WHITE_SPACE;
-            value = "";
-        }
-
-        public Token(SUPPORTED_TOKENS type, string value)
-        {
-            this.type = type;
-            this.value = value;
-        }
-
-        /*
-         * Get the type of token.
-         */
-        public SUPPORTED_TOKENS GetType()
-        {
-            return type;
-        }
-
-        /*
-         * Get the value of the token.
-         */
-        public string GetValue()
-        {
-            return value;
-        }
-
-        /*
-         * Set the token type.
-         */
-        public void SetType(SUPPORTED_TOKENS type)
-        {
-            this.type = type;
-        }
-
-        /*
-         * Set the value of the token.
-         */
-        public void SetValue(string value)
-        {
-            this.value = value;
-        }
-
-        /*
-         * String representation of a Token.
-         */
-        public override string ToString()
-        {
-            return "(" + type + "," + value + ")";
-        }
-    }
+    
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataDomain;
 
 namespace MathsVisualisationTool
 {
@@ -87,7 +88,7 @@ namespace MathsVisualisationTool
         /// </summary>
         /// <param name="operation"></param>
         /// <returns>True if the operation was split successfully, false otherwise (no operation was found).</returns>
-        public bool splitNodeByOp(SUPPORTED_TOKENS operation)
+        public bool splitNodeByOp(Globals.SUPPORTED_TOKENS operation)
         {
             int index = 0;
             foreach(Token t in value)

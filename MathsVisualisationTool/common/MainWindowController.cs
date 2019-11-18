@@ -94,7 +94,7 @@ namespace MathsVisualisationTool
                 //Interpreter String called results
                 Interpreter i = new Interpreter();
                 //string output = i.RunInterpreter(inputBox.Text);
-                Results.Items.Add("\t\t\t Ans = " + i.RunInterpreter(inputBox.Text));
+                Results.Items.Add(i.RunInterpreter(inputBox.Text));
                 /**************************************************************************************/
                 //Look at putting NaN "checker" here
                 //if (output != "NaN")
@@ -141,7 +141,7 @@ namespace MathsVisualisationTool
                     Results.Items.Add(">>> \t" + this.inputBox.Text);
                     //Interpreter String called results
                     Interpreter i = new Interpreter();
-                    Results.Items.Add("\t\t\t Ans = " + i.RunInterpreter(inputBox.Text));
+                    Results.Items.Add(i.RunInterpreter(inputBox.Text));
                     this.inputBox.Focus();
                     this.inputBox.Clear();
                 }
