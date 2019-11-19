@@ -59,6 +59,7 @@ namespace MathsVisualisationTool
 
                 else if(c == '+')
                 {
+                    //Don't add anything initially
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
                         tokenToAdd = TokeniseList(characters, typeInList);
@@ -169,6 +170,24 @@ namespace MathsVisualisationTool
                             characters = new List<char>();
                             typeInList = Globals.SUPPORTED_TOKENS.WHITE_SPACE;
                         }
+                    }
+                }
+                else if(c == '.')
+                {
+                    if (typeInList.Equals(Globals.SUPPORTED_TOKENS.CONSTANT))
+                    {
+                        characters.Add(c);
+                    }
+                    else
+                    {
+                        //create a new token and add it to the list.
+                        if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
+                        {
+                            tokenToAdd = TokeniseList(characters, typeInList);
+                            tokens.Add(tokenToAdd);
+                        }
+                        characters = new List<char>() { c };
+                        typeInList = Globals.SUPPORTED_TOKENS.CONSTANT;
                     }
                 }
                 index++;

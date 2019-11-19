@@ -1,18 +1,42 @@
 [
   {
-    "name": "ANS",
-    "value": "5"
+    "name": "mum",
+    "value": "7"
   },
   {
     "name": "y",
     "value": "0.703703703703704"
   },
   {
+    "name": "ANS",
+    "value": "2.0000100002"
+  },
+  {
+    "name": "e2",
+    "value": "5"
+  },
+  {
     "name": "z",
     "value": "30"
   },
   {
+    "name": "Niks",
+    "value": "3"
+  },
+  {
+    "name": "plus",
+    "value": "4"
+  },
+  {
     "name": "x",
     "value": "0.666666666666667"
+  },
+  {
+    "name": "test",
+    "value": "2.5"
+  },
+  {
+    "name": "e",
+    "value": "5"
   }
 ]

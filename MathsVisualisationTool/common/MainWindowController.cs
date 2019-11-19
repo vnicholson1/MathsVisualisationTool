@@ -155,6 +155,7 @@ namespace MathsVisualisationTool
                     }
                     catch (Exception exp)
                     {
+                        Console.WriteLine(exp.ToString());
                         //Results.Items.Add(exp.Message);
                         MessageBox.Show(exp.Message);
                         Results.Items.Add("Error 2.1");
