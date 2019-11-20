@@ -85,6 +85,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="common\GraphDrawerController.cs" />
     <Compile Include="common\KeyPadController.cs" />
     <Compile Include="config\VariableJSONObject.cs" />
     <Compile Include="interpreter\VariableFileHandle.cs" />
@@ -100,6 +101,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="styles\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\GraphDrawer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

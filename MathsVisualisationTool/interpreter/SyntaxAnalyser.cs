@@ -83,11 +83,11 @@ namespace MathsVisualisationTool
 
                     case Globals.SUPPORTED_TOKENS.MULTIPLICATION:
                         //prevent situations like 2+*3 because this doesn't make sense.
-                        multAndDivisionCheck(previousToken,i);
+                        multAndDivisionCheck(previousToken,i,gatheredTokens.Count);
                         break;
 
                     case Globals.SUPPORTED_TOKENS.DIVISION:
-                        multAndDivisionCheck(previousToken,i);
+                        multAndDivisionCheck(previousToken,i,gatheredTokens.Count);
                         break;
 
                     case Globals.SUPPORTED_TOKENS.ASSIGNMENT:
@@ -142,7 +142,7 @@ namespace MathsVisualisationTool
                         break;
 
                     case Globals.SUPPORTED_TOKENS.INDICIES:
-                        multAndDivisionCheck(previousToken, i);
+                        multAndDivisionCheck(previousToken, i,gatheredTokens.Count);
                         break;
                         
                     default:
@@ -158,7 +158,7 @@ namespace MathsVisualisationTool
             }
         }
 
-        public void multAndDivisionCheck(Globals.SUPPORTED_TOKENS previousToken,int index)
+        public void multAndDivisionCheck(Globals.SUPPORTED_TOKENS previousToken,int index, int numTokens)
         {
             if (previousToken == Globals.SUPPORTED_TOKENS.MINUS
                             || previousToken == Globals.SUPPORTED_TOKENS.PLUS
@@ -166,7 +166,12 @@ namespace MathsVisualisationTool
                             || previousToken == Globals.SUPPORTED_TOKENS.DIVISION
                             || previousToken == Globals.SUPPORTED_TOKENS.INDICIES)
             {
-                throw new SyntaxErrorException("Integer expected at token position - " + index + " .");
+                throw new SyntaxErrorException("Integer expected at token position - " + index + ".");
+            }
+
+            if(index+1 == numTokens)
+            {
+                throw new SyntaxErrorException("Integer expected at token position - " + (index + 1) + ".");
             }
         }
     }

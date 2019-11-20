@@ -155,33 +155,34 @@ namespace MathsVisualisationTool
         /// <param name="tokens"></param>
         private void createNegativeAndPositiveNumbers(List<Token> tokens)
         {
-            //For situations like +3 or -3 as an input
-            switch (tokens[0].GetType())
+            //For situations like +3 or -3 or (-1) as an input
+            for(int i=0;i < tokens.Count;i++)
             {
-                case Globals.SUPPORTED_TOKENS.PLUS:
-                    if (tokens[1].GetType() == Globals.SUPPORTED_TOKENS.CONSTANT)
+                if(i == 0 /*|| tokens*/)
+                {
+                    switch (tokens[i].GetType())
                     {
-                        string tokenValue = tokens[1].GetValue();
-                        tokens.RemoveRange(0, 2);
-                        tokens.Insert(0, new Token(Globals.SUPPORTED_TOKENS.CONSTANT, tokenValue));
+                        case Globals.SUPPORTED_TOKENS.PLUS:
+
+                            tokens.Insert(i, new Token(Globals.SUPPORTED_TOKENS.CONSTANT, "0"));
+                            break;
+                        case Globals.SUPPORTED_TOKENS.MINUS:
+                            tokens.Insert(i, new Token(Globals.SUPPORTED_TOKENS.CONSTANT, "0"));
+                            break;
                     }
-                    break;
-                case Globals.SUPPORTED_TOKENS.MINUS:
-                    if (tokens[1].GetType() == Globals.SUPPORTED_TOKENS.CONSTANT)
-                    {
-                        string tokenValue = tokens[1].GetValue();
-                        tokens.RemoveRange(0, 2);
-                        tokens.Insert(0, new Token(Globals.SUPPORTED_TOKENS.CONSTANT, "-" + tokenValue));
-                    }
-                    break;
+                }
             }
+
+            
 
             //implementing solution for:
             // (*) (-|+) number
             // (/) (-|+) number
+            // (^) (-|+) number
             for (int i = 0; i < tokens.Count; i++)
             {
-                if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.MULTIPLICATION || tokens[i].GetType() == Globals.SUPPORTED_TOKENS.DIVISION)
+                if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.MULTIPLICATION || tokens[i].GetType() == Globals.SUPPORTED_TOKENS.DIVISION 
+                    || tokens[i].GetType() == Globals.SUPPORTED_TOKENS.INDICIES)
                 {
                     if (tokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.MINUS)
                     {

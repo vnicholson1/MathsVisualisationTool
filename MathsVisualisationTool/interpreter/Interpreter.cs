@@ -29,6 +29,11 @@ namespace MathsVisualisationTool
         /// <returns></returns>
         public string RunInterpreter(string codeToRun)
         {
+            var graph = new GraphDrawer();
+            graph.Topmost = true;
+            graph.Show();
+            
+
             //Use the lexer to tokenise the input
             List<Token> tokens = lexer.TokeniseInput(codeToRun);
             //Then put the gathered tokens into the parser.
@@ -44,11 +49,11 @@ namespace MathsVisualisationTool
             {
                 string res = Convert.ToString(result);
 
-                vars["ANS"] = res;
+                vars["Ans"] = res;
 
                 VariableFileHandle.saveVariables(vars);
 
-                return "\tvar ANS = \n\t\t" + Convert.ToString(result);
+                return "\tvar Ans = \n\t\t" + Convert.ToString(result);
             }
             
         }
