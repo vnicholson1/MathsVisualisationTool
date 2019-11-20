@@ -73,7 +73,7 @@ namespace MathsVisualisationTool
                     value = Convert.ToDouble(nextToken.GetValue());
                     getNextToken();
                 }
-                else if (tokenType == Globals.SUPPORTED_TOKENS.DIVISION || tokenType == Globals.SUPPORTED_TOKENS.MULTIPLICATION)
+                else if (tokenType == Globals.SUPPORTED_TOKENS.DIVISION || tokenType == Globals.SUPPORTED_TOKENS.MULTIPLICATION ||tokenType == Globals.SUPPORTED_TOKENS.INDICIES)
                 {
                     //If its division or multiplication, run the appropriate method.
                     value = divisionAndMultHandle(value);

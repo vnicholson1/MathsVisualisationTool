@@ -110,16 +110,33 @@ namespace MathsVisualisationTool
             foreach (Globals.SUPPORTED_TOKENS s in Globals.orderOfOperators)
             {
                 int i;
-                for (i = 0; i < listOfExpressions.Count; i++)
+
+                if(s == Globals.SUPPORTED_TOKENS.INDICIES)
                 {
-                    if (listOfExpressions[i].Count == 1)
+                    //go from right to left because indicies is a right associativity operation
+                    for (i = listOfExpressions.Count-1; i > -1; i--)
                     {
-                        if (listOfExpressions[i][0].GetType() == s)
+                        if (listOfExpressions[i].Count == 1)
                         {
-                            i = convertListOfExpressions(listOfExpressions, i);
+                            if (listOfExpressions[i][0].GetType() == s)
+                            {
+                                i = convertListOfExpressions(listOfExpressions, i);
+                            }
                         }
                     }
-
+                } else
+                {
+                    //anything else is assumed to be left associative.
+                    for (i = 0; i < listOfExpressions.Count; i++)
+                    {
+                        if (listOfExpressions[i].Count == 1)
+                        {
+                            if (listOfExpressions[i][0].GetType() == s)
+                            {
+                                i = convertListOfExpressions(listOfExpressions, i);
+                            }
+                        }
+                    }
                 }
             }
 

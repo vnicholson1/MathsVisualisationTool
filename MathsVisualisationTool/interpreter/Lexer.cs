@@ -113,6 +113,17 @@ namespace MathsVisualisationTool
                     typeInList = Globals.SUPPORTED_TOKENS.OPEN_BRACKET;
                 }
 
+                else if (c == '^')
+                {
+                    if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
+                    {
+                        tokenToAdd = TokeniseList(characters, typeInList);
+                        tokens.Add(tokenToAdd);
+                    }
+                    characters = new List<char>() { c };
+                    typeInList = Globals.SUPPORTED_TOKENS.INDICIES;
+                }
+
                 else if(c == ')')
                 {
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))

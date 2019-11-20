@@ -1,0 +1,1 @@
+for 2^-2 it comes out as 2^-.
