@@ -37,6 +37,40 @@ namespace MathsVisualisationTool
         /// <returns> the value of the given expression.</returns>
         public double AnalyseTokens(List<Token> tokens)
         {
+            //check if there are any function definitions present.
+            for(int i = 0;i<tokens.Count;i++)
+            {
+                //plot func has the following syntax:
+                //plot(Y=X,Xmin,Xmax,inc)
+                //So need to gather the algebraic function, Xmin, Xmax and the increment
+                //And pass it into a PlotFunction object for processing.
+                if(tokens[i].GetType() == Globals.SUPPORTED_TOKENS.PLOT)
+                {
+                    //List for storing the function to be drawn i.e. "Y=X"
+                    List<Token> functionTokens = new List<Token>();
+                    while(tokens[i].GetType() != Globals.SUPPORTED_TOKENS.COMMA)
+                    {
+                        functionTokens.Add(tokens[i]);
+                        i++;
+                    }
+
+
+
+                    //Incase this variable gets reassigned.
+                    varName = null;
+                    return double.NaN;
+                }
+            }
+            return processTokens(tokens);
+        }
+
+        /// <summary>
+        /// Method called to process an expression.
+        /// </summary>
+        /// <param name="tokens"></param>
+        /// <returns></returns>
+        public double processTokens(List<Token> tokens)
+        {
             this.tokens = tokens;
 
             //Analyse the syntax to see if it is valid.
@@ -100,10 +134,10 @@ namespace MathsVisualisationTool
                 {
                     value = variableHandle(value);
                 }
-                else if (Globals.keyWordTokens.Contains(tokenType))
+                /*else if (Globals.keyWordTokens.Contains(tokenType))
                 {
                     functionHandle(tokenType);
-                }
+                }*/
             }
             return value;
         }
@@ -113,21 +147,23 @@ namespace MathsVisualisationTool
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        private double functionHandle(Globals.SUPPORTED_TOKENS tokenType)
-        {
-            //If the function is plot
-            //plot(Y=X^2,Xmin,Xmax,inc)
-            if(tokenType == Globals.SUPPORTED_TOKENS.PLOT)
-            {
-                var graph = new GraphDrawer {Topmost = true};
-                graph.Show();
-
-                return double.NaN;
-            }
+        //private double functionHandle(Globals.SUPPORTED_TOKENS tokenType)
+        //{
+        //    //If the function is plot
+        //    //plot(Y=X^2,Xmin,Xmax,inc)
+        //    if(tokenType == Globals.SUPPORTED_TOKENS.PLOT)
+        //    {
+        //        var graph = new GraphDrawer {Topmost = true};
+        //        graph.Show();
+        //        getNextToken();
 
 
-            return 1.0;
-        }
+        //        return double.NaN;
+        //    }
+
+
+        //    return 1.0;
+        //}
 
         /// <summary>
         /// Function for handling when a new variable is being declared.

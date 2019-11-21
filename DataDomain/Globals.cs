@@ -13,7 +13,7 @@ namespace DataDomain
             CONSTANT, //supported data types
             PLUS, MINUS, DIVISION, MULTIPLICATION, ASSIGNMENT, INDICIES, //supported ops.
             VARIABLE_NAME, //tokens related to the assignment of variables
-            WHITE_SPACE, OPEN_BRACKET, CLOSE_BRACKET, //miscellaneous characters.
+            WHITE_SPACE, OPEN_BRACKET, CLOSE_BRACKET, COMMA, //miscellaneous characters.
             PLOT //supported functions
         };
 

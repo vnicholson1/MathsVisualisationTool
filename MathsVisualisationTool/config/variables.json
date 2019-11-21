@@ -21,7 +21,7 @@
   },
   {
     "name": "y",
-    "value": "0.703703703703704"
+    "value": "∞"
   },
   {
     "name": "plus",
@@ -36,12 +36,16 @@
     "value": "38.443359375"
   },
   {
+    "name": "u",
+    "value": "3"
+  },
+  {
     "name": "test",
     "value": "2.5"
   },
   {
     "name": "Ans",
-    "value": "3"
+    "value": "4"
   },
   {
     "name": "Niks",

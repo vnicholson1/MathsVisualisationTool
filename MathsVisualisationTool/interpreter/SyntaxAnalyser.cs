@@ -82,10 +82,16 @@ namespace MathsVisualisationTool
                             throw new SyntaxErrorException("Enclosing brackets must contain an expression.");
                         }
 
-                        //Remove the ability to add 
                         break;
 
                     case Globals.SUPPORTED_TOKENS.CLOSE_BRACKET:
+                        if(previousToken == Globals.SUPPORTED_TOKENS.MULTIPLICATION
+                            || previousToken == Globals.SUPPORTED_TOKENS.DIVISION
+                            || previousToken == Globals.SUPPORTED_TOKENS.INDICIES)
+                        {
+                            throw new SyntaxErrorException("Integer expected at token position - " + i + " .");
+                        }
+
                         if(bracketLevel == 0)
                         {
                             throw new SyntaxErrorException("Close bracket found without supporting open bracket at position - " + i + " .");
@@ -176,7 +182,8 @@ namespace MathsVisualisationTool
                             || previousToken == Globals.SUPPORTED_TOKENS.PLUS
                             || previousToken == Globals.SUPPORTED_TOKENS.MULTIPLICATION
                             || previousToken == Globals.SUPPORTED_TOKENS.DIVISION
-                            || previousToken == Globals.SUPPORTED_TOKENS.INDICIES)
+                            || previousToken == Globals.SUPPORTED_TOKENS.INDICIES
+                            || previousToken == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
             {
                 throw new SyntaxErrorException("Integer expected at token position - " + index + ".");
             }

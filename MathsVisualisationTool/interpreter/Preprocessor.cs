@@ -60,13 +60,6 @@ namespace MathsVisualisationTool
                     }
                     break;
                 }
-
-                //If a keyword is found just remove the keyword
-                if(Globals.keyWordTokens.Contains(t.GetType()))
-                {
-                    removedTokens.Add(tokens[index]);
-                    tokens.RemoveAt(index);
-                }
                 index++;
             }
 
