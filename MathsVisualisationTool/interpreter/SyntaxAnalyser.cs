@@ -71,6 +71,18 @@ namespace MathsVisualisationTool
 
                     case Globals.SUPPORTED_TOKENS.OPEN_BRACKET:
                         bracketLevel++;
+                        if(i+1 == gatheredTokens.Count)
+                        {
+                            throw new SyntaxErrorException("Expression cannot finish with an open bracket.");
+                        }
+
+                        //Remove the ability to add ()
+                        if(gatheredTokens[(i+1)].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
+                        {
+                            throw new SyntaxErrorException("Enclosing brackets must contain an expression.");
+                        }
+
+                        //Remove the ability to add 
                         break;
 
                     case Globals.SUPPORTED_TOKENS.CLOSE_BRACKET:

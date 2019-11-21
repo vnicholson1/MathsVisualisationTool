@@ -29,11 +29,6 @@ namespace MathsVisualisationTool
         /// <returns></returns>
         public string RunInterpreter(string codeToRun)
         {
-            var graph = new GraphDrawer();
-            graph.Topmost = true;
-            graph.Show();
-            
-
             //Use the lexer to tokenise the input
             List<Token> tokens = lexer.TokeniseInput(codeToRun);
             //Then put the gathered tokens into the parser.

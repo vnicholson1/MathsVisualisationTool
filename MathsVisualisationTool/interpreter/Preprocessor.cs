@@ -46,16 +46,26 @@ namespace MathsVisualisationTool
             List<Token> removedTokens = new List<Token>();
             //Check if the input contains any variable assignments
             int index = 0;
-            foreach (Token t in tokens)
+            foreach (Token t in tokens.ToList())
             {
+                //if its an assignment operator.
                 if(t.GetType() == Globals.SUPPORTED_TOKENS.ASSIGNMENT)
                 {
+                    //remove all tokens before and including the assignment operator.
                     for(int i=0;i<=index;i++)
                     {
+                        //don't parenthesise the tokens before and including the assignment operator.
                         removedTokens.Add(tokens[0]);
                         tokens.RemoveAt(0);
                     }
                     break;
+                }
+
+                //If a keyword is found just remove the keyword
+                if(Globals.keyWordTokens.Contains(t.GetType()))
+                {
+                    removedTokens.Add(tokens[index]);
+                    tokens.RemoveAt(index);
                 }
                 index++;
             }

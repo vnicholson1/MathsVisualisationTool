@@ -100,8 +100,33 @@ namespace MathsVisualisationTool
                 {
                     value = variableHandle(value);
                 }
+                else if (Globals.keyWordTokens.Contains(tokenType))
+                {
+                    functionHandle(tokenType);
+                }
             }
             return value;
+        }
+
+        /// <summary>
+        /// Method for handling the functions pre-defined in the language.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private double functionHandle(Globals.SUPPORTED_TOKENS tokenType)
+        {
+            //If the function is plot
+            //plot(Y=X^2,Xmin,Xmax,inc)
+            if(tokenType == Globals.SUPPORTED_TOKENS.PLOT)
+            {
+                var graph = new GraphDrawer {Topmost = true};
+                graph.Show();
+
+                return double.NaN;
+            }
+
+
+            return 1.0;
         }
 
         /// <summary>
