@@ -27,6 +27,7 @@ namespace MathsVisualisationTool
 
     public partial class MainWindow : Window
     {
+        public string keypadString { get; set; }
 
         // <summary>
         // Interaction logic for MainWindow.xaml
@@ -37,7 +38,9 @@ namespace MathsVisualisationTool
             inputBox.KeyDown += new KeyEventHandler(InputBox_KeyDown);
         }
 
+        /****************************** FUNCTIONS TO MAXIMIZE/MINIMIZE SIDEPANES ****************************/
 
+        /************************** END OF FUNCTIONS TO MAXIMIZE/MINIMIZE SIDEPANES *************************/
         /****************************************************************************************************/
 
         private void CommonCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -46,7 +49,7 @@ namespace MathsVisualisationTool
         }
 
         /****************************************************************************************************/
-
+        /****************************** DRAG/DROP FUNCTIONS [NONE FUNCTIONAL ATM] ***************************/
         private void OnDrag(object sender, MouseButtonEventArgs e)
         {
             if (e.Source is Button draggedBtn)
@@ -79,7 +82,8 @@ namespace MathsVisualisationTool
             return e.Data;
         }
 
-        /****************************************************************************************************/
+        /************************** END OF DRAG/DROP FUNCTIONS [NONE FUNCTIONAL ATM] ************************/
+        /************************************ FUNCTIONS TO RUN/SUBMIT INPUT *********************************/
 
         /*
          * OnRun_Clicked - Handle event if the Run/Submit button is 
@@ -115,16 +119,6 @@ namespace MathsVisualisationTool
                 this.inputBox.Focus();
             }
         }
-
-
-        /*
-         * EnterKeyPressed - Handle event if the Enter key has been 
-         *                  pressed.
-         */
-        //private void EnterKeyPressed(object sender, RoutedEventArgs e)
-        //{
-        //    HandleTextEnter();
-        //}
 
         /*
          * InputBox_KeyDown - Handle event if the return button has 
@@ -177,7 +171,7 @@ namespace MathsVisualisationTool
 
         }
 
-        /****************************************************************************************************/
+        /********************************* END OF FUNCTIONS TO RUN/SUBMIT INPUT *****************************/
         /************************************** STANDARD TOP MENU FUNCTIONS *********************************/
 
         /*
@@ -200,7 +194,6 @@ namespace MathsVisualisationTool
         }
 
         /********************************** END OF STANDARD TOP MENU FUNCTIONS ******************************/
-
         /**************************************** TOOLBAR MENU FUNCTIONS ************************************/
 
         /*
@@ -335,11 +328,21 @@ namespace MathsVisualisationTool
          */
         private void OnHelp_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Help Clicked - Fix it");
+            HelpLibrary library = new HelpLibrary();
+            library.Show();
+        }
+
+        /*
+         * OnKeypad_Clicked - Handle event if the Keypad button is 
+         *                   click from the toolbar
+         */
+        private void OnKeypad_Clicked(object sender, RoutedEventArgs e)
+        {
+            KeyPad keypad = new KeyPad();
+            keypad.Show();
         }
 
         /************************************ END OF TOOLBAR MENU FUNCTIONS *********************************/
-
         /********************************* GREEK CHARACTERS KEYPAD FUNCTIONS ********************************/
 
         /*
@@ -520,8 +523,8 @@ namespace MathsVisualisationTool
             // Use Unicode Escape Code/Characters
             this.inputBox.Text += "\u03A3";
         }
-        /***************************** END OF GREEK CHARACTERS KEYPAD FUNCTIONS *****************************/
 
+        /***************************** END OF GREEK CHARACTERS KEYPAD FUNCTIONS *****************************/
         /************************** ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS *************************/
         /*
          * onEquivilantClicked -   Function for the Equiviliant Button on the
@@ -740,8 +743,8 @@ namespace MathsVisualisationTool
         {
             this.inputBox.Text += "/tan";
         }
-        /********************** END OF ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS **********************/
 
+        /********************** END OF ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS **********************/
         /************************************** NUMERICAL KEYPAD FUNCTIONS **********************************/
         /*
          * onEqualClicked -    Function for the equals Button on the
