@@ -18,33 +18,37 @@ namespace MathsVisualisationTool
     public partial class GraphDrawer : Window
     {
 
-        private List<Tuple<double, double>> dataPoints;
+        private PlotFunction plotFunc;
 
-        public GraphDrawer(List<Tuple<double, double>> dataPoints)
+        public GraphDrawer(PlotFunction plotFunc)
         {
-            this.dataPoints = dataPoints;
+            this.plotFunc = plotFunc;
             InitializeComponent();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            const double margin = 10;
-            double xmin = margin;
-            double xmax = canGraph.Width - margin;
-            double ymin = margin;
-            double ymax = canGraph.Height - margin;
+            //margin of the canvas
+            const double margin = 10; 
+            double xminCanvas = margin;
+            //Width of the canvas minus desired margin of canvas.
+            double xmaxCanvas = graphCanvas.Width - margin;
+            double yminCanvas = margin;
+            double ymaxCanvas = graphCanvas.Height - margin;
+
+            //defines the number of pixels between each data point.
             const double step = 10;
 
             // Make the X axis.
             GeometryGroup xaxis_geom = new GeometryGroup();
             xaxis_geom.Children.Add(new LineGeometry(
-                new Point(0, ymax), new Point(canGraph.Width, ymax)));
-            for (double x = xmin + step;
-                x <= canGraph.Width - step; x += step)
+                new Point(0, ymaxCanvas), new Point(graphCanvas.Width, ymaxCanvas)));
+            for (double x = xminCanvas + step;
+                x <= graphCanvas.Width - step; x += step)
             {
                 xaxis_geom.Children.Add(new LineGeometry(
-                    new Point(x, ymax - margin / 2),
-                    new Point(x, ymax + margin / 2)));
+                    new Point(x, ymaxCanvas - margin / 2),
+                    new Point(x, ymaxCanvas + margin / 2)));
             }
 
             Path xaxis_path = new Path();
@@ -52,17 +56,17 @@ namespace MathsVisualisationTool
             xaxis_path.Stroke = Brushes.Black;
             xaxis_path.Data = xaxis_geom;
 
-            canGraph.Children.Add(xaxis_path);
+            graphCanvas.Children.Add(xaxis_path);
 
             // Make the Y ayis.
             GeometryGroup yaxis_geom = new GeometryGroup();
             yaxis_geom.Children.Add(new LineGeometry(
-                new Point(xmin, 0), new Point(xmin, canGraph.Height)));
-            for (double y = step; y <= canGraph.Height - step; y += step)
+                new Point(xminCanvas, 0), new Point(xminCanvas, graphCanvas.Height)));
+            for (double y = step; y <= graphCanvas.Height - step; y += step)
             {
                 yaxis_geom.Children.Add(new LineGeometry(
-                    new Point(xmin - margin / 2, y),
-                    new Point(xmin + margin / 2, y)));
+                    new Point(xminCanvas - margin / 2, y),
+                    new Point(xminCanvas + margin / 2, y)));
             }
 
             Path yaxis_path = new Path();
@@ -70,21 +74,21 @@ namespace MathsVisualisationTool
             yaxis_path.Stroke = Brushes.Black;
             yaxis_path.Data = yaxis_geom;
 
-            canGraph.Children.Add(yaxis_path);
+            graphCanvas.Children.Add(yaxis_path);
 
             // Make some data sets.
             Brush[] brushes = { Brushes.Red, Brushes.Green, Brushes.Blue };
             Random rand = new Random();
             for (int data_set = 0; data_set < 3; data_set++)
             {
-                int last_y = rand.Next((int)ymin, (int)ymax);
+                int last_y = rand.Next((int)yminCanvas, (int)ymaxCanvas);
 
                 PointCollection points = new PointCollection();
-                for (double x = xmin; x <= xmax; x += step)
+                for (double x = xminCanvas; x <= xmaxCanvas; x += step)
                 {
                     last_y = rand.Next(last_y - 10, last_y + 10);
-                    if (last_y < ymin) last_y = (int)ymin;
-                    if (last_y > ymax) last_y = (int)ymax;
+                    if (last_y < yminCanvas) last_y = (int)yminCanvas;
+                    if (last_y > ymaxCanvas) last_y = (int)ymaxCanvas;
                     points.Add(new Point(x, last_y));
                 }
 
@@ -93,7 +97,7 @@ namespace MathsVisualisationTool
                 polyline.Stroke = brushes[data_set];
                 polyline.Points = points;
 
-                canGraph.Children.Add(polyline);
+                graphCanvas.Children.Add(polyline);
             }
         }
     }

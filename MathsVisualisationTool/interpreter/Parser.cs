@@ -47,9 +47,9 @@ namespace MathsVisualisationTool
                 if(tokens[i].GetType() == Globals.SUPPORTED_TOKENS.PLOT)
                 {
                     PlotFunction plot = PlotFunction.plotFunctionHandle(tokens, i);
-                    List<Tuple<double, double>> listOfCoordinates = plot.getValues();
+                    plot.getValues();
 
-                    GraphDrawer gd = new GraphDrawer(listOfCoordinates){ Topmost = true};
+                    GraphDrawer gd = new GraphDrawer(plot){ Topmost = true};
                     gd.Show();
 
                     //Incase this variable gets reassigned - used by Interpreter.cs to notify whether a variable assignment has happened.

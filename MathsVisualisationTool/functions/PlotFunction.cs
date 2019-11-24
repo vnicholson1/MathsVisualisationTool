@@ -8,12 +8,14 @@ using DataDomain;
 
 namespace MathsVisualisationTool
 {
-    class PlotFunction
+    public class PlotFunction
     {
-        private List<Token> Equation;
-        private double Xmin;
-        private double Xmax;
-        private double inc;
+        public List<Token> Equation;
+        public double Xmin;
+        public double Xmax;
+        public double inc;
+        //List to store all the gathered data points.
+        public List<Tuple<double, double>> dataPoints = new List<Tuple<double,double>>();
 
         public PlotFunction(List<Token> Equation, Token XminToken, Token XmaxToken, Token incToken)
         {
@@ -76,9 +78,10 @@ namespace MathsVisualisationTool
 
         /// <summary>
         /// Method for getting the list of values from the expression so they can be drawn by the graph drawer.
+        /// Result stored in Plot Function object under data points.
         /// </summary>
         /// <returns></returns>
-        public List<Tuple<double,double>> getValues()
+        public void getValues()
         {
             //Say if your expression is Y=X+2
             //First step is to remove the Y= part and then evaulate the X+2 part by parsing it through the parser.
@@ -92,8 +95,6 @@ namespace MathsVisualisationTool
             //get the number of data values to plot.
             int numIncrements = Convert.ToInt32(Math.Floor((Xmax - Xmin) / inc) + 1);
 
-            //List to store all the gathered data points.
-            List<Tuple<double, double>> dataPoints = new List<Tuple<double, double>>();
             Parser p;
             //Iterate through every value of X and get a Y value.
             for(int i=0;i<numIncrements;i++)
@@ -109,8 +110,7 @@ namespace MathsVisualisationTool
                 dataPoints.Add(new Tuple<double, double>(Xvalue, Yvalue));
             }
 
-            printDataPoints(dataPoints);
-            return dataPoints;
+            printDataPoints();
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace MathsVisualisationTool
         /// Mainly for debugging purposes.
         /// </summary>
         /// <param name="dataPoints"></param>
-        private void printDataPoints(List<Tuple<double, double>> dataPoints)
+        private void printDataPoints()
         {
             foreach (Tuple<double, double> t in dataPoints)
             {

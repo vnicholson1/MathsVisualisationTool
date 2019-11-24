@@ -4,7 +4,7 @@
   Title="Graph drawing attempt"
   Width="535" Height="450" Loaded="Window_Loaded">
     <Grid Background="Red">
-        <Canvas Name="canGraph" Background="white"
+        <Canvas Name="graphCanvas" Background="white"
       Width="500" Height="400"
       VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </Grid>
