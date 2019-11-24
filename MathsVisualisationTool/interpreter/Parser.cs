@@ -46,17 +46,13 @@ namespace MathsVisualisationTool
                 //And pass it into a PlotFunction object for processing.
                 if(tokens[i].GetType() == Globals.SUPPORTED_TOKENS.PLOT)
                 {
-                    //List for storing the function to be drawn i.e. "Y=X"
-                    List<Token> functionTokens = new List<Token>();
-                    while(tokens[i].GetType() != Globals.SUPPORTED_TOKENS.COMMA)
-                    {
-                        functionTokens.Add(tokens[i]);
-                        i++;
-                    }
+                    PlotFunction plot = PlotFunction.plotFunctionHandle(tokens, i);
+                    List<Tuple<double, double>> listOfCoordinates = plot.getValues();
 
+                    GraphDrawer gd = new GraphDrawer(listOfCoordinates){ Topmost = true};
+                    gd.Show();
 
-
-                    //Incase this variable gets reassigned.
+                    //Incase this variable gets reassigned - used by Interpreter.cs to notify whether a variable assignment has happened.
                     varName = null;
                     return double.NaN;
                 }
@@ -134,36 +130,9 @@ namespace MathsVisualisationTool
                 {
                     value = variableHandle(value);
                 }
-                /*else if (Globals.keyWordTokens.Contains(tokenType))
-                {
-                    functionHandle(tokenType);
-                }*/
             }
             return value;
         }
-
-        /// <summary>
-        /// Method for handling the functions pre-defined in the language.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        //private double functionHandle(Globals.SUPPORTED_TOKENS tokenType)
-        //{
-        //    //If the function is plot
-        //    //plot(Y=X^2,Xmin,Xmax,inc)
-        //    if(tokenType == Globals.SUPPORTED_TOKENS.PLOT)
-        //    {
-        //        var graph = new GraphDrawer {Topmost = true};
-        //        graph.Show();
-        //        getNextToken();
-
-
-        //        return double.NaN;
-        //    }
-
-
-        //    return 1.0;
-        //}
 
         /// <summary>
         /// Function for handling when a new variable is being declared.

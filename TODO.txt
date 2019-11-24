@@ -1,1 +1,5 @@
-for 2^-2 it comes out as 2^-.
+Need to check if user has put the plot function in correct syntax - currently assumes the user does so.
+Check the following situations:
+Xmax > Xmin
+inc > 0
+Xmax - Xmin > inc

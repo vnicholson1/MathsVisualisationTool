@@ -40,7 +40,7 @@ namespace MathsVisualisationTool
             {
                 if(parser.varName is null)
                 {
-                    return "\tGraph Drawn.";
+                    return "\tRefer to figure.";
                 }
 
                 //this means a variable assignment has occured because no value has been returned (double.NaN).

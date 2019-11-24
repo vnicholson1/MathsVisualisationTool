@@ -17,8 +17,12 @@ namespace MathsVisualisationTool
 
     public partial class GraphDrawer : Window
     {
-        public GraphDrawer()
+
+        private List<Tuple<double, double>> dataPoints;
+
+        public GraphDrawer(List<Tuple<double, double>> dataPoints)
         {
+            this.dataPoints = dataPoints;
             InitializeComponent();
         }
 
