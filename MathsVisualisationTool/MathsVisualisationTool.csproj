@@ -85,6 +85,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="common\HelpLibraryController.cs" />
     <Compile Include="common\KeyPadController.cs" />
     <Compile Include="config\VariableJSONObject.cs" />
     <Compile Include="interpreter\VariableFileHandle.cs" />
@@ -95,11 +96,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="styles\ButtonStyling.xaml">
+    <Page Include="styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="styles\Grid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="styles\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="styles\TabControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\HelpLibrary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -174,73 +187,6 @@
       <Project>{e99a2845-a6ab-48aa-acfd-16fc9afce5cf}</Project>
       <Name>DataDomain</Name>
     </ProjectReference>
-    <Resource Include="images\greek\alpha.png" />
-    <Resource Include="images\greek\beta.png" />
-    <Resource Include="images\greek\Delta.png" />
-    <Resource Include="images\greek\epsilon.png" />
-    <Resource Include="images\greek\gamma.png" />
-    <Resource Include="images\greek\theta.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\greek\lambda.png" />
-    <Resource Include="images\greek\mu.png" />
-    <Resource Include="images\greek\omega.png" />
-    <Resource Include="images\greek\phi.png" />
-    <Resource Include="images\greek\psi.png" />
-    <Resource Include="images\greek\Sigma.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\greek\delt.png" />
-    <Resource Include="images\greek\Ohm.png" />
-    <Resource Include="images\greek\rho.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\numerical\ans.png" />
-    <Resource Include="images\numerical\decimal.png" />
-    <Resource Include="images\numerical\eight.png" />
-    <Resource Include="images\numerical\five.png" />
-    <Resource Include="images\numerical\four.png" />
-    <Resource Include="images\numerical\nine.png" />
-    <Resource Include="images\numerical\one.png" />
-    <Resource Include="images\numerical\six.png" />
-    <Resource Include="images\numerical\three.png" />
-    <Resource Include="images\numerical\two.png" />
-    <Resource Include="images\numerical\zero.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\numerical\seven.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\numerical\lessThan.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\numerical\moreThan.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\arithmetic\add.png" />
-    <Resource Include="images\arithmetic\cos.png" />
-    <Resource Include="images\arithmetic\div.png" />
-    <Resource Include="images\arithmetic\indice.png" />
-    <Resource Include="images\arithmetic\leftBracket.png" />
-    <Resource Include="images\arithmetic\mul.png" />
-    <Resource Include="images\arithmetic\nSqrt.png" />
-    <Resource Include="images\arithmetic\pi.png" />
-    <Resource Include="images\arithmetic\rightBracket.png" />
-    <Resource Include="images\arithmetic\sin.png" />
-    <Resource Include="images\arithmetic\sqrt.png" />
-    <Resource Include="images\arithmetic\sub.png" />
-    <Resource Include="images\arithmetic\tan.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\arithmetic\percent.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\arithmetic\equal.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\numerical\approx.png" />
-    <Resource Include="images\arithmetic\equiv.png" />
-    <Resource Include="images\arithmetic\nEqual.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\icons\copy.png" />
@@ -278,6 +224,113 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\icons\pageSetup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icons\pin.gif" />
+    <Resource Include="images\icons\pinHorizontal.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\iconVSproperties.bmp" />
+    <Resource Include="images\iconVSrefresh.bmp" />
+    <Resource Include="images\iconVSshowall.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icons\calculator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\arithmetic\leftBracket.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\arithmetic\rightBracket.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\arithmetic\div.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\arithmetic\equiv.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\arithmetic\add.png" />
+    <Resource Include="images\arithmetic\sub.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\arithmetic\sin.png" />
+    <Resource Include="images\arithmetic\tan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\arithmetic\cos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\arithmetic\indice.png" />
+    <Resource Include="images\arithmetic\mul.png" />
+    <Resource Include="images\arithmetic\nEqual.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\arithmetic\nSqrt.png" />
+    <Resource Include="images\arithmetic\percent.png" />
+    <Resource Include="images\arithmetic\pi.png" />
+    <Resource Include="images\arithmetic\sqrt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\greek\alpha.png" />
+    <Resource Include="images\greek\beta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\greek\delt.png" />
+    <Resource Include="images\greek\Delta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\greek\epsilon.png" />
+    <Resource Include="images\greek\gamma.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\greek\lambda.png" />
+    <Resource Include="images\greek\mu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\greek\ohm.png" />
+    <Resource Include="images\greek\omega.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\greek\phi.png" />
+    <Resource Include="images\greek\psi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\greek\rho.png" />
+    <Resource Include="images\greek\sigma.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\greek\theta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\numerical\one.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\numerical\ans.png" />
+    <Resource Include="images\numerical\approx.png" />
+    <Resource Include="images\numerical\decimal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\numerical\eight.png" />
+    <Resource Include="images\numerical\five.png" />
+    <Resource Include="images\numerical\four.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\numerical\lessThan.png" />
+    <Resource Include="images\numerical\moreThan.png" />
+    <Resource Include="images\numerical\nine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\numerical\seven.png" />
+    <Resource Include="images\numerical\six.png" />
+    <Resource Include="images\numerical\three.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\numerical\two.png" />
+    <Resource Include="images\numerical\zero.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\arithmetic\equals.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,6 +8,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../styles/MainMenu.xaml"/>
+                <ResourceDictionary Source="../styles/Buttons.xaml"/>
+                <ResourceDictionary Source="../styles/TabControl.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
