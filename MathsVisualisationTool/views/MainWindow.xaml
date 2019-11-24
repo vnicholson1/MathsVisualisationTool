@@ -54,6 +54,7 @@
                     <MenuItem Header="View Help"/>
                 </MenuItem>
             </Menu>
+
             <!-- TOOL BAR MENU -->
             <ToolBarTray DockPanel.Dock="Top">
                 <ToolBar>
@@ -166,32 +167,107 @@
                         <RowDefinition Height="11"/>
                         <RowDefinition Height="*" MinHeight="320"/>
                     </Grid.RowDefinitions>
-                    
-                    <!--<DockPanel>
-                        <StackPanel Name="buttonBar" Orientation="Horizontal" DockPanel.Dock="Left" Grid.Row="0" Grid.RowSpan="3">
-                            <StackPanel.LayoutTransform>
-                                <RotateTransform Angle="90"/>
-                            </StackPanel.LayoutTransform>
-                            <Button Name="VarButton" MouseEnter="VarButton_MouseEnter" Content="Variables"/>
-                            <Button Name="DocButton" MouseEnter="DocButton_MouseEnter" Content="Documentation"/>
-                        </StackPanel>-->
 
                     <Grid Name="varGrid" Margin="3" Grid.Row="0">
-                        <DataGrid x:Name="varTable" AutoGenerateColumns="True" Grid.Row="0">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Variable" Binding="{Binding AssignedVariable}"/>
-                                    <DataGridTextColumn Header="Stored Value" Binding="{Binding StoredValue}"/>
-                                    <DataGridTextColumn Header="Type" Binding="{Binding TypeOfVariable}"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                        <DataGrid Name="varTable" AutoGenerateColumns="True" Grid.Row="0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Variable" Binding="{Binding AssignedVariable}"/>
+                                <DataGridTextColumn Header="Stored Value" Binding="{Binding StoredValue}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
                         </Grid>
                     <!--</DockPanel>-->
                     <!-- *********************************************************************************************************** -->
                     <GridSplitter x:Name="variablesDocViewerSplitter" Grid.Row="1" HorizontalAlignment="Stretch" Height="5" Margin="0 0 0 0"/>
                     <!-- *********************************************************************************************************** -->
-                    <Grid Name="docViewerGrid" Margin="3" Grid.Row="2">
-                        <DocumentViewer x:Name="documentViewer" Grid.Row="0" Margin="3 3 0 0"></DocumentViewer>
 
+                    <!-- *********************************************************************************************************** -->
+                    <Grid Name="bottomLeftGrid" Grid.IsSharedSizeScope="True" Grid.Row="2" >
+                        <DockPanel>
+                            <StackPanel Name="bottomLeft_BtnBar" Orientation="Horizontal" DockPanel.Dock="Left">
+                                <StackPanel.LayoutTransform>
+                                    <RotateTransform Angle="90"/>
+                                </StackPanel.LayoutTransform>
+                                <Button Name="DocsPane_Btn" MouseEnter="DocsPaneBtn_MouseEnter" Content="Documentation"/>
+                                <Button Name="NotesPane_Btn" MouseEnter="NotesPaneBtn_MouseEnter" Content="Notes"/>
+                            </StackPanel>
+                    <!-- ******************REFINE****************************REFINE***********************************REFINE************************** -->
+                            <Grid Name="LeftBaseLayer" Margin="3" MouseEnter="LeftBaseLayer_MouseEnter" >
+                                <DocumentViewer x:Name="documentViewer" Grid.Row="0" Margin="3 3 0 0"></DocumentViewer>
+
+                            </Grid>
+                        </DockPanel>
+                        
+                        <Grid Name="DocsLayer" Visibility="Collapsed">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="column1" Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0" MouseEnter="DocsPane_MouseEnter" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <DockPanel Grid.Row="0">
+                                    <Button Width="26" Name="DocsPane_Pin" DockPanel.Dock="Right" Click="DocsPin_Clicked" Background="White">
+                                        <Image Name="DocsPane_PinImage" Source="../images/icons/pinHorizontal.gif"/>
+                                    </Button>
+                                    <TextBlock Padding="8" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" DockPanel.Dock="Left">Toolbox</TextBlock>
+                                </DockPanel>
+                                <ListBox Padding="10" Grid.Row="1">
+                                    <ListBoxItem>Button</ListBoxItem>
+                                    <ListBoxItem>CheckBox</ListBoxItem>
+                                    <ListBoxItem>ComboBox</ListBoxItem>
+                                    <ListBoxItem>Label</ListBoxItem>
+                                    <ListBoxItem>ListBox</ListBoxItem>
+                                </ListBox>
+                            </Grid>
+
+                            <GridSplitter Width="5" Grid.Column="1" HorizontalAlignment="Left"/>
+                        </Grid>
+
+                        <Grid Name="NotesLayer" Visibility="Collapsed">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="column2" Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0" MouseEnter="NotesPane_MouseEnter" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <DockPanel Grid.Row="0">
+                                    <Button Width="26" Name="NotesPane_Pin" DockPanel.Dock="Right" Click="NotesPin_Clicked" Background="White">
+                                        <Image Name="NotesPane_PinImage" Source="../images/icons/pinHorizontal.gif"/>
+                                    </Button>
+                                    <TextBlock Padding="8" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" DockPanel.Dock="Left">Solution Explorer</TextBlock>
+                                </DockPanel>
+                                <ToolBar Grid.Row="1">
+                                    <Button>
+                                        <Image Source="../images/iconVSproperties.bmp"/>
+                                    </Button>
+                                    <Button>
+                                        <Image Source="../images/iconVSshowall.bmp"/>
+                                    </Button>
+                                    <Button>
+                                        <Image Source="../images/iconVSrefresh.bmp"/>
+                                    </Button>
+                                </ToolBar>
+                                <TreeView Grid.Row="2">
+                                    <TreeViewItem Header="My Solution">
+                                        <TreeViewItem Header="Project #1"/>
+                                        <TreeViewItem Header="Project #2"/>
+                                        <TreeViewItem Header="Project #3"/>
+                                    </TreeViewItem>
+                                </TreeView>
+                            </Grid>
+
+                            <GridSplitter Width="5" Grid.Column="1" HorizontalAlignment="Left"/>
+                        </Grid>
                     </Grid>
                 </Grid>
 

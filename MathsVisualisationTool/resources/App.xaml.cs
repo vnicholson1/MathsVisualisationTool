@@ -16,6 +16,9 @@ namespace MathsVisualisationTool
 
     public partial class App : Application
     {
+
+        public static MainWindow homeWindow;
+
         /*
          * Single Instance - If program is running in the background then the 
          *                  following code prevents multiple instances and brings
@@ -43,8 +46,8 @@ namespace MathsVisualisationTool
         {
             base.OnStartup(e);
 
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
+            homeWindow = new MainWindow();
+            homeWindow.Show();
 
             //var keyPad = new KeyPad { Owner = mainWindow };
             //keyPad.Show();

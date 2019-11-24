@@ -202,8 +202,8 @@
                 <TabItem Header="Greek Characters">
                     <StackPanel Orientation="Horizontal">
                         <WrapPanel x:Name="greekPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="400">
-                             <!--FIRST ROW OF 3 GREEK CHARACTERS--> 
-                            <Button Margin="3 6 3 3" Padding="5">
+                             <!--FIRST ROW OF 3 GREEK CHARACTERS-->
+                            <Button Margin="3 6 3 3" Padding="5" Click="OnAlpha_Clicked">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="../images/greek/alpha.png" Height="40" />
                                     <TextBlock Text="[Alpha]" TextWrapping="Wrap" HorizontalAlignment="Center"/>

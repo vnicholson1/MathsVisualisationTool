@@ -19,8 +19,6 @@ namespace MathsVisualisationTool
     /// </summary>
     public partial class KeyPad : Window
     {
-        public string keypadString { get; private set; }
-
         public KeyPad()
         {
             InitializeComponent();
@@ -36,6 +34,8 @@ namespace MathsVisualisationTool
          */
         private void OnAlpha_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u03B1";
+
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u03B1";
         }
