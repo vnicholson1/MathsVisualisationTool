@@ -1,5 +1,9 @@
 [
   {
+    "name": "y",
+    "value": "∞"
+  },
+  {
     "name": "mum",
     "value": "7"
   },
@@ -17,11 +21,11 @@
   },
   {
     "name": "x",
-    "value": "1.5"
+    "value": "2"
   },
   {
-    "name": "y",
-    "value": "∞"
+    "name": "getrektm8",
+    "value": "9"
   },
   {
     "name": "plus",
@@ -45,11 +49,11 @@
   },
   {
     "name": "Ans",
-    "value": "7.62"
+    "value": "387420489"
   },
   {
     "name": "~x",
-    "value": "2"
+    "value": "10"
   },
   {
     "name": "Niks",
