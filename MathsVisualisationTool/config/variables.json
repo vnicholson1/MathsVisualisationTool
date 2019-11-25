@@ -17,11 +17,15 @@
   },
   {
     "name": "x",
-    "value": "3"
+    "value": "2"
   },
   {
     "name": "y",
     "value": "15"
+  },
+  {
+    "name": "foo",
+    "value": "118"
   },
   {
     "name": "e",

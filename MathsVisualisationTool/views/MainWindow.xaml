@@ -193,18 +193,19 @@
                             </StackPanel>
                     <!-- ******************REFINE****************************REFINE***********************************REFINE************************** -->
                             <Grid Name="LeftBaseLayer" Margin="3" MouseEnter="LeftBaseLayer_MouseEnter" >
-                                <DocumentViewer x:Name="documentViewer" Grid.Row="0" Margin="3 3 0 0"></DocumentViewer>
-
+                                <StackPanel Orientation="Horizontal" Background="LightGray">
+                                    <WrapPanel x:Name="spare" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="320" AllowDrop="True" Drop="OnDrop"/>
+                                </StackPanel>
                             </Grid>
                         </DockPanel>
                         
-                        <Grid Name="DocsLayer" Visibility="Collapsed" Margin="10">
+                        <Grid Name="DocsLayer" Visibility="Collapsed" Margin="10 3 3 3">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition SharedSizeGroup="column1" Width="auto"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
 
-                            <Grid Grid.Column="0" MouseEnter="DocsPane_MouseEnter" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" >
+                            <Grid Grid.Column="0" MouseEnter="DocsPane_MouseEnter" Background="#5E5E5E" >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition/>
@@ -214,28 +215,21 @@
                                     <Button Width="26" Name="DocsPane_Pin" DockPanel.Dock="Right" Click="DocsPin_Clicked" Background="White">
                                         <Image Name="DocsPane_PinImage" Source="../images/icons/pinHorizontal.gif"/>
                                     </Button>
-                                    <TextBlock Padding="8" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" DockPanel.Dock="Left">Documentation</TextBlock>
+                                    <TextBlock Padding="8" TextTrimming="CharacterEllipsis" Foreground="White" DockPanel.Dock="Left" Text="Documentation"/>
                                 </DockPanel>
-                                
-                                <ListBox Padding="10" Grid.Row="1">
-                                    <ListBoxItem>Button</ListBoxItem>
-                                    <ListBoxItem>CheckBox</ListBoxItem>
-                                    <ListBoxItem>ComboBox</ListBoxItem>
-                                    <ListBoxItem>Label</ListBoxItem>
-                                    <ListBoxItem>ListBox</ListBoxItem>
-                                </ListBox>
+                                <DocumentViewer Name="documentViewer" Padding="10" Grid.Row="1"/>
                             </Grid>
 
                             <GridSplitter Width="5" Grid.Column="1" HorizontalAlignment="Left"/>
                         </Grid>
 
-                        <Grid Name="NotesLayer" Visibility="Collapsed">
+                        <Grid Name="NotesLayer" Visibility="Collapsed" Margin="10 3 3 3">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition SharedSizeGroup="column2" Width="auto"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
 
-                            <Grid Grid.Column="0" MouseEnter="NotesPane_MouseEnter" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}">
+                            <Grid Grid.Column="0" MouseEnter="NotesPane_MouseEnter" Background="#5E5E5E">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
@@ -245,9 +239,25 @@
                                     <Button Width="26" Name="NotesPane_Pin" DockPanel.Dock="Right" Click="NotesPin_Clicked" Background="White">
                                         <Image Name="NotesPane_PinImage" Source="../images/icons/pinHorizontal.gif"/>
                                     </Button>
-                                    <TextBlock Padding="8" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" DockPanel.Dock="Left">Solution Explorer</TextBlock>
+                                    <TextBlock Padding="8" TextTrimming="CharacterEllipsis" Foreground="White" DockPanel.Dock="Left" Text="Your Notes"/>
                                 </DockPanel>
-                                <ToolBar Grid.Row="1">
+                                <ToolBarTray Grid.Row="1">
+                                        <ToolBar>
+                                        <Button Name="notesNew" ToolBar.OverflowMode="AsNeeded" ToolTip="Add Note" Click="OnNewNote_Clicked">
+                                            <Image Source="../images/icons/newFile.png" Width="20"/>
+                                        </Button>
+                                            <Button Name="notesCut" ToolBar.OverflowMode="AsNeeded" ToolTip="Cut" Click="OnCut_Clicked">
+                                                <Image Source="../images/icons/cut.png" Width="20"/>
+                                            </Button>
+                                            <Button x:Name="notesCopy" ToolBar.OverflowMode="AsNeeded" ToolTip="Cut" Click="OnCopy_Clicked">
+                                                <Image Source="../images/icons/copy.png" Width="20"/>
+                                            </Button>
+                                            <Button x:Name="notesPaste" ToolBar.OverflowMode="AsNeeded" ToolTip="Cut" Click="OnPaste_Clicked">
+                                                <Image Source="../images/icons/paste.png" Width="20"/>
+                                            </Button>
+                                        </ToolBar>
+                                    </ToolBarTray>
+                                <!--<ToolBar Grid.Row="1">
                                     <Button>
                                         <Image Source="../images/iconVSproperties.bmp"/>
                                     </Button>
@@ -257,7 +267,7 @@
                                     <Button>
                                         <Image Source="../images/iconVSrefresh.bmp"/>
                                     </Button>
-                                </ToolBar>
+                                </ToolBar>-->
                                 <TreeView Grid.Row="2">
                                     <TreeViewItem Header="My Solution">
                                         <TreeViewItem Header="Project #1"/>

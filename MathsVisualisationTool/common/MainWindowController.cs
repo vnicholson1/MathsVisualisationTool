@@ -43,25 +43,24 @@ namespace MathsVisualisationTool
             inputBox.KeyDown += new KeyEventHandler(InputBox_KeyDown);
 
             var column = new DataGridTextColumn();
+        }
 
-
-            // Initialize the dummy columns used when docking:
-            column1CloneForLeftBaseLayer = new ColumnDefinition();
-            column1CloneForLeftBaseLayer.SharedSizeGroup = "column1";
-            column2CloneForLeftBaseLayer = new ColumnDefinition();
-            column2CloneForLeftBaseLayer.SharedSizeGroup = "column2";
-            column2CloneForDocsLayer = new ColumnDefinition();
-            column2CloneForDocsLayer.SharedSizeGroup = "column2";
+        /*
+         * OnNewNote_Clicked - Handle event if Add New Note button is 
+         *                  clicked from the Notes Popout Pane.
+         */
+        private void OnNewNote_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Add New Note - Fix IT!!!!");
         }
 
         /*********************** FUNCTIONS TO MAXIMIZE/MINIMIZE BOTTOM LEFT SIDEPANES ***********************/
         #region LeftMaxMinPanes
         // Dummy columns for layers 0 and 1:
-        ColumnDefinition column1CloneForLeftBaseLayer;
-        ColumnDefinition column2CloneForLeftBaseLayer;
-        ColumnDefinition column2CloneForDocsLayer;
+        //ColumnDefinition column1CloneForLeftBaseLayer;
+        //ColumnDefinition column2CloneForLeftBaseLayer;
+        //ColumnDefinition column2CloneForDocsLayer;
 
-        #region Pinning
         // Toggle between docked and undocked states (Pane 1)
         public void DocsPin_Clicked(object sender, RoutedEventArgs e)
         {
@@ -78,9 +77,7 @@ namespace MathsVisualisationTool
             else
                 DockPane_Left(2);
         }
-        #endregion
 
-        #region EnteringBtn
         // Show Pane 1 when hovering over its button
         public void DocsPaneBtn_MouseEnter(object sender, RoutedEventArgs e)
         {
@@ -108,7 +105,6 @@ namespace MathsVisualisationTool
             if (DocsPane_Btn.Visibility == Visibility.Visible)
                 DocsLayer.Visibility = Visibility.Collapsed;
         }
-        #endregion
 
         // Hide any undocked panes when the mouse enters Layer 0
         public void LeftBaseLayer_MouseEnter(object sender, RoutedEventArgs e)
@@ -323,6 +319,7 @@ namespace MathsVisualisationTool
 
         /****************************************************************************************************/
         /****************************** DRAG/DROP FUNCTIONS [NONE FUNCTIONAL ATM] ***************************/
+        #region DragDropFunctions
         private void OnDrag(object sender, MouseButtonEventArgs e)
         {
             if (e.Source is Button draggedBtn)
@@ -354,7 +351,7 @@ namespace MathsVisualisationTool
         {
             return e.Data;
         }
-
+        #endregion
         /************************** END OF DRAG/DROP FUNCTIONS [NONE FUNCTIONAL ATM] ************************/
         /************************************ FUNCTIONS TO RUN/SUBMIT INPUT *********************************/
         #region RunSubmitFunctions
@@ -465,8 +462,8 @@ namespace MathsVisualisationTool
          */
         private void OnTestDocClicked(object sender, RoutedEventArgs e)
         {
-            //XpsDocument testDocument = new XpsDocument("../../documentation/testDoc.xps", FileAccess.Read);
-            //documentViewer.Document = testDocument.GetFixedDocumentSequence();
+            XpsDocument testDocument = new XpsDocument("../../documentation/testDoc.xps", FileAccess.Read);
+            documentViewer.Document = testDocument.GetFixedDocumentSequence();
         }
         #endregion
         /********************************** END OF STANDARD TOP MENU FUNCTIONS ******************************/
