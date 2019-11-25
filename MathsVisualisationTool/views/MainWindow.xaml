@@ -198,7 +198,7 @@
                             </Grid>
                         </DockPanel>
                         
-                        <Grid Name="DocsLayer" Visibility="Collapsed">
+                        <Grid Name="DocsLayer" Visibility="Collapsed" Margin="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition SharedSizeGroup="column1" Width="auto"/>
                                 <ColumnDefinition/>
@@ -214,8 +214,9 @@
                                     <Button Width="26" Name="DocsPane_Pin" DockPanel.Dock="Right" Click="DocsPin_Clicked" Background="White">
                                         <Image Name="DocsPane_PinImage" Source="../images/icons/pinHorizontal.gif"/>
                                     </Button>
-                                    <TextBlock Padding="8" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" DockPanel.Dock="Left">Toolbox</TextBlock>
+                                    <TextBlock Padding="8" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" DockPanel.Dock="Left">Documentation</TextBlock>
                                 </DockPanel>
+                                
                                 <ListBox Padding="10" Grid.Row="1">
                                     <ListBoxItem>Button</ListBoxItem>
                                     <ListBoxItem>CheckBox</ListBoxItem>
@@ -422,11 +423,11 @@
                                             </StackPanel>
                                         </Button>
                                         <!-- INDICE BUTTON-->
-                                        <Button Margin="3 6 3 3" Click="OnEquivilant_Clicked">
+                                        <Button Margin="3 6 3 3" Click="OnApprox_Clicked">
                                             <StackPanel Orientation="Vertical">
-                                                <Image Source="../images/arithmetic/equiv.png" Height="40"/>
+                                                <Image Source="../images/numerical/approx.png" Height="40"/>
                                                 <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
-                                                <TextBlock Text="[Equivilant]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="[Approx]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                             </StackPanel>
                                         </Button>
                                         <!-- RIGHT BRACKET BUTTON-->

@@ -84,11 +84,11 @@
                                 </StackPanel>
                             </Button>
                             <!-- INDICE BUTTON-->
-                            <Button Margin="3 6 3 3" Click="OnEquivilant_Clicked">
+                            <Button Margin="3 6 3 3" Click="OnApprox_Clicked">
                                 <StackPanel Orientation="Vertical">
-                                    <Image Source="../images/arithmetic/equiv.png" Height="40"/>
+                                    <Image Source="../images/numerical/approx.png" Height="40"/>
                                     <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
-                                    <TextBlock Text="[Equivilant]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="[Approx]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
                             <!-- RIGHT BRACKET BUTTON-->
@@ -209,89 +209,89 @@
                                     <TextBlock Text="[Alpha]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                            <Button Margin="3 6 3 3" Padding="5">
+                            <Button Margin="3 6 3 3" Padding="5" Click="OnBeta_Clicked">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="../images/greek/beta.png" Height="40"/>
                                     <TextBlock Text="[Beta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                            <Button Margin="3 6 3 3" Padding="5">
+                            <Button Margin="3 6 3 3" Padding="5" Click="OnDelta_Clicked">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="../images/greek/Delta.png" Height="40"/>
                                     <TextBlock Text="[Delta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                             <!--SECOND ROW OF 3 GREEK CHARACTERS--> 
-                            <Button Margin="3 6 3 3" Padding="5">
+                             <!--SECOND ROW OF 3 GREEK CHARACTERS-->
+                            <Button Margin="3 6 3 3" Padding="5" Click="On_delta_Clicked">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="../images/greek/delt.png" Height="40"/>
                                     <TextBlock Text="[delta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                            <Button Margin="3 6 3 3" Padding="5">
+                            <Button Margin="3 6 3 3" Padding="5" Click="OnEpsilon_Clicked">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="../images/greek/epsilon.png" Height="40"/>
                                     <TextBlock Text="[Epsilon]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                            <Button Margin="3 6 3 3" Padding="5">
+                            <Button Margin="3 6 3 3" Padding="5" Click="OnGamma_Clicked">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="../images/greek/gamma.png" Height="40"/>
                                     <TextBlock Text="[Gamma]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                             <!--THIRD ROW OF 3 GREEK CHARACTERS--> 
-                            <Button Margin="3 6 3 3" Padding="5">
+                             <!--THIRD ROW OF 3 GREEK CHARACTERS-->
+                            <Button Margin="3 6 3 3" Padding="5" Click="OnLambda_Clicked">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="../images/greek/lambda.png" Height="40"/>
                                     <TextBlock Text="[Lambda]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                            <Button Margin="3 6 3 3" Padding="5">
+                            <Button Margin="3 6 3 3" Padding="5" Click="OnTheta_Clicked">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="../images/greek/theta.png" Height="40"/>
                                     <TextBlock Text="[Theta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                            <Button Margin="3 6 3 3" Padding="5">
+                            <Button Margin="3 6 3 3" Padding="5" Click="OnMu_Clicked">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="../images/greek/mu.png" Height="40"/>
                                     <TextBlock Text="[Mu]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                             <!--FOURTH ROW OF 3 GREEK CHARACTERS--> 
-                            <Button Margin="3 6 3 3" Padding="5">
+                             <!--FOURTH ROW OF 3 GREEK CHARACTERS-->
+                            <Button Margin="3 6 3 3" Padding="5" Click="OnOmega_Clicked">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="../images/greek/Ohm.png" Height="40"/>
                                     <TextBlock Text="[Omega]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                            <Button Margin="3 6 3 3" Padding="5">
+                            <Button Margin="3 6 3 3" Padding="5" Click="On_omega_Clicked">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="../images/greek/omega.png" Height="40"/>
                                     <TextBlock Text="[omega]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                            <Button Margin="3 6 3 3" Padding="5">
+                            <Button Margin="3 6 3 3" Padding="5" Click="OnPhi_Clicked">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="../images/greek/phi.png" Height="40"/>
                                     <TextBlock Text="[Phi]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                             <!--FIFTH ROW OF 3 GREEK CHARACTERS--> 
-                            <Button Margin="3 6 3 3" Padding="5">
+                             <!--FIFTH ROW OF 3 GREEK CHARACTERS-->
+                            <Button Margin="3 6 3 3" Padding="5" Click="OnPsi_Clicked">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="../images/greek/psi.png" Height="40"/>
                                     <TextBlock Text="[Psi]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                            <Button Margin="3 6 3 3" Padding="5">
+                            <Button Margin="3 6 3 3" Padding="5" Click="OnRho_Clicked">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="../images/greek/rho.png" Height="40"/>
                                     <TextBlock Text="[Rho]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                            <Button Margin="3 6 3 3" Padding="5">
+                            <Button Margin="3 6 3 3" Padding="5" Click="OnSigma_Clicked">
                                 <StackPanel Orientation="Vertical">
                                     <Image Source="../images/greek/Sigma.png" Height="40"/>
                                     <TextBlock Text="[Sigma]" TextWrapping="Wrap" HorizontalAlignment="Center"/>

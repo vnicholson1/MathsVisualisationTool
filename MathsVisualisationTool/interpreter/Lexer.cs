@@ -79,7 +79,7 @@ namespace MathsVisualisationTool
                     typeInList = Globals.SUPPORTED_TOKENS.MINUS;
                 }
 
-                else if (c == '*')
+                else if (c == '*' || c == '\u00D7')
                 {
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
@@ -90,7 +90,7 @@ namespace MathsVisualisationTool
                     typeInList = Globals.SUPPORTED_TOKENS.MULTIPLICATION;
                 }
 
-                else if(c == '/')
+                else if(c == '/' || c == '\u00F7')
                 {
                     if (!typeInList.Equals(Globals.SUPPORTED_TOKENS.WHITE_SPACE))
                     {
@@ -208,7 +208,7 @@ namespace MathsVisualisationTool
         /// <returns></returns>
         private Token TokeniseList(List<char>listOfCharacters, Globals.SUPPORTED_TOKENS listType)
         {
-            string value = "";
+            var value = "";
 
             foreach(char c in listOfCharacters)
             {

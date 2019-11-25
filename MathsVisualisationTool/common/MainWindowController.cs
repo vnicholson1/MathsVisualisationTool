@@ -55,12 +55,13 @@ namespace MathsVisualisationTool
         }
 
         /*********************** FUNCTIONS TO MAXIMIZE/MINIMIZE BOTTOM LEFT SIDEPANES ***********************/
+        #region LeftMaxMinPanes
         // Dummy columns for layers 0 and 1:
         ColumnDefinition column1CloneForLeftBaseLayer;
         ColumnDefinition column2CloneForLeftBaseLayer;
         ColumnDefinition column2CloneForDocsLayer;
 
-
+        #region Pinning
         // Toggle between docked and undocked states (Pane 1)
         public void DocsPin_Clicked(object sender, RoutedEventArgs e)
         {
@@ -69,7 +70,6 @@ namespace MathsVisualisationTool
             else
                 DockPane_Left(1);
         }
-
         // Toggle between docked and undocked states (Pane 2)
         public void NotesPin_Clicked(object sender, RoutedEventArgs e)
         {
@@ -78,7 +78,9 @@ namespace MathsVisualisationTool
             else
                 DockPane_Left(2);
         }
+        #endregion
 
+        #region EnteringBtn
         // Show Pane 1 when hovering over its button
         public void DocsPaneBtn_MouseEnter(object sender, RoutedEventArgs e)
         {
@@ -106,6 +108,7 @@ namespace MathsVisualisationTool
             if (DocsPane_Btn.Visibility == Visibility.Visible)
                 DocsLayer.Visibility = Visibility.Collapsed;
         }
+        #endregion
 
         // Hide any undocked panes when the mouse enters Layer 0
         public void LeftBaseLayer_MouseEnter(object sender, RoutedEventArgs e)
@@ -183,7 +186,7 @@ namespace MathsVisualisationTool
                 //DocsLayer.ColumnDefinitions.Remove(column2CloneForDocsLayer);
             }
         }
-
+        #endregion
         /******************** END OF FUNCTIONS TO MAXIMIZE/MINIMIZE BOTTOM LEFT SIDEPANES *******************/
         /*********************** FUNCTIONS TO MAXIMIZE/MINIMIZE BOTTOM RIGHT SIDEPANES **********************/
         //// Toggle between docked and undocked states (Pane 1)
@@ -354,9 +357,7 @@ namespace MathsVisualisationTool
 
         /************************** END OF DRAG/DROP FUNCTIONS [NONE FUNCTIONAL ATM] ************************/
         /************************************ FUNCTIONS TO RUN/SUBMIT INPUT *********************************/
-
-        
-
+        #region RunSubmitFunctions
         /*
          * OnRun_Clicked - Handle event if the Run/Submit button is 
          *                  clicked.
@@ -445,10 +446,10 @@ namespace MathsVisualisationTool
             }
 
         }
-
+        #endregion
         /********************************* END OF FUNCTIONS TO RUN/SUBMIT INPUT *****************************/
         /************************************** STANDARD TOP MENU FUNCTIONS *********************************/
-
+        #region TopMenuFunctions
         /*
          * OnExitMenuClicked - Handle event if the Exit button is 
          *                  clicked from the standard File Menu.
@@ -467,10 +468,10 @@ namespace MathsVisualisationTool
             //XpsDocument testDocument = new XpsDocument("../../documentation/testDoc.xps", FileAccess.Read);
             //documentViewer.Document = testDocument.GetFixedDocumentSequence();
         }
-
+        #endregion
         /********************************** END OF STANDARD TOP MENU FUNCTIONS ******************************/
         /**************************************** TOOLBAR MENU FUNCTIONS ************************************/
-
+        #region ToolBarFunctions
         /*
          * OnUndo_Clicked -  Handle event if the Undo button is 
          *                      click from the toolbar
@@ -616,9 +617,10 @@ namespace MathsVisualisationTool
             KeyPad keypad = new KeyPad();
             keypad.Show();
         }
-
+        #endregion
         /************************************ END OF TOOLBAR MENU FUNCTIONS *********************************/
         /********************************* GREEK CHARACTERS KEYPAD FUNCTIONS ********************************/
+        #region GreekCharacters 
 
         /*
          * onAlpha_Clicked -    Function for the Alpha Character Button on the
@@ -799,18 +801,20 @@ namespace MathsVisualisationTool
             this.inputBox.Text += "\u03A3";
         }
 
+        #endregion
         /***************************** END OF GREEK CHARACTERS KEYPAD FUNCTIONS *****************************/
         /************************** ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS *************************/
+        #region AlgebraFunctions
         /*
-         * onEquivilantClicked -   Function for the Equiviliant Button on the
+         * onApprox_Clicked -   Function for the Approx Button on the
          *                          keypad in the right side of the Main Window
          *                          Dock Panel - NOTE: Character can be created
          *                          with Unicode Escape Characters/Code
          */
-        private void OnEquivilant_Clicked(object sender, RoutedEventArgs e)
+        private void OnApprox_Clicked(object sender, RoutedEventArgs e)
         {
             // NEED TO THINK ABOUT THIS
-            //this.inputBox.Text += "(";
+            this.inputBox.Text += "\u2248";
         }
 
         /*
@@ -1019,13 +1023,15 @@ namespace MathsVisualisationTool
             this.inputBox.Text += "/tan";
         }
 
+        #endregion
         /********************** END OF ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS **********************/
         /************************************** NUMERICAL KEYPAD FUNCTIONS **********************************/
+        #region Numerical
         /*
          * onEqualClicked -    Function for the equals Button on the
-    *                          keypad in the right side of the Main Window
-    *                          Dock Panel - NOTE: Character can be created
-    *                          with Unicode Escape Characters/Code
+         *                     keypad in the right side of the Main Window
+         *                     Dock Panel - NOTE: Character can be created
+         *                     with Unicode Escape Characters/Code
          */
         private void OnEqual_Clicked(object sender, RoutedEventArgs e)
         {
@@ -1186,7 +1192,7 @@ namespace MathsVisualisationTool
         {
             this.inputBox.Text += "9";
         }
-
+        #endregion
         /********************************** END OF NUMERICAL KEYPAD FUNCTIONS*******************************/
     }
 }

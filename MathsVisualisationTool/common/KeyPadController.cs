@@ -25,7 +25,7 @@ namespace MathsVisualisationTool
         }
 
         /********************************* GREEK CHARACTERS KEYPAD FUNCTIONS ********************************/
-
+        #region GreekCharacters
         /*
          * onAlpha_Clicked -    Function for the Alpha Character Button on the
          *                      keypad in the right side of the Main Window
@@ -35,7 +35,6 @@ namespace MathsVisualisationTool
         private void OnAlpha_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += "\u03B1";
-
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u03B1";
         }
@@ -48,6 +47,7 @@ namespace MathsVisualisationTool
          */
         private void OnBeta_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u03B2";
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u03B2";
         }
@@ -60,6 +60,7 @@ namespace MathsVisualisationTool
          */
         private void OnDelta_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u0394";
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u0394";
         }
@@ -72,6 +73,7 @@ namespace MathsVisualisationTool
          */
         private void On_delta_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u03B4";
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u03B4";
         }
@@ -84,6 +86,7 @@ namespace MathsVisualisationTool
          */
         private void OnEpsilon_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u03B5";
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u03B5";
         }
@@ -96,6 +99,7 @@ namespace MathsVisualisationTool
          */
         private void OnGamma_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u03B3";
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u03B3";
         }
@@ -108,6 +112,7 @@ namespace MathsVisualisationTool
          */
         private void OnLambda_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u03BB";
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u03BB";
         }
@@ -120,6 +125,7 @@ namespace MathsVisualisationTool
          */
         private void OnTheta_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u03B8";
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u03B8";
         }
@@ -132,6 +138,7 @@ namespace MathsVisualisationTool
          */
         private void OnMu_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u03BC";
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u03BC";
         }
@@ -144,6 +151,7 @@ namespace MathsVisualisationTool
          */
         private void OnOmega_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u03A9";
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u03A9";
         }
@@ -156,6 +164,7 @@ namespace MathsVisualisationTool
          */
         private void On_omega_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u03C9";
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u03C9";
         }
@@ -168,6 +177,7 @@ namespace MathsVisualisationTool
          */
         private void OnPhi_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u03C6";
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u03C6";
         }
@@ -179,6 +189,7 @@ namespace MathsVisualisationTool
          *                  Unicode Escape Characters/Code         */
         private void OnPsi_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u03C8";
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u03C8";
         }
@@ -191,6 +202,7 @@ namespace MathsVisualisationTool
          */
         private void OnRho_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u03C1";
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u03C1";
         }
@@ -203,20 +215,23 @@ namespace MathsVisualisationTool
          */
         private void OnSigma_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u03A3";
             // Use Unicode Escape Code/Characters
             //this.inputBox.Text += "\u03A3";
         }
-
+        #endregion
         /***************************** END OF GREEK CHARACTERS KEYPAD FUNCTIONS *****************************/
         /************************** ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS *************************/
+        #region AlgebraFunctions
         /*
          * onEquivilantClicked -   Function for the Equiviliant Button on the
          *                          keypad in the right side of the Main Window
          *                          Dock Panel - NOTE: Character can be created
          *                          with Unicode Escape Characters/Code
          */
-        private void OnEquivilant_Clicked(object sender, RoutedEventArgs e)
+        private void OnApprox_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u2248";
             // NEED TO THINK ABOUT THIS
             //this.inputBox.Text += "(";
         }
@@ -229,6 +244,7 @@ namespace MathsVisualisationTool
          */
         private void OnLeftBracket_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "(";
             // \u0028 => "(" => Left/Opening Parenthesis
             //this.inputBox.Text += "(";
         }
@@ -241,32 +257,9 @@ namespace MathsVisualisationTool
          */
         private void OnRightBracket_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += ")";
             // \u0029 => ")" => Right/Closing Parenthesis
             //this.inputBox.Text += ")";
-        }
-
-        /*
-         * OnLessEqual_Clicked -   Function for the Less Than or Equal to Button on the
-         *                          keypad in the right side of the Main Window
-         *                          Dock Panel - NOTE: Character can be created
-         *                          with Unicode Escape Characters/Code
-         */
-        private void OnLessEqual_Clicked(object sender, RoutedEventArgs e)
-        {
-            // \u0028 => "(" => Left/Opening Parenthesis
-            //this.inputBox.Text += "<=";
-        }
-
-        /*
-         * OnMoreEqual_Clicked -  Function for the Greater than or Equal to Button on the
-         *                          keypad in the right side of the Main Window
-         *                          Dock Panel - NOTE: Character can be created
-         *                          with Unicode Escape Characters/Code
-         */
-        private void OnMoreEqual_Clicked(object sender, RoutedEventArgs e)
-        {
-            // \u0029 => ")" => Right/Closing Parenthesis
-            //this.inputBox.Text += ">=";
         }
 
         /*
@@ -276,6 +269,7 @@ namespace MathsVisualisationTool
          */
         private void OnIndice_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "^";
             //this.inputBox.Text += "^";
         }
 
@@ -287,6 +281,7 @@ namespace MathsVisualisationTool
          */
         private void OnMul_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u00D7";
             // Use Unicode Escape Code/Characters
             // \u00D7 => \times => x
             // \u00B7 => \cdot => . (but in the middle of the line!)
@@ -301,24 +296,11 @@ namespace MathsVisualisationTool
          */
         private void OnDiv_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u00F7";
             // Use Unicode Escape Code/Characters
             // \u00F7 => Division Sign
             // \u2215 => Division Slash => /
             //this.inputBox.Text += "\u00F7";
-        }
-
-        /*
-         * onFracClicked -  Function for the Fraction Button on the
-         *                  keypad in the right side of the Main Window
-         *                  Dock Panel - NOTE: Character can be created
-         *                  with Unicode Escape Characters/Code
-         */
-        private void OnFrac_Clicked(object sender, RoutedEventArgs e)
-        {
-            // Need to think about symbol since it clashes with above
-            // OnDivClicked
-            // \u2044 => Fraction Slash (Unicode Charatcer)
-            //this.inputBox.Text += "/";
         }
 
         /*
@@ -329,6 +311,7 @@ namespace MathsVisualisationTool
          */
         private void OnAdd_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "+";
             // Use Unicode Escape Code/Characters
             // \u002B => + (Unicode Character)
             //this.inputBox.Text += "+";
@@ -342,6 +325,7 @@ namespace MathsVisualisationTool
          */
         private void OnSub_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "-";
             // \u002D => Hypen-Minus in Unicode
             //this.inputBox.Text += "-";
         }
@@ -354,6 +338,7 @@ namespace MathsVisualisationTool
          */
         private void OnSqrt_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u221A{}";
             // Use Unicode Escape Characters/Code to render special Characters
             // \u221A => Square Root
             // \u221B => Cube Root
@@ -368,6 +353,7 @@ namespace MathsVisualisationTool
          */
         private void OnPercent_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "%";
             //this.inputBox.Text += "%";
         }
 
@@ -379,6 +365,7 @@ namespace MathsVisualisationTool
          */
         private void OnPi_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "\u03C0";
             // Use Unicode Escape Characters/Code to render special Characters
             //this.inputBox.Text += "\u03C0";
         }
@@ -391,6 +378,7 @@ namespace MathsVisualisationTool
          */
         private void OnN_Sqrt_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "{}\u221A{}";
             //this.inputBox.Text += "{}\u221A{}";
         }
 
@@ -402,6 +390,7 @@ namespace MathsVisualisationTool
          */
         private void OnSin_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "sin()";
             //this.inputBox.Text += "/sin";
         }
 
@@ -413,6 +402,7 @@ namespace MathsVisualisationTool
          */
         private void OnCos_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "cos()";
             //this.inputBox.Text += "/cos";
         }
 
@@ -424,11 +414,13 @@ namespace MathsVisualisationTool
          */
         private void OnTan_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "tan()";
             //this.inputBox.Text += "/tan";
         }
-
+        #endregion
         /********************** END OF ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS **********************/
         /************************************** NUMERICAL KEYPAD FUNCTIONS **********************************/
+        #region Numerical
         /*
          * onEqualClicked -    Function for the equals Button on the
     *                          keypad in the right side of the Main Window
@@ -437,6 +429,7 @@ namespace MathsVisualisationTool
          */
         private void OnEqual_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "=";
             // \u0028 => "(" => Left/Opening Parenthesis
             //this.inputBox.Text += "=";
         }
@@ -449,6 +442,7 @@ namespace MathsVisualisationTool
          */
         private void OnLessThan_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "<";
             // \u0028 => "(" => Left/Opening Parenthesis
             //this.inputBox.Text += "<";
         }
@@ -461,18 +455,9 @@ namespace MathsVisualisationTool
          */
         private void OnGreaterThan_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += ">";
             // \u0029 => ")" => Right/Closing Parenthesis
             //this.inputBox.Text += ">";
-        }
-
-        /*
-         * onDel_Clicked -  Function for the Delete Button on the
-         *                  keypad in the right side of the Main
-         *                  Window Dock Panel
-         */
-        private void OnDel_Clicked(object sender, RoutedEventArgs e)
-        {
-
         }
 
         /*
@@ -482,6 +467,7 @@ namespace MathsVisualisationTool
          */
         private void OnDecimal_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += ".";
             //this.inputBox.Text += ".";
         }
 
@@ -492,6 +478,7 @@ namespace MathsVisualisationTool
          */
         private void OnAns_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "Ans";
             //this.inputBox.Text += "Ans";
         }
 
@@ -502,6 +489,7 @@ namespace MathsVisualisationTool
          */
         private void On0_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "0";
             //this.inputBox.Text += "0";
         }
 
@@ -512,6 +500,7 @@ namespace MathsVisualisationTool
          */
         private void On1_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "1";
             //this.inputBox.Text += "1";
         }
 
@@ -522,6 +511,7 @@ namespace MathsVisualisationTool
          */
         private void On2_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "2";
             //this.inputBox.Text += "2";
         }
 
@@ -532,6 +522,7 @@ namespace MathsVisualisationTool
          */
         private void On3_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "3";
             //this.inputBox.Text += "3";
         }
 
@@ -542,6 +533,7 @@ namespace MathsVisualisationTool
          */
         private void On4_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "4";
             //this.inputBox.Text += "4";
         }
 
@@ -552,6 +544,7 @@ namespace MathsVisualisationTool
          */
         private void On5_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "5";
             //this.inputBox.Text += "5";
         }
 
@@ -562,6 +555,7 @@ namespace MathsVisualisationTool
          */
         private void On6_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "6";
             //this.inputBox.Text += "6";
         }
 
@@ -572,6 +566,7 @@ namespace MathsVisualisationTool
          */
         private void On7_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "7";
             //this.inputBox.Text += "7";
         }
 
@@ -582,6 +577,7 @@ namespace MathsVisualisationTool
          */
         private void On8_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "8";
             //this.inputBox.Text += "8";
         }
 
@@ -592,9 +588,10 @@ namespace MathsVisualisationTool
          */
         private void On9_Clicked(object sender, RoutedEventArgs e)
         {
+            App.homeWindow.InputBoxValue += "9";
             //this.inputBox.Text += "9";
         }
-
+        #endregion
         /********************************** END OF NUMERICAL KEYPAD FUNCTIONS*******************************/
     }
 }
