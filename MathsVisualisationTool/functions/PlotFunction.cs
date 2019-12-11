@@ -13,6 +13,8 @@ namespace MathsVisualisationTool
         public List<Token> Equation;
         public double Xmin;
         public double Xmax;
+        public double Ymin;
+        public double Ymax;
         public double inc;
         //List to store all the gathered data points.
         public List<Tuple<double, double>> dataPoints = new List<Tuple<double,double>>();
@@ -110,6 +112,8 @@ namespace MathsVisualisationTool
                 dataPoints.Add(new Tuple<double, double>(Xvalue, Yvalue));
             }
 
+            setMinAndMaxYValues();
+
             printDataPoints();
         }
 
@@ -141,6 +145,28 @@ namespace MathsVisualisationTool
         private void removeFirst2Tokens()
         {
             Equation.RemoveRange(0, 2);
+        }
+
+        /// <summary>
+        /// Method to get the Min and Max Y values of the data points. (this is required by the Graph Drawer Module).
+        /// </summary>
+        private void setMinAndMaxYValues()
+        {
+            double maxTemp = double.MinValue;
+            double minTemp = double.MaxValue;
+            foreach (Tuple<double, double> t in dataPoints)
+            {
+                if(t.Item2 > maxTemp)
+                {
+                    maxTemp = t.Item2;
+                }
+                if(t.Item2 < minTemp)
+                {
+                    minTemp = t.Item2;
+                }
+            }
+            Ymin = minTemp;
+            Ymax = maxTemp;
         }
 
         /// <summary>

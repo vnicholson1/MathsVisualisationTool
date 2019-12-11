@@ -1,7 +1,7 @@
 ﻿<Window x:Class="MathsVisualisationTool.GraphDrawer"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  Title="Graph drawing attempt"
+  Title="Graph"
   Width="535" Height="560" Loaded="Window_Loaded">
     <Grid Background="Red">
         <Canvas Name="graphCanvas" Background="white"
