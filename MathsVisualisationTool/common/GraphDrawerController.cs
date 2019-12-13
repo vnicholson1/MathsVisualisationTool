@@ -49,12 +49,18 @@ namespace MathsVisualisationTool
             xmaxCanvas = graphCanvas.Width - MARGIN;
             yminCanvas = MARGIN;
             ymaxCanvas = graphCanvas.Height - MARGIN;
-            //Setting up field variables interms of the catesian space.
+
+            if(ymaxCanvas != xmaxCanvas)
+            {
+                throw new Exception("Make sure height and width are the same - From Vince");
+            }
+
+            //Setting up field variables in terms of the catesian space.
             Xmin = plotFunc.Xmin;
             Xmax = plotFunc.Xmax;
             Ymin = plotFunc.Ymin;
             Ymax = plotFunc.Ymax;
-            step = Math.Floor(480.0/ Convert.ToDouble(plotFunc.dataPoints.Count - 1));
+            step = Math.Floor((graphCanvas.Height-2*MARGIN) / Convert.ToDouble(plotFunc.dataPoints.Count - 1));
 
             createXaxis();
 

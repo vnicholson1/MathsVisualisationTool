@@ -49,7 +49,7 @@ namespace MathsVisualisationTool
                     PlotFunction plot = PlotFunction.plotFunctionHandle(tokens, i);
                     plot.getValues();
 
-                    GraphDrawer gd = new GraphDrawer(plot){ Topmost = true};
+                    GraphDrawer gd = new GraphDrawer(plot){Topmost = true};
                     gd.Show();
 
                     //Incase this variable gets reassigned - used by Interpreter.cs to notify whether a variable assignment has happened.

@@ -10,6 +10,7 @@ namespace MathsVisualisationTool
 {
     public class PlotFunction
     {
+        //List of parameters in the Plot Function
         public List<Token> Equation;
         public double Xmin;
         public double Xmax;
@@ -36,22 +37,8 @@ namespace MathsVisualisationTool
         public static PlotFunction plotFunctionHandle(List<Token> tokens, int i)
         {
 
-            //Check the syntax first.
-
             //List for storing the equation to be drawn i.e. "Y=X"
-            List<Token> equationTokens = new List<Token>();
-
-            //Skip over the plot and open bracket tokens.
-            i += 2;
-            while (tokens[i].GetType() != Globals.SUPPORTED_TOKENS.COMMA)
-            {
-                if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
-                {
-                    throw new SyntaxErrorException("Missing Xmin, Xmax and increment arguments.");
-                }
-                equationTokens.Add(tokens[i]);
-                i++;
-            }
+            List<Token> equationTokens = getEquation(tokens, ref i);
             //Current token will be the comma so skip over it to get the next argument.
             //get the next argument which is Xmin.
             i++;
@@ -71,11 +58,27 @@ namespace MathsVisualisationTool
         }
 
         /// <summary>
-        /// Function for checking the syntax of all parameters given.
+        /// Method for extracting the equation part of the parameter from the list of tokens. 
         /// </summary>
-        private void checkSyntax()
+        /// <param name="tokens"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        private static List<Token> getEquation(List<Token> tokens,ref int index)
         {
-            throw new NotImplementedException("Not implemented yet.");
+
+            List<Token> equationTokens = new List<Token>();
+            //Skip over the plot and open bracket tokens.
+            index += 2;
+            while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.COMMA)
+            {
+                if (tokens[index].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
+                {
+                    throw new SyntaxErrorException("Missing Xmin, Xmax and increment arguments.");
+                }
+                equationTokens.Add(tokens[index]);
+                index++;
+            }
+            return equationTokens;
         }
 
         /// <summary>
