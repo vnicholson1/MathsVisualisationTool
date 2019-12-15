@@ -1,0 +1,114 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MathsVisualisationTool">
+
+    <!-- TAB ITEM & TAB CONTROL COLOURS-->
+    <SolidColorBrush x:Key="Background_TabControl" Color="#2D2D2D"/>
+    <SolidColorBrush x:Key="BorderBrush_TabControl" Color="#505050"/>
+    <SolidColorBrush x:Key="Foreground_Tab" Color="#F2F2F2"/>
+    <SolidColorBrush x:Key="BackgroundTrue_TabItem" Color="#0C91F2" />
+    <SolidColorBrush x:Key="BackgroundFalse_TabItem" Color="#2D2D2D"/>
+
+    <!-- MAIN STYLING FOR TAB CONTROL (CONTENTS OF THE TABS) -->
+    <Style x:Key="mainTabControlStyle" TargetType="{x:Type TabControl}">
+        <Setter Property="Background" Value="{StaticResource Background_TabControl}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush_TabControl}"/>
+    </Style>
+    
+    <!-- GRADIENT COLOUR STYLE FOR TAB ITEMS -->
+    <LinearGradientBrush x:Key="GradientBackground_TabItem" StartPoint="0,0" EndPoint="0,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Color="#EAF6FD" Offset="0.15"/>
+            <GradientStop Color="#D9F0FC" Offset=".5"/>
+            <GradientStop Color="#BEE6FD" Offset=".5"/>
+            <GradientStop Color="#A7D9F5" Offset="1"/>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <!-- STYLING FOR TAB ITEMS THAT ARE HORIZONTALLY ORIENTATED -->
+    <Style x:Key="horizontalTabStyle" TargetType="{x:Type TabItem}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Border Name="Border" BorderThickness="1 1 1 1" BorderBrush="{StaticResource BorderBrush_TabControl}" CornerRadius="0,0,0,0" Margin="0 0 0 0">
+                        <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="2,2"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource BackgroundTrue_TabItem}" />
+                            <Setter Property="Foreground" Value="{StaticResource Foreground_Tab}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource BackgroundFalse_TabItem}" />
+                            <Setter Property="Foreground" Value="{StaticResource Foreground_Tab}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- STYLING FOR TAB ITEMS THAT ARE ORIENTATED VERTICALLY -->
+    <Style x:Key="sideTabStyle" TargetType="{x:Type TabItem}">
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Border Name="Border" BorderThickness="1 1 0 1" BorderBrush="{StaticResource BorderBrush_TabControl}" CornerRadius="4,0,0,4" Margin="0 0 0 0">
+                        <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="2,2"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource BackgroundTrue_TabItem}" />
+                            <Setter Property="Foreground" Value="{StaticResource Foreground_Tab}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource BackgroundFalse_TabItem}" />
+                            <Setter Property="Foreground" Value="{StaticResource Foreground_Tab}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- TAB ITEM STYLING FOR TABS ON LEFT SIDE OF PAGE -->
+    <Style x:Key="LeftTab" TargetType="{x:Type TabItem}" BasedOn="{StaticResource sideTabStyle}">
+        <Setter Property="HeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <ContentPresenter Content="{TemplateBinding Content}">
+                        <ContentPresenter.LayoutTransform>
+                            <RotateTransform Angle="270" />
+                        </ContentPresenter.LayoutTransform>
+                    </ContentPresenter>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Padding" Value="3" />
+    </Style>
+
+    <!-- TAB ITEM STYLING FOR TABS ON RIGHT SIDE OF PAGE -->
+    <Style x:Key="RightTab" TargetType="{x:Type TabItem}" BasedOn="{StaticResource mainTabStyle}">
+        <Setter Property="HeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <ContentPresenter Content="{TemplateBinding Content}">
+                        <ContentPresenter.LayoutTransform>
+                            <RotateTransform Angle="90" />
+                        </ContentPresenter.LayoutTransform>
+                    </ContentPresenter>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Padding" Value="3" />
+    </Style>
+   
+
+
+</ResourceDictionary>

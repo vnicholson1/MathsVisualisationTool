@@ -96,19 +96,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="styles\Buttons.xaml">
+    <Page Include="styles\ButtonsStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="styles\Grid.xaml">
+    <Page Include="styles\GridStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="styles\MainMenu.xaml">
+    <Page Include="styles\MainMenuStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="styles\TabControl.xaml">
+    <Page Include="styles\TabControlStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="styles\TextStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -228,11 +232,6 @@
   <ItemGroup>
     <Resource Include="images\icons\pin.gif" />
     <Resource Include="images\icons\pinHorizontal.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\iconVSproperties.bmp" />
-    <Resource Include="images\iconVSrefresh.bmp" />
-    <Resource Include="images\iconVSshowall.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\icons\calculator.png" />

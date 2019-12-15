@@ -7,9 +7,11 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../styles/MainMenu.xaml"/>
-                <ResourceDictionary Source="../styles/Buttons.xaml"/>
-                <ResourceDictionary Source="../styles/TabControl.xaml"/>
+                <ResourceDictionary Source="../styles/MainMenuStyle.xaml"/>
+                <ResourceDictionary Source="../styles/ButtonsStyle.xaml"/>
+                <ResourceDictionary Source="../styles/TabControlStyle.xaml"/>
+                <ResourceDictionary Source="../styles/TextStyle.xaml"/>
+                <ResourceDictionary Source="../styles/GridStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
