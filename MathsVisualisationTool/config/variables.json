@@ -1,30 +1,62 @@
 [
   {
-    "name": "r",
-    "value": "5"
+    "name": "y",
+    "value": "∞"
   },
   {
     "name": "ANS",
     "value": "2"
   },
   {
-    "name": "t",
-    "value": "4"
+    "name": "e",
+    "value": "5"
+  },
+  {
+    "name": "e2",
+    "value": "5"
   },
   {
     "name": "z",
-    "value": "18"
+    "value": "30"
   },
   {
     "name": "x",
+    "value": "2"
+  },
+  {
+    "name": "getrektm8",
+    "value": "9"
+  },
+  {
+    "name": "plus",
+    "value": "4"
+  },
+  {
+    "name": "ANS",
+    "value": "27"
+  },
+  {
+    "name": "t",
+    "value": "38.443359375"
+  },
+  {
+    "name": "u",
     "value": "3"
   },
   {
-    "name": "y",
-    "value": "15"
+    "name": "test",
+    "value": "2.5"
   },
   {
-    "name": "e",
-    "value": "9"
+    "name": "Ans",
+    "value": "387420489"
+  },
+  {
+    "name": "~x",
+    "value": "10"
+  },
+  {
+    "name": "Niks",
+    "value": "3"
   }
 ]

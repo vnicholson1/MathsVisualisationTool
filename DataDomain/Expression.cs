@@ -86,6 +86,7 @@ namespace DataDomain
                 case Globals.SUPPORTED_TOKENS.MINUS: return x - y;
                 case Globals.SUPPORTED_TOKENS.MULTIPLICATION: return x * y;
                 case Globals.SUPPORTED_TOKENS.DIVISION: return x / y;
+                case Globals.SUPPORTED_TOKENS.INDICIES: return Math.Pow(x,y);
             }
             throw new Exception("Unrecognised operator - " + op);
         }
