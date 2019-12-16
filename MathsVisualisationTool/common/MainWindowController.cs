@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,11 @@ namespace MathsVisualisationTool
 
     public partial class MainWindow : Window
     {
+        public string InputBoxValue
+        {
+            get { return inputBox.Text; }
+            set { inputBox.Text = value; }
+        }
 
         // <summary>
         // Interaction logic for MainWindow.xaml
@@ -35,10 +41,277 @@ namespace MathsVisualisationTool
         {
             InitializeComponent();
             inputBox.KeyDown += new KeyEventHandler(InputBox_KeyDown);
+
+            var column = new DataGridTextColumn();
+
+
+            // Initialize the dummy columns used when docking:
+            column1CloneForLeftBaseLayer = new ColumnDefinition();
+            column1CloneForLeftBaseLayer.SharedSizeGroup = "column1";
+            column2CloneForLeftBaseLayer = new ColumnDefinition();
+            column2CloneForLeftBaseLayer.SharedSizeGroup = "column2";
+            column2CloneForDocsLayer = new ColumnDefinition();
+            column2CloneForDocsLayer.SharedSizeGroup = "column2";
         }
 
+        /*********************** FUNCTIONS TO MAXIMIZE/MINIMIZE BOTTOM LEFT SIDEPANES ***********************/
+        // Dummy columns for layers 0 and 1:
+        ColumnDefinition column1CloneForLeftBaseLayer;
+        ColumnDefinition column2CloneForLeftBaseLayer;
+        ColumnDefinition column2CloneForDocsLayer;
 
-        /****************************************************************************************************/
+
+        // Toggle between docked and undocked states (Pane 1)
+        public void DocsPin_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (DocsPane_Btn.Visibility == Visibility.Collapsed)
+                UndockPane_Left(1);
+            else
+                DockPane_Left(1);
+        }
+
+        // Toggle between docked and undocked states (Pane 2)
+        public void NotesPin_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (NotesPane_Btn.Visibility == Visibility.Collapsed)
+                UndockPane_Left(2);
+            else
+                DockPane_Left(2);
+        }
+
+        // Show Pane 1 when hovering over its button
+        public void DocsPaneBtn_MouseEnter(object sender, RoutedEventArgs e)
+        {
+            DocsLayer.Visibility = Visibility.Visible;
+
+            // Adjust Z order to ensure the pane is on top:
+            bottomLeftGrid.Children.Remove(DocsLayer);
+            bottomLeftGrid.Children.Add(DocsLayer);
+
+            // Ensure the other pane is hidden if it is undocked
+            if (NotesPane_Btn.Visibility == Visibility.Visible)
+                NotesLayer.Visibility = Visibility.Collapsed;
+        }
+
+        // Show Pane 2 when hovering over its button
+        public void NotesPaneBtn_MouseEnter(object sender, RoutedEventArgs e)
+        {
+            NotesLayer.Visibility = Visibility.Visible;
+
+            // Adjust Z order to ensure the pane is on top:
+            bottomLeftGrid.Children.Remove(NotesLayer);
+            bottomLeftGrid.Children.Add(NotesLayer);
+
+            // Ensure the other pane is hidden if it is undocked
+            if (DocsPane_Btn.Visibility == Visibility.Visible)
+                DocsLayer.Visibility = Visibility.Collapsed;
+        }
+
+        // Hide any undocked panes when the mouse enters Layer 0
+        public void LeftBaseLayer_MouseEnter(object sender, RoutedEventArgs e)
+        {
+            if (DocsPane_Btn.Visibility == Visibility.Visible)
+                DocsLayer.Visibility = Visibility.Collapsed;
+            if (NotesPane_Btn.Visibility == Visibility.Visible)
+                NotesLayer.Visibility = Visibility.Collapsed;
+        }
+
+        // Hide the other pane if undocked when the mouse enters Pane 1
+        public void DocsPane_MouseEnter(object sender, RoutedEventArgs e)
+        {
+            // Ensure the other pane is hidden if it is undocked
+            if (NotesPane_Btn.Visibility == Visibility.Visible)
+                NotesLayer.Visibility = Visibility.Collapsed;
+        }
+
+        // Hide the other pane if undocked when the mouse enters Pane 2
+        public void NotesPane_MouseEnter(object sender, RoutedEventArgs e)
+        {
+            // Ensure the other pane is hidden if it is undocked
+            if (DocsPane_Btn.Visibility == Visibility.Visible)
+                DocsLayer.Visibility = Visibility.Collapsed;
+        }
+
+        // Docks a pane, which hides the corresponding pane button
+        public void DockPane_Left(int paneNumber)
+        {
+            if (paneNumber == 1)
+            {
+                DocsPane_Btn.Visibility = Visibility.Collapsed;
+                DocsPane_PinImage.Source = new BitmapImage(new Uri("../images/icons/pin.gif", UriKind.Relative));
+
+                // Add the cloned column to layer 0:
+                //LeftBaseLayer.ColumnDefinitions.Add(column1CloneForLeftBaseLayer);
+                // Add the cloned column to layer 1, but only if pane 2 is docked:
+                //if (NotesPane_Btn.Visibility == Visibility.Collapsed) DocsLayer.ColumnDefinitions.Add(column2CloneForDocsLayer);
+            }
+            else if (paneNumber == 2)
+            {
+                NotesPane_Btn.Visibility = Visibility.Collapsed;
+                NotesPane_PinImage.Source = new BitmapImage(new Uri("../images/icons/pin.gif", UriKind.Relative));
+
+                // Add the cloned column to layer 0:
+                //LeftBaseLayer.ColumnDefinitions.Add(column2CloneForLeftBaseLayer);
+                // Add the cloned column to layer 1, but only if pane 1 is docked:
+                //if (DocsPane_Btn.Visibility == Visibility.Collapsed) DocsLayer.ColumnDefinitions.Add(column2CloneForDocsLayer);
+            }
+        }
+
+        // Undocks a pane, which reveals the corresponding pane button
+        public void UndockPane_Left(int paneNumber)
+        {
+            if (paneNumber == 1)
+            {
+                DocsLayer.Visibility = Visibility.Collapsed;
+                DocsPane_Btn.Visibility = Visibility.Visible;
+                DocsPane_PinImage.Source = new BitmapImage(new Uri("../images/icons/pinHorizontal.gif", UriKind.Relative));
+
+                // Remove the cloned columns from layers 0 and 1:
+                //LeftBaseLayer.ColumnDefinitions.Remove(column1CloneForLeftBaseLayer);
+                // This won't always be present, but Remove silently ignores bad columns:
+                //DocsLayer.ColumnDefinitions.Remove(column2CloneForDocsLayer);
+            }
+            else if (paneNumber == 2)
+            {
+                NotesLayer.Visibility = Visibility.Collapsed;
+                NotesPane_Btn.Visibility = Visibility.Visible;
+                NotesPane_PinImage.Source = new BitmapImage(new Uri("../images/icons/pinHorizontal.gif", UriKind.Relative));
+
+                // Remove the cloned columns from layers 0 and 1:
+                //LeftBaseLayer.ColumnDefinitions.Remove(column2CloneForLeftBaseLayer);
+                // This won't always be present, but Remove silently ignores bad columns:
+                //DocsLayer.ColumnDefinitions.Remove(column2CloneForDocsLayer);
+            }
+        }
+
+        /******************** END OF FUNCTIONS TO MAXIMIZE/MINIMIZE BOTTOM LEFT SIDEPANES *******************/
+        /*********************** FUNCTIONS TO MAXIMIZE/MINIMIZE BOTTOM RIGHT SIDEPANES **********************/
+        //// Toggle between docked and undocked states (Pane 1)
+        //public void pane1Pin_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (pane1Button.Visibility == Visibility.Collapsed)
+        //        UndockPane(1);
+        //    else
+        //        DockPane(1);
+        //}
+
+        //// Toggle between docked and undocked states (Pane 2)
+        //public void pane2Pin_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (pane2Button.Visibility == Visibility.Collapsed)
+        //        UndockPane(2);
+        //    else
+        //        DockPane(2);
+        //}
+
+        //// Show Pane 1 when hovering over its button
+        //public void pane1Button_MouseEnter(object sender, RoutedEventArgs e)
+        //{
+        //    layer1.Visibility = Visibility.Visible;
+
+        //    // Adjust Z order to ensure the pane is on top:
+        //    parentGrid.Children.Remove(layer1);
+        //    parentGrid.Children.Add(layer1);
+
+        //    // Ensure the other pane is hidden if it is undocked
+        //    if (pane2Button.Visibility == Visibility.Visible)
+        //        layer2.Visibility = Visibility.Collapsed;
+        //}
+
+        //// Show Pane 2 when hovering over its button
+        //public void pane2Button_MouseEnter(object sender, RoutedEventArgs e)
+        //{
+        //    layer2.Visibility = Visibility.Visible;
+
+        //    // Adjust Z order to ensure the pane is on top:
+        //    parentGrid.Children.Remove(layer2);
+        //    parentGrid.Children.Add(layer2);
+
+        //    // Ensure the other pane is hidden if it is undocked
+        //    if (pane1Button.Visibility == Visibility.Visible)
+        //        layer1.Visibility = Visibility.Collapsed;
+        //}
+
+        //// Hide any undocked panes when the mouse enters Layer 0
+        //public void layer0_MouseEnter(object sender, RoutedEventArgs e)
+        //{
+        //    if (pane1Button.Visibility == Visibility.Visible)
+        //        layer1.Visibility = Visibility.Collapsed;
+        //    if (pane2Button.Visibility == Visibility.Visible)
+        //        layer2.Visibility = Visibility.Collapsed;
+        //}
+
+        //// Hide the other pane if undocked when the mouse enters Pane 1
+        //public void pane1_MouseEnter(object sender, RoutedEventArgs e)
+        //{
+        //    // Ensure the other pane is hidden if it is undocked
+        //    if (pane2Button.Visibility == Visibility.Visible)
+        //        layer2.Visibility = Visibility.Collapsed;
+        //}
+
+        //// Hide the other pane if undocked when the mouse enters Pane 2
+        //public void pane2_MouseEnter(object sender, RoutedEventArgs e)
+        //{
+        //    // Ensure the other pane is hidden if it is undocked
+        //    if (pane1Button.Visibility == Visibility.Visible)
+        //        layer1.Visibility = Visibility.Collapsed;
+        //}
+
+        //// Docks a pane, which hides the corresponding pane button
+        //public void DockPane_Right(int paneNumber)
+        //{
+        //    if (paneNumber == 1)
+        //    {
+        //        pane1Button.Visibility = Visibility.Collapsed;
+        //        pane1PinImage.Source = new BitmapImage(new Uri("pin.gif", UriKind.Relative));
+
+        //        // Add the cloned column to layer 0:
+        //        layer0.ColumnDefinitions.Add(column1CloneForLayer0);
+        //        // Add the cloned column to layer 1, but only if pane 2 is docked:
+        //        if (pane2Button.Visibility == Visibility.Collapsed) layer1.ColumnDefinitions.Add(column2CloneForLayer1);
+        //    }
+        //    else if (paneNumber == 2)
+        //    {
+        //        pane2Button.Visibility = Visibility.Collapsed;
+        //        pane2PinImage.Source = new BitmapImage(new Uri("pin.gif", UriKind.Relative));
+
+        //        // Add the cloned column to layer 0:
+        //        layer0.ColumnDefinitions.Add(column2CloneForLayer0);
+        //        // Add the cloned column to layer 1, but only if pane 1 is docked:
+        //        if (pane1Button.Visibility == Visibility.Collapsed) layer1.ColumnDefinitions.Add(column2CloneForLayer1);
+        //    }
+        //}
+
+        //// Undocks a pane, which reveals the corresponding pane button
+        //public void UndockPane_Right(int paneNumber)
+        //{
+        //    if (paneNumber == 1)
+        //    {
+        //        layer1.Visibility = Visibility.Collapsed;
+        //        pane1Button.Visibility = Visibility.Visible;
+        //        pane1PinImage.Source = new BitmapImage(new Uri("pinHorizontal.gif", UriKind.Relative));
+
+        //        // Remove the cloned columns from layers 0 and 1:
+        //        layer0.ColumnDefinitions.Remove(column1CloneForLayer0);
+        //        // This won't always be present, but Remove silently ignores bad columns:
+        //        layer1.ColumnDefinitions.Remove(column2CloneForLayer1);
+        //    }
+        //    else if (paneNumber == 2)
+        //    {
+        //        layer2.Visibility = Visibility.Collapsed;
+        //        pane2Button.Visibility = Visibility.Visible;
+        //        pane2PinImage.Source = new BitmapImage(new Uri("pinHorizontal.gif", UriKind.Relative));
+
+        //        // Remove the cloned columns from layers 0 and 1:
+        //        layer0.ColumnDefinitions.Remove(column2CloneForLayer0);
+        //        // This won't always be present, but Remove silently ignores bad columns:
+        //        layer1.ColumnDefinitions.Remove(column2CloneForLayer1);
+        //    }
+        //}
+        /******************* END OF FUNCTIONS TO MAXIMIZE/MINIMIZE BOTTOM RIGHT SIDEPANES *******************/
+
+        /****************************************TO WORK ON************************************************************/
+
 
         private void CommonCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -46,7 +319,7 @@ namespace MathsVisualisationTool
         }
 
         /****************************************************************************************************/
-
+        /****************************** DRAG/DROP FUNCTIONS [NONE FUNCTIONAL ATM] ***************************/
         private void OnDrag(object sender, MouseButtonEventArgs e)
         {
             if (e.Source is Button draggedBtn)
@@ -79,7 +352,10 @@ namespace MathsVisualisationTool
             return e.Data;
         }
 
-        /****************************************************************************************************/
+        /************************** END OF DRAG/DROP FUNCTIONS [NONE FUNCTIONAL ATM] ************************/
+        /************************************ FUNCTIONS TO RUN/SUBMIT INPUT *********************************/
+
+        
 
         /*
          * OnRun_Clicked - Handle event if the Run/Submit button is 
@@ -123,16 +399,6 @@ namespace MathsVisualisationTool
                 this.inputBox.Focus();
             }
         }
-
-
-        /*
-         * EnterKeyPressed - Handle event if the Enter key has been 
-         *                  pressed.
-         */
-        //private void EnterKeyPressed(object sender, RoutedEventArgs e)
-        //{
-        //    HandleTextEnter();
-        //}
 
         /*
          * InputBox_KeyDown - Handle event if the return button has 
@@ -195,7 +461,7 @@ namespace MathsVisualisationTool
 
         }
 
-        /****************************************************************************************************/
+        /********************************* END OF FUNCTIONS TO RUN/SUBMIT INPUT *****************************/
         /************************************** STANDARD TOP MENU FUNCTIONS *********************************/
 
         /*
@@ -213,12 +479,11 @@ namespace MathsVisualisationTool
          */
         private void OnTestDocClicked(object sender, RoutedEventArgs e)
         {
-            XpsDocument testDocument = new XpsDocument("../../documentation/testDoc.xps", FileAccess.Read);
-            documentViewer.Document = testDocument.GetFixedDocumentSequence();
+            //XpsDocument testDocument = new XpsDocument("../../documentation/testDoc.xps", FileAccess.Read);
+            //documentViewer.Document = testDocument.GetFixedDocumentSequence();
         }
 
         /********************************** END OF STANDARD TOP MENU FUNCTIONS ******************************/
-
         /**************************************** TOOLBAR MENU FUNCTIONS ************************************/
 
         /*
@@ -353,11 +618,21 @@ namespace MathsVisualisationTool
          */
         private void OnHelp_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Help Clicked - Fix it");
+            HelpLibrary library = new HelpLibrary();
+            library.Show();
+        }
+
+        /*
+         * OnKeypad_Clicked - Handle event if the Keypad button is 
+         *                   click from the toolbar
+         */
+        private void OnKeypad_Clicked(object sender, RoutedEventArgs e)
+        {
+            KeyPad keypad = new KeyPad();
+            keypad.Show();
         }
 
         /************************************ END OF TOOLBAR MENU FUNCTIONS *********************************/
-
         /********************************* GREEK CHARACTERS KEYPAD FUNCTIONS ********************************/
 
         /*
@@ -538,8 +813,8 @@ namespace MathsVisualisationTool
             // Use Unicode Escape Code/Characters
             this.inputBox.Text += "\u03A3";
         }
-        /***************************** END OF GREEK CHARACTERS KEYPAD FUNCTIONS *****************************/
 
+        /***************************** END OF GREEK CHARACTERS KEYPAD FUNCTIONS *****************************/
         /************************** ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS *************************/
         /*
          * onEquivilantClicked -   Function for the Equiviliant Button on the
@@ -758,8 +1033,8 @@ namespace MathsVisualisationTool
         {
             this.inputBox.Text += "/tan";
         }
-        /********************** END OF ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS **********************/
 
+        /********************** END OF ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS **********************/
         /************************************** NUMERICAL KEYPAD FUNCTIONS **********************************/
         /*
          * onEqualClicked -    Function for the equals Button on the
