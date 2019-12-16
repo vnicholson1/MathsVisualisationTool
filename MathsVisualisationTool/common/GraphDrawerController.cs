@@ -23,12 +23,12 @@ namespace MathsVisualisationTool
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         //Properties of the graph
         //The Margin of the canvas.
-        private readonly uint MARGIN = 40;
+        private readonly uint MARGIN = 60;
         //The height of the point markers on the x and y axes.
         private readonly uint HEIGHT_OF_POINT_MARKERS = 10;
         //Since we don't want the markers to reach right at the end of the axis, this defines how much
         //left-over space there is on each axis.
-        private readonly uint TAIL_OF_AXIS = 10;
+        private readonly uint TAIL_OF_AXIS = 8;
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         //For recording the length of each axis in the canvas in terms of number of pixels.
         private uint AXIS_LENGTH;
@@ -46,6 +46,10 @@ namespace MathsVisualisationTool
         private double ymaxCanvas;
         //Num pixels inbetween each data point on each axes.
         private double step;
+        //Arrays storing the values of each marker on their respective axes.
+        private double[] Xlabels;
+        private double[] Ylabels;
+
 
         public GraphDrawer(PlotFunction plotFunc)
         {
@@ -75,7 +79,18 @@ namespace MathsVisualisationTool
             Ymax = plotFunc.Ymax;
             //Calculate the difference between each marking on the axis.
             //Calculated by the length of the axis / (number of dataPoints)
-            step = AXIS_LENGTH / Convert.ToDouble(plotFunc.dataPoints.Count - 1);
+            int numMarkers = 0;
+            if(plotFunc.dataPoints.Count > 10)
+            {
+                numMarkers = 9;
+            } else
+            {
+                numMarkers = plotFunc.dataPoints.Count - 1;
+            }
+
+            getXandYLabels(numMarkers + 1);
+
+            step = AXIS_LENGTH / Convert.ToDouble(numMarkers);
 
             createXaxis();
 
@@ -95,14 +110,17 @@ namespace MathsVisualisationTool
             xaxis_geom.Children.Add(new LineGeometry(
                 new Point(xminCanvas, graphCanvas.Height - yminCanvas), new Point(graphCanvas.Width, graphCanvas.Height - yminCanvas)));
 
+            int count = 0;
             //Iterate through and add | markings to this line.
             for (double x = xminCanvas;
                 x <= xmaxCanvas; x += step)
             {
+                DrawText(x+6, graphCanvas.Height - (yminCanvas-6), Xlabels[count].ToString(),true);
                 //Add | per each step.
                 xaxis_geom.Children.Add(new LineGeometry(
                     new Point(x, graphCanvas.Height - yminCanvas - HEIGHT_OF_POINT_MARKERS / 2),
                     new Point(x, graphCanvas.Height - yminCanvas + HEIGHT_OF_POINT_MARKERS / 2)));
+                count++;
             }
 
             //Then style the X axis.
@@ -125,13 +143,19 @@ namespace MathsVisualisationTool
             yaxis_geom.Children.Add(new LineGeometry(
                 new Point(xminCanvas, graphCanvas.Height - yminCanvas), new Point(xminCanvas, 0)));
 
+            int count = 0;
             //Iterate through and add | markings to this line.
             for (double y = yminCanvas; y <= ymaxCanvas; y += step)
             {
+                //To work out the formatting of numbers
+                string stringRep = Ylabels[count].ToString();
+
+                DrawText((MARGIN-8) - (stringRep.Length*7), graphCanvas.Height - y - 6, stringRep, false);
                 //Add | per each step
                 yaxis_geom.Children.Add(new LineGeometry(
                     new Point(xminCanvas - HEIGHT_OF_POINT_MARKERS / 2, graphCanvas.Height - y),
                     new Point(xminCanvas + HEIGHT_OF_POINT_MARKERS / 2, graphCanvas.Height - y)));
+                count++;
             }
             //Then style the Y axis
             Path yaxis_path = new Path();
@@ -189,6 +213,58 @@ namespace MathsVisualisationTool
             return (ymaxCanvas + TAIL_OF_AXIS - MARGIN) - (proportion * AXIS_LENGTH);
         }
 
+        /// <summary>
+        /// Function to add text onto the canvas.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="text"></param>
+        /// <param name="rotate"></param>
+        private void DrawText(double x, double y, string text,bool rotate)
+        {
 
+            TextBlock textBlock = new TextBlock();
+
+            textBlock.Text = text;
+            textBlock.FontFamily = new FontFamily("Courier New");
+
+            textBlock.Foreground = new SolidColorBrush(Color.FromRgb(0,0,0));
+
+            Canvas.SetLeft(textBlock, x);
+
+            Canvas.SetTop(textBlock, y);
+
+            if (rotate)
+            {
+                textBlock.RenderTransform = new RotateTransform(90);
+            }
+
+            graphCanvas.Children.Add(textBlock);
+        }
+
+        /// <summary>
+        /// Function for collecting the numbers marked on the X and Y axis.
+        /// </summary>
+        /// <param name="numMarkers">the number of markers on both axis.</param>
+        private void getXandYLabels(int numMarkers)
+        {
+            Xlabels = new double[numMarkers];
+            Ylabels = new double[numMarkers];
+
+            double Xinc = (Xmax - Xmin + 1) / numMarkers;
+            double Yinc = (Ymax - Ymin + 1) / numMarkers;
+
+            int i;
+            for(i=0;i<numMarkers;i++)
+            {
+                Xlabels[i] = Xmin + i * Xinc;
+            }
+
+            for (i = 0; i < numMarkers; i++)
+            {
+                Ylabels[i] = Ymin + i * Yinc;
+            }
+
+        }
     }
 }
