@@ -39,7 +39,7 @@ namespace DataDomain
             } else
             {
                 //Normally shouldn't happen but if someone else makes a mistake then this
-                //should haopefully be clear enough.
+                //should hopefully be clear enough.
                 throw new ArgumentException("Word given is not a keyword.");
             }
         }

@@ -19,8 +19,19 @@ namespace MathsVisualisationTool
     {
 
         private PlotFunction plotFunc;
-        private readonly uint MARGIN = 10;
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Properties of the graph
+        //The Margin of the canvas.
+        private readonly uint MARGIN = 40;
+        //The height of the point markers on the x and y axes.
+        private readonly uint HEIGHT_OF_POINT_MARKERS = 10;
+        //Since we don't want the markers to reach right at the end of the axis, this defines how much
+        //left-over space there is on each axis.
+        private readonly uint TAIL_OF_AXIS = 10;
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //For recording the length of each axis in the canvas in terms of number of pixels.
+        private uint AXIS_LENGTH;
         //Min and Max X value in catersian space.
         private double Xmin;
         private double Xmax;
@@ -44,23 +55,27 @@ namespace MathsVisualisationTool
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //Setting up field variables in terms of the canvas.
-            xminCanvas = MARGIN;
-            xmaxCanvas = graphCanvas.Width - MARGIN;
-            yminCanvas = MARGIN;
-            ymaxCanvas = graphCanvas.Height - MARGIN;
-
-            if(ymaxCanvas != xmaxCanvas)
+            //The Canvas in the graph drawing window must be a square.
+            if (graphCanvas.Height != graphCanvas.Width)
             {
                 throw new Exception("Make sure height and width are the same - From Vince");
             }
+
+            //Setting up field variables for the canvas.
+            xminCanvas = MARGIN;
+            xmaxCanvas = graphCanvas.Width - TAIL_OF_AXIS;
+            yminCanvas = MARGIN;
+            ymaxCanvas = graphCanvas.Height - TAIL_OF_AXIS;
+            AXIS_LENGTH = Convert.ToUInt32(xmaxCanvas - xminCanvas);
 
             //Setting up field variables in terms of the catesian space.
             Xmin = plotFunc.Xmin;
             Xmax = plotFunc.Xmax;
             Ymin = plotFunc.Ymin;
             Ymax = plotFunc.Ymax;
-            step = Math.Floor((graphCanvas.Height-2*MARGIN) / Convert.ToDouble(plotFunc.dataPoints.Count - 1));
+            //Calculate the difference between each marking on the axis.
+            //Calculated by the length of the axis / (number of dataPoints)
+            step = AXIS_LENGTH / Convert.ToDouble(plotFunc.dataPoints.Count - 1);
 
             createXaxis();
 
@@ -76,18 +91,18 @@ namespace MathsVisualisationTool
         {
             // Make the X axis.
             GeometryGroup xaxis_geom = new GeometryGroup();
-            //Create a straight horizontal line from (0,ymaxCanvas) to (canvas.width,ymaxCanvas) in canvas coordinates.
+            //Create a straight horizontal line
             xaxis_geom.Children.Add(new LineGeometry(
-                new Point(0, ymaxCanvas), new Point(graphCanvas.Width, ymaxCanvas)));
+                new Point(xminCanvas, graphCanvas.Height - yminCanvas), new Point(graphCanvas.Width, graphCanvas.Height - yminCanvas)));
 
             //Iterate through and add | markings to this line.
             for (double x = xminCanvas;
-                x <= graphCanvas.Width; x += step)
+                x <= xmaxCanvas; x += step)
             {
                 //Add | per each step.
                 xaxis_geom.Children.Add(new LineGeometry(
-                    new Point(x, ymaxCanvas - MARGIN / 2),
-                    new Point(x, ymaxCanvas + MARGIN / 2)));
+                    new Point(x, graphCanvas.Height - yminCanvas - HEIGHT_OF_POINT_MARKERS / 2),
+                    new Point(x, graphCanvas.Height - yminCanvas + HEIGHT_OF_POINT_MARKERS / 2)));
             }
 
             //Then style the X axis.
@@ -106,17 +121,17 @@ namespace MathsVisualisationTool
         {
             // Make the Y ayis.
             GeometryGroup yaxis_geom = new GeometryGroup();
-            //Create a vertical line starting from (xminCanvas,0) to (xminCanvas, canvas.height)
+            //Create a vertical line 
             yaxis_geom.Children.Add(new LineGeometry(
-                new Point(xminCanvas, 0), new Point(xminCanvas, graphCanvas.Height)));
+                new Point(xminCanvas, graphCanvas.Height - yminCanvas), new Point(xminCanvas, 0)));
 
             //Iterate through and add | markings to this line.
-            for (double y = MARGIN; y <= graphCanvas.Height; y += step)
+            for (double y = yminCanvas; y <= ymaxCanvas; y += step)
             {
                 //Add | per each step
                 yaxis_geom.Children.Add(new LineGeometry(
-                    new Point(xminCanvas - MARGIN / 2, graphCanvas.Height - y),
-                    new Point(xminCanvas + MARGIN / 2, graphCanvas.Height - y)));
+                    new Point(xminCanvas - HEIGHT_OF_POINT_MARKERS / 2, graphCanvas.Height - y),
+                    new Point(xminCanvas + HEIGHT_OF_POINT_MARKERS / 2, graphCanvas.Height - y)));
             }
             //Then style the Y axis
             Path yaxis_path = new Path();
@@ -153,14 +168,12 @@ namespace MathsVisualisationTool
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
-        public double convertXCoordinate(double x)
+        private double convertXCoordinate(double x)
         {
             //get the percentage that x lies inbetween Xmin and Xmax
             double proportion = (x-Xmin) / (Xmax-Xmin);
 
-            double canvasWidth = xmaxCanvas - xminCanvas;
-
-            return proportion*canvasWidth + MARGIN;
+            return proportion* AXIS_LENGTH + MARGIN;
         }
 
         /// <summary>
@@ -168,14 +181,14 @@ namespace MathsVisualisationTool
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
-        public double convertYCoordinate(double y)
+        private double convertYCoordinate(double y)
         {
             //get the percentage that x lies inbetween Xmin and Xmax
             double proportion = (y - Ymin) / (Ymax - Ymin);
 
-            double canvasHeight = ymaxCanvas - yminCanvas;
-
-            return ymaxCanvas - (proportion * canvasHeight);
+            return (ymaxCanvas + TAIL_OF_AXIS - MARGIN) - (proportion * AXIS_LENGTH);
         }
+
+
     }
 }
