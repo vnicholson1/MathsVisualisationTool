@@ -202,6 +202,20 @@ namespace MathsVisualisationTool
                     characters = new List<char>() { input[i] };
                     typeInList = Globals.SUPPORTED_TOKENS.COMMA;
                 }
+
+                else if (input[i] == '<')
+                {
+                    tokenToAdd = TokeniseList(characters, typeInList);
+                    //if the word gathered is a keyword.
+                    if (Globals.keyWords.Contains(tokenToAdd.GetValue()))
+                    {
+                        //get the keyword.
+                        tokenToAdd.SetType(Globals.getTokenFromKeyword(tokenToAdd.GetValue()));
+                    }
+                    tokens.Add(tokenToAdd);
+                    characters = new List<char>() { input[i] };
+                    typeInList = Globals.SUPPORTED_TOKENS.LESS_THAN;
+                }
                 else if (char.IsLetter(input[i]))
                 {
                     //if the previous tokens were variable names
@@ -343,6 +357,10 @@ namespace MathsVisualisationTool
             else if (c == ',')
             {
                 return Globals.SUPPORTED_TOKENS.CONSTANT;
+            }
+            else if (c == '<')
+            {
+                return Globals.SUPPORTED_TOKENS.LESS_THAN;
             }
             else
             {

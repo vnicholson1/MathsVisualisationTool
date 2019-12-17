@@ -10,6 +10,10 @@ namespace MathsVisualisationTool
 {
     public class PlotFunction
     {
+        //Up to the user, more data points means a smoother curve but is more computationally intensive. Less
+        //data points means a more stair-case like curve but is less computationally intensive.
+        private static readonly uint NUM_DATA_POINTS = 100;
+
         //List of parameters in the Plot Function
         public List<Token> Equation;
         public double Xmin;
@@ -19,6 +23,9 @@ namespace MathsVisualisationTool
         public double inc;
         //List to store all the gathered data points.
         public List<Tuple<double, double>> dataPoints = new List<Tuple<double,double>>();
+        //The variables given in the plot function.
+        public string X;
+        public string Y;
 
         public PlotFunction(List<Token> Equation, Token XminToken, Token XmaxToken, Token incToken)
         {
@@ -39,20 +46,13 @@ namespace MathsVisualisationTool
 
             //List for storing the equation to be drawn i.e. "Y=X"
             List<Token> equationTokens = getEquation(tokens, ref i);
-            //Current token will be the comma so skip over it to get the next argument.
-            //get the next argument which is Xmin.
+            //skip over the comma
             i++;
-            Token Xmin = tokens[i];
-            //get the next argument which is Xmax.
-            i++;
-            //skip over the comma.
-            i++;
-            Token Xmax = tokens[i];
-            //get the next argument which is inc.
-            i++;
-            //skip over the comma.
-            i++;
-            Token inc = tokens[i];
+            //Evaluate the range expression i.e. (1<X<10) - it does this by getting Xmin, Xmax and the necessary increment.
+            Token[] elements = evaluateRange(tokens, ref i);
+            Token Xmin = elements[0];
+            Token Xmax = elements[1];
+            Token inc = elements[2];
 
             return new PlotFunction(equationTokens, Xmin, Xmax, inc);
         }
@@ -79,6 +79,30 @@ namespace MathsVisualisationTool
                 index++;
             }
             return equationTokens;
+        }
+
+        /// <summary>
+        /// Method for evaluating the given range.
+        /// </summary>
+        /// <param name="tokens"></param>
+        /// <param name="index"></param>
+        /// <returns> An array of size 3 containing the Xmin, Xmax and the increment.</returns>
+        private static Token [] evaluateRange(List<Token> tokens, ref int index)
+        {
+            //An array for storing the Xmin, Xmax and the increment
+            Token[] elements = new Token[3];
+
+            //get the Xmin
+            elements[0] = tokens[index];
+            index += 4;
+            //get the Xmax
+            elements[1] = tokens[index];
+            //Calculate the increment to get the desired increment.
+            double Xmin = Convert.ToDouble(elements[0].GetValue());
+            double Xmax = Convert.ToDouble(elements[1].GetValue());
+            elements[2] = new Token(Globals.SUPPORTED_TOKENS.CONSTANT, Convert.ToString( (Xmax - Xmin + 1) / NUM_DATA_POINTS));
+
+            return elements;
         }
 
         /// <summary>
@@ -115,7 +139,7 @@ namespace MathsVisualisationTool
                 dataPoints.Add(new Tuple<double, double>(Xvalue, Yvalue));
             }
 
-            setMinAndMaxYValues();
+            setMinAndMaxXandYValues();
 
             printDataPoints();
         }
@@ -133,6 +157,7 @@ namespace MathsVisualisationTool
             {
                 if(Equation[i].GetType() == Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
                 {
+                    X = Equation[i].GetValue();
                     //prepend a '~' character onto the variable, so if someone wants to define a variable called Y, then it won't be overwritten.
                     Equation[i].SetValue("~" + Equation[i].GetValue());
                     varName = Equation[i].GetValue();
@@ -147,29 +172,43 @@ namespace MathsVisualisationTool
         /// </summary>
         private void removeFirst2Tokens()
         {
+            Y = Equation[0].GetValue();
             Equation.RemoveRange(0, 2);
         }
 
         /// <summary>
-        /// Method to get the Min and Max Y values of the data points. (this is required by the Graph Drawer Module).
+        /// Method to get the Min and Max X and Y values of the data points. (this is required by the Graph Drawer Module).
         /// </summary>
-        private void setMinAndMaxYValues()
+        private void setMinAndMaxXandYValues()
         {
-            double maxTemp = double.MinValue;
-            double minTemp = double.MaxValue;
+            double maxTempY = double.MinValue;
+            double minTempY = double.MaxValue;
+            double maxTempX= double.MinValue;
+            double minTempX = double.MaxValue;
             foreach (Tuple<double, double> t in dataPoints)
             {
-                if(t.Item2 > maxTemp)
+                if(t.Item2 > maxTempY)
                 {
-                    maxTemp = t.Item2;
+                    maxTempY = t.Item2;
                 }
-                if(t.Item2 < minTemp)
+                if(t.Item2 < minTempY)
                 {
-                    minTemp = t.Item2;
+                    minTempY = t.Item2;
+                }
+
+                if (t.Item1 > maxTempX)
+                {
+                    maxTempX = t.Item1;
+                }
+                if (t.Item1 < minTempX)
+                {
+                    minTempX = t.Item1;
                 }
             }
-            Ymin = minTemp;
-            Ymax = maxTemp;
+            Ymin = minTempY;
+            Ymax = maxTempY;
+            Xmin = minTempX;
+            Xmax = maxTempX;
         }
 
         /// <summary>

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DataDomain;
 
 namespace MathsVisualisationTool
 {
@@ -88,11 +89,13 @@ namespace MathsVisualisationTool
                 numMarkers = plotFunc.dataPoints.Count - 1;
             }
 
-            getXandYLabels(numMarkers + 1);
+            getXandYLabels(numMarkers);
 
             step = AXIS_LENGTH / Convert.ToDouble(numMarkers);
 
             createXaxis();
+
+            Console.WriteLine("{0},{1}", plotFunc.X, plotFunc.Y);
 
             createYaxis();
 
@@ -115,7 +118,9 @@ namespace MathsVisualisationTool
             for (double x = xminCanvas;
                 x <= xmaxCanvas; x += step)
             {
-                DrawText(x+6, graphCanvas.Height - (yminCanvas-6), Xlabels[count].ToString(),true);
+                double label = Globals.RoundToSignificantDigits(Xlabels[count], 4);
+
+                DrawText(x+6, graphCanvas.Height - (yminCanvas-6), label.ToString(),true);
                 //Add | per each step.
                 xaxis_geom.Children.Add(new LineGeometry(
                     new Point(x, graphCanvas.Height - yminCanvas - HEIGHT_OF_POINT_MARKERS / 2),
@@ -147,8 +152,8 @@ namespace MathsVisualisationTool
             //Iterate through and add | markings to this line.
             for (double y = yminCanvas; y <= ymaxCanvas; y += step)
             {
-                //To work out the formatting of numbers
-                string stringRep = Ylabels[count].ToString();
+                double label = Globals.RoundToSignificantDigits(Ylabels[count], 4);
+                string stringRep = label.ToString();
 
                 DrawText((MARGIN-8) - (stringRep.Length*7), graphCanvas.Height - y - 6, stringRep, false);
                 //Add | per each step
@@ -248,19 +253,19 @@ namespace MathsVisualisationTool
         /// <param name="numMarkers">the number of markers on both axis.</param>
         private void getXandYLabels(int numMarkers)
         {
-            Xlabels = new double[numMarkers];
-            Ylabels = new double[numMarkers];
+            Xlabels = new double[numMarkers+1];
+            Ylabels = new double[numMarkers+1];
 
-            double Xinc = (Xmax - Xmin + 1) / numMarkers;
-            double Yinc = (Ymax - Ymin + 1) / numMarkers;
+            double Xinc = (Xmax - Xmin) / numMarkers;
+            double Yinc = (Ymax - Ymin) / numMarkers;
 
             int i;
-            for(i=0;i<numMarkers;i++)
+            for(i=0;i<numMarkers+1;i++)
             {
                 Xlabels[i] = Xmin + i * Xinc;
             }
 
-            for (i = 0; i < numMarkers; i++)
+            for (i = 0; i < numMarkers+1; i++)
             {
                 Ylabels[i] = Ymin + i * Yinc;
             }
