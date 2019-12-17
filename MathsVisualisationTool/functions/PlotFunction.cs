@@ -100,7 +100,9 @@ namespace MathsVisualisationTool
             //Calculate the increment to get the desired increment.
             double Xmin = Convert.ToDouble(elements[0].GetValue());
             double Xmax = Convert.ToDouble(elements[1].GetValue());
-            elements[2] = new Token(Globals.SUPPORTED_TOKENS.CONSTANT, Convert.ToString( (Xmax - Xmin + 1) / NUM_DATA_POINTS));
+
+            double inc = (Xmax - Xmin + 1) / NUM_DATA_POINTS;
+            elements[2] = new Token(Globals.SUPPORTED_TOKENS.CONSTANT, Convert.ToString( (Xmax - Xmin) / (NUM_DATA_POINTS-1)));
 
             return elements;
         }

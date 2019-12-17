@@ -44,22 +44,5 @@ namespace DataDomain
             }
         }
 
-        /// <summary>
-        /// Function used to round a double to X sig figures because C# doesn't have this built in.
-        /// This solution was taken from https://stackoverflow.com/questions/374316/round-a-double-to-x-significant-figures.
-        /// </summary>
-        /// <param name="d"></param>
-        /// <param name="digits"></param>
-        /// <returns></returns>
-        public static double RoundToSignificantDigits(double d,int digits)
-        {
-            if (d == 0)
-            {
-                return 0;
-            }
-                
-            double scale = Math.Pow(10, Math.Floor(Math.Log10(Math.Abs(d))) + 1);
-            return scale * Math.Round(d / scale, digits);
-        }
     }
 }

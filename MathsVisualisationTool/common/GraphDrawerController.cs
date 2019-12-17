@@ -24,7 +24,7 @@ namespace MathsVisualisationTool
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         //Properties of the graph
         //The Margin of the canvas.
-        private readonly uint MARGIN = 60;
+        private readonly uint MARGIN = 80;
         //The height of the point markers on the x and y axes.
         private readonly uint HEIGHT_OF_POINT_MARKERS = 10;
         //Since we don't want the markers to reach right at the end of the axis, this defines how much
@@ -95,8 +95,6 @@ namespace MathsVisualisationTool
 
             createXaxis();
 
-            Console.WriteLine("{0},{1}", plotFunc.X, plotFunc.Y);
-
             createYaxis();
 
             drawDataPoints();
@@ -118,15 +116,19 @@ namespace MathsVisualisationTool
             for (double x = xminCanvas;
                 x <= xmaxCanvas; x += step)
             {
-                double label = Globals.RoundToSignificantDigits(Xlabels[count], 4);
+                string label = RoundToSignificantDigits(Xlabels[count], 4);
 
-                DrawText(x+6, graphCanvas.Height - (yminCanvas-6), label.ToString(),true);
+                DrawText(x+6, graphCanvas.Height - (yminCanvas-6), label,true,true);
                 //Add | per each step.
                 xaxis_geom.Children.Add(new LineGeometry(
                     new Point(x, graphCanvas.Height - yminCanvas - HEIGHT_OF_POINT_MARKERS / 2),
                     new Point(x, graphCanvas.Height - yminCanvas + HEIGHT_OF_POINT_MARKERS / 2)));
                 count++;
             }
+
+            //add the variable name to the axis.
+            //equation is to make the label center aligned
+            DrawText(MARGIN+(AXIS_LENGTH/2)-(((plotFunc.X.Length-1.0)*8.0)/2.0), graphCanvas.Height-30, plotFunc.X, false,false);
 
             //Then style the X axis.
             Path xaxis_path = new Path();
@@ -152,16 +154,19 @@ namespace MathsVisualisationTool
             //Iterate through and add | markings to this line.
             for (double y = yminCanvas; y <= ymaxCanvas; y += step)
             {
-                double label = Globals.RoundToSignificantDigits(Ylabels[count], 4);
-                string stringRep = label.ToString();
+                string stringRep = RoundToSignificantDigits(Ylabels[count], 4);
 
-                DrawText((MARGIN-8) - (stringRep.Length*7), graphCanvas.Height - y - 6, stringRep, false);
+                DrawText((MARGIN-8) - (stringRep.Length*7), graphCanvas.Height - y - 6, stringRep, false,false);
                 //Add | per each step
                 yaxis_geom.Children.Add(new LineGeometry(
                     new Point(xminCanvas - HEIGHT_OF_POINT_MARKERS / 2, graphCanvas.Height - y),
                     new Point(xminCanvas + HEIGHT_OF_POINT_MARKERS / 2, graphCanvas.Height - y)));
                 count++;
             }
+
+            //add the variable name to the axis.
+            DrawText(10, AXIS_LENGTH/2 + (((plotFunc.Y.Length - 1.0) * 8.0) / 2.0), plotFunc.Y, true,false);
+
             //Then style the Y axis
             Path yaxis_path = new Path();
             yaxis_path.StrokeThickness = 1;
@@ -225,7 +230,8 @@ namespace MathsVisualisationTool
         /// <param name="y"></param>
         /// <param name="text"></param>
         /// <param name="rotate"></param>
-        private void DrawText(double x, double y, string text,bool rotate)
+        /// <param name="clockwise"></param>
+        private void DrawText(double x, double y, string text,bool rotate,bool clockwise)
         {
 
             TextBlock textBlock = new TextBlock();
@@ -241,7 +247,13 @@ namespace MathsVisualisationTool
 
             if (rotate)
             {
-                textBlock.RenderTransform = new RotateTransform(90);
+                if(clockwise)
+                {
+                    textBlock.RenderTransform = new RotateTransform(90);
+                } else
+                {
+                    textBlock.RenderTransform = new RotateTransform(270);
+                }
             }
 
             graphCanvas.Children.Add(textBlock);
@@ -270,6 +282,38 @@ namespace MathsVisualisationTool
                 Ylabels[i] = Ymin + i * Yinc;
             }
 
+        }
+
+        /// <summary>
+        /// Function used to round a double to X sig figures because C# doesn't have this built in.
+        /// This solution was taken from https://stackoverflow.com/questions/374316/round-a-double-to-x-significant-figures.
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="digits"></param>
+        /// <returns></returns>
+        private string RoundToSignificantDigits(double d, int digits)
+        {
+            if (d == 0)
+            {
+                return "0";
+            }
+
+            //convert the number into standard form if its absolute value is really big.
+            string stringRep = Convert.ToString(Math.Round(d));
+            if (stringRep.Length > digits)
+            {
+                string stdForm = stringRep[0] + "." + stringRep[1] + "E" + (stringRep.Length - 1);
+                return stdForm;
+            }
+            //Do the same for really small numbers.
+            if (d < 1.0)
+            {
+
+            }
+
+            double scale = Math.Pow(10, Math.Floor(Math.Log10(Math.Abs(d))) + 1);
+            string res = Convert.ToString(scale * Math.Round(d / scale, digits));
+            return res;
         }
     }
 }
