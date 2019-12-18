@@ -1,0 +1,58 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MathsVisualisationTool">
+    
+    <!-- ************************************************************************************************ -->
+    <!-- MAIN COLOURS - SOLID COLOURS -->
+    <SolidColorBrush x:Key="MainColour_MainBackground" Color="#2D2D30"/> <!-- Main Background Colour -->
+    <SolidColorBrush x:Key="MainColour_SubBackground" Color="#3F3F46"/> <!-- Sub Background (inc. Menus/Toolbars/Grid Splitters) -->
+    <SolidColorBrush x:Key="MainColour_Font" Color="#F2F2F2"/> <!-- Main Font Colour -->
+    <SolidColorBrush x:Key="MainColour_BorderBrush" Color="#212121"/> <!-- Main Border Brush Colour -->
+    <SolidColorBrush x:Key="MainColour_MouseHover" Color="#1C97EA"/> <!-- Mouse Hovering over a Button/Item -->
+    
+    <!-- BUTTON COLOURS - SOLID COLOURS -->    
+    <SolidColorBrush x:Key="Btn_Background" Color="#5E5E5E"/> <!-- Background of a Button-->       
+    <SolidColorBrush x:Key="Btn_IsPressedBackground" Color="#3399FF"/> <!-- Colour of Button when pressed -->
+
+    <!-- TAB ITEM & TAB CONTROL COLOURS - SOLID COLOURS -->
+    <SolidColorBrush x:Key="TabCon_Background" Color="#3F3F46"/>
+    <SolidColorBrush x:Key="TabItem_TrueBackground" Color="#007ACC"/>
+    <SolidColorBrush x:Key="TabItem_FalseBackground" Color="#3F3F46"/>
+
+    <!-- MAIN MENU COLOURS -->
+    <LinearGradientBrush x:Key="MenuSelected" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#424242" Offset="0"/>
+        <GradientStop Color="#5E5E5E" Offset="1"/>
+    </LinearGradientBrush>
+    
+    <SolidColorBrush x:Key="MenuBackground" Color="#3F3F46"/> <!-- Menu Background -->
+    <SolidColorBrush x:Key="MenuBorder" Color="#5E5E5E"/> <!-- Menu Borders-->
+    <SolidColorBrush x:Key="MenuForeground" Color="White"/> <!-- Menu Font/Foreground -->
+    <!--<SolidColorBrush x:Key="TabControlOuterBorder" Color="Red"/>
+    <SolidColorBrush x:Key="TabControlInnerBorder" Color="Pink"/>-->
+    <SolidColorBrush x:Key="MenuItemIconBackground" Color="#424242" Opacity="0.9"/> <!-- Menu Icon Background (Drop Down Background) -->
+    <SolidColorBrush x:Key="MenuItemBackground" Color="#5E5E5E" Opacity="0.9"/> <!-- Menu Item Background (Drop Down Background) -->
+    <SolidColorBrush x:Key="MenuBorderHover" Color="#C7C9CC" Opacity="0.4"/> <!-- Menu Hover Border -->
+    <SolidColorBrush x:Key="MenuBackgroundHover" Color="#C7C9CC" Opacity="0.4"/> <!-- Menu Hover -->
+
+    
+
+    <!-- GRADIENT COLOUR STYLE FOR TAB ITEMS -->
+    <LinearGradientBrush x:Key="GradientBackground_TabItem" StartPoint="0,0" EndPoint="0,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Color="#EAF6FD" Offset="0.15"/>
+            <GradientStop Color="#D9F0FC" Offset=".5"/>
+            <GradientStop Color="#BEE6FD" Offset=".5"/>
+            <GradientStop Color="#A7D9F5" Offset="1"/>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <!-- COLOURS USED FOR COMPONENTS THAT HOLD/USE TEXT -->
+    <SolidColorBrush x:Key="ListBox_Background" Color="#2D2D30"/>
+    <SolidColorBrush x:Key="ListBox_Foreground" Color="#F2F2F2"/>
+
+    <!-- COLOURS -->
+    <SolidColorBrush x:Key="Background_ToolBar" Color="#3F3F46"/>
+    <SolidColorBrush x:Key="Foreground_ToolBar" Color="#F2F2F2"/>
+    
+</ResourceDictionary>

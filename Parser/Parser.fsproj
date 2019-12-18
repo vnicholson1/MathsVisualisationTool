@@ -48,7 +48,7 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Program.fs" />
+    <Compile Include="Parser.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
   </ItemGroup>
@@ -61,6 +61,13 @@
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataDomain\DataDomain.csproj">
+      <Name>DataDomain</Name>
+      <Project>{e99a2845-a6ab-48aa-acfd-16fc9afce5cf}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

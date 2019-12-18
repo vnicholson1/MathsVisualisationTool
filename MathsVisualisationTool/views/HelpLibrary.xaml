@@ -1,0 +1,193 @@
+﻿<Window x:Class="MathsVisualisationTool.HelpLibrary"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MathsVisualisationTool"
+        mc:Ignorable="d"
+        Icon="../images/icons/lifebuoy.png"
+        Background="{StaticResource MainColour_MainBackground}"
+        Title="Help Library" Height="700" Width="1100">
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <!-- MAIN MENU/NAVIGATION MENU-->
+            <Menu DockPanel.Dock="Top">
+                <!--MAIN TOP MENU - FILE DROP DOWN-->
+                <MenuItem Header="_File">
+                    <MenuItem Header="_New"/>
+                    <MenuItem Header="_Open" ToolTip="Open saved SolveIT file" Icon="&#x1F4C2;"/>
+                    <Separator/>
+                    <MenuItem Header="_Save" ToolTip="Save" Icon="&#x1F4BE;">
+                        <MenuItem Header="_Save" Icon="&#128190;"/>
+                        <MenuItem Header="Save as" Icon="&#128190;"/>
+                        <MenuItem Header="Save all"/>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="E_xit"/>
+                </MenuItem>
+                <!--MAIN TOP MENU - EDIT DROPDOWN-->
+                <MenuItem Header="_Edit"></MenuItem>
+                <!--MAIN TOP MENU - VIEW DROPDOWN-->
+                <MenuItem Header="_View"></MenuItem>
+                <!--MAIN TOP MENU - TOOLS DROPDOWN-->
+                <MenuItem Header="_Tools"></MenuItem>
+                <!--MAIN TOP MENU - HELP DROPDOWN-->
+                <MenuItem Header="_Help">
+                    <MenuItem Header="Test Document"/>
+                    <MenuItem Header="View Help"/>
+                </MenuItem>
+            </Menu>
+
+            <TabControl x:Name="BottomLeft_TabMenu"  TabStripPlacement="Left" Style="{StaticResource mainTabControlStyle}" Margin="0 2 0 0">
+                <TabItem Header="Document Library" Style="{StaticResource LeftTab}" Margin="0 -2 -1 0">
+                    <Grid x:Name="DocGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2"/>
+                            <ColumnDefinition MinWidth="175"/>
+                            <ColumnDefinition Width="7"/>
+                            <ColumnDefinition Width="825"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Style="{StaticResource leftTabStackPanel_Style}" Grid.Column="0" Grid.RowSpan="2"/>
+                        <TextBlock VerticalAlignment="Center" Padding="8" TextTrimming="CharacterEllipsis" Background="#3F3F46" Foreground="#F2F2F2" Text="Library Index" Grid.Row="0" Grid.Column="1"/>
+                        <TreeView x:Name="DocsTree" Grid.Row="1" Grid.Column="1" Margin="2">
+                            <TreeViewItem Header="User Manual">
+                                <TreeViewItem Header="Quick Guide"/>
+                                <TreeViewItem Header="User Manual"/>
+                            </TreeViewItem>
+                            <TreeViewItem Header="'Cheat' Sheets">
+                                <TreeViewItem Header="Input References" MouseDoubleClick="OnInputDoc_Clicked"/>
+                                <TreeViewItem Header="Error Codes"/>
+                            </TreeViewItem>
+                        </TreeView>
+                        <GridSplitter x:Name="Library_Splitter" Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource LibrarySplitter_Style}"/>
+                        <TextBlock VerticalAlignment="Center" Padding="8" TextTrimming="CharacterEllipsis" Background="#3F3F46" Foreground="#F2F2F2" Text="Document" Grid.Row="0" Grid.Column="3"/>
+                        <DocumentViewer x:Name="libraryDocViewer" Grid.Row="1" Grid.Column="3" Margin="2"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Video Library" Style="{StaticResource LeftTab}" Margin="0 0 -1 0">
+                    <Grid x:Name="VidGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2"/>
+                            <ColumnDefinition MinWidth="175"/>
+                            <ColumnDefinition Width="7"/>
+                            <ColumnDefinition Width="825"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Style="{StaticResource leftTabStackPanel_Style}" Grid.Column="0" Grid.RowSpan="2"/>
+                        <TextBlock VerticalAlignment="Center" Padding="8" TextTrimming="CharacterEllipsis" Background="#3F3F46" Foreground="#F2F2F2" Text="Library Index" Grid.Row="0" Grid.Column="1"/>
+                        <TreeView x:Name="VidsTree" Grid.Row="1" Grid.Column="1" Margin="2">
+                            <TreeViewItem Header="User Videos">
+                                <TreeViewItem Header="Basic Arthmetic Input"/>
+                                <TreeViewItem Header="Defining Variables"/>
+                            </TreeViewItem>
+                        </TreeView>
+                        <GridSplitter x:Name="Video_Splitter" Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource LibrarySplitter_Style}"/>
+                        <TextBlock VerticalAlignment="Center" Padding="8" TextTrimming="CharacterEllipsis" Background="#3F3F46" Foreground="#F2F2F2" Text="Video" Grid.Row="0" Grid.Column="3"/>
+                        <MediaElement x:Name="VideoPlayer" Grid.Column="3" Grid.Row="1" Source="../manuals/clips/basicInput.mp4"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+
+            <!--<Grid x:Name="LibraryGrid" Background="#3F3F46">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="7"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock VerticalAlignment="Center" Padding="8" TextTrimming="CharacterEllipsis" Background="#3F3F46" Foreground="#F2F2F2" Text="Library Index" Grid.Row="0" Grid.Column="0"/>
+                <TreeView x:Name="LibraryCats" Grid.Row="1" Grid.Column="0" Margin="2">
+                    <TreeViewItem Header="My Solution">
+                        <TreeViewItem Header="Project #1"/>
+                        <TreeViewItem Header="Project #2"/>
+                        <TreeViewItem Header="Project #3"/>
+                    </TreeViewItem>
+                </TreeView>
+                <GridSplitter x:Name="Library_Splitter" Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource LibrarySplitter_Style}"/>
+                <TextBlock VerticalAlignment="Center" Padding="8" TextTrimming="CharacterEllipsis" Background="#3F3F46" Foreground="#F2F2F2" Text="Document" Grid.Row="0" Grid.Column="2"/>
+                <DocumentViewer x:Name="LibraryViewer" Grid.Row="1" Grid.Column="2" Margin="2"/>
+            </Grid>-->
+            
+            
+        </DockPanel>
+
+        <!--<Grid Name="bottomLeftGrid" Grid.IsSharedSizeScope="True" Grid.Row="2" Grid.Column="0" Margin="0 3 0 0">
+            <TabControl x:Name="BottomLeft_TabMenu"  TabStripPlacement="Left" Style="{StaticResource mainTabControlStyle}">
+                <TabItem Header="Notes" Style="{StaticResource LeftTab}" Margin="0 0 -1 0">
+                    <Grid x:Name="NotesGrid" >
+                        <Grid Background="#5E5E5E" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="16"/>
+                                <RowDefinition Height="16"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="47*"/>
+                                <RowDefinition Height="328*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Background="{StaticResource BackgroundTrue_TabItem}" Margin="-4 0 0 0" Width="3" Grid.Column="0" Grid.RowSpan="5"/>
+                            <TextBlock Padding="8" Grid.Row="0" TextTrimming="CharacterEllipsis" Foreground="White" Text="Your Notes" Grid.RowSpan="2" Grid.Column="1"/>
+                            <ToolBarTray Grid.Row="2" Grid.Column="1">
+                                <ToolBar>
+                                    <Button Name="notesNew" ToolBar.OverflowMode="Never" ToolTip="Add Note" Click="OnNewNote_Clicked">
+                                        <Image Source="../images/icons/newFile.png" Width="20"/>
+                                    </Button>
+                                    <Button Name="notesCut" ToolBar.OverflowMode="Never" ToolTip="Cut" Click="OnCut_Clicked">
+                                        <Image Source="../images/icons/cut.png" Width="20"/>
+                                    </Button>
+                                    <Button x:Name="notesCopy" ToolBar.OverflowMode="Never" ToolTip="Cut" Click="OnCopy_Clicked">
+                                        <Image Source="../images/icons/copy.png" Width="20"/>
+                                    </Button>
+                                    <Button x:Name="notesPaste" ToolBar.OverflowMode="Never" ToolTip="Cut" Click="OnPaste_Clicked">
+                                        <Image Source="../images/icons/paste.png" Width="20"/>
+                                    </Button>
+                                </ToolBar>
+                            </ToolBarTray>
+                            <TreeView Grid.Row="3" Grid.RowSpan="2" Grid.Column="1">
+                                <TreeViewItem Header="My Solution">
+                                    <TreeViewItem Header="Project #1"/>
+                                    <TreeViewItem Header="Project #2"/>
+                                    <TreeViewItem Header="Project #3"/>
+                                </TreeViewItem>
+                            </TreeView>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Documentation" Style="{StaticResource LeftTab}" Margin="0 0 -1 0">
+                    --><!--<StackPanel Background="{StaticResource BackgroundTrue_TabItem}" Margin="-3 -3 0 0" Width="5"  />--><!--
+                    <Grid x:Name="DocsGrid" Grid.Column="0" Background="#5E5E5E" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Background="{StaticResource BackgroundTrue_TabItem}" Margin="-4 0 0 0" Width="3" Grid.Column="0" Grid.RowSpan="2"/>
+                        <TextBlock Padding="8" TextTrimming="CharacterEllipsis" Foreground="White" Text="Documentation" Grid.Row="0" Grid.Column="1"/>
+                        <DocumentViewer Name="documentViewer" Padding="10" Grid.Row="1" Grid.Column="1"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>-->
+
+
+
+    </Grid>
+</Window>

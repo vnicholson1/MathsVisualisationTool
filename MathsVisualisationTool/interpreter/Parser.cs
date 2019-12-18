@@ -4,121 +4,156 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataDomain;
 
 namespace MathsVisualisationTool
-{ 
-    public abstract class Expression
-    {
-        /// <summary>
-        /// Evaluate function that will give the value of the given class.
-        /// </summary>
-        /// <param name="vars"></param>
-        /// <returns></returns>
-        public abstract double Evaluate();
-    }
-
-    /// <summary>
-    /// Class representing a constant i.e. 1,2,3,4,5,6,7,8 etc.
-    /// </summary>
-    public class Constant : Expression
-    {
-        private double value;
-
-        public Constant(double value)
-        {
-            this.value = value;
-        }
-
-        /// <summary>
-        /// Evaluate the value of this class. As it's a constant it's just evaluated as the value.
-        /// </summary>
-        /// <param name="vars"></param>
-        /// <returns></returns>
-        public override double Evaluate()
-        {
-            return value;
-        }
-    }
-
-    public class Operation : Expression
-    {
-        private Expression left;
-        private string op;
-        private Expression right;
-
-        public Operation(Expression left, string op, Expression right)
-        {
-            this.left = left;
-            this.op = op;
-            this.right = right;
-        }
-
-        public override double Evaluate()
-        {
-            double x = left.Evaluate();
-            double y = right.Evaluate();
-
-            switch(op)
-            {
-                case "+": return x + y;
-                case "-": return x - y;
-                case "*": return x * y;
-                case "/": return x / y;
-            }
-            throw new Exception("Unrecognised operator - " + op);
-        }
-    }
-
+{
     class Parser
     {
-
+        //List of tokens gathered by the lexer.
         private List<Token> tokens;
+        //Variable to store the current token that the parser is analysing.
         private Token nextToken = null;
+        //the index of the NEXT token to be analysed when getNextToken() is called.
         private int index = 0;
-        
-        public Parser()
+        //Hashtable for storing a list of known variables.
+        //It is stored in the form:
+        // key   -> Variable name.
+        // value -> Variable value.
+        private Hashtable variables = null;
+        //Variable to store the newly added variable.
+        public string varName = null;
+
+
+        public Parser(Hashtable variables)
         {
-            
+            this.variables = variables;
         }
 
+        /// <summary>
+        /// Method called by the interpreter to analyse the set of tokens gathered by the lexer.
+        /// </summary>
+        /// <param name="tokens"></param>
+        /// <returns> the value of the given expression.</returns>
         public double AnalyseTokens(List<Token> tokens)
         {
             this.tokens = tokens;
+
+            //Analyse the syntax to see if it is valid.
+            SyntaxAnalyser s = new SyntaxAnalyser(tokens);
+            s.checkTokens();
+
+            //If it is then do some preprocessing on the input.
+            Preprocessor p = new Preprocessor(tokens);
+            this.tokens = p.processTokens();
+
             getNextToken();
 
-            double value = double.NaN;
+            double value = analyseExpressions(double.NaN);
 
-            return analyseExpressions(value);
+            VariableFileHandle.saveVariables(variables);
+
+            return value;
         }
 
-
+        /// <summary>
+        /// Method called to process the expression. It assumes that it is in a universal format
+        /// as the checking is done by the preprocessor and syntax analyser.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public double analyseExpressions(double value)
         {
             while (nextToken != null)
             {
-                SUPPORTED_TOKENS tokenType = nextToken.GetType();
-
-                if (tokenType == SUPPORTED_TOKENS.INTEGER)
+                Globals.SUPPORTED_TOKENS tokenType = nextToken.GetType();
+                if (tokenType == Globals.SUPPORTED_TOKENS.CONSTANT)
                 {
+                    //If the next token is an int, then just collect the value
                     value = Convert.ToDouble(nextToken.GetValue());
+                    getNextToken();
                 }
-                else if (tokenType == SUPPORTED_TOKENS.DIVISION || tokenType == SUPPORTED_TOKENS.MULTIPLICATION)
+                else if (tokenType == Globals.SUPPORTED_TOKENS.DIVISION || tokenType == Globals.SUPPORTED_TOKENS.MULTIPLICATION)
                 {
+                    //If its division or multiplication, run the appropriate method.
                     value = divisionAndMultHandle(value);
                 }
-                else if (tokenType == SUPPORTED_TOKENS.PLUS || tokenType == SUPPORTED_TOKENS.MINUS)
+                else if (tokenType == Globals.SUPPORTED_TOKENS.PLUS || tokenType == Globals.SUPPORTED_TOKENS.MINUS)
                 {
+                    //same for plus and minus.
                     value = plusAndMinusHandle(value);
                 }
-                else if (tokenType == SUPPORTED_TOKENS.OPEN_BRACKET)
+                else if (tokenType == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
                 {
-
+                    //if its an open bracket then recursively call on the expression encapsulated inside
+                    //the brackets.
+                    getNextToken();
+                    value = analyseExpressions(value);
                 }
-
-                getNextToken();
+                else if (tokenType == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
+                {
+                    //if its a close bracket then just return.
+                    getNextToken();
+                    return value;
+                }
+                else if (tokenType == Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
+                {
+                    value = variableHandle(value);
+                }
             }
-
             return value;
+        }
+
+        /// <summary>
+        /// Function for handling when a new variable is being declared.
+        /// </summary>
+        private double variableHandle(double value)
+        {
+            //next token will be its name
+            string name = nextToken.GetValue();
+            Token peekToken = peek();
+
+            //check if its the last token or is not an assignment operation
+            if(peekToken is null || !(peekToken.GetType() == Globals.SUPPORTED_TOKENS.ASSIGNMENT))
+            {
+                //if not then see if it has been assigned.
+                getNextToken();
+                try
+                {
+                    VariableRef var = new VariableRef(name);
+                    value = var.Evaluate(variables);
+                    return value;
+                }
+                catch (Exception e)
+                {
+                    //this means it hasn't been assigned yet.
+                    throw new VariableReferenceException(e.Message);
+                }
+            } else
+            {
+                getNextToken();
+                //now pointing to assignment operator.
+                getNextToken();
+                //now pointing to the start of the expression.
+
+                //get the expression.
+                double val = analyseExpressions(double.NaN);
+                string varValue = null;
+
+                if(double.IsNaN(val))
+                {
+                    throw new SyntaxErrorException("Expression must equate to a value");
+                } else
+                {
+                    varValue = Convert.ToString(val);
+                }
+                
+                variables[name] = varValue;
+
+                varName = name;
+
+                return value;
+            }
         }
 
         /// <summary>
@@ -131,57 +166,56 @@ namespace MathsVisualisationTool
 
             Expression left;
             Expression right;
-            string op = nextToken.GetValue();
+            Globals.SUPPORTED_TOKENS op = nextToken.GetType();
 
-            //so there is nothing before 
-            if (double.IsNaN(value))
-            {
-                throw new Exception("Integer expected at token position " + (index - 1));
-            }
-
+            //Find the left and right hand side of the expression.
             left = new Constant(value);
 
-            Token peekToken = peek();
+            //get the next token
+            getNextToken();
 
-            //check what the next token is as it should be either a plus, minus or and int.
-            if(peekToken == null 
-                || peekToken.GetType().Equals(SUPPORTED_TOKENS.MULTIPLICATION) 
-                || peekToken.GetType().Equals(SUPPORTED_TOKENS.DIVISION)
-                || peekToken.GetType().Equals(SUPPORTED_TOKENS.OPEN_BRACKET)
-                || peekToken.GetType().Equals(SUPPORTED_TOKENS.CLOSE_BRACKET))
+            double rightValue = 0.0;
+
+            //If a bracket has been found then analyse the expression inside the bracket first.
+            if (nextToken.GetType() == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
             {
-                throw new Exception("Integer expected at token position " + index);
-            } else
-            {
-                //get the next token
                 getNextToken();
-                double multiplier = 1;
-
-                //gather the multiplier for situations like 8*-8 = -64 rather than 64.
-                while(nextToken.GetType().Equals(SUPPORTED_TOKENS.PLUS) || nextToken.GetType().Equals(SUPPORTED_TOKENS.MINUS))
+                rightValue = analyseExpressions(value);
+            }
+            else
+            {
+                if(nextToken.GetType() == Globals.SUPPORTED_TOKENS.CONSTANT)
                 {
-                    if(nextToken.GetType().Equals(SUPPORTED_TOKENS.PLUS))
+                    //its just a number so extract the value of it.
+                    rightValue = Convert.ToDouble(nextToken.GetValue());
+                } else
+                {
+                    //Gathered token is a variable reference
+                    VariableRef v = new VariableRef(nextToken.GetValue());
+                    try
                     {
-                        multiplier *= 1;
-                    } else
+                        rightValue = v.Evaluate(variables);
+                    } catch (Exception e)
                     {
-                        multiplier *= -1;
+                        throw new VariableReferenceException(e.Message);
                     }
-                    getNextToken();
                 }
                 
-                //Prevent division by zero
-                if (Convert.ToDouble(nextToken.GetValue()) == 0 && op == "/")
-                {
-                    throw new Exception("Cannot divide by zero");
-                }
-
-                right = new Constant(Convert.ToDouble(nextToken.GetValue()) * multiplier);
-
-                Expression ne = new Operation(left, op, right);
-
-                return ne.Evaluate();
             }
+
+            right = new Constant(rightValue);
+
+            //Prevent division by zero
+            if (rightValue == 0 && op == Globals.SUPPORTED_TOKENS.DIVISION)
+            {
+                throw new DivideByZeroException("Cannot divide by zero");
+            }
+
+            Expression ne = new Operation(left, op, right);
+
+            getNextToken();
+
+            return ne.Evaluate(variables);
         }
 
         /// <summary>
@@ -193,50 +227,44 @@ namespace MathsVisualisationTool
         {
             Expression left = null;
             Expression right = null;
-            string op = nextToken.GetValue();
+            Globals.SUPPORTED_TOKENS op = nextToken.GetType();
 
-            //so there is nothing before 
-            if (double.IsNaN(value))
+            //Get the left hand side of the expression.
+            left = new Constant(value);
+
+            //Now look at the token after the operator
+            getNextToken();
+
+            if (nextToken.GetType() == Globals.SUPPORTED_TOKENS.CONSTANT)
             {
-                left = new Constant(0);
-            } else
-            {
-                left = new Constant(value);
+                //A number so just extract the value from it.
+                right = new Constant(Convert.ToDouble(nextToken.GetValue()));
+                //Then call get next token.
+                getNextToken();
             }
-
-            Token peekToken = peek();
-            double multiplier = 1;
-
-            //Check for invalid syntax and to evaluate situations like 3+-3 as you would want this to evaluate to 3-3 etc.
-            while(!(peekToken == null))
+            else if (nextToken.GetType() == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
             {
-                if (peekToken.GetType().Equals(SUPPORTED_TOKENS.PLUS))
+                getNextToken();
+                //recursively call to analyse the expression enclosed in brackets.
+                right = new Constant(analyseExpressions(value));
+            } else if (nextToken.GetType() == Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
+            {
+                //Found a variable reference.
+                VariableRef v = new VariableRef(nextToken.GetValue());
+                try
                 {
-                    multiplier *= 1;
-                } else if (peekToken.GetType().Equals(SUPPORTED_TOKENS.MINUS))
+                    double rightValue = v.Evaluate(variables);
+                    right = new Constant(rightValue);
+                }
+                catch (Exception e)
                 {
-                    multiplier *= -1;
-                } else if (peekToken.GetType().Equals(SUPPORTED_TOKENS.MULTIPLICATION) || peekToken.Equals(SUPPORTED_TOKENS.DIVISION))
-                {
-                    throw new Exception("Invalid token at position - " + (index + 1));
-                } else if(peekToken.GetType().Equals(SUPPORTED_TOKENS.INTEGER))
-                {
-                    right = new Constant(Convert.ToDouble(peekToken.GetValue()) * multiplier);
-                    getNextToken();
-                    break;
+                    throw new VariableReferenceException(e.Message);
                 }
                 getNextToken();
-                peekToken = peek();
-            }
-
-            if(right == null)
-            {
-                throw new Exception("Integer expected at position - " + (index));
             }
 
             Expression ne = new Operation(left, op, right);
-
-            return ne.Evaluate();
+            return ne.Evaluate(variables);
         }
 
         /// <summary>
@@ -245,11 +273,12 @@ namespace MathsVisualisationTool
         /// </summary>
         private void getNextToken()
         {
-            if(index < tokens.Count)
+            if (index < tokens.Count)
             {
                 nextToken = tokens[index];
                 index++;
-            } else
+            }
+            else
             {
                 nextToken = null;
             }
