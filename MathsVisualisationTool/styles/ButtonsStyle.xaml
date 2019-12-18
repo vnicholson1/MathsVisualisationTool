@@ -2,24 +2,17 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:MathsVisualisationTool">
 
-    <!-- BUTTONS - COLOUR SCHEMES -->
-    <SolidColorBrush x:Key="Btn_MouseHover" Color="#C7C9CC" Opacity="0.4"/>
-    <SolidColorBrush x:Key="Btn_Background" Color="#5E5E5E"/>
-    <SolidColorBrush x:Key="Btn_Foreground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="Btn_IsPressedBackground" Color="#3399FF"/>
-    <SolidColorBrush x:Key="Btn_BorderBrush" Color="#212121"/>
-    
-    <!-- BUTTONS - BUTTON STYLING -->
+    <!-- KEYPAD BUTTONS - BUTTON STYLING -->
     <Style TargetType="{x:Type Button}">
         <Setter Property="Padding" Value="5"/>
         <Setter Property="Background" Value="{StaticResource Btn_Background}" />
-        <Setter Property="Foreground" Value="{StaticResource Btn_Foreground}" />
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}" />
         <Setter Property="FontWeight" Value="Medium"/>
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border CornerRadius="2" BorderBrush="{StaticResource Btn_BorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}">
+                    <Border CornerRadius="2" BorderBrush="{StaticResource MainColour_BorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}">
                         <Grid>
                             <ContentPresenter x:Name="ButtonContent" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
                         </Grid>
@@ -27,17 +20,18 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource Btn_MouseHover}"/>
-                            <Setter Property="Foreground" Value="{StaticResource Btn_Foreground}"/>
+                            <Setter Property="Background" Value="{StaticResource MainColour_MouseHover}"/>
+                            <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" Value="{StaticResource Btn_IsPressedBackground}" />
-                            <Setter Property="Foreground" Value="{StaticResource Btn_Foreground}"/>
+                            <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+
 </ResourceDictionary>

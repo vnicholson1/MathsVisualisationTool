@@ -207,8 +207,8 @@ namespace MathsVisualisationTool
          */
         private void OnTestDocClicked(object sender, RoutedEventArgs e)
         {
-            XpsDocument testDocument = new XpsDocument("../../documentation/testDoc.xps", FileAccess.Read);
-            documentViewer.Document = testDocument.GetFixedDocumentSequence();
+            XpsDocument testDocument = new XpsDocument("../../manuals/documentation/testDoc.xps", FileAccess.Read);
+            mainDocViewer.Document = testDocument.GetFixedDocumentSequence();
         }
         #endregion
         /********************************** END OF STANDARD TOP MENU FUNCTIONS ******************************/
@@ -337,7 +337,8 @@ namespace MathsVisualisationTool
          */
         private void OnSettings_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Settings Clicked - Fix it");
+            Settings appSettings = new Settings();
+            appSettings.Show();
         }
 
         /*
