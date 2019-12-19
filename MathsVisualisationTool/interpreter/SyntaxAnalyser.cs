@@ -31,9 +31,10 @@ namespace MathsVisualisationTool
 
             if(gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.MULTIPLICATION 
                 || gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.DIVISION
-                || gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
+                || gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET
+                || gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.INDICIES)
             {
-                throw new SyntaxErrorException("Expression cannot start with a multiplication, division or a closing bracket.");
+                throw new SyntaxErrorException("Expression cannot start with a multiplication, division, indicies or a closing bracket.");
             }
 
             Globals.SUPPORTED_TOKENS previousToken = Globals.SUPPORTED_TOKENS.WHITE_SPACE;
@@ -42,11 +43,55 @@ namespace MathsVisualisationTool
             {
                 switch (gatheredTokens[i].GetType())
                 {
+                    case Globals.SUPPORTED_TOKENS.CONSTANT:
+                        //Prevent cases like 2e as you want the user to put 2*e.
+                        if(i+1 != gatheredTokens.Count)
+                        {
+                            if (gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
+                            {
+                                throw new SyntaxErrorException("Cannot have variable name straight after constant. Did you mean " +
+                                    gatheredTokens[i].GetValue() + "*" + gatheredTokens[(i + 1)].GetValue() + "?");
+                            }
+                        }
+
+                        //Check that only one decimal place has been added or no "." cases
+                        int count = gatheredTokens[i].GetValue().Count(x => x == '.');
+
+                        if(count > 1)
+                        {
+                            throw new SyntaxErrorException("Cannot have more than one decimal point in number.");
+                        }
+
+                        if (gatheredTokens[i].GetValue() == ".")
+                        {
+                            throw new SyntaxErrorException("Unrecognised token - '.'.");
+                        }
+
+                        break;
+
                     case Globals.SUPPORTED_TOKENS.OPEN_BRACKET:
                         bracketLevel++;
+                        if(i+1 == gatheredTokens.Count)
+                        {
+                            throw new SyntaxErrorException("Expression cannot finish with an open bracket.");
+                        }
+
+                        //Remove the ability to add ()
+                        if(gatheredTokens[(i+1)].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
+                        {
+                            throw new SyntaxErrorException("Enclosing brackets must contain an expression.");
+                        }
+
                         break;
 
                     case Globals.SUPPORTED_TOKENS.CLOSE_BRACKET:
+                        if(previousToken == Globals.SUPPORTED_TOKENS.MULTIPLICATION
+                            || previousToken == Globals.SUPPORTED_TOKENS.DIVISION
+                            || previousToken == Globals.SUPPORTED_TOKENS.INDICIES)
+                        {
+                            throw new SyntaxErrorException("Integer expected at token position - " + i + " .");
+                        }
+
                         if(bracketLevel == 0)
                         {
                             throw new SyntaxErrorException("Close bracket found without supporting open bracket at position - " + i + " .");
@@ -56,11 +101,11 @@ namespace MathsVisualisationTool
 
                     case Globals.SUPPORTED_TOKENS.MULTIPLICATION:
                         //prevent situations like 2+*3 because this doesn't make sense.
-                        multAndDivisionCheck(previousToken,i);
+                        multAndDivisionCheck(previousToken,i,gatheredTokens.Count);
                         break;
 
                     case Globals.SUPPORTED_TOKENS.DIVISION:
-                        multAndDivisionCheck(previousToken,i);
+                        multAndDivisionCheck(previousToken,i,gatheredTokens.Count);
                         break;
 
                     case Globals.SUPPORTED_TOKENS.ASSIGNMENT:
@@ -84,6 +129,40 @@ namespace MathsVisualisationTool
                         }
                         break;
 
+                    case Globals.SUPPORTED_TOKENS.MINUS:
+                        if((i+1) == gatheredTokens.Count)
+                        {
+                            throw new SyntaxErrorException("Integer expected at token position - " + i + ".");
+                        }
+
+                        if(gatheredTokens[(i+1)].GetType() == Globals.SUPPORTED_TOKENS.DIVISION
+                            || gatheredTokens[(i+1)].GetType() == Globals.SUPPORTED_TOKENS.MULTIPLICATION
+                            || gatheredTokens[(i+1)].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET
+                            || gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.INDICIES)
+                        {
+                            throw new SyntaxErrorException("Integer expected at token position - " + i + ".");
+                        }
+                        break;
+
+                    case Globals.SUPPORTED_TOKENS.PLUS:
+                        if ((i + 1) == gatheredTokens.Count)
+                        {
+                            throw new SyntaxErrorException("Integer expected at token position - " + (i+1) + ".");
+                        }
+
+                        if (gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.DIVISION
+                            || gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.MULTIPLICATION
+                            || gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET
+                            || gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.INDICIES)
+                        {
+                            throw new SyntaxErrorException("Integer expected at token position - " + (i+1) + ".");
+                        }
+                        break;
+
+                    case Globals.SUPPORTED_TOKENS.INDICIES:
+                        multAndDivisionCheck(previousToken, i,gatheredTokens.Count);
+                        break;
+                        
                     default:
                         break;
                 }
@@ -97,14 +176,21 @@ namespace MathsVisualisationTool
             }
         }
 
-        public void multAndDivisionCheck(Globals.SUPPORTED_TOKENS previousToken,int index)
+        public void multAndDivisionCheck(Globals.SUPPORTED_TOKENS previousToken,int index, int numTokens)
         {
             if (previousToken == Globals.SUPPORTED_TOKENS.MINUS
                             || previousToken == Globals.SUPPORTED_TOKENS.PLUS
                             || previousToken == Globals.SUPPORTED_TOKENS.MULTIPLICATION
-                            || previousToken == Globals.SUPPORTED_TOKENS.DIVISION)
+                            || previousToken == Globals.SUPPORTED_TOKENS.DIVISION
+                            || previousToken == Globals.SUPPORTED_TOKENS.INDICIES
+                            || previousToken == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
             {
-                throw new SyntaxErrorException("Integer expected at token position - " + index + " .");
+                throw new SyntaxErrorException("Integer expected at token position - " + index + ".");
+            }
+
+            if(index+1 == numTokens)
+            {
+                throw new SyntaxErrorException("Integer expected at token position - " + (index + 1) + ".");
             }
         }
     }

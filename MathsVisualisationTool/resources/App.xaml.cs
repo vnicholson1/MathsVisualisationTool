@@ -52,6 +52,9 @@ namespace MathsVisualisationTool
             //var keyPad = new KeyPad { Owner = mainWindow };
             //keyPad.Show();
 
+            //var graph = new GraphDrawer { Owner = mainWindow };
+            //graph.Show();
+            
             //var library = new HelpLibrary { Owner = mainWindow };
             //library.Show();
 

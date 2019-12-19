@@ -1,34 +1,31 @@
 [
   {
-    "name": "r",
-    "value": "5"
+    "name": "y",
+    "value": "∞"
   },
   {
     "name": "ANS",
     "value": "4"
   },
   {
-    "name": "t",
-    "value": "4"
+    "name": "e",
+    "value": "5"
+  },
+  {
+    "name": "e2",
+    "value": "5"
   },
   {
     "name": "z",
-    "value": "18"
+    "value": "30"
   },
   {
     "name": "x",
     "value": "2"
+
   },
   {
-    "name": "y",
-    "value": "15"
+    "name": "test",
+    "value": "2.5"
   },
-  {
-    "name": "foo",
-    "value": "118"
-  },
-  {
-    "name": "e",
-    "value": "9"
-  }
 ]

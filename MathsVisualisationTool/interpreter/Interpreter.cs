@@ -38,17 +38,24 @@ namespace MathsVisualisationTool
             //VERY HACKY SOLUTION - WILL OPTIMISE IN LATER COMMITS.
             if(double.IsNaN(result))
             {
-                //this means a variable assignment has occured
+                if(parser.varName is null)
+                {
+                    return "\tRefer to figure.";
+                }
+
+                //this means a variable assignment has occured because no value has been returned (double.NaN).
                 return "\tvar " + parser.varName + " = \n\t\t" + vars[parser.varName];
+                //If varName is null then the plot function has been called (which does not return a value). 
             } else
             {
+                //No variable has been assigned because a value has been returned.
                 string res = Convert.ToString(result);
 
-                vars["ANS"] = res;
+                vars["Ans"] = res;
 
                 VariableFileHandle.saveVariables(vars);
 
-                return "\tvar ANS = \n\t\t" + Convert.ToString(result);
+                return "\tvar Ans = \n\t\t" + Convert.ToString(result);
             }
             
         }

@@ -37,6 +37,36 @@ namespace MathsVisualisationTool
         /// <returns> the value of the given expression.</returns>
         public double AnalyseTokens(List<Token> tokens)
         {
+            //check if there are any function definitions present.
+            for(int i = 0;i<tokens.Count;i++)
+            {
+                //plot func has the following syntax:
+                //plot(Y=X,Xmin,Xmax,inc)
+                //So need to gather the algebraic function, Xmin, Xmax and the increment
+                //And pass it into a PlotFunction object for processing.
+                if(tokens[i].GetType() == Globals.SUPPORTED_TOKENS.PLOT)
+                {
+                    PlotFunction plot = PlotFunction.plotFunctionHandle(tokens, i);
+                    plot.getValues();
+
+                    GraphDrawer gd = new GraphDrawer(plot){Topmost = true};
+                    gd.Show();
+
+                    //Incase this variable gets reassigned - used by Interpreter.cs to notify whether a variable assignment has happened.
+                    varName = null;
+                    return double.NaN;
+                }
+            }
+            return processTokens(tokens);
+        }
+
+        /// <summary>
+        /// Method called to process an expression.
+        /// </summary>
+        /// <param name="tokens"></param>
+        /// <returns></returns>
+        public double processTokens(List<Token> tokens)
+        {
             this.tokens = tokens;
 
             //Analyse the syntax to see if it is valid.
@@ -73,7 +103,7 @@ namespace MathsVisualisationTool
                     value = Convert.ToDouble(nextToken.GetValue());
                     getNextToken();
                 }
-                else if (tokenType == Globals.SUPPORTED_TOKENS.DIVISION || tokenType == Globals.SUPPORTED_TOKENS.MULTIPLICATION)
+                else if (tokenType == Globals.SUPPORTED_TOKENS.DIVISION || tokenType == Globals.SUPPORTED_TOKENS.MULTIPLICATION ||tokenType == Globals.SUPPORTED_TOKENS.INDICIES)
                 {
                     //If its division or multiplication, run the appropriate method.
                     value = divisionAndMultHandle(value);
