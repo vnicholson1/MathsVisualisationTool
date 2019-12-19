@@ -25,7 +25,7 @@
 
     <!-- MAIN STYLING FOR TAB CONTROL (CONTENTS OF THE TABS) -->
     <Style x:Key="mainTabControlStyle" TargetType="{x:Type TabControl}">
-        <Setter Property="Background" Value="{StaticResource TabCon_Background}"/>
+        <Setter Property="Background" Value="{StaticResource MainColour_SubBackground}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="{StaticResource MainColour_BorderBrush}"/>
         <Setter Property="SnapsToDevicePixels" Value="True" />

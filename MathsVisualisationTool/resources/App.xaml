@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="../styles/DataGridStyle.xaml"/>
                 <ResourceDictionary Source="../styles/ToolBarStyle.xaml"/>
                 <ResourceDictionary Source="../styles/LibraryStyle.xaml"/>
+                <ResourceDictionary Source="../styles/TreeViewStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

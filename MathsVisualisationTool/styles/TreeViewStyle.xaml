@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MathsVisualisationTool">
+
+    <Style TargetType="{x:Type TreeView}">
+        <Setter Property="Background" Value="{StaticResource TreeView_Background}"/>
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+    </Style>
+
+    <Style TargetType="{x:Type TreeViewItem}">
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+    </Style>
+    
+</ResourceDictionary>
