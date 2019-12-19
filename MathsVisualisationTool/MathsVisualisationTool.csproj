@@ -92,10 +92,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="common\ErrorMsgController.cs" />
+    <Compile Include="common\GraphDrawerController.cs" />
     <Compile Include="common\HelpLibraryController.cs" />
     <Compile Include="common\KeyPadController.cs" />
     <Compile Include="common\SettingsController.cs" />
     <Compile Include="config\VariableJSONObject.cs" />
+    <Compile Include="functions\PlotFunction.cs" />
     <Compile Include="interpreter\VariableFileHandle.cs" />
     <Compile Include="resources\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -145,6 +147,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\ErrorMsg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\GraphDrawer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="styles\TabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -207,9 +217,7 @@
   <ItemGroup>
     <Resource Include="images\icons\SolveIT.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="functions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
