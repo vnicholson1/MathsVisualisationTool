@@ -140,6 +140,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="styles\TreeViewStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="views\ErrorMsg.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -363,7 +367,13 @@
     <Resource Include="images\icons\book.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="manuals\clips\basicInput.mp4" />
+    <Resource Include="images\icons\pause.png" />
+    <Resource Include="images\icons\play.png" />
+    <Resource Include="images\icons\skipEnd.png" />
+    <Resource Include="images\icons\skipStart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="manuals\clips\basicInput_V1.mpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

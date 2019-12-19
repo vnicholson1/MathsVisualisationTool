@@ -15,9 +15,11 @@
     <SolidColorBrush x:Key="Btn_IsPressedBackground" Color="#3399FF"/> <!-- Colour of Button when pressed -->
 
     <!-- TAB ITEM & TAB CONTROL COLOURS - SOLID COLOURS -->
-    <SolidColorBrush x:Key="TabCon_Background" Color="#3F3F46"/>
     <SolidColorBrush x:Key="TabItem_TrueBackground" Color="#007ACC"/>
     <SolidColorBrush x:Key="TabItem_FalseBackground" Color="#3F3F46"/>
+    
+    <!-- TREEVIEW & TREEVIEW ITEMS COLOURS - SOLID COLOURS -->
+    <SolidColorBrush x:Key="TreeView_Background" Color="#252526"/>
 
     <!-- MAIN MENU COLOURS -->
     <LinearGradientBrush x:Key="MenuSelected" EndPoint="0,1" StartPoint="0,0">

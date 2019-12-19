@@ -15,7 +15,7 @@ namespace MathsVisualisationTool
     {
         public Settings()
         {
-            //InitializeComponent();
+            InitializeComponent();
         }
     }
 }

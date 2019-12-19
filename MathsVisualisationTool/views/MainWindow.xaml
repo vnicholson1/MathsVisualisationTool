@@ -319,7 +319,7 @@
                         <!-- INPUT TEXT BOX -->
                         <TextBox Grid.Column="0" Margin="0 0 0 3" Name="inputBox" FontSize="20" Padding="5"/>
                         <!-- RUN/SUBMIT BUTTON -->
-                        <Button Name="submitBtn" Click="OnRun_Clicked" IsDefault="True" Grid.Column="1" Margin="3 0 0 3"  Padding="5">
+                        <Button Name="submitBtn" Click="OnRun_Clicked" IsDefault="True" Grid.Column="1" Margin="3 0 0 3"  Padding="5" Style="{StaticResource submitBtn_Style}">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Run" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="26" Margin="6 3 0 3 "/>
                                 <Image Source="../images/icons/run.png" Height="40"  Margin="6 0 3 3"/>
@@ -338,7 +338,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="11"/>
-                        <RowDefinition Height="*" MinHeight="480"/>
+                        <RowDefinition Height="*" MinHeight="490"/>
                     </Grid.RowDefinitions>
                     
                     <TabControl x:Name="TopRight_TabMenu"  TabStripPlacement="Right" Style="{StaticResource mainTabControlStyle}">
@@ -380,53 +380,53 @@
                                         <StackPanel Orientation="Horizontal">
                                             <WrapPanel x:Name="numberPanel" Margin="3 0 3 0" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="400">
                                                 <!-- FIRST ROW OF 3 ITEMS/FUNCTIONS -->
-                                                <Button Margin="3 6 3 3" FontSize="30" Click="OnLessThan_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="30" Click="OnLessThan_Clicked">
                                                     <Image Source="../images/numerical/lessThan.png" Height="40"/>
                                                 </Button>
-                                                <Button Margin="3 6 3 3" FontSize="30" Click="OnEqual_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="30" Click="OnEqual_Clicked">
                                                     <Image Source="../images/arithmetic/equals.png" Height="40"/>
                                                 </Button>
-                                                <Button Margin="3 6 3 3" FontSize="30" Click="OnGreaterThan_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="30" Click="OnGreaterThan_Clicked">
                                                     <Image Source="../images/numerical/moreThan.png" Height="40"/>
                                                 </Button>
                                                 <!-- SECOND ROW OF 3 ITEMS/FUNCTIONS -->
-                                                <Button Margin="3 6 3 3" FontSize="24" Click="On7_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On7_Clicked">
                                                     <Image Source="../images/numerical/seven.png" Height="40"/>
                                                 </Button>
-                                                <Button Margin="3 6 3 3" FontSize="24" Click="On8_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On8_Clicked">
                                                     <Image Source="../images/numerical/eight.png" Height="40"/>
                                                 </Button>
-                                                <Button Margin="3 6 3 3" FontSize="24" Click="On9_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On9_Clicked">
                                                     <Image Source="../images/numerical/nine.png" Height="40"/>
                                                 </Button>
                                                 <!-- THIRD ROW OF 3 ITEMS/FUNCTIONS -->
-                                                <Button Margin="3 6 3 3" FontSize="24" Click="On4_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On4_Clicked">
                                                     <Image Source="../images/numerical/four.png" Height="40"/>
                                                 </Button>
-                                                <Button Margin="3 6 3 3" FontSize="24" Click="On5_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On5_Clicked">
                                                     <Image Source="../images/numerical/five.png" Height="40"/>
                                                 </Button>
-                                                <Button Margin="3 6 3 3" FontSize="24" Click="On6_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On6_Clicked">
                                                     <Image Source="../images/numerical/six.png" Height="40"/>
                                                 </Button>
                                                 <!-- FOURTH ROW OF 3 ITEMS/FUNCTIONS -->
-                                                <Button Margin="3 6 3 3" FontSize="24" Click="On1_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On1_Clicked">
                                                     <Image Source="../images/numerical/one.png" Height="40"/>
                                                 </Button>
-                                                <Button Margin="3 6 3 3" FontSize="24" Click="On2_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On2_Clicked">
                                                     <Image Source="../images/numerical/two.png" Height="40"/>
                                                 </Button>
-                                                <Button Margin="3 6 3 3" FontSize="24" Click="On3_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On3_Clicked">
                                                     <Image Source="../images/numerical/three.png" Height="40"/>
                                                 </Button>
                                                 <!-- FIFTH ROW OF 3 ITEMS/FUNCTIONS -->
-                                                <Button Margin="3 6 3 3" FontSize="24" Click="On0_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On0_Clicked">
                                                     <Image Source="../images/numerical/zero.png" Height="40"/>
                                                 </Button>
-                                                <Button Margin="3 6 3 3" FontSize="24" Click="OnDecimal_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="OnDecimal_Clicked">
                                                     <Image Source="../images/numerical/decimal.png" Height="40"/>
                                                 </Button>
-                                                <Button Margin="3 6 3 3" FontSize="24" Click="OnAns_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="OnAns_Clicked">
                                                     <Image Source="../images/numerical/ans.png" Height="40"/>
                                                 </Button>
                                             </WrapPanel>
@@ -439,7 +439,7 @@
                                             <WrapPanel x:Name="functionPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="400" MouseRightButtonDown="OnDrag">
                                                 <!-- FIRST ROW OF 3 ITEMS/FUNCTIONS -->
                                                 <!-- LEFT BRACKET BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnLeftBracket_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnLeftBracket_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/leftBracket.png" Height="40"/>
                                                         <!--<TextBlock Text="&#x2b;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -447,7 +447,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- INDICE BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnApprox_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnApprox_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/numerical/approx.png" Height="40"/>
                                                         <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -455,7 +455,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- RIGHT BRACKET BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnRightBracket_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnRightBracket_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/rightBracket.png" Height="40"/>
                                                         <!--<TextBlock Text="&#x2d;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -464,7 +464,7 @@
                                                 </Button>
                                                 <!-- SECOND ROW OF 3 ITEMS/FUNCTIONS -->
                                                 <!-- ADDITION BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnAdd_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnAdd_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/add.png" Height="40"/>
                                                         <!--<TextBlock Text="&#xd7;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -472,7 +472,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- SUBTRACTION BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnSub_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnSub_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/sub.png" Height="40"/>
                                                         <!--<TextBlock Text="&#xf7;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -480,7 +480,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- INDICE BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnIndice_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnIndice_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/indice.png" Height="40"/>
                                                         <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -489,7 +489,7 @@
                                                 </Button>
                                                 <!-- THIRD ROW OF 3 ITEMS/FUNCTIONS -->
                                                 <!-- MULTIPLICATION BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnMul_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnMul_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/mul.png" Height="40"/>
                                                         <!--<TextBlock Text="&#x2b;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -497,7 +497,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- DIVISION BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnDiv_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnDiv_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/div.png" Height="40"/>
                                                         <!--<TextBlock Text="&#x2d;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -505,7 +505,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- SQUARE ROOT BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnSqrt_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnSqrt_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/sqrt.png" Height="40"/>
                                                         <!--<TextBlock Text="&#x221a;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -514,7 +514,7 @@
                                                 </Button>
                                                 <!-- FOURTH ROW OF 3 ITEMS/FUNCTIONS -->
                                                 <!-- PERCENTAGE BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnPercent_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnPercent_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/percent.png" Height="40"/>
                                                         <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -522,7 +522,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- PI BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnPi_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnPi_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/pi.png" Height="40"/>
                                                         <!--<TextBlock Text="&#960;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -530,7 +530,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- N SQUARE ROOT BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnN_Sqrt_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnN_Sqrt_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/nSqrt.png"  Height="40"/>
                                                         <!--<TextBlock Text="&#x221a;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -539,7 +539,7 @@
                                                 </Button>
                                                 <!-- FIFTH ROW OF 3 ITEMS/FUNCTIONS -->
                                                 <!-- SIN BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnSin_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnSin_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/sin.png" Height="40"/>
                                                         <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -547,7 +547,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- COS BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnCos_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnCos_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/cos.png" Height="40"/>
                                                         <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -555,7 +555,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- TAN BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnTan_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnTan_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/tan.png" Height="40"/>
                                                         <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -571,21 +571,21 @@
                                             <WrapPanel x:Name="greekPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="400">
                                                 <!-- FIRST ROW OF 3 GREEK CHARACTERS -->
                                                 <!-- ALPHA BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnAlpha_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnAlpha_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/alpha.png" Height="40" />
                                                         <TextBlock Text="[Alpha]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- BETA BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnBeta_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnBeta_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/beta.png" Height="40"/>
                                                         <TextBlock Text="[Beta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- DELTA BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnDelta_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnDelta_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/Delta.png" Height="40"/>
                                                         <TextBlock Text="[Delta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
@@ -593,21 +593,21 @@
                                                 </Button>
                                                 <!-- SECOND ROW OF 3 GREEK CHARACTERS -->
                                                 <!-- DELTA (LOWER CASE) BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="On_delta_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="On_delta_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/delt.png" Height="40"/>
                                                         <TextBlock Text="[delta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- EPSILON BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnEpsilon_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnEpsilon_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/epsilon.png" Height="40"/>
                                                         <TextBlock Text="[Epsilon]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- GAMMA BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnGamma_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnGamma_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/gamma.png" Height="40"/>
                                                         <TextBlock Text="[Gamma]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
@@ -615,21 +615,21 @@
                                                 </Button>
                                                 <!-- THIRD ROW OF 3 GREEK CHARACTERS -->
                                                 <!-- LAMBDA BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnLambda_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnLambda_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/lambda.png" Height="40"/>
                                                         <TextBlock Text="[Lambda]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- THETA BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnTheta_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnTheta_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/theta.png" Height="40"/>
                                                         <TextBlock Text="[Theta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- MU BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnMu_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnMu_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/mu.png" Height="40"/>
                                                         <TextBlock Text="[Mu]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
@@ -637,21 +637,21 @@
                                                 </Button>
                                                 <!-- FOURTH ROW OF 3 GREEK CHARACTERS -->
                                                 <!-- OMEGA BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnOmega_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnOmega_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/Ohm.png" Height="40"/>
                                                         <TextBlock Text="[Omega]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- OMEGA (LOWER CASE) BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="On_omega_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="On_omega_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/omega.png" Height="40"/>
                                                         <TextBlock Text="[omega]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- PHI BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnPhi_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnPhi_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/phi.png" Height="40"/>
                                                         <TextBlock Text="[Phi]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
@@ -659,21 +659,21 @@
                                                 </Button>
                                                 <!-- FIFTH ROW OF 3 GREEK CHARACTERS -->
                                                 <!-- PSI BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnPsi_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnPsi_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/psi.png" Height="40"/>
                                                         <TextBlock Text="[Psi]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- RHO BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnRho_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnRho_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/rho.png" Height="40"/>
                                                         <TextBlock Text="[Rho]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- SIGMA BUTTON-->
-                                                <Button Margin="3 6 3 3" Click="OnSigma_Clicked">
+                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnSigma_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/Sigma.png" Height="40"/>
                                                         <TextBlock Text="[Sigma]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
