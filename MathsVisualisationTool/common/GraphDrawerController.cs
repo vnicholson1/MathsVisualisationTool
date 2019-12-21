@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DataDomain;
 
 namespace MathsVisualisationTool
 {
@@ -19,8 +20,19 @@ namespace MathsVisualisationTool
     {
 
         private PlotFunction plotFunc;
-        private readonly uint MARGIN = 10;
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Properties of the graph
+        //The Margin of the canvas.
+        private readonly uint MARGIN = 80;
+        //The height of the point markers on the x and y axes.
+        private readonly uint HEIGHT_OF_POINT_MARKERS = 10;
+        //Since we don't want the markers to reach right at the end of the axis, this defines how much
+        //left-over space there is on each axis.
+        private readonly uint TAIL_OF_AXIS = 8;
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //For recording the length of each axis in the canvas in terms of number of pixels.
+        private uint AXIS_LENGTH;
         //Min and Max X value in catersian space.
         private double Xmin;
         private double Xmax;
@@ -35,6 +47,10 @@ namespace MathsVisualisationTool
         private double ymaxCanvas;
         //Num pixels inbetween each data point on each axes.
         private double step;
+        //Arrays storing the values of each marker on their respective axes.
+        private double[] Xlabels;
+        private double[] Ylabels;
+
 
         public GraphDrawer(PlotFunction plotFunc)
         {
@@ -44,23 +60,38 @@ namespace MathsVisualisationTool
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //Setting up field variables in terms of the canvas.
-            xminCanvas = MARGIN;
-            xmaxCanvas = graphCanvas.Width - MARGIN;
-            yminCanvas = MARGIN;
-            ymaxCanvas = graphCanvas.Height - MARGIN;
-
-            if(ymaxCanvas != xmaxCanvas)
+            //The Canvas in the graph drawing window must be a square.
+            if (graphCanvas.Height != graphCanvas.Width)
             {
                 throw new Exception("Make sure height and width are the same - From Vince");
             }
+
+            //Setting up field variables for the canvas.
+            xminCanvas = MARGIN;
+            xmaxCanvas = graphCanvas.Width - TAIL_OF_AXIS;
+            yminCanvas = MARGIN;
+            ymaxCanvas = graphCanvas.Height - TAIL_OF_AXIS;
+            AXIS_LENGTH = Convert.ToUInt32(xmaxCanvas - xminCanvas);
 
             //Setting up field variables in terms of the catesian space.
             Xmin = plotFunc.Xmin;
             Xmax = plotFunc.Xmax;
             Ymin = plotFunc.Ymin;
             Ymax = plotFunc.Ymax;
-            step = Math.Floor((graphCanvas.Height-2*MARGIN) / Convert.ToDouble(plotFunc.dataPoints.Count - 1));
+            //Calculate the difference between each marking on the axis.
+            //Calculated by the length of the axis / (number of dataPoints)
+            int numMarkers = 0;
+            if(plotFunc.dataPoints.Count > 10)
+            {
+                numMarkers = 9;
+            } else
+            {
+                numMarkers = plotFunc.dataPoints.Count - 1;
+            }
+
+            getXandYLabels(numMarkers);
+
+            step = AXIS_LENGTH / Convert.ToDouble(numMarkers);
 
             createXaxis();
 
@@ -76,19 +107,28 @@ namespace MathsVisualisationTool
         {
             // Make the X axis.
             GeometryGroup xaxis_geom = new GeometryGroup();
-            //Create a straight horizontal line from (0,ymaxCanvas) to (canvas.width,ymaxCanvas) in canvas coordinates.
+            //Create a straight horizontal line
             xaxis_geom.Children.Add(new LineGeometry(
-                new Point(0, ymaxCanvas), new Point(graphCanvas.Width, ymaxCanvas)));
+                new Point(xminCanvas, graphCanvas.Height - yminCanvas), new Point(graphCanvas.Width, graphCanvas.Height - yminCanvas)));
 
+            int count = 0;
             //Iterate through and add | markings to this line.
             for (double x = xminCanvas;
-                x <= graphCanvas.Width; x += step)
+                x <= xmaxCanvas; x += step)
             {
+                string label = RoundToSignificantDigits(Xlabels[count], 4);
+
+                DrawText(x+6, graphCanvas.Height - (yminCanvas-6), label,true,true);
                 //Add | per each step.
                 xaxis_geom.Children.Add(new LineGeometry(
-                    new Point(x, ymaxCanvas - MARGIN / 2),
-                    new Point(x, ymaxCanvas + MARGIN / 2)));
+                    new Point(x, graphCanvas.Height - yminCanvas - HEIGHT_OF_POINT_MARKERS / 2),
+                    new Point(x, graphCanvas.Height - yminCanvas + HEIGHT_OF_POINT_MARKERS / 2)));
+                count++;
             }
+
+            //add the variable name to the axis.
+            //equation is to make the label center aligned
+            DrawText(MARGIN+(AXIS_LENGTH/2)-(((plotFunc.X.Length-1.0)*8.0)/2.0), graphCanvas.Height-30, plotFunc.X, false,false);
 
             //Then style the X axis.
             Path xaxis_path = new Path();
@@ -106,18 +146,27 @@ namespace MathsVisualisationTool
         {
             // Make the Y ayis.
             GeometryGroup yaxis_geom = new GeometryGroup();
-            //Create a vertical line starting from (xminCanvas,0) to (xminCanvas, canvas.height)
+            //Create a vertical line 
             yaxis_geom.Children.Add(new LineGeometry(
-                new Point(xminCanvas, 0), new Point(xminCanvas, graphCanvas.Height)));
+                new Point(xminCanvas, graphCanvas.Height - yminCanvas), new Point(xminCanvas, 0)));
 
+            int count = 0;
             //Iterate through and add | markings to this line.
-            for (double y = MARGIN; y <= graphCanvas.Height; y += step)
+            for (double y = yminCanvas; y <= ymaxCanvas; y += step)
             {
+                string stringRep = RoundToSignificantDigits(Ylabels[count], 4);
+
+                DrawText((MARGIN-8) - (stringRep.Length*7), graphCanvas.Height - y - 6, stringRep, false,false);
                 //Add | per each step
                 yaxis_geom.Children.Add(new LineGeometry(
-                    new Point(xminCanvas - MARGIN / 2, graphCanvas.Height - y),
-                    new Point(xminCanvas + MARGIN / 2, graphCanvas.Height - y)));
+                    new Point(xminCanvas - HEIGHT_OF_POINT_MARKERS / 2, graphCanvas.Height - y),
+                    new Point(xminCanvas + HEIGHT_OF_POINT_MARKERS / 2, graphCanvas.Height - y)));
+                count++;
             }
+
+            //add the variable name to the axis.
+            DrawText(10, AXIS_LENGTH/2 + (((plotFunc.Y.Length - 1.0) * 8.0) / 2.0), plotFunc.Y, true,false);
+
             //Then style the Y axis
             Path yaxis_path = new Path();
             yaxis_path.StrokeThickness = 1;
@@ -153,14 +202,12 @@ namespace MathsVisualisationTool
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
-        public double convertXCoordinate(double x)
+        private double convertXCoordinate(double x)
         {
             //get the percentage that x lies inbetween Xmin and Xmax
             double proportion = (x-Xmin) / (Xmax-Xmin);
 
-            double canvasWidth = xmaxCanvas - xminCanvas;
-
-            return proportion*canvasWidth + MARGIN;
+            return proportion* AXIS_LENGTH + MARGIN;
         }
 
         /// <summary>
@@ -168,14 +215,105 @@ namespace MathsVisualisationTool
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
-        public double convertYCoordinate(double y)
+        private double convertYCoordinate(double y)
         {
             //get the percentage that x lies inbetween Xmin and Xmax
             double proportion = (y - Ymin) / (Ymax - Ymin);
 
-            double canvasHeight = ymaxCanvas - yminCanvas;
+            return (ymaxCanvas + TAIL_OF_AXIS - MARGIN) - (proportion * AXIS_LENGTH);
+        }
 
-            return ymaxCanvas - (proportion * canvasHeight);
+        /// <summary>
+        /// Function to add text onto the canvas.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="text"></param>
+        /// <param name="rotate"></param>
+        /// <param name="clockwise"></param>
+        private void DrawText(double x, double y, string text,bool rotate,bool clockwise)
+        {
+
+            TextBlock textBlock = new TextBlock();
+
+            textBlock.Text = text;
+            textBlock.FontFamily = new FontFamily("Courier New");
+
+            textBlock.Foreground = new SolidColorBrush(Color.FromRgb(0,0,0));
+
+            Canvas.SetLeft(textBlock, x);
+
+            Canvas.SetTop(textBlock, y);
+
+            if (rotate)
+            {
+                if(clockwise)
+                {
+                    textBlock.RenderTransform = new RotateTransform(90);
+                } else
+                {
+                    textBlock.RenderTransform = new RotateTransform(270);
+                }
+            }
+
+            graphCanvas.Children.Add(textBlock);
+        }
+
+        /// <summary>
+        /// Function for collecting the numbers marked on the X and Y axis.
+        /// </summary>
+        /// <param name="numMarkers">the number of markers on both axis.</param>
+        private void getXandYLabels(int numMarkers)
+        {
+            Xlabels = new double[numMarkers+1];
+            Ylabels = new double[numMarkers+1];
+
+            double Xinc = (Xmax - Xmin) / numMarkers;
+            double Yinc = (Ymax - Ymin) / numMarkers;
+
+            int i;
+            for(i=0;i<numMarkers+1;i++)
+            {
+                Xlabels[i] = Xmin + i * Xinc;
+            }
+
+            for (i = 0; i < numMarkers+1; i++)
+            {
+                Ylabels[i] = Ymin + i * Yinc;
+            }
+
+        }
+
+        /// <summary>
+        /// Function used to round a double to X sig figures because C# doesn't have this built in.
+        /// This solution was taken from https://stackoverflow.com/questions/374316/round-a-double-to-x-significant-figures.
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="digits"></param>
+        /// <returns></returns>
+        private string RoundToSignificantDigits(double d, int digits)
+        {
+            if (d == 0)
+            {
+                return "0";
+            }
+
+            //convert the number into standard form if its absolute value is really big.
+            string stringRep = Convert.ToString(Math.Round(d));
+            if (stringRep.Length > digits)
+            {
+                string stdForm = stringRep[0] + "." + stringRep[1] + "E" + (stringRep.Length - 1);
+                return stdForm;
+            }
+            //Do the same for really small numbers.
+            if (d < 1.0)
+            {
+
+            }
+
+            double scale = Math.Pow(10, Math.Floor(Math.Log10(Math.Abs(d))) + 1);
+            string res = Convert.ToString(scale * Math.Round(d / scale, digits));
+            return res;
         }
     }
 }
