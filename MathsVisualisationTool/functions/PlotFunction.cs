@@ -13,7 +13,8 @@ namespace MathsVisualisationTool
         //Up to the user, more data points means a smoother curve but is more computationally intensive. Less
         //data points means a more stair-case like curve but is less computationally intensive.
         private static readonly uint NUM_DATA_POINTS = 100;
-
+        //To record the current index. Purely for checking if anything is found after the plot function.
+        public int curIndex;
         //List of parameters in the Plot Function
         public List<Token> Equation;
         public double Xmin;
@@ -22,10 +23,10 @@ namespace MathsVisualisationTool
         public double Ymax;
         public double inc;
         //List to store all the gathered data points.
-        public List<Tuple<double, double>> dataPoints = new List<Tuple<double,double>>();
+        public List<DataPoint> dataPoints = new List<DataPoint>();
         //The variables given in the plot function.
-        public string X;
-        public string Y;
+        public string X = null;
+        public string Y = null;
 
         public PlotFunction(List<Token> Equation, Token XminToken, Token XmaxToken, Token incToken)
         {
@@ -54,7 +55,11 @@ namespace MathsVisualisationTool
             Token Xmax = elements[1];
             Token inc = elements[2];
 
-            return new PlotFunction(equationTokens, Xmin, Xmax, inc);
+            PlotFunction newPlot = new PlotFunction(equationTokens, Xmin, Xmax, inc);
+
+            newPlot.curIndex = i;
+
+            return newPlot;
         }
 
         /// <summary>
@@ -73,11 +78,18 @@ namespace MathsVisualisationTool
             {
                 if (tokens[index].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
                 {
-                    throw new SyntaxErrorException("Missing Xmin, Xmax and increment arguments.");
+                    throw new SyntaxErrorException("Missing range argument.");
                 }
                 equationTokens.Add(tokens[index]);
                 index++;
             }
+            
+            //Minimum length of an equation has to be 3 i.e. "Y=3".
+            if(equationTokens.Count < 3)
+            {
+                throw new SyntaxErrorException("Invalid equation given in plot function.");
+            }
+
             return equationTokens;
         }
 
@@ -104,6 +116,8 @@ namespace MathsVisualisationTool
             double inc = (Xmax - Xmin + 1) / NUM_DATA_POINTS;
             elements[2] = new Token(Globals.SUPPORTED_TOKENS.CONSTANT, Convert.ToString( (Xmax - Xmin) / (NUM_DATA_POINTS-1)));
 
+            //So that index points to the closing bracket of the plot function.
+            index += 1;
             return elements;
         }
 
@@ -127,18 +141,47 @@ namespace MathsVisualisationTool
             int numIncrements = Convert.ToInt32(Math.Floor((Xmax - Xmin) / inc) + 1);
 
             Parser p;
+            bool flag = false;
             //Iterate through every value of X and get a Y value.
-            for(int i=0;i<numIncrements;i++)
+            for (int i=0;i<numIncrements;i++)
             {
                 double Xvalue = Xmin + i * inc;
 
-                vars[varName] = Convert.ToString(Xvalue);
+                if(varName != null)
+                {
+                    //Update the value of the variable so that it can be used in the expression.
+                    vars[varName] = Convert.ToString(Xvalue);
 
-                p = new Parser(vars);
+                    p = new Parser(vars);
 
-                double Yvalue = p.AnalyseTokens(Equation);
+                    double Yvalue = p.AnalyseTokens(Equation);
 
-                dataPoints.Add(new Tuple<double, double>(Xvalue, Yvalue));
+                    dataPoints.Add(new DataPoint(Xvalue, Yvalue));
+                } else
+                {
+                    //This only occurs if only 1 variable has been specified.
+
+                    p = new Parser(vars);
+
+                    double Yvalue = p.AnalyseTokens(Equation);
+
+                    //If the equation specified is 'X=3' then you want a vertical line.
+                    if(Y.ToLower() == "x")
+                    {
+                        flag = true;
+                        dataPoints.Add(new DataPoint(Yvalue, Xvalue));
+                    } else
+                    {
+                        X = "x";
+                        dataPoints.Add(new DataPoint(Xvalue, Yvalue));
+                    }
+                }
+            }
+
+            if(flag)
+            {
+                X = "x";
+                Y = "y";
             }
 
             setMinAndMaxXandYValues();
@@ -159,7 +202,18 @@ namespace MathsVisualisationTool
             {
                 if(Equation[i].GetType() == Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
                 {
+                    if(X != null)
+                    {
+                        throw new SyntaxErrorException("Only a maximum of two variables can be declared in the equation.");
+                    }
+
                     X = Equation[i].GetValue();
+
+                    if(X == Y)
+                    {
+                        throw new SyntaxErrorException("The dependent variable cannot have the same name as the independent variable.");
+                    }
+
                     //prepend a '~' character onto the variable, so if someone wants to define a variable called Y, then it won't be overwritten.
                     Equation[i].SetValue("~" + Equation[i].GetValue());
                     varName = Equation[i].GetValue();
@@ -174,6 +228,12 @@ namespace MathsVisualisationTool
         /// </summary>
         private void removeFirst2Tokens()
         {
+            if(Equation[0].GetType() != Globals.SUPPORTED_TOKENS.VARIABLE_NAME || 
+                Equation[1].GetType() != Globals.SUPPORTED_TOKENS.ASSIGNMENT)
+            {
+                throw new SyntaxErrorException("First two tokens in the equation must be 'var_name1' followed by '='.");
+            }
+
             Y = Equation[0].GetValue();
             Equation.RemoveRange(0, 2);
         }
@@ -187,30 +247,44 @@ namespace MathsVisualisationTool
             double minTempY = double.MaxValue;
             double maxTempX= double.MinValue;
             double minTempX = double.MaxValue;
-            foreach (Tuple<double, double> t in dataPoints)
+            foreach (DataPoint d in dataPoints)
             {
-                if(t.Item2 > maxTempY)
+                if(d.getY() > maxTempY)
                 {
-                    maxTempY = t.Item2;
+                    maxTempY = d.getY();
                 }
-                if(t.Item2 < minTempY)
+                if(d.getY() < minTempY)
                 {
-                    minTempY = t.Item2;
+                    minTempY = d.getY();
                 }
 
-                if (t.Item1 > maxTempX)
+                if (d.getX() > maxTempX)
                 {
-                    maxTempX = t.Item1;
+                    maxTempX = d.getX();
                 }
-                if (t.Item1 < minTempX)
+                if (d.getX() < minTempX)
                 {
-                    minTempX = t.Item1;
+                    minTempX = d.getX();
                 }
             }
             Ymin = minTempY;
             Ymax = maxTempY;
             Xmin = minTempX;
             Xmax = maxTempX;
+
+            //Dealing with situations like 'Y=2'
+            if(minTempY == maxTempY)
+            {
+                Ymin = minTempY - 1;
+                Ymax = maxTempY + 1;
+            }
+
+            //Dealing with situations like 'X=2'
+            if (minTempX == maxTempX)
+            {
+                Xmin = minTempX - 1;
+                Xmax = maxTempX + 1;
+            }
         }
 
         /// <summary>
@@ -220,9 +294,9 @@ namespace MathsVisualisationTool
         /// <param name="dataPoints"></param>
         private void printDataPoints()
         {
-            foreach (Tuple<double, double> t in dataPoints)
+            foreach (DataPoint d in dataPoints)
             {
-                Console.WriteLine("(" + t.Item1 + "," + t.Item2 + ")");
+                Console.WriteLine("(" + d.getX() + "," + d.getY() + ")");
             }
         }
     }

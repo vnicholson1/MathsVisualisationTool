@@ -46,14 +46,23 @@ namespace MathsVisualisationTool
                 //And pass it into a PlotFunction object for processing.
                 if(tokens[i].GetType() == Globals.SUPPORTED_TOKENS.PLOT)
                 {
+                    //the plot function must be the first token.
+                    if (i != 0)
+                    {
+                        throw new SyntaxErrorException("Plot function found in unexpected token position " + i);
+                    }
+
                     PlotFunction plot = PlotFunction.plotFunctionHandle(tokens, i);
+
+                    if(plot.curIndex != (tokens.Count - 1))
+                    {
+                        throw new SyntaxErrorException("Nothing can follow after the plot function definition.");
+                    }
                     plot.getValues();
 
                     GraphDrawer gd = new GraphDrawer(plot){Topmost = true};
                     gd.Show();
 
-                    //Incase this variable gets reassigned - used by Interpreter.cs to notify whether a variable assignment has happened.
-                    varName = null;
                     return double.NaN;
                 }
             }

@@ -66,7 +66,7 @@ namespace MathsVisualisationTool
             //Get PROJECT directory 
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
 
-            string filePath = Path.GetFullPath(Path.Combine(projectDirectory + "\\config\\variables.json"));
+            string filePath = Path.GetFullPath(Path.Combine(projectDirectory + "\\variables\\variables.json"));
             JArray arrayOfVars = JArray.Parse(File.ReadAllText(filePath));
 
             return arrayOfVars;
@@ -83,7 +83,7 @@ namespace MathsVisualisationTool
 
             //Get PROJECT directory 
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-            string filePath = Path.GetFullPath(Path.Combine(projectDirectory + "\\config\\variables.json"));
+            string filePath = Path.GetFullPath(Path.Combine(projectDirectory + "\\variables\\variables.json"));
 
             //Convert the hashtable into an array of VariableJSONObjects.
             List<VariableJSONObject> jsonObjects = VariableJSONObject.convert(vars);

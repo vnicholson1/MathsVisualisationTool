@@ -96,9 +96,9 @@
     <Compile Include="common\HelpLibraryController.cs" />
     <Compile Include="common\KeyPadController.cs" />
     <Compile Include="common\SettingsController.cs" />
-    <Compile Include="config\VariableJSONObject.cs" />
+    <Compile Include="variables\VariableJSONObject.cs" />
     <Compile Include="functions\PlotFunction.cs" />
-    <Compile Include="interpreter\VariableFileHandle.cs" />
+    <Compile Include="variables\VariableFileHandle.cs" />
     <Compile Include="resources\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -199,7 +199,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="config\variables.json" />
+    <None Include="variables\variables.json" />
     <None Include="manuals\documentation\testDoc.xps" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
