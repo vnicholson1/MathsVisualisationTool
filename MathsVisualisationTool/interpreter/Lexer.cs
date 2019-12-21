@@ -101,7 +101,7 @@ namespace MathsVisualisationTool
                     characters = new List<char>() { input[i] };
                     typeInList = Globals.SUPPORTED_TOKENS.MINUS;
                 }
-                else if (c == '*' || c == '\u00D7')
+                else if (input[i] == '*' || input[i] == '\u00D7')
                 {
                     //same for * operator
                     tokenToAdd = TokeniseList(characters, typeInList);
@@ -115,7 +115,7 @@ namespace MathsVisualisationTool
                     characters = new List<char>() { input[i] };
                     typeInList = Globals.SUPPORTED_TOKENS.MULTIPLICATION;
                 }
-                else if(c == '/' || c == '\u00F7')
+                else if(input[i] == '/' || input[i] == '\u00F7')
                 {
                     //same for / operator
                     tokenToAdd = TokeniseList(characters, typeInList);
