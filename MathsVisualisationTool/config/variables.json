@@ -4,8 +4,12 @@
     "value": "2"
   },
   {
-    "name": "~xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    "value": "10"
+    "name": "t",
+    "value": "38.443359375"
+  },
+  {
+    "name": "getrektm8",
+    "value": "9"
   },
   {
     "name": "~xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
@@ -32,8 +36,8 @@
     "value": "10"
   },
   {
-    "name": "getrektm8",
-    "value": "9"
+    "name": "~xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "value": "10"
   },
   {
     "name": "~hammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
@@ -44,16 +48,12 @@
     "value": "10"
   },
   {
-    "name": "y",
-    "value": "∞"
-  },
-  {
     "name": "ANS",
     "value": "27"
   },
   {
-    "name": "t",
-    "value": "38.443359375"
+    "name": "y",
+    "value": "∞"
   },
   {
     "name": "u",
@@ -73,7 +73,7 @@
   },
   {
     "name": "~x",
-    "value": "10"
+    "value": "0.559038131313132"
   },
   {
     "name": "x",
