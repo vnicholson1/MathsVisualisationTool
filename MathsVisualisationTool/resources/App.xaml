@@ -36,7 +36,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../styles/ColourLibraryStyle.xaml"/>
-                
                 <ResourceDictionary Source="../styles/MainMenuStyle.xaml"/>
                 <ResourceDictionary Source="../styles/ButtonsStyle.xaml"/>
                 <ResourceDictionary Source="../styles/TabControlStyle.xaml"/>
