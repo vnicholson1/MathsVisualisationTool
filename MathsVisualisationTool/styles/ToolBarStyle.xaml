@@ -2,20 +2,35 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:MathsVisualisationTool">
 
-    <SolidColorBrush x:Key="Btn_MouseHover" Color="#C7C9CC" Opacity="0.4"/>
-    <SolidColorBrush x:Key="Btn_Background" Color="#5E5E5E"/>
-    <SolidColorBrush x:Key="Btn_Foreground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="Btn_IsPressedBackground" Color="#3399FF"/>
-    <SolidColorBrush x:Key="Btn_BorderBrush" Color="#212121"/>
+    <!-- STYLING FOR BUTTONS WITHIN THE TOOL BAR -->
+    <Style x:Key="Btn_ToolBar" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="{StaticResource Background_ToolBar}"/>
+        <Setter Property="Padding" Value="3 2 3 2"/>
+    </Style>
 
+    <!--<Style x:Key="{x:Static ToolBar.ButtonStyleKey}" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}" />-->
 
+    <!-- STYLING FOR OVERALL TOOLBAR TRAY -->
+    <Style x:Key="ToolBarTray_Style" TargetType="{x:Type ToolBarTray}">
+        <Setter Property="Background" Value="{StaticResource Background_ToolBar}"/>
+    </Style>
+
+    <!-- STYLING FOR TOOLBAR -->
+    <Style x:Key="ToolBar_Style" TargetType="{x:Type ToolBar}">
+        <Setter Property="Background" Value="{StaticResource Background_ToolBar}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Background_ToolBar}"/>
+        <Setter Property="Foreground" Value="{StaticResource Foreground_ToolBar}"/>
+    </Style>
+
+    <!-- 
+    <Style x:Key="{x:Static ToolBar.ButtonStyleKey}" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}" />
+    
     <Style TargetType="{x:Type Button}">
         <Setter Property="Padding" Value="5"/>
         <Setter Property="Background" Value="{StaticResource Btn_Background}" />
         <Setter Property="Foreground" Value="{StaticResource Btn_Foreground}" />
         <Setter Property="FontWeight" Value="Medium"/>
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -40,4 +55,6 @@
             </Setter.Value>
         </Setter>
     </Style>
+    -->
+
 </ResourceDictionary>

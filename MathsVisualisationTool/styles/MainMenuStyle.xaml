@@ -1,22 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:MathsVisualisationTool.styles">
-
-    <LinearGradientBrush x:Key="MenuSelected" EndPoint="0,1" StartPoint="0,0">
-        <GradientStop Color="#424242" Offset="0"/>
-        <GradientStop Color="#5E5E5E" Offset="1"/>
-    </LinearGradientBrush>
-
-    <!-- COLOURS -->
-    <SolidColorBrush x:Key="MenuBackground" Color="#5E5E5E"/> <!-- Menu Background -->
-    <SolidColorBrush x:Key="MenuBorder" Color="#5E5E5E"/> <!-- Menu Borders-->
-    <SolidColorBrush x:Key="MenuForeground" Color="White"/> <!-- Menu Font/Foreground -->
-    <!--<SolidColorBrush x:Key="TabControlOuterBorder" Color="Red"/>
-    <SolidColorBrush x:Key="TabControlInnerBorder" Color="Pink"/>-->
-    <SolidColorBrush x:Key="MenuItemIconBackground" Color="#424242" Opacity="0.9"/> <!-- Menu Icon Background (Drop Down Background) -->
-    <SolidColorBrush x:Key="MenuItemBackground" Color="#5E5E5E" Opacity="0.9"/> <!-- Menu Item Background (Drop Down Background) -->
-    <SolidColorBrush x:Key="MenuBorderHover" Color="#C7C9CC" Opacity="0.4"/> <!-- Menu Hover Border -->
-    <SolidColorBrush x:Key="MenuBackgroundHover" Color="#C7C9CC" Opacity="0.4"/> <!-- Menu Hover -->
+                    xmlns:local="clr-namespace:MathsVisualisationTool">
 
 
     <Style TargetType="{x:Type Menu}">
