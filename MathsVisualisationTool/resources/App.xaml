@@ -3,6 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:MathsVisualisationTool">
     <!--StartupUri="../views/MainWindow.xaml">--><!-- Do not need due to function in 'App.xaml.cs' file-->
+
+    <JumpList.JumpList>
+        <JumpList>
+            <JumpTask Title="Launch another instance" 
+                      Description="Launches another instance of SolveIT."
+                      CustomCategory="SolveIT Tasks"/>
+
+            <JumpTask Title="Magnifier"  
+                      Description="Open the Windows Magnifier"
+                      CustomCategory="External SolveIT Support"
+                      ApplicationPath="%WINDIR%\system32\magnify.exe"
+                      IconResourcePath="%WINDIR%\system32\magnify.exe"/>
+
+            <JumpTask Title="Calculator"
+                      Description="Open Windows Calculator"
+                      CustomCategory="External SolveIT Support"
+                      ApplicationPath="%WINDIR%\system32\calc.exe"
+                      IconResourcePath="%WINDIR%\system32\calc.exe"/>
+
+            <JumpTask Title="Notepad"
+                      Description="Open Windows Notepad"
+                      CustomCategory="External SolveIT Support"
+                      ApplicationPath="%WINDIR%\system32\notepad.exe"
+                      IconResourcePath="%WINDIR%\system32\notepad.exe"
+                      WorkingDirectory="%HOMEDRIVE%%HOMEPATH%"/>
+
+        </JumpList>
+    </JumpList.JumpList>
     
     <Application.Resources>
         <ResourceDictionary>
