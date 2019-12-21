@@ -101,7 +101,7 @@ namespace MathsVisualisationTool
                     characters = new List<char>() { input[i] };
                     typeInList = Globals.SUPPORTED_TOKENS.MINUS;
                 }
-                else if (c == '*' || c == '\u00D7')
+                else if (input[i] == '*' || input[i] == '\u00D7')
                 {
                     //same for * operator
                     tokenToAdd = TokeniseList(characters, typeInList);
@@ -115,7 +115,7 @@ namespace MathsVisualisationTool
                     characters = new List<char>() { input[i] };
                     typeInList = Globals.SUPPORTED_TOKENS.MULTIPLICATION;
                 }
-                else if(c == '/' || c == '\u00F7')
+                else if(input[i] == '/' || input[i] == '\u00F7')
                 {
                     //same for / operator
                     tokenToAdd = TokeniseList(characters, typeInList);
@@ -199,6 +199,20 @@ namespace MathsVisualisationTool
                     tokens.Add(tokenToAdd);
                     characters = new List<char>() { input[i] };
                     typeInList = Globals.SUPPORTED_TOKENS.COMMA;
+                }
+
+                else if (input[i] == '<')
+                {
+                    tokenToAdd = TokeniseList(characters, typeInList);
+                    //if the word gathered is a keyword.
+                    if (Globals.keyWords.Contains(tokenToAdd.GetValue()))
+                    {
+                        //get the keyword.
+                        tokenToAdd.SetType(Globals.getTokenFromKeyword(tokenToAdd.GetValue()));
+                    }
+                    tokens.Add(tokenToAdd);
+                    characters = new List<char>() { input[i] };
+                    typeInList = Globals.SUPPORTED_TOKENS.LESS_THAN;
                 }
                 else if (char.IsLetter(input[i]))
                 {
@@ -341,6 +355,10 @@ namespace MathsVisualisationTool
             else if (c == ',')
             {
                 return Globals.SUPPORTED_TOKENS.CONSTANT;
+            }
+            else if (c == '<')
+            {
+                return Globals.SUPPORTED_TOKENS.LESS_THAN;
             }
             else
             {
