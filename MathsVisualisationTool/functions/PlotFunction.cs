@@ -85,7 +85,7 @@ namespace MathsVisualisationTool
                 while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.COMMA)
                 {
                     //For situations like 'plot(y=x)'
-                    if (tokens[index].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
+                    if (tokens[index].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET && index+1 == tokens.Count)
                     {
                         throw new SyntaxErrorException("Missing range argument.");
                     }
