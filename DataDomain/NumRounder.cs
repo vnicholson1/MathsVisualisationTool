@@ -32,13 +32,8 @@ namespace DataDomain
             //Do the same for really small numbers.
             if (d < 1.0)
             {
-                if(CountNumberOfLeadingZeros(d) > digits)
-                {
-
-                } else
-                {
-                    d = Math.Round(d * Math.Pow(10, digits)) * Math.Pow(10, -digits); 
-                }
+                d = Math.Round(d,digits);
+                return Convert.ToString(d);
             }
 
             //If converting to standard form is not required, then round it.

@@ -24,6 +24,10 @@ namespace MathsVisualisationTool
         //Variable to store the newly added variable.
         public string varName = null;
 
+        public Parser()
+        {
+            variables = new Hashtable();
+        }
 
         public Parser(Hashtable variables)
         {
@@ -74,7 +78,7 @@ namespace MathsVisualisationTool
         /// </summary>
         /// <param name="tokens"></param>
         /// <returns></returns>
-        public double processTokens(List<Token> tokens)
+        private double processTokens(List<Token> tokens)
         {
             this.tokens = tokens;
 
@@ -101,7 +105,7 @@ namespace MathsVisualisationTool
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public double analyseExpressions(double value)
+        private double analyseExpressions(double value)
         {
             while (nextToken != null)
             {
