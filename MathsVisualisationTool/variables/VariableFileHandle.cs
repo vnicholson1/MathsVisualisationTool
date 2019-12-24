@@ -43,7 +43,7 @@ namespace MathsVisualisationTool
         /// </summary>
         public static void clearVariables()
         {
-            throw new NotImplementedException();
+            saveVariables(new Hashtable());
         }
 
         /// <summary>
