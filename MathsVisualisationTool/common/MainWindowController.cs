@@ -17,14 +17,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Xps.Packaging;
 using System.IO;
+using System.Text.RegularExpressions;
+using System.Windows.Threading;
 
 namespace MathsVisualisationTool
 {
-    public class VariableDataGrid
-    {
-        public string AssignedVariable { get; set; }
-        public string StoredValue { get; set; }
-    }
 
     public partial class MainWindow : Window
     {
@@ -41,8 +38,8 @@ namespace MathsVisualisationTool
         {
             InitializeComponent();
             inputBox.KeyDown += new KeyEventHandler(InputBox_KeyDown);
-
-            var column = new DataGridTextColumn();
+            //To load the variables into the datagrid.
+            loadVarsIntoDataGrid();
         }
 
         /*
@@ -113,7 +110,6 @@ namespace MathsVisualisationTool
                 //Interpreter String called results
                 Interpreter i = new Interpreter();
                 //string output = i.RunInterpreter(inputBox.Text);
-
                 try
                 {
                     Results.Items.Add(i.RunInterpreter(inputBox.Text));
@@ -123,20 +119,9 @@ namespace MathsVisualisationTool
                     MessageBox.Show(exp.Message);
                     Results.Items.Add("Error 2.1");
                 }
-                
-                /**************************************************************************************/
-                //Look at putting NaN "checker" here
-                //if (output != "NaN")
-                //{
-                //    Results.Items.Add("\t\t\t Ans = " + i.RunInterpreter(inputBox.Text));
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Error");
-                //}
-                /**************************************************************************************/
                 this.inputBox.Focus();
                 this.inputBox.Clear();
+                loadVarsIntoDataGrid();
             }
             else
             {
@@ -179,6 +164,7 @@ namespace MathsVisualisationTool
                     MessageBox.Show("ERROR");
                     this.inputBox.Focus();
                 }
+                loadVarsIntoDataGrid();
             }
         }
 
@@ -954,5 +940,50 @@ namespace MathsVisualisationTool
         }
         #endregion
         /********************************** END OF NUMERICAL KEYPAD FUNCTIONS*******************************/
+        /*************************************** VARIABLE TABLE FUNCTIONS***********************************/
+        #region VariableTable
+
+        public class VariableDetails
+        {
+            public string Name { get; set; }
+            public string Value { get; set; }
+        }
+
+        /// <summary>
+        /// Method to load in the variables and store them into the datagrid.
+        /// </summary>
+        public void loadVarsIntoDataGrid()
+        {
+            //Get the variables and put them into a hashtable
+            Hashtable vars = VariableFileHandle.getVariables();
+            //Sort the hashtable as the vars should be in alphabetical order.
+            SortedDictionary<string, string> sortedVars = new SortedDictionary<string, string>();
+            foreach(DictionaryEntry d in vars)
+            {
+                string key = (string)d.Key;
+                string value = (string)d.Value;
+                //Don't add the variables with the '~' symbol infront as these are not user-defined variables.
+                if (key.Contains("~"))
+                {
+                    continue;
+                }
+                else
+                {
+                    sortedVars.Add((string)d.Key,(string)d.Value);
+                }
+            }
+
+            //To add something to the datagrid it must be an ObservableCollection object.
+            ObservableCollection<VariableDetails> varInfoToAdd = new ObservableCollection<VariableDetails>();
+            //Add the variables to the ObservableCollection object.
+            foreach(var d in sortedVars)
+            {
+                varInfoToAdd.Add(new VariableDetails { Name = d.Key, Value = d.Value });
+            }
+            //Set the itemSource of the datagrid to the ObservableCollection.
+            varTable.ItemsSource = varInfoToAdd;
+        }
+        #endregion    
+        /***********************************END OF VARIABLE TABLE FUNCTIONS*********************************/
     }
 }

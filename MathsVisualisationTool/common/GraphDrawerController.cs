@@ -116,7 +116,7 @@ namespace MathsVisualisationTool
             for (double x = xminCanvas;
                 x <= xmaxCanvas; x += step)
             {
-                string label = RoundToSignificantDigits(Xlabels[count], 4);
+                string label = NumRounder.RoundToSignificantDigits(Xlabels[count], 4);
 
                 DrawText(x+6, graphCanvas.Height - (yminCanvas-6), label,true,true);
                 //Add | per each step.
@@ -154,7 +154,7 @@ namespace MathsVisualisationTool
             //Iterate through and add | markings to this line.
             for (double y = yminCanvas; y <= ymaxCanvas; y += step)
             {
-                string stringRep = RoundToSignificantDigits(Ylabels[count], 4);
+                string stringRep = NumRounder.RoundToSignificantDigits(Ylabels[count], 4);
 
                 DrawText((MARGIN-8) - (stringRep.Length*7), graphCanvas.Height - y - 6, stringRep, false,false);
                 //Add | per each step
@@ -184,9 +184,9 @@ namespace MathsVisualisationTool
             // Make some data sets.
             Brush colour = Brushes.Blue;
             PointCollection points = new PointCollection();
-            foreach (Tuple<double, double> point in plotFunc.dataPoints)
+            foreach (DataPoint point in plotFunc.dataPoints)
             {
-                points.Add(new Point(convertXCoordinate(point.Item1), convertYCoordinate(point.Item2)));
+                points.Add(new Point(convertXCoordinate(point.getX()), convertYCoordinate(point.getY())));
             }
 
             Polyline polyline = new Polyline();
@@ -282,38 +282,6 @@ namespace MathsVisualisationTool
                 Ylabels[i] = Ymin + i * Yinc;
             }
 
-        }
-
-        /// <summary>
-        /// Function used to round a double to X sig figures because C# doesn't have this built in.
-        /// This solution was taken from https://stackoverflow.com/questions/374316/round-a-double-to-x-significant-figures.
-        /// </summary>
-        /// <param name="d"></param>
-        /// <param name="digits"></param>
-        /// <returns></returns>
-        private string RoundToSignificantDigits(double d, int digits)
-        {
-            if (d == 0)
-            {
-                return "0";
-            }
-
-            //convert the number into standard form if its absolute value is really big.
-            string stringRep = Convert.ToString(Math.Round(d));
-            if (stringRep.Length > digits)
-            {
-                string stdForm = stringRep[0] + "." + stringRep[1] + "E" + (stringRep.Length - 1);
-                return stdForm;
-            }
-            //Do the same for really small numbers.
-            if (d < 1.0)
-            {
-
-            }
-
-            double scale = Math.Pow(10, Math.Floor(Math.Log10(Math.Abs(d))) + 1);
-            string res = Convert.ToString(scale * Math.Round(d / scale, digits));
-            return res;
         }
     }
 }

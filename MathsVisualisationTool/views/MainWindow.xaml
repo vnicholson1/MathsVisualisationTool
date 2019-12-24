@@ -170,12 +170,7 @@
                     </Grid.RowDefinitions>
 
                     <Grid Name="varGrid" Margin="3" Grid.Row="0">
-                        <DataGrid Name="varTable" AutoGenerateColumns="True" Grid.Row="0" Style="{StaticResource DataGrid_Style}">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Variable" Binding="{Binding AssignedVariable}"/>
-                                <DataGridTextColumn Header="Stored Value" Binding="{Binding StoredValue}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <DataGrid Name="varTable" AutoGenerateColumns="True" ColumnWidth="0.5*" Grid.Row="0" Style="{StaticResource DataGrid_Style}" IsReadOnly="True" RowHeaderWidth="0" />
                     </Grid>
 
                     <!--</DockPanel>-->
