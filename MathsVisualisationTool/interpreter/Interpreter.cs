@@ -30,7 +30,7 @@ namespace MathsVisualisationTool
         /// <returns></returns>
         public string RunInterpreter(string codeToRun)
         {
-            string temp = Regex.Replace(codeToRun.ToLower(), @"\s+", "");
+            string temp = Regex.Replace(codeToRun, @"\s+", "");
 
             //Check if the user has typed "clear"
             if(temp.Contains("clear"))
