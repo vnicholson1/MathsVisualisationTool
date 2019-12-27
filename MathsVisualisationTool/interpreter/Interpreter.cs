@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DataDomain;
 
@@ -29,6 +30,22 @@ namespace MathsVisualisationTool
         /// <returns></returns>
         public string RunInterpreter(string codeToRun)
         {
+            string temp = Regex.Replace(codeToRun, @"\s+", "");
+
+            //Check if the user has typed "clear"
+            if(temp.Contains("clear"))
+            {
+                if(temp == "clear")
+                {
+                    VariableFileHandle.clearVariables();
+                    return "\tCleared Variables.";
+                } else
+                {
+                    throw new SyntaxErrorException("'clear' can only be used on its own, nothing else can be added.");
+                }
+            }
+
+
             //Use the lexer to tokenise the input
             List<Token> tokens = lexer.TokeniseInput(codeToRun);
             //Then put the gathered tokens into the parser.
