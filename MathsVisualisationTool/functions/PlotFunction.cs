@@ -13,7 +13,11 @@ namespace MathsVisualisationTool
         //Up to the user, more data points means a smoother curve but is more computationally intensive. Less
         //data points means a more stair-case like curve but is less computationally intensive.
         private static readonly uint NUM_DATA_POINTS = 100;
-
+        //To record the position of the variable name in the range argument.
+        public int varNameIndex;
+        public List<Token> allTokens;
+        //To record the current index. Purely for checking if anything is found after the plot function.
+        public int curIndex;
         //List of parameters in the Plot Function
         public List<Token> Equation;
         public double Xmin;
@@ -22,17 +26,18 @@ namespace MathsVisualisationTool
         public double Ymax;
         public double inc;
         //List to store all the gathered data points.
-        public List<Tuple<double, double>> dataPoints = new List<Tuple<double,double>>();
+        public List<DataPoint> dataPoints = new List<DataPoint>();
         //The variables given in the plot function.
-        public string X;
-        public string Y;
+        public string X = null;
+        public string Y = null;
 
-        public PlotFunction(List<Token> Equation, Token XminToken, Token XmaxToken, Token incToken)
+        private PlotFunction(List<Token> Equation, Token XminToken, Token XmaxToken, Token incToken, List<Token> allTokens)
         {
             this.Equation = Equation;
             Xmin = Convert.ToDouble(XminToken.GetValue());
             Xmax = Convert.ToDouble(XmaxToken.GetValue());
             inc = Convert.ToDouble(incToken.GetValue());
+            this.allTokens = allTokens;
         }
 
         /// <summary>
@@ -54,7 +59,12 @@ namespace MathsVisualisationTool
             Token Xmax = elements[1];
             Token inc = elements[2];
 
-            return new PlotFunction(equationTokens, Xmin, Xmax, inc);
+            PlotFunction newPlot = new PlotFunction(equationTokens, Xmin, Xmax, inc,tokens);
+
+            newPlot.curIndex = i;
+            newPlot.varNameIndex = Convert.ToInt32(elements[3].GetValue());
+
+            return newPlot;
         }
 
         /// <summary>
@@ -69,15 +79,38 @@ namespace MathsVisualisationTool
             List<Token> equationTokens = new List<Token>();
             //Skip over the plot and open bracket tokens.
             index += 2;
-            while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.COMMA)
+
+            try
             {
-                if (tokens[index].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
+                while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.COMMA)
                 {
-                    throw new SyntaxErrorException("Missing Xmin, Xmax and increment arguments.");
+                    //For situations like 'plot(y=x)'
+                    if (tokens[index].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET && index+1 == tokens.Count)
+                    {
+                        throw new SyntaxErrorException("Missing range argument.");
+                    }
+                    equationTokens.Add(tokens[index]);
+                    index++;
                 }
-                equationTokens.Add(tokens[index]);
-                index++;
+
+                //For situations like 'plot(y=x,'
+                if(index == (tokens.Count-1))
+                {
+                    throw new SyntaxErrorException("Unexpectedly reached end of expression.");
+                }
+            } catch (ArgumentOutOfRangeException e)
+            {
+                //Occurs if someone was to put 'plot(y=x' as input.
+                throw new SyntaxErrorException("Unexpectedly reached end of expression.");
             }
+            
+            
+            //Minimum length of an equation has to be 3 i.e. "Y=3".
+            if(equationTokens.Count < 3)
+            {
+                throw new SyntaxErrorException("Invalid equation given in plot function.");
+            }
+
             return equationTokens;
         }
 
@@ -89,26 +122,132 @@ namespace MathsVisualisationTool
         /// <returns> An array of size 3 containing the Xmin, Xmax and the increment.</returns>
         private static Token [] evaluateRange(List<Token> tokens, ref int index)
         {
-            //An array for storing the Xmin, Xmax and the increment
-            Token[] elements = new Token[3];
+            //Temp variable for saving where the name of the dependent variable is specified.
+            int varNameIndex = 0;
+
+            //An array for storing the Xmin, Xmax, the increment and the position of the variable in the range argument.
+            Token[] elements = new Token[4];
+
+            //For situations like 'plot(y=x,)'
+            if(tokens[index].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
+            {
+                //Should be an illegal argument exception tbh.
+                throw new SyntaxErrorException("Empty range argument found.");
+            }
 
             //get the Xmin
-            elements[0] = tokens[index];
-            index += 4;
+            elements[0] = GetXMinToken(tokens, ref index);
+            //Check the next token is a <
+            if(tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN)
+            {
+                throw new SyntaxErrorException("< symbol expected. " + tokens[index].GetValue() + " found instead.");
+            }
+            //Check the next token is the dependent variable. 
+            index++;
+            if (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
+            {
+                throw new SyntaxErrorException("Variable name expected. " + tokens[index].GetValue() + " found instead.");
+            } else
+            {
+                varNameIndex = index;
+            }
+            //Check the next token is a <
+            index++;
+            if (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN)
+            {
+                throw new SyntaxErrorException("< symbol expected. " + tokens[index].GetValue() + " found instead.");
+            }
+            index++;
             //get the Xmax
-            elements[1] = tokens[index];
+            elements[1] = GetXMaxToken(tokens, ref index);
+
             //Calculate the increment to get the desired increment.
             double Xmin = Convert.ToDouble(elements[0].GetValue());
             double Xmax = Convert.ToDouble(elements[1].GetValue());
 
+            if(!(Xmax > Xmin))
+            {
+                throw new SyntaxErrorException("Xmax must be greater than Xmin.");
+            }
+
             double inc = (Xmax - Xmin + 1) / NUM_DATA_POINTS;
             elements[2] = new Token(Globals.SUPPORTED_TOKENS.CONSTANT, Convert.ToString( (Xmax - Xmin) / (NUM_DATA_POINTS-1)));
+
+            //record the position of the variable in the range argument as a token because I couldn't think 
+            //of any other way to do it.
+            elements[3] = new Token(Globals.SUPPORTED_TOKENS.CONSTANT, Convert.ToString(varNameIndex));
 
             return elements;
         }
 
         /// <summary>
-        /// Method for getting the list of values from the expression so they can be drawn by the graph drawer.
+        /// Private method to extract the Xmin from the range argument.
+        /// </summary>
+        /// <param name="tokens"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        private static Token GetXMinToken(List<Token> tokens, ref int index)
+        {
+            Parser p = new Parser();
+            List<Token> XminList = new List<Token>();
+            List<Globals.SUPPORTED_TOKENS> supportedTypes = new List<Globals.SUPPORTED_TOKENS>
+                {Globals.SUPPORTED_TOKENS.CONSTANT,Globals.SUPPORTED_TOKENS.PLUS,Globals.SUPPORTED_TOKENS.MINUS};
+
+            while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN)
+            {
+                if (!(supportedTypes.Contains(tokens[index].GetType())))
+                {
+                    throw new SyntaxErrorException("Unexpected token " + tokens[index].GetValue() + " found.");
+                }
+
+                XminList.Add(tokens[index]);
+                index++;
+
+                //For situations like 'plot(y=x,2'
+                if (index == tokens.Count)
+                {
+                    throw new SyntaxErrorException("Unexpectedly reached end of expression.");
+                }
+            }
+
+            return new Token(Globals.SUPPORTED_TOKENS.CONSTANT, Convert.ToString(p.AnalyseTokens(XminList)));
+        }
+
+        /// <summary>
+        /// Private method to extract the Xmin from the range argument.
+        /// </summary>
+        /// <param name="tokens"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        private static Token GetXMaxToken(List<Token> tokens, ref int index)
+        {
+            Parser p = new Parser();
+            List<Token> XmaxList = new List<Token>();
+            List<Globals.SUPPORTED_TOKENS> supportedTypes = new List<Globals.SUPPORTED_TOKENS>
+                {Globals.SUPPORTED_TOKENS.CONSTANT,Globals.SUPPORTED_TOKENS.PLUS,Globals.SUPPORTED_TOKENS.MINUS};
+
+            while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
+            {
+                if (!(supportedTypes.Contains(tokens[index].GetType())))
+                {
+                    throw new SyntaxErrorException("Unexpected token " + tokens[index].GetValue() + " found.");
+                }
+
+                XmaxList.Add(tokens[index]);
+                index++;
+
+                //For situations like 'plot(y=x,2<x<3'
+                if (index == tokens.Count)
+                {
+                    throw new SyntaxErrorException("Unexpectedly reached end of expression.");
+                }
+            }
+
+            return new Token(Globals.SUPPORTED_TOKENS.CONSTANT, Convert.ToString(p.AnalyseTokens(XmaxList)));
+        }
+
+        /// <summary>
+        /// Method for getting the list of data points from the expression so they can be drawn by the graph drawer.
         /// Result stored in Plot Function object under data points.
         /// </summary>
         /// <returns></returns>
@@ -127,18 +266,56 @@ namespace MathsVisualisationTool
             int numIncrements = Convert.ToInt32(Math.Floor((Xmax - Xmin) / inc) + 1);
 
             Parser p;
+            bool flag = false;
             //Iterate through every value of X and get a Y value.
-            for(int i=0;i<numIncrements;i++)
+            for (int i=0;i<numIncrements;i++)
             {
                 double Xvalue = Xmin + i * inc;
 
-                vars[varName] = Convert.ToString(Xvalue);
+                if(varName != null)
+                {
+                    //Update the value of the variable so that it can be used in the expression.
+                    vars[varName] = Convert.ToString(Xvalue);
 
-                p = new Parser(vars);
+                    p = new Parser(vars);
 
-                double Yvalue = p.AnalyseTokens(Equation);
+                    double Yvalue = p.AnalyseTokens(Equation);
 
-                dataPoints.Add(new Tuple<double, double>(Xvalue, Yvalue));
+                    dataPoints.Add(new DataPoint(Xvalue, Yvalue));
+                } else
+                {
+                    //This only occurs if only 1 variable has been specified.
+                    p = new Parser(vars);
+
+                    double Yvalue = p.AnalyseTokens(Equation);
+
+                    //If the equation specified is 'X=3' or 'x=3' then you want a vertical line.
+                    if(Y.ToLower() == "x")
+                    {
+                        flag = true;
+                        dataPoints.Add(new DataPoint(Yvalue, Xvalue));
+                    } else
+                    {
+                        //otherwise draw a horizontal line.
+                        X = "x";
+                        dataPoints.Add(new DataPoint(Xvalue, Yvalue));
+                    }
+                }
+            }
+
+            //Check if the dependent variable name in the equation matches the one given in the range.
+            if (!(X is null))
+            {
+                if (allTokens[varNameIndex].GetValue() != X)
+                {
+                    throw new SyntaxErrorException("Dependent variable " + X + " expected. " + allTokens[varNameIndex].GetValue() + " found instead.");
+                }
+            }
+
+            if (flag)
+            {
+                X = Y;
+                Y = "y";
             }
 
             setMinAndMaxXandYValues();
@@ -159,7 +336,18 @@ namespace MathsVisualisationTool
             {
                 if(Equation[i].GetType() == Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
                 {
+                    if(X != null)
+                    {
+                        throw new SyntaxErrorException("Only a maximum of two variables can be declared in the equation.");
+                    }
+
                     X = Equation[i].GetValue();
+
+                    if(X == Y)
+                    {
+                        throw new SyntaxErrorException("The dependent variable cannot have the same name as the independent variable.");
+                    }
+
                     //prepend a '~' character onto the variable, so if someone wants to define a variable called Y, then it won't be overwritten.
                     Equation[i].SetValue("~" + Equation[i].GetValue());
                     varName = Equation[i].GetValue();
@@ -174,6 +362,12 @@ namespace MathsVisualisationTool
         /// </summary>
         private void removeFirst2Tokens()
         {
+            if(Equation[0].GetType() != Globals.SUPPORTED_TOKENS.VARIABLE_NAME || 
+                Equation[1].GetType() != Globals.SUPPORTED_TOKENS.ASSIGNMENT)
+            {
+                throw new SyntaxErrorException("First two tokens in the equation must be 'var_name1' followed by '='.");
+            }
+
             Y = Equation[0].GetValue();
             Equation.RemoveRange(0, 2);
         }
@@ -187,30 +381,44 @@ namespace MathsVisualisationTool
             double minTempY = double.MaxValue;
             double maxTempX= double.MinValue;
             double minTempX = double.MaxValue;
-            foreach (Tuple<double, double> t in dataPoints)
+            foreach (DataPoint d in dataPoints)
             {
-                if(t.Item2 > maxTempY)
+                if(d.getY() > maxTempY)
                 {
-                    maxTempY = t.Item2;
+                    maxTempY = d.getY();
                 }
-                if(t.Item2 < minTempY)
+                if(d.getY() < minTempY)
                 {
-                    minTempY = t.Item2;
+                    minTempY = d.getY();
                 }
 
-                if (t.Item1 > maxTempX)
+                if (d.getX() > maxTempX)
                 {
-                    maxTempX = t.Item1;
+                    maxTempX = d.getX();
                 }
-                if (t.Item1 < minTempX)
+                if (d.getX() < minTempX)
                 {
-                    minTempX = t.Item1;
+                    minTempX = d.getX();
                 }
             }
             Ymin = minTempY;
             Ymax = maxTempY;
             Xmin = minTempX;
             Xmax = maxTempX;
+
+            //Dealing with situations like 'Y=2'
+            if(minTempY == maxTempY)
+            {
+                Ymin = minTempY - 1;
+                Ymax = maxTempY + 1;
+            }
+
+            //Dealing with situations like 'X=2'
+            if (minTempX == maxTempX)
+            {
+                Xmin = minTempX - 1;
+                Xmax = maxTempX + 1;
+            }
         }
 
         /// <summary>
@@ -220,9 +428,9 @@ namespace MathsVisualisationTool
         /// <param name="dataPoints"></param>
         private void printDataPoints()
         {
-            foreach (Tuple<double, double> t in dataPoints)
+            foreach (DataPoint d in dataPoints)
             {
-                Console.WriteLine("(" + t.Item1 + "," + t.Item2 + ")");
+                Console.WriteLine("(" + d.getX() + "," + d.getY() + ")");
             }
         }
     }

@@ -162,6 +162,9 @@ namespace MathsVisualisationTool
                     case Globals.SUPPORTED_TOKENS.INDICIES:
                         multAndDivisionCheck(previousToken, i,gatheredTokens.Count);
                         break;
+
+                    case Globals.SUPPORTED_TOKENS.LESS_THAN:
+                        throw new SyntaxErrorException("< symbol found in unexpected position.");
                         
                     default:
                         break;

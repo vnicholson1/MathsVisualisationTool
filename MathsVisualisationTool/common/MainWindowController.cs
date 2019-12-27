@@ -17,18 +17,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Xps.Packaging;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Threading;
-using System.Diagnostics;
-using LiveCharts;
-using LiveCharts.Wpf;
 
 namespace MathsVisualisationTool
 {
-    public class VariableDataGrid
-    {
-        public string AssignedVariable { get; set; }
-        public string StoredValue { get; set; }
-    }
 
     public partial class MainWindow : Window
     {
@@ -38,74 +31,16 @@ namespace MathsVisualisationTool
             set { inputBox.Text = value; }
         }
 
-        DispatcherTimer dt = new DispatcherTimer();
-        Stopwatch stopWatch = new Stopwatch();
-        string currentTime = string.Empty;
-
+        // <summary>
+        // Interaction logic for MainWindow.xaml
+        // </summary>
         public MainWindow()
         {
             InitializeComponent();
             inputBox.KeyDown += new KeyEventHandler(InputBox_KeyDown);
-
-            var column = new DataGridTextColumn();
-
-            /************************************************************************************************/
-            dt.Tick += new EventHandler(MainStopwatch);
-            dt.Tick += new EventHandler(MainClock);
-            dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
-            //dt.Interval = TimeSpan.FromSeconds(1);
-            dt.Start();
-            /************************************************************************************************/
-            /************************************* LIVE CHART FUNCTIONS *************************************/
-            #region LiveCharts
-            SeriesCollection = new SeriesCollection
-            {
-                new LineSeries
-                {
-                    Title = "Series 1",
-                    Values = new ChartValues<double> { 4, 6, 5, 2 ,4 }
-                },
-                new LineSeries
-                {
-                    Title = "Series 2",
-                    Values = new ChartValues<double> { 6, 7, 3, 4 ,6 },
-                    PointGeometry = null
-                },
-                new LineSeries
-                {
-                    Title = "Series 3",
-                    Values = new ChartValues<double> { 4,2,7,2,7 },
-                    PointGeometry = DefaultGeometries.Square,
-                    PointGeometrySize = 15
-                }
-            };
-
-            Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May" };
-            YFormatter = value => value.ToString("C");
-
-            //modifying the series collection will animate and update the chart
-            SeriesCollection.Add(new LineSeries
-            {
-                Title = "Series 4",
-                Values = new ChartValues<double> { 5, 3, 2, 4 },
-                LineSmoothness = 0, //0: straight lines, 1: really smooth lines
-                PointGeometry = Geometry.Parse("m 25 70.36218 20 -28 -20 22 -8 -6 z"),
-                PointGeometrySize = 50,
-                PointForeground = Brushes.Gray
-            });
-
-            //modifying any series values will also animate and update the chart
-            SeriesCollection[3].Values.Add(5d);
-
-            DataContext = this;
-            #endregion
-            /********************************* END OF LIVE CHART FUNCTIONS **********************************/
+            //To load the variables into the datagrid.
+            loadVarsIntoDataGrid();
         }
-
-        public SeriesCollection SeriesCollection { get; set; }
-        public string[] Labels { get; set; }
-        public Func<double, string> YFormatter { get; set; }
-        
 
         /*
          * OnNewNote_Clicked - Handle event if Add New Note button is 
@@ -125,149 +60,6 @@ namespace MathsVisualisationTool
         }
 
         /****************************************************************************************************/
-
-        /************************ CLOCK FUNCTIONS (INC. CLOCK/TIMER/STOPWATCH/CALENDAR) *********************/
-        #region ClockFunctions
-
-        void MainStopwatch(object sender, EventArgs e)
-        {
-            if (stopWatch.IsRunning)
-            {
-                TimeSpan ts = stopWatch.Elapsed;
-                currentTime = String.Format("{0:00}:{1:00}:{2:00}:{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-                sWatchLabel.Content = currentTime;
-            }
-        }
-
-        /*
-         * MainClock -  Handle event for the digital clock feature
-         *              which displays current time
-         */
-        void MainClock(object sender, EventArgs e)
-        {
-            clockTime.Content = DateTime.Now.ToLongTimeString();
-            currentDay.Content = DateTime.Now.DayOfWeek;
-            dateTime.Content = DateTime.Now.ToLongDateString();
-        }
-
-        /*
-         * ResetStopwatch_Clicked - Handle event if Starts Stopwatch button is 
-         *                          clicked, starts the stopwatch running
-         */
-        private void StartStopwatch_Clicked(object sender, EventArgs e)
-        {
-            stopWatch.Start();
-        }
-
-        /*
-         * StopStopwatch_Clicked - Handle event if Stop Stopwatch button is 
-         *                          clicked, stops the stopwatch if running
-         */
-        private void StopStopwatch_Clicked(object sender, EventArgs e)
-        {
-            if (stopWatch.IsRunning)
-                stopWatch.Stop();
-        }
-
-        /*
-         * LapStopwatch_Clicked - Handle event if Lap Stopwatch button is 
-         *                        clicked, records split/lap time to list
-         */
-        private void LapStopwatch_Clicked(object sender, EventArgs e)
-        {
-            if (stopWatch.IsRunning)
-                lapTimes_List.Items.Add(currentTime);
-        }
-
-        /*
-         * ResetStopwatch_Clicked - Handle event if Reset Stopwatch button is 
-         *                          clicked, resets the stopwatch to zero
-         */
-        private void ResetStopwatch_Clicked(object sender, EventArgs e)
-        {
-            stopWatch.Reset();
-            sWatchLabel.Content = "00:00:00:00";
-        }
-
-        /*
-         * ClearLapStopwatch_Clicked -  Handle event if Clear button is 
-         *                              clicked, clears all stored lap 
-         *                              times
-         */
-        private void ClearLapStopwatch_Clicked(object sender, EventArgs e)
-        {
-            lapTimes_List.Items.Clear();
-        }
-
-        private int _timerHour = 0;
-        public int timerHourValue
-        {
-            get { return _timerHour; }
-            set { _timerHour = value; hoursLabel.Content = value.ToString(); }
-        }
-
-        /*
-         * OnHourUp_Clicked -   Handle event if Increase Hour button is 
-         *                      clicked, increases the hour label by 1 
-         *                      per click
-         */
-        private void OnHourUp_Clicked(object sender, EventArgs e)
-        {
-            hoursLabel.Content = timerHourValue++;
-        }
-
-
-        /*
-         * OnHourDown_Clicked -   Handle event if decreases Hour button is 
-         *                      clicked, decreases the hour label by 1 
-         *                      per click
-         */
-        private void OnHourDown_Clicked(object sender, EventArgs e)
-        {
-            hoursLabel.Content = timerHourValue--;
-        }
-
-        /*
-         * OnMinUp_Clicked -    Handle event if Increase Minute button is 
-         *                      clicked, increases the minute label by 1 
-         *                      per click
-         */
-        private void OnMinUp_Clicked(object sender, EventArgs e)
-        {
-
-        }
-
-        /*
-         * OnMinDown_Clicked -   Handle event if decreases Min button is 
-         *                      clicked, decreases the minute label by 1 
-         *                      per click
-         */
-        private void OnMinDown_Clicked(object sender, EventArgs e)
-        {
-
-        }
-
-        /*
-         * OnSecUp_Clicked -   Handle event if Increase Second button is 
-         *                      clicked, increases the seconds label by 1 
-         *                      per click
-         */
-        private void OnSecUp_Clicked(object sender, EventArgs e)
-        {
-
-        }
-
-        /*
-         * OnSecDown_Clicked -   Handle event if decreases Sec button is 
-         *                      clicked, decreases the sec label by 1 
-         *                      per click
-         */
-        private void OnSecDown_Clicked(object sender, EventArgs e)
-        {
-
-        }
-        #endregion
-        /******************** END OF CLOCK FUNCTIONS (INC. CLOCK/TIMER/STOPWATCH/CALENDAR) ******************/
         /****************************** DRAG/DROP FUNCTIONS [NONE FUNCTIONAL ATM] ***************************/
         #region DragDropFunctions
         private void OnDrag(object sender, MouseButtonEventArgs e)
@@ -318,7 +110,6 @@ namespace MathsVisualisationTool
                 //Interpreter String called results
                 Interpreter i = new Interpreter();
                 //string output = i.RunInterpreter(inputBox.Text);
-
                 try
                 {
                     Results.Items.Add(i.RunInterpreter(inputBox.Text));
@@ -328,20 +119,9 @@ namespace MathsVisualisationTool
                     MessageBox.Show(exp.Message);
                     Results.Items.Add("Error 2.1");
                 }
-                
-                /**************************************************************************************/
-                //Look at putting NaN "checker" here
-                //if (output != "NaN")
-                //{
-                //    Results.Items.Add("\t\t\t Ans = " + i.RunInterpreter(inputBox.Text));
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Error");
-                //}
-                /**************************************************************************************/
                 this.inputBox.Focus();
                 this.inputBox.Clear();
+                loadVarsIntoDataGrid();
             }
             else
             {
@@ -384,6 +164,7 @@ namespace MathsVisualisationTool
                     MessageBox.Show("ERROR");
                     this.inputBox.Focus();
                 }
+                loadVarsIntoDataGrid();
             }
         }
 
@@ -581,15 +362,6 @@ namespace MathsVisualisationTool
         {
             KeyPad keypad = new KeyPad();
             keypad.Show();
-        }
-
-        /*
-         * OnGraph_Clicked - Handle event if the Graph button is 
-         *                   click from the toolbar
-         */
-        private void OnGraph_Clicked(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Graph Clicked - Fix it");
         }
         #endregion
         /************************************ END OF TOOLBAR MENU FUNCTIONS *********************************/
@@ -1168,5 +940,50 @@ namespace MathsVisualisationTool
         }
         #endregion
         /********************************** END OF NUMERICAL KEYPAD FUNCTIONS*******************************/
+        /*************************************** VARIABLE TABLE FUNCTIONS***********************************/
+        #region VariableTable
+
+        public class VariableDetails
+        {
+            public string Name { get; set; }
+            public string Value { get; set; }
+        }
+
+        /// <summary>
+        /// Method to load in the variables and store them into the datagrid.
+        /// </summary>
+        public void loadVarsIntoDataGrid()
+        {
+            //Get the variables and put them into a hashtable
+            Hashtable vars = VariableFileHandle.getVariables();
+            //Sort the hashtable as the vars should be in alphabetical order.
+            SortedDictionary<string, string> sortedVars = new SortedDictionary<string, string>();
+            foreach(DictionaryEntry d in vars)
+            {
+                string key = (string)d.Key;
+                string value = (string)d.Value;
+                //Don't add the variables with the '~' symbol infront as these are not user-defined variables.
+                if (key.Contains("~"))
+                {
+                    continue;
+                }
+                else
+                {
+                    sortedVars.Add((string)d.Key,(string)d.Value);
+                }
+            }
+
+            //To add something to the datagrid it must be an ObservableCollection object.
+            ObservableCollection<VariableDetails> varInfoToAdd = new ObservableCollection<VariableDetails>();
+            //Add the variables to the ObservableCollection object.
+            foreach(var d in sortedVars)
+            {
+                varInfoToAdd.Add(new VariableDetails { Name = d.Key, Value = d.Value });
+            }
+            //Set the itemSource of the datagrid to the ObservableCollection.
+            varTable.ItemsSource = varInfoToAdd;
+        }
+        #endregion    
+        /***********************************END OF VARIABLE TABLE FUNCTIONS*********************************/
     }
 }
