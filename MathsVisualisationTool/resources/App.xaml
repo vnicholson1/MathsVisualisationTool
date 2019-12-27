@@ -45,6 +45,8 @@
                 <ResourceDictionary Source="../styles/ToolBarStyle.xaml"/>
                 <ResourceDictionary Source="../styles/LibraryStyle.xaml"/>
                 <ResourceDictionary Source="../styles/TreeViewStyle.xaml"/>
+                <ResourceDictionary Source="../styles/StackPanelStyle.xaml"/>
+                <ResourceDictionary Source="../styles/LiveChartStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

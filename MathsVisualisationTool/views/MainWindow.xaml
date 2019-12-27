@@ -7,10 +7,12 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="SolveIt Interpreter"
-        WindowState="Maximized"
+        WindowState="Maximized"      
         WindowStyle="ThreeDBorderWindow"
         Background="{StaticResource MainColour_MainBackground}"
-        Icon="../images/icons/SolveIT.ico" Width="1209.104" Height="1021.726">
+        Icon="../images/icons/home.png" 
+        Width="1209.104" 
+        Height="1021.726">
 
     <Window.CommandBindings>
         <CommandBinding Command="New" CanExecute="CommonCommandBinding_CanExecute"/>
@@ -60,79 +62,86 @@
             <ToolBarTray DockPanel.Dock="Top" Style="{StaticResource ToolBarTray_Style}">
                 <ToolBar DockPanel.Dock="Top" Style="{StaticResource ToolBar_Style}">
                     <!-- BACK BUTTON -->
-                    <Button x:Name="Back" ToolBar.OverflowMode="AsNeeded" ToolTip="Navigate Back" Click="OnBack_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="Back" ToolBar.OverflowMode="Never" ToolTip="Navigate Back" Click="OnBack_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/back.png" Width="25"/>
                     </Button>
                     <!-- FOREWARD BUTTON -->
-                    <Button x:Name="Forward" ToolBar.OverflowMode="AsNeeded" ToolTip="Navigate Forward" Click="OnForward_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="Forward" ToolBar.OverflowMode="Never" ToolTip="Navigate Forward" Click="OnForward_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/forward.png" Width="25"/>
                     </Button>
                 <Separator/>
                     <!-- NEW BUTTON -->
-                    <Button Command="New" ToolBar.OverflowMode="AsNeeded" ToolTip="New SolveIT" Click="OnNew_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button Command="New" ToolBar.OverflowMode="Never" ToolTip="New SolveIT" Click="OnNew_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/newFile.png" Width="25"/>
                     </Button>
                     <!-- OPEN BUTTON -->
-                    <Button Command="Open" ToolBar.OverflowMode="AsNeeded" ToolTip="Open Previous SolveIT Solutions" Click="OnOpen_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button Command="Open" ToolBar.OverflowMode="Never" ToolTip="Open Previous SolveIT Solutions" Click="OnOpen_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/openFolder.png" Width="25"/>
                     </Button>
                     <!-- SAVE BUTTON -->
-                    <Button Command="Save" ToolBar.OverflowMode="AsNeeded" ToolTip="Save" Click="OnSave_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button Command="Save" ToolBar.OverflowMode="Never" ToolTip="Save" Click="OnSave_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/save.png" Width="25"/>
                     </Button>
                     <!-- SAVE AS BUTTON -->
-                    <Button Command="SaveAs" ToolBar.OverflowMode="AsNeeded" ToolTip="Save As" Click="OnSaveAs_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button Command="SaveAs" ToolBar.OverflowMode="Never" ToolTip="Save As" Click="OnSaveAs_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/saveAs.png" Width="25"/>
                     </Button>
                     <!-- PRINT BUTTON -->
-                    <Button ToolBar.OverflowMode="AsNeeded" ToolTip="Print SolveIT Solution" Click="OnPrint_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button ToolBar.OverflowMode="Never" ToolTip="Print SolveIT Solution" Click="OnPrint_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/print.png" Width="25"/>
                     </Button>
                     <!-- PAGE SETUP BUTTON -->
-                    <Button ToolBar.OverflowMode="AsNeeded" ToolTip="Print SolveIT Solution" Click="OnPageSetup_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button ToolBar.OverflowMode="Never" ToolTip="Print SolveIT Solution" Click="OnPageSetup_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/pageSetup.png" Width="25"/>
                     </Button>
                 <Separator/>
                     <!-- CUT BUTTON -->
-                    <Button Command="Cut" ToolTip="Cut Selection to Windows Clipboard" Click="OnCut_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button Command="Cut" ToolBar.OverflowMode="Never" ToolTip="Cut Selection to Windows Clipboard" Click="OnCut_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/cut.png" Width="25"/>
                     </Button>
                     <!-- COPY BUTTON -->
-                    <Button Command="Copy" ToolTip="Copy Selection to Windows Clipboard" Click="OnCopy_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button Command="Copy" ToolBar.OverflowMode="Never" ToolTip="Copy Selection to Windows Clipboard" Click="OnCopy_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/copy.png" Width="25"/>
                     </Button>
                     <!-- PASTE BUTTON -->
-                    <Button Command="Paste" ToolTip="Paste From Windows Clipboard" Click="OnPaste_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button Command="Paste" ToolBar.OverflowMode="Never" ToolTip="Paste From Windows Clipboard" Click="OnPaste_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/paste.png" Width="25"/>
                     </Button>
                     <!-- UNDO BUTTON -->
-                    <Button Command="Undo" ToolTip="Undo" Click="OnUndo_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button Command="Undo" ToolBar.OverflowMode="Never" ToolTip="Undo" Click="OnUndo_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/undo.png" Width="25"/>
                     </Button>
                     <!-- REDO BUTTON -->
-                    <Button Command="Redo" ToolTip="Redo" Click="OnRedo_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button Command="Redo" ToolBar.OverflowMode="Never" ToolTip="Redo" Click="OnRedo_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/redo.png" Width="25"/>
                     </Button>
                 <Separator/>
                     <!-- RUN/SUBMIT BUTTON -->
-                    <Button ToolTip="Run Input" Click="OnRun_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button ToolTip="Run Input" ToolBar.OverflowMode="Never" Click="OnRun_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/run.png" Width="25"/>
                     </Button>
-                    <ComboBox Width="100" Padding="3 2 3 2">
-                        <ComboBoxItem Content="Something"/>
-                        <ComboBoxItem Content="Something Else"/>
-                    </ComboBox>
                     <!-- STAND ALONE KEYPAD BUTTON -->
-                    <Button ToolTip="Keypad" Click="OnKeypad_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button ToolTip="Keypad" ToolBar.OverflowMode="Never" Click="OnKeypad_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/calculator.png" Width="25"/>
                     </Button>
-                <Separator/>
+                    <Separator/>
+                    <!-- NONE FUNCTIONAL COMBO/DROP DOWN BOX -->
+                    <ComboBox Width="130" ToolBar.OverflowMode="Never" Padding="3 2 3 2">
+                        <ComboBoxItem Content="-- Select Chart --" IsSelected="True"/>
+                        <ComboBoxItem Content="Canvas Chart"/>
+                        <ComboBoxItem Content="Live Charts"/>
+                    </ComboBox>
+                    <!-- OPEN GRAPH BUTTON -->
+                    <Button ToolTip="Graph" ToolBar.OverflowMode="Never" Click="OnGraph_Clicked" Style="{StaticResource Btn_ToolBar}">
+                        <Image Source="../images/icons/lineChart.png" Width="25"/>
+                    </Button>
+                    <Separator/>
                     <!-- SETTINGS BUTTON -->
-                    <Button x:Name="SettingsBtn" ToolTip="SolveIT Settings" Click="OnSettings_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="SettingsBtn" ToolBar.OverflowMode="Never" ToolTip="SolveIT Settings" Click="OnSettings_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/settings.png" Width="25"/>
                     </Button>
                     <!-- HELP BUTTON -->
-                    <Button x:Name="HelpBtn" ToolTip="SolveIT Help Library" Click="OnHelp_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="HelpBtn" ToolBar.OverflowMode="Never" ToolTip="SolveIT Help Library" Click="OnHelp_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/lifebuoy.png" Width="25"/>
                     </Button>
                 </ToolBar>
@@ -261,28 +270,34 @@
                     </Grid.RowDefinitions>
                     <Grid x:Name="mainOutputGrid" Margin="3" Grid.Row="0">
                         <TabControl Style="{StaticResource mainTabControlStyle}">
-                            <TabItem Header="Numerical Workshop" Style="{StaticResource mainTab}">
+                            <TabItem Header="Numerical Workshop" ToolTip="SolveIT Numerical Workshop Display" Style="{StaticResource mainTab}">
                                 <StackPanel x:Name="NumericalWorkshop_StackPanel">
                                     <StackPanel Style="{StaticResource TabHeaderStackPanel_Style}"/>
-                                    <ListBox x:Name="Results" Style="{StaticResource ListBox_Style}" MinHeight="780" >
-                                        <!--<ToolBarTray Orientation="Vertical">
-                                        <ToolBar>
-                                            <Button x:Name="listCut" ToolBar.OverflowMode="AsNeeded" ToolTip="Cut" Click="OnCut_Clicked">
-                                                <Image Source="../images/icons/cut.png" Width="20"/>
-                                            </Button>
-                                            <Button x:Name="listCopy" ToolBar.OverflowMode="AsNeeded" ToolTip="Cut" Click="OnCopy_Clicked">
-                                                <Image Source="../images/icons/copy.png" Width="20"/>
-                                            </Button>
-                                            <Button x:Name="listPaste" ToolBar.OverflowMode="AsNeeded" ToolTip="Cut" Click="OnPaste_Clicked">
-                                                <Image Source="../images/icons/paste.png" Width="20"/>
-                                            </Button>
-                                        </ToolBar>
-                                    </ToolBarTray>-->
-                                    </ListBox>
+                                    <Grid Margin="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        
+                                        <ListBox x:Name="Results" Style="{StaticResource ListBox_Style}" Grid.Row="0" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                            <!--<ToolBarTray Orientation="Vertical">
+                                            <ToolBar>
+                                                <Button x:Name="listCut" ToolBar.OverflowMode="AsNeeded" ToolTip="Cut" Click="OnCut_Clicked">
+                                                    <Image Source="../images/icons/cut.png" Width="20"/>
+                                                </Button>
+                                                <Button x:Name="listCopy" ToolBar.OverflowMode="AsNeeded" ToolTip="Cut" Click="OnCopy_Clicked">
+                                                    <Image Source="../images/icons/copy.png" Width="20"/>
+                                                </Button>
+                                                <Button x:Name="listPaste" ToolBar.OverflowMode="AsNeeded" ToolTip="Cut" Click="OnPaste_Clicked">
+                                                    <Image Source="../images/icons/paste.png" Width="20"/>
+                                                </Button>
+                                            </ToolBar>
+                                        </ToolBarTray>-->
+                                        </ListBox>
+                                    </Grid>
                                 </StackPanel>
                                 
                             </TabItem>
-                            <TabItem Header="Graphs" Style="{StaticResource mainTab}">
+                            <TabItem Header="Graphs" ToolTip=" SolveIT Live Charts Display" Style="{StaticResource mainTab}">
                                 <StackPanel x:Name="Graphs_StackPanel">
                                     <StackPanel Style="{StaticResource TabHeaderStackPanel_Style}"/>
                                     <TextBlock Text="Fancy Graphs will go here..."/>
@@ -298,7 +313,7 @@
                                     </Grid>
                                 </StackPanel>
                             </TabItem>
-                            <TabItem Header="LaTeX Output" Style="{StaticResource mainTab}">
+                            <TabItem Header="LaTeX Output" ToolTip="SolveIT LaTeX Output Display" Style="{StaticResource mainTab}">
                                 <StackPanel x:Name="Latex_StackPanel">
                                     <StackPanel Style="{StaticResource TabHeaderStackPanel_Style}"/>
                                     <TextBlock Text="PDF output here...."/>
@@ -342,7 +357,7 @@
                     </Grid.RowDefinitions>
                     
                     <TabControl x:Name="TopRight_TabMenu"  TabStripPlacement="Right" Style="{StaticResource mainTabControlStyle}">
-                        <TabItem Header="Favourites" Style="{StaticResource RightTab}" Grid.Column="2">
+                        <TabItem Header="Favourites" ToolTip="Users Favourite/Most Used Functions/Buttons" Style="{StaticResource RightTab}" Grid.Column="2">
                             <Grid x:Name="favs_Grid">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -372,74 +387,74 @@
                     <!-- *********************************************************************************************************** -->
                     <Grid x:Name="keypadSelector" Margin="3 3 3 3" Grid.Row="2">
                         <TabControl x:Name="BottomRight_TabMenu"  TabStripPlacement="Right" Style="{StaticResource mainTabControlStyle}">
-                            <TabItem Header="Keypad" Style="{StaticResource RightTab}" Margin="0 0 -1 0">
+                            <TabItem Header="Keypad" ToolTip="SolveIT Inputs Keypad" Style="{StaticResource RightTab}" Margin="0 0 -1 0">
                                 
-                                <TabControl x:Name="Keypad_TabMenu" MaxWidth="260" MaxHeight="460" Style="{StaticResource mainTabControlStyle}">
+                                <TabControl x:Name="Keypad_TabMenu" MaxWidth="260" MaxHeight="465" Style="{StaticResource mainTabControlStyle}">
                                     <!-- NUMERICAL TAB-->
-                                    <TabItem Header="Numbers" Style="{StaticResource keypadTab}">
+                                    <TabItem Header="Numbers" ToolTip="Keypad for Numerical Values" Style="{StaticResource keypadTab}">
                                         <StackPanel Orientation="Horizontal">
                                             <WrapPanel x:Name="numberPanel" Margin="3 0 3 0" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="400">
                                                 <!-- FIRST ROW OF 3 ITEMS/FUNCTIONS -->
-                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="30" Click="OnLessThan_Clicked">
+                                                <Button x:Name="lessThen_Btn" ToolTip="Less Than" Style="{StaticResource kepadBtns_Style}" FontSize="30" Click="OnLessThan_Clicked">
                                                     <Image Source="../images/numerical/lessThan.png" Height="40"/>
                                                 </Button>
-                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="30" Click="OnEqual_Clicked">
+                                                <Button x:Name="equals_Btn" ToolTip="'='" Style="{StaticResource kepadBtns_Style}" FontSize="30" Click="OnEqual_Clicked">
                                                     <Image Source="../images/arithmetic/equals.png" Height="40"/>
                                                 </Button>
-                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="30" Click="OnGreaterThan_Clicked">
+                                                <Button x:Name="greaterThan_Btn" ToolTip="Greater Than" Style="{StaticResource kepadBtns_Style}" FontSize="30" Click="OnGreaterThan_Clicked">
                                                     <Image Source="../images/numerical/moreThan.png" Height="40"/>
                                                 </Button>
                                                 <!-- SECOND ROW OF 3 ITEMS/FUNCTIONS -->
-                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On7_Clicked">
+                                                <Button x:Name="no7_Btn" ToolTip="Numerical Value - '7'" Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On7_Clicked">
                                                     <Image Source="../images/numerical/seven.png" Height="40"/>
                                                 </Button>
-                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On8_Clicked">
+                                                <Button x:Name="no8_Btn" ToolTip="Numerical Value - '8'" Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On8_Clicked">
                                                     <Image Source="../images/numerical/eight.png" Height="40"/>
                                                 </Button>
-                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On9_Clicked">
+                                                <Button x:Name="no9_Btn" ToolTip="Numerical Value - '9'" Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On9_Clicked">
                                                     <Image Source="../images/numerical/nine.png" Height="40"/>
                                                 </Button>
                                                 <!-- THIRD ROW OF 3 ITEMS/FUNCTIONS -->
-                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On4_Clicked">
+                                                <Button x:Name="no4_Btn" ToolTip="Numerical Value - '4'" Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On4_Clicked">
                                                     <Image Source="../images/numerical/four.png" Height="40"/>
                                                 </Button>
-                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On5_Clicked">
+                                                <Button x:Name="no5_Btn" ToolTip="Numerical Value - '5'" Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On5_Clicked">
                                                     <Image Source="../images/numerical/five.png" Height="40"/>
                                                 </Button>
-                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On6_Clicked">
+                                                <Button x:Name="no6_Btn" ToolTip="Numerical Value - '6'" Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On6_Clicked">
                                                     <Image Source="../images/numerical/six.png" Height="40"/>
                                                 </Button>
                                                 <!-- FOURTH ROW OF 3 ITEMS/FUNCTIONS -->
-                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On1_Clicked">
+                                                <Button x:Name="no1_Btn" ToolTip="Numerical Value -'1'" Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On1_Clicked">
                                                     <Image Source="../images/numerical/one.png" Height="40"/>
                                                 </Button>
-                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On2_Clicked">
+                                                <Button x:Name="no2_Btn" ToolTip="Numerical Value - '2'" Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On2_Clicked">
                                                     <Image Source="../images/numerical/two.png" Height="40"/>
                                                 </Button>
-                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On3_Clicked">
+                                                <Button  x:Name="no3_Btn" ToolTip="Numerical Value - '3'" Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On3_Clicked">
                                                     <Image Source="../images/numerical/three.png" Height="40"/>
                                                 </Button>
                                                 <!-- FIFTH ROW OF 3 ITEMS/FUNCTIONS -->
-                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On0_Clicked">
+                                                <Button x:Name="no0_Btn" ToolTip="Numerical Value - '0'" Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="On0_Clicked">
                                                     <Image Source="../images/numerical/zero.png" Height="40"/>
                                                 </Button>
-                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="OnDecimal_Clicked">
+                                                <Button x:Name="decimal_Btn" ToolTip="'.'" Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="OnDecimal_Clicked">
                                                     <Image Source="../images/numerical/decimal.png" Height="40"/>
                                                 </Button>
-                                                <Button Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="OnAns_Clicked">
+                                                <Button  x:Name="ans_Btn" ToolTip="'Ans'" Style="{StaticResource kepadBtns_Style}" FontSize="24" Click="OnAns_Clicked">
                                                     <Image Source="../images/numerical/ans.png" Height="40"/>
                                                 </Button>
                                             </WrapPanel>
                                         </StackPanel>
                                     </TabItem>
                                     <!-- ARITHMETIC FUNCTIONS TAB -->
-                                    <TabItem Header="Arithmetic Functions" Style="{StaticResource keypadTab}">
+                                    <TabItem Header="Arithmetic Functions" ToolTip="Keypad for Arithmetic Functions" Style="{StaticResource keypadTab}">
                                         <StackPanel Orientation="Horizontal">
                                             
                                             <WrapPanel x:Name="functionPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="400" MouseRightButtonDown="OnDrag">
                                                 <!-- FIRST ROW OF 3 ITEMS/FUNCTIONS -->
                                                 <!-- LEFT BRACKET BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnLeftBracket_Clicked">
+                                                <Button  x:Name="lBracket_Btn" ToolTip="Arithmetic Value - '('" Style="{StaticResource kepadBtns_Style}" Click="OnLeftBracket_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/leftBracket.png" Height="40"/>
                                                         <!--<TextBlock Text="&#x2b;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -447,7 +462,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- INDICE BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnApprox_Clicked">
+                                                <Button  x:Name="approx_Btn" ToolTip="Arithmetic Value - 'approx'" Style="{StaticResource kepadBtns_Style}" Click="OnApprox_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/numerical/approx.png" Height="40"/>
                                                         <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -455,7 +470,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- RIGHT BRACKET BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnRightBracket_Clicked">
+                                                <Button x:Name="rBracket_Btn" ToolTip="Arithmetic Value - ')'" Style="{StaticResource kepadBtns_Style}" Click="OnRightBracket_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/rightBracket.png" Height="40"/>
                                                         <!--<TextBlock Text="&#x2d;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -464,7 +479,7 @@
                                                 </Button>
                                                 <!-- SECOND ROW OF 3 ITEMS/FUNCTIONS -->
                                                 <!-- ADDITION BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnAdd_Clicked">
+                                                <Button x:Name="add_Btn" ToolTip="Arithmetic Value - '+'" Style="{StaticResource kepadBtns_Style}" Click="OnAdd_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/add.png" Height="40"/>
                                                         <!--<TextBlock Text="&#xd7;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -472,7 +487,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- SUBTRACTION BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnSub_Clicked">
+                                                <Button  x:Name="sub_Btn" ToolTip="Arithmetic Value - '-'" Style="{StaticResource kepadBtns_Style}" Click="OnSub_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/sub.png" Height="40"/>
                                                         <!--<TextBlock Text="&#xf7;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -480,7 +495,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- INDICE BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnIndice_Clicked">
+                                                <Button x:Name="indice_Btn" ToolTip="Arithmetic Value - '^'" Style="{StaticResource kepadBtns_Style}" Click="OnIndice_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/indice.png" Height="40"/>
                                                         <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -489,7 +504,7 @@
                                                 </Button>
                                                 <!-- THIRD ROW OF 3 ITEMS/FUNCTIONS -->
                                                 <!-- MULTIPLICATION BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnMul_Clicked">
+                                                <Button x:Name="mul_Btn" ToolTip="Arithmetic Value - '*'" Style="{StaticResource kepadBtns_Style}" Click="OnMul_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/mul.png" Height="40"/>
                                                         <!--<TextBlock Text="&#x2b;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -497,7 +512,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- DIVISION BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnDiv_Clicked">
+                                                <Button x:Name="div_Btn" ToolTip="Arithmetic Value - '/'" Style="{StaticResource kepadBtns_Style}" Click="OnDiv_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/div.png" Height="40"/>
                                                         <!--<TextBlock Text="&#x2d;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -505,7 +520,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- SQUARE ROOT BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnSqrt_Clicked">
+                                                <Button x:Name="sqrt_Btn" ToolTip="Arithmetic Value - '\sqrt" Style="{StaticResource kepadBtns_Style}" Click="OnSqrt_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/sqrt.png" Height="40"/>
                                                         <!--<TextBlock Text="&#x221a;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -514,7 +529,7 @@
                                                 </Button>
                                                 <!-- FOURTH ROW OF 3 ITEMS/FUNCTIONS -->
                                                 <!-- PERCENTAGE BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnPercent_Clicked">
+                                                <Button x:Name="percent_Btn" ToolTip="Arithmetic Value - '%'" Style="{StaticResource kepadBtns_Style}" Click="OnPercent_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/percent.png" Height="40"/>
                                                         <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -522,7 +537,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- PI BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnPi_Clicked">
+                                                <Button x:Name="pi_Btn" ToolTip="Arithmetic Value - '\pi'" Style="{StaticResource kepadBtns_Style}" Click="OnPi_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/pi.png" Height="40"/>
                                                         <!--<TextBlock Text="&#960;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -530,7 +545,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- N SQUARE ROOT BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnN_Sqrt_Clicked">
+                                                <Button x:Name="nSqrt_Btn" ToolTip="Arithmetic Value - '\nSqrt'" Style="{StaticResource kepadBtns_Style}" Click="OnN_Sqrt_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/nSqrt.png"  Height="40"/>
                                                         <!--<TextBlock Text="&#x221a;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -539,7 +554,7 @@
                                                 </Button>
                                                 <!-- FIFTH ROW OF 3 ITEMS/FUNCTIONS -->
                                                 <!-- SIN BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnSin_Clicked">
+                                                <Button  x:Name="sin_Btn" ToolTip="Arithmetic Value - '\sin'" Style="{StaticResource kepadBtns_Style}" Click="OnSin_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/sin.png" Height="40"/>
                                                         <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -547,7 +562,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- COS BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnCos_Clicked">
+                                                <Button  x:Name="cos_Btn" ToolTip="Arithmetic Value - '\cos'" Style="{StaticResource kepadBtns_Style}" Click="OnCos_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/cos.png" Height="40"/>
                                                         <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -555,7 +570,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- TAN BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnTan_Clicked">
+                                                <Button  x:Name="tan_Btn" ToolTip="Arithmetic Value - '\tan'" Style="{StaticResource kepadBtns_Style}" Click="OnTan_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/tan.png" Height="40"/>
                                                         <!--<TextBlock Text="" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -566,26 +581,26 @@
                                         </StackPanel>
                                     </TabItem>
                                     <!-- GREEK CHARACTERS TAB-->
-                                    <TabItem Header="Greek Characters" Style="{StaticResource keypadTab}" >
+                                    <TabItem Header="Greek Characters" ToolTip="Keypad for Greek Characters" Style="{StaticResource keypadTab}" >
                                         <StackPanel Orientation="Horizontal">
                                             <WrapPanel x:Name="greekPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="400">
                                                 <!-- FIRST ROW OF 3 GREEK CHARACTERS -->
                                                 <!-- ALPHA BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnAlpha_Clicked">
+                                                <Button x:Name="alpha_Btn" ToolTip="Greek Character - '\alpha'" Style="{StaticResource kepadBtns_Style}" Click="OnAlpha_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/alpha.png" Height="40" />
                                                         <TextBlock Text="[Alpha]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- BETA BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnBeta_Clicked">
+                                                <Button x:Name="beta_Btn" ToolTip="Greek Character - '\beta'" Style="{StaticResource kepadBtns_Style}" Click="OnBeta_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/beta.png" Height="40"/>
                                                         <TextBlock Text="[Beta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- DELTA BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnDelta_Clicked">
+                                                <Button x:Name="upperDelta_Btn" ToolTip="Greek Character - '\Delta'" Style="{StaticResource kepadBtns_Style}" Click="OnDelta_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/Delta.png" Height="40"/>
                                                         <TextBlock Text="[Delta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
@@ -593,21 +608,21 @@
                                                 </Button>
                                                 <!-- SECOND ROW OF 3 GREEK CHARACTERS -->
                                                 <!-- DELTA (LOWER CASE) BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="On_delta_Clicked">
+                                                <Button x:Name="lowerDelta_Btn" ToolTip="Greek Character - '\delta'" Style="{StaticResource kepadBtns_Style}" Click="On_delta_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/delt.png" Height="40"/>
                                                         <TextBlock Text="[delta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- EPSILON BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnEpsilon_Clicked">
+                                                <Button x:Name="epsilon_Btn" ToolTip="Greek Character - '\epsilon'" Style="{StaticResource kepadBtns_Style}" Click="OnEpsilon_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/epsilon.png" Height="40"/>
                                                         <TextBlock Text="[Epsilon]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- GAMMA BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnGamma_Clicked">
+                                                <Button x:Name="gamma_Btn" ToolTip="Greek Character - '\gamma'" Style="{StaticResource kepadBtns_Style}" Click="OnGamma_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/gamma.png" Height="40"/>
                                                         <TextBlock Text="[Gamma]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
@@ -615,21 +630,21 @@
                                                 </Button>
                                                 <!-- THIRD ROW OF 3 GREEK CHARACTERS -->
                                                 <!-- LAMBDA BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnLambda_Clicked">
+                                                <Button x:Name="lambda_Btn" ToolTip="Greek Character - '\lambda'" Style="{StaticResource kepadBtns_Style}" Click="OnLambda_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/lambda.png" Height="40"/>
                                                         <TextBlock Text="[Lambda]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- THETA BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnTheta_Clicked">
+                                                <Button x:Name="theta_Btn" ToolTip="Greek Character - '\theta'" Style="{StaticResource kepadBtns_Style}" Click="OnTheta_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/theta.png" Height="40"/>
                                                         <TextBlock Text="[Theta]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- MU BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnMu_Clicked">
+                                                <Button x:Name="mu_Btn" ToolTip="Greek Character - '\mu'" Style="{StaticResource kepadBtns_Style}" Click="OnMu_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/mu.png" Height="40"/>
                                                         <TextBlock Text="[Mu]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
@@ -637,21 +652,21 @@
                                                 </Button>
                                                 <!-- FOURTH ROW OF 3 GREEK CHARACTERS -->
                                                 <!-- OMEGA BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnOmega_Clicked">
+                                                <Button x:Name="upperOmega_Btn" ToolTip="Greek Character - '\Omega'" Style="{StaticResource kepadBtns_Style}" Click="OnOmega_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/Ohm.png" Height="40"/>
                                                         <TextBlock Text="[Omega]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- OMEGA (LOWER CASE) BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="On_omega_Clicked">
+                                                <Button x:Name="lowerOmega_Btn" ToolTip="Greek Character - '\omega'" Style="{StaticResource kepadBtns_Style}" Click="On_omega_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/omega.png" Height="40"/>
                                                         <TextBlock Text="[omega]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- PHI BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnPhi_Clicked">
+                                                <Button x:Name="phi_Btn" ToolTip="Greek Character - '\phi'" Style="{StaticResource kepadBtns_Style}" Click="OnPhi_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/phi.png" Height="40"/>
                                                         <TextBlock Text="[Phi]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
@@ -659,21 +674,21 @@
                                                 </Button>
                                                 <!-- FIFTH ROW OF 3 GREEK CHARACTERS -->
                                                 <!-- PSI BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnPsi_Clicked">
+                                                <Button x:Name="psi_Btn" ToolTip="Greek Character - '\psi'" Style="{StaticResource kepadBtns_Style}" Click="OnPsi_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/psi.png" Height="40"/>
                                                         <TextBlock Text="[Psi]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- RHO BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnRho_Clicked">
+                                                <Button x:Name="rho_Btn" ToolTip="Greek Character - '\rho'" Style="{StaticResource kepadBtns_Style}" Click="OnRho_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/rho.png" Height="40"/>
                                                         <TextBlock Text="[Rho]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- SIGMA BUTTON-->
-                                                <Button Style="{StaticResource kepadBtns_Style}" Click="OnSigma_Clicked">
+                                                <Button x:Name="sigma_Btn" ToolTip="Greek Character - '\Sigma'" Style="{StaticResource kepadBtns_Style}" Click="OnSigma_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/greek/Sigma.png" Height="40"/>
                                                         <TextBlock Text="[Sigma]" TextWrapping="Wrap" HorizontalAlignment="Center"/>
@@ -684,7 +699,138 @@
                                     </TabItem>
                                 </TabControl>
                             </TabItem>
-                            <TabItem Header="Spare" Style="{StaticResource RightTab}" Margin="0 0 -1 0"></TabItem>
+                            <TabItem Header="Clock and Calendar" ToolTip="Clock and Calendar Features" Style="{StaticResource RightTab}" Margin="0 0 -1 0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Border Margin="5" Padding="5" BorderThickness="1" BorderBrush="{StaticResource MainColour_BorderBrush}" Grid.Row="0">
+                                        <Grid x:Name="clockGrid">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="20"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            
+                                            <TextBlock x:Name="clockTitle" Text="SolveIT Clock" Style="{StaticResource clockCalTextblock_Style}" Grid.Row="0"/>
+
+                                            <TabControl x:Name="clockFunctions" Grid.Row="1" Style="{StaticResource mainTabControlStyle}">
+                                                <TabItem x:Name="clock" ToolTip="Digital Clock" Style="{StaticResource mainTab}">
+                                                    <TabItem.Header>
+                                                        <Image Source="../images/icons/clock.png" Width="25"/>
+                                                    </TabItem.Header>
+                                                    <Grid Background="{StaticResource MainColour_MainBackground}">
+                                                        <StackPanel Style="{StaticResource clock_StackPanel}">
+                                                            <Label x:Name="clockTime" Content="00:00:00" Style="{StaticResource TimeLabel_Style}" FontSize="40"/>
+                                                            <Label x:Name="currentDay" Content="Monday" Style="{StaticResource TimeLabel_Style}" FontSize="20"/>
+                                                            <Label x:Name="dateTime" Content="00.00.0000" Style="{StaticResource TimeLabel_Style}" FontSize="20"/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </TabItem>
+
+                                                <TabItem x:Name="stopwatch" ToolTip="SolveIT Stopwatch" Style="{StaticResource mainTab}">
+                                                    <TabItem.Header>
+                                                        <Image Source="../images/icons/stopwatch.png" Width="25"/>
+                                                    </TabItem.Header>
+                                                    <Grid x:Name="stopwatchGrid" Background="{StaticResource MainColour_MainBackground}">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="2*"/>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="2*"/>
+                                                        </Grid.RowDefinitions>
+
+                                                        <StackPanel x:Name="stopwatchFace_Panel" Orientation="Horizontal" Style="{StaticResource clock_StackPanel}" Grid.Row="0">
+                                                            <Label x:Name="sWatchLabel" Content="00:00:00:00" Style="{StaticResource TimeLabel_Style}" FontSize="30"/>
+                                                        </StackPanel>
+
+                                                        <StackPanel x:Name="stopwatchBtns_Panel" Orientation="Horizontal" Style="{StaticResource clock_StackPanel}"  MinHeight="40" Grid.Row="1" Margin=" 0 -10 0 0">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Button x:Name="start_StopBtn" Content="Start" Style="{StaticResource clockBtns_Style}" Grid.Column="0" Click="StartStopwatch_Clicked"/>
+                                                                <Button x:Name="stop_StopBtn" Content="Stop" Style="{StaticResource clockBtns_Style}" Grid.Column="1" Click="StopStopwatch_Clicked"/>
+                                                                <Button x:Name="lap_StopBtn" Content="Lap" Style="{StaticResource clockBtns_Style}" Grid.Column="2" Click="LapStopwatch_Clicked"/>
+                                                                <Button x:Name="reset_StopBtn" Content="Reset" Style="{StaticResource clockBtns_Style}" Grid.Column="3" Click="ResetStopwatch_Clicked"/>
+                                                            </Grid>
+                                                        </StackPanel>
+
+                                                        <StackPanel x:Name="lap_Panel" Orientation="Horizontal" Style="{StaticResource clock_StackPanel}" Height="50" Grid.Row="2">
+                                                            <ListBox x:Name="lapTimes_List" Grid.Column="0" Width="145" HorizontalAlignment="Left" Margin="3"  Style="{StaticResource stopListBox_Style}"/>
+                                                            <Button x:Name="clearLap_StopBtn" Content="Clear" Style="{StaticResource clockBtns_Style}" Click="ClearLapStopwatch_Clicked"/>
+                                                        </StackPanel>
+
+                                                    </Grid>
+                                                </TabItem>
+
+                                                <TabItem x:Name="timer" ToolTip="SolveIT Timer" Style="{StaticResource mainTab}">
+                                                    <TabItem.Header>
+                                                        <Image Source="../images/icons/timer.png" Width="25"/>
+                                                    </TabItem.Header>
+
+                                                    <Grid x:Name="timer_Grid" Background="{StaticResource MainColour_MainBackground}">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition/>
+                                                            <ColumnDefinition/>
+                                                            <ColumnDefinition/>
+                                                            <ColumnDefinition/>
+                                                        </Grid.ColumnDefinitions>
+                                                        
+                                                        
+                                                        <Button x:Name="hourUp_Btn" ToolTip="Increase Hour" Style="{StaticResource kepadBtns_Style}" Grid.Row="0" Grid.Column="0" Click="OnHourUp_Clicked">
+                                                            <Image Source="../images/icons/up.png" Height="40"/>
+                                                        </Button>
+                                                        <Button x:Name="minUp_Btn" ToolTip="Increase Minute" Style="{StaticResource kepadBtns_Style}" Grid.Row="0" Grid.Column="1" Click="OnMinUp_Clicked">
+                                                            <Image Source="../images/icons/up.png" Height="40"/>
+                                                        </Button>
+                                                        <Button x:Name="secUp_Btn" ToolTip="Increase Second" Style="{StaticResource kepadBtns_Style}" Grid.Row="0" Grid.Column="2" Click="OnSecUp_Clicked">
+                                                            <Image Source="../images/icons/up.png" Height="40"/>
+                                                        </Button>
+
+                                                        <Label x:Name="hoursLabel" Content="00" Style="{StaticResource TimeLabel_Style}" FontSize="30" Grid.Row="1" Grid.Column="0" />
+                                                        <Label x:Name="minsLabel" Content="00" Style="{StaticResource TimeLabel_Style}" FontSize="30" Grid.Row="1" Grid.Column="1" />
+                                                        <Label x:Name="secsLabel" Content="00" Style="{StaticResource TimeLabel_Style}" FontSize="30" Grid.Row="1" Grid.Column="2" />
+
+
+                                                        <Button x:Name="hourDown_Btn" ToolTip="Decrease Hour" Style="{StaticResource kepadBtns_Style}" Grid.Row="2" Grid.Column="0" Click="OnHourDown_Clicked">
+                                                            <Image Source="../images/icons/down.png" Height="40"/>
+                                                        </Button>
+                                                        <Button x:Name="minDown_Btn" ToolTip="Decrease Minute" Style="{StaticResource kepadBtns_Style}" Grid.Row="2" Grid.Column="1" Click="OnMinDown_Clicked">
+                                                            <Image Source="../images/icons/down.png" Height="40"/>
+                                                        </Button>
+                                                        <Button x:Name="secDown_Btn" ToolTip="Decrease Seconds" Style="{StaticResource kepadBtns_Style}" Grid.Row="2" Grid.Column="2" Click="OnSecDown_Clicked">
+                                                            <Image Source="../images/icons/down.png" Height="40"/>
+                                                        </Button>
+                                                        
+                                                    </Grid>
+                                                </TabItem>
+                                            </TabControl>
+                                        </Grid>
+                                    </Border>
+
+                                    <Border Margin="5" Padding="5" BorderThickness="1" BorderBrush="{StaticResource MainColour_BorderBrush}" Grid.Row="1">
+                                        <Grid x:Name="calendarGrid">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="20"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+
+                                            <TextBlock x:Name="calendarTitle" Text="SolveIT Calendar" Grid.Row="0"/>
+
+                                            <Calendar x:Name="calendar" Grid.Row="1"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </TabItem>
                         </TabControl>
                     </Grid>
                 </Grid>
