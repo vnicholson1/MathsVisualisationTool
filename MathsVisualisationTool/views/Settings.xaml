@@ -23,6 +23,25 @@
                 <!--MAIN TOP MENU - HELP DROPDOWN-->
                 <MenuItem Header="_Help"></MenuItem>
             </Menu>
+
+            <Grid x:Name="settingsGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                       
+                <Expander Header="Layout" Grid.Row="0">
+                    <Border x:Name="LayoutBorder" Background="Transparent" BorderBrush="Black" BorderThickness="1">
+                        
+                    </Border>
+                </Expander>
+                <Expander Header="Preferences" Grid.Row="1">
+                <Border x:Name="prefBorder" Background="Transparent" BorderBrush="Black" BorderThickness="1">
+
+                </Border>
+            </Expander>
+            </Grid>
+
         </DockPanel>
 
     </Grid>
