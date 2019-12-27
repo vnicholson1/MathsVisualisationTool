@@ -66,7 +66,7 @@ namespace MathsVisualisationTool
      */
         private void OnBasicVid_Clicked(object sender, RoutedEventArgs e)
         {
-            VideoPlayer.Source = new Uri(@"C:\Users\andy\Documents\GitHub\MathsVisualisationTool\manuals\clips\basicInput_V1.mpg");
+            VideoPlayer.Source = new Uri("../../manuals/clips/basicInput_V1.mpg", UriKind.Relative);
         }
         #endregion
         /******************************* END OF FUNCTIONS FOR VIDEO LIBRARY *********************************/

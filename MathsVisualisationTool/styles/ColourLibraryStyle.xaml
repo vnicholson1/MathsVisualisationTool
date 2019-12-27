@@ -49,10 +49,6 @@
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
 
-    <!-- COLOURS USED FOR COMPONENTS THAT HOLD/USE TEXT -->
-    <SolidColorBrush x:Key="ListBox_Background" Color="#2D2D30"/>
-    <SolidColorBrush x:Key="ListBox_Foreground" Color="#F2F2F2"/>
-
     <!-- COLOURS -->
     <SolidColorBrush x:Key="Background_ToolBar" Color="#3F3F46"/>
     <SolidColorBrush x:Key="Foreground_ToolBar" Color="#F2F2F2"/>

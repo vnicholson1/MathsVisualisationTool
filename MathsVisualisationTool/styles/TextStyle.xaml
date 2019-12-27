@@ -4,11 +4,35 @@
    
     <!-- LIST BOX - STYLING FOR LIST BOXS -->
     <Style x:Key="ListBox_Style" TargetType="{x:Type ListBox}">
-        <Setter Property="Background" Value="{StaticResource ListBox_Background}"/>
-        <Setter Property="Foreground" Value="{StaticResource ListBox_Foreground}"/>
+        <Setter Property="Background" Value="{StaticResource MainColour_MainBackground}"/>
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
         <Setter Property="FontSize" Value="24"/>
         <Setter Property="Margin" Value="3 3 3 3"/>
         <Setter Property="Padding" Value="5"/>
-        <Setter Property="BorderBrush" Value="{StaticResource ListBox_Background}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource MainColour_MainBackground}"/>
+    </Style>
+
+    <!-- STOPWATCH LIST BOX - STYLING FOR LIST BOXS -->
+    <Style x:Key="stopListBox_Style" TargetType="{x:Type ListBox}">
+        <Setter Property="Background" Value="{StaticResource MainColour_SubBackground}"/>
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Margin" Value="3 3 3 3"/>
+        <Setter Property="Padding" Value="2 0 2 0"/>
+        <Setter Property="BorderBrush" Value="{StaticResource MainColour_MainBackground}"/>
+    </Style>
+
+    <!-- LABELS - STYLING FOR LABELS CONTAINING THE CLOCK FEATURES -->
+    <Style x:Key="TimeLabel_Style" TargetType="{x:Type Label}">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
+    </Style>
+    
+    <!-- TEXT BLOCK - STYLING FOR TEXTBLOCKS THAT LABEL THE CLOCK AND CALENDAR FEATURES -->
+    <Style x:Key="clockCalTextblock_Style" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
     </Style>
 </ResourceDictionary>
