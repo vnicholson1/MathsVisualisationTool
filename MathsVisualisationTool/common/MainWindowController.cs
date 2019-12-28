@@ -68,6 +68,11 @@ namespace MathsVisualisationTool
             l = new LiveChartsDrawer(this);
             l.Draw();
             this.DataContext = l;
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////
+            ///To change the colour of the tooltip - LvChrt is an object pointing to the LiveCharts container.
+            ///https://lvcharts.net/App/examples/v1/wf/Tooltips%20and%20Legends
+            LvChrt.DataTooltip.Background = Brushes.Black;
             #endregion
             /********************************* END OF LIVE CHART FUNCTIONS **********************************/
         }
@@ -323,8 +328,6 @@ namespace MathsVisualisationTool
                     try
                     {
                         Results.Items.Add(i.RunInterpreter(inputBox.Text));
-                        //Update the LiveChartsDrawer onto the mainWindow.
-                        this.DataContext = l;
                     }
                     catch (Exception exp)
                     {
@@ -359,8 +362,6 @@ namespace MathsVisualisationTool
             try
             {
                 string output = interp.RunInterpreter(content);
-                //Update the LiveChartsDrawer onto the mainWindow.
-                this.DataContext = l;
                 Console.WriteLine(output); //output onto the screen
             }
             catch (Exception e)

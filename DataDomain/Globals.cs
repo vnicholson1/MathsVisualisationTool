@@ -17,6 +17,10 @@ namespace DataDomain
             PLOT //supported functions
         };
 
+        //Config variables to determine whether to draw the graph onto the canvas, live charts or both.
+        public static bool SHOW_GRAPH_CANVAS = true;
+        public static bool SHOW_LIVE_CHARTS = true;
+
         //record the string rep of the keywords.
         public static List<string> keyWords = new List<string>() { "plot" };
         //record the SUPPORTED_TOKENS rep of the keywords.

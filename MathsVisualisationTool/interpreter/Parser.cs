@@ -73,14 +73,21 @@ namespace MathsVisualisationTool
                     plot.getValues();
 
                     //Draw the graph onto the canvas.
-                    GraphDrawer gd = new GraphDrawer(plot){Topmost = true};
-                    gd.Show();
-
+                    GraphDrawer gd = new GraphDrawer(plot) { Topmost = true };
+                    if(Globals.SHOW_GRAPH_CANVAS)
+                    {
+                        gd.Show();
+                    }
+                    
                     //Draw it also onto LiveCharts.
-                    MainWindow winRef = l.window;
-                    l = new LiveChartsDrawer(winRef);
                     l.dataPoints = gd.plotFunc.dataPoints;
                     l.canvasXLabels = gd.Xlabels;
+                    l.Xname = gd.plotFunc.X;
+                    l.Yname = gd.plotFunc.Y;
+                    if(Globals.SHOW_LIVE_CHARTS)
+                    {
+                        l.Draw();
+                    }
 
                     return double.NaN;
                 }
