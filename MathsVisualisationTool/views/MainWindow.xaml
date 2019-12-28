@@ -178,7 +178,7 @@
                         <RowDefinition Height="*" MinHeight="320"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Name="varGrid" Margin="3" Grid.Row="0">
+                    <Grid Name="varGrid" Margin="3" Grid.Row="0" MaxHeight="270">
                         <DataGrid Name="varTable" AutoGenerateColumns="True" ColumnWidth="0.5*" Grid.Row="0" Style="{StaticResource DataGrid_Style}" IsReadOnly="True" RowHeaderWidth="0" />
                     </Grid>
 

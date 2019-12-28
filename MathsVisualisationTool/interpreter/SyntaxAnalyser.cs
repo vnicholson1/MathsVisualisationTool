@@ -127,6 +127,15 @@ namespace MathsVisualisationTool
                         {
                             throw new SyntaxErrorException("Assignment operator found in unexpected token position - " + i + ".");
                         }
+
+                        if(gatheredTokens[(i+1)].GetType() != Globals.SUPPORTED_TOKENS.PLUS
+                            && gatheredTokens[(i + 1)].GetType() != Globals.SUPPORTED_TOKENS.MINUS
+                            && gatheredTokens[(i + 1)].GetType() != Globals.SUPPORTED_TOKENS.CONSTANT
+                            && gatheredTokens[(i + 1)].GetType() != Globals.SUPPORTED_TOKENS.VARIABLE_NAME
+                            && gatheredTokens[(i + 1)].GetType() != Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
+                        {
+                            throw new SyntaxErrorException("Invalid token " + gatheredTokens[(i+1)].GetValue()  + " found after assignment operator.");
+                        }
                         break;
 
                     case Globals.SUPPORTED_TOKENS.MINUS:
