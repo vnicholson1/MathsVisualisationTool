@@ -1,0 +1,2 @@
+Cannot do assignment with negative numbers ' x = -3' doesn't work.
+Plot function clears the variable file.

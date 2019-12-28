@@ -5,9 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MathsVisualisationTool"
         mc:Ignorable="d"
+        WindowStyle="ThreeDBorderWindow"
         Icon="../images/icons/lifebuoy.png"
         Background="{StaticResource MainColour_MainBackground}"
-        Title="Help Library" Height="700" Width="1100">
+        Title="Help Library" 
+        Height="700"
+        Width="1100">
 
     <Grid>
         <DockPanel LastChildFill="True">
@@ -89,16 +92,16 @@
                             <StackPanel Grid.Row="1">
                                 <Label Name="lblStatus" Content="Not playing..." HorizontalContentAlignment="Center" Margin="5" />
                                 <WrapPanel HorizontalAlignment="Center">
-                                    <Button>
+                                    <Button x:Name="skipStartBtn" Style="{StaticResource kepadBtns_Style}">
                                         <Image Source="../images/icons/skipStart.png" Height="40"/>
                                     </Button>
-                                    <Button x:Name="playBtn" Click="OnPlay_Clicked">
+                                    <Button x:Name="playBtn" Style="{StaticResource kepadBtns_Style}" Click="OnPlay_Clicked">
                                         <Image Source="../images/icons/play.png" Height="40"/>
                                     </Button>
-                                    <Button x:Name="pauseBtn" Click="OnPause_Clicked">
+                                    <Button x:Name="pauseBtn" Style="{StaticResource kepadBtns_Style}" Click="OnPause_Clicked">
                                         <Image Source="../images/icons/pause.png" Height="40"/>
                                     </Button>
-                                    <Button>
+                                    <Button x:Name="skipEndBtn" Style="{StaticResource kepadBtns_Style}"> 
                                         <Image Source="../images/icons/skipEnd.png" Height="40"/>
                                     </Button>
                                 </WrapPanel>
