@@ -99,6 +99,7 @@
     <Compile Include="common\GraphDrawerController.cs" />
     <Compile Include="common\HelpLibraryController.cs" />
     <Compile Include="common\KeyPadController.cs" />
+    <Compile Include="common\LiveChartsDrawerController.cs" />
     <Compile Include="common\SettingsController.cs" />
     <Compile Include="variables\VariableJSONObject.cs" />
     <Compile Include="functions\PlotFunction.cs" />
@@ -192,8 +193,6 @@
     <Compile Include="interpreter\Parser.cs" />
     <Compile Include="interpreter\Preprocessor.cs" />
     <Compile Include="interpreter\SyntaxAnalyser.cs" />
-    <Compile Include="ParseTree\ParseTree.cs" />
-    <Compile Include="ParseTree\ParseTreeNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

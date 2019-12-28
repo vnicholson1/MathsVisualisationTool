@@ -16,11 +16,11 @@ namespace MathsVisualisationTool
         private Parser parser;
         private Hashtable vars;
 
-        public Interpreter()
+        public Interpreter(ref LiveChartsDrawer l)
         {
             lexer = new Lexer();
             vars = VariableFileHandle.getVariables();
-            parser = new Parser(vars);
+            parser = new Parser(vars, ref l);
         }
 
         /// <summary>
@@ -55,6 +55,7 @@ namespace MathsVisualisationTool
             //VERY HACKY SOLUTION - WILL OPTIMISE IN LATER COMMITS.
             if(double.IsNaN(result))
             {
+                //Plot function has been called.
                 if(parser.varName is null)
                 {
                     return "\tRefer to figure.";
