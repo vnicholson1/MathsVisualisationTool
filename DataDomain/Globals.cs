@@ -18,7 +18,7 @@ namespace DataDomain
         };
 
         //Config variables to determine whether to draw the graph onto the canvas, live charts or both.
-        public static bool SHOW_GRAPH_CANVAS = true;
+        public static bool SHOW_GRAPH_CANVAS = false;
         public static bool SHOW_LIVE_CHARTS = true;
 
         //record the string rep of the keywords.

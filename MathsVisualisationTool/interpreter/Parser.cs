@@ -25,21 +25,26 @@ namespace MathsVisualisationTool
         public string varName = null;
         //Variable for holding a reference to the LiveChartsDrawer.
         private LiveChartsDrawer l = null;
+        //Write to Variable File?
+        private readonly bool WRITE_TO_FILE; 
 
         public Parser()
         {
             variables = new Hashtable();
+            WRITE_TO_FILE = false;
         }
 
         public Parser(Hashtable variables)
         {
             this.variables = variables;
+            WRITE_TO_FILE = true;
         }
 
         public Parser(Hashtable variables,ref LiveChartsDrawer l)
         {
             this.variables = variables;
             this.l = l;
+            WRITE_TO_FILE = true;
         }
 
         /// <summary>
@@ -116,7 +121,11 @@ namespace MathsVisualisationTool
 
             double value = analyseExpressions(double.NaN);
 
-            VariableFileHandle.saveVariables(variables);
+            if(WRITE_TO_FILE)
+            {
+                VariableFileHandle.saveVariables(variables);
+            }
+            
 
             return value;
         }
