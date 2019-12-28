@@ -33,76 +33,44 @@ namespace MathsVisualisationTool
             set { inputBox.Text = value; }
         }
 
+        //Fields for the MainWindow Class.
+        LiveChartsDrawer l;
+        //Stop Watch Variables.
         DispatcherTimer dt = new DispatcherTimer();
         Stopwatch stopWatch = new Stopwatch();
         string currentTime = string.Empty;
 
+        /// <summary>
+        /// Constructor for the MainWindow object.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
             inputBox.KeyDown += new KeyEventHandler(InputBox_KeyDown);
+            /**************************************** DATAGRID FUNCTIONS ************************************/
+            #region DataGrid
             //To load the variables into the datagrid.
             loadVarsIntoDataGrid();
-
             var column = new DataGridTextColumn();
-
+            #endregion
             /************************************************************************************************/
+            /**************************************** CLOCK FUNCTIONS ***************************************/
+            #region Clock
             dt.Tick += new EventHandler(MainStopwatch);
             dt.Tick += new EventHandler(MainClock);
             dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
             //dt.Interval = TimeSpan.FromSeconds(1);
             dt.Start();
+            #endregion
             /************************************************************************************************/
             /************************************* LIVE CHART FUNCTIONS *************************************/
             #region LiveCharts
-            SeriesCollection = new SeriesCollection
-            {
-                new LineSeries
-                {
-                    Title = "Series 1",
-                    Values = new ChartValues<double> { 4, 6, 5, 2 ,4 }
-                },
-                new LineSeries
-                {
-                    Title = "Series 2",
-                    Values = new ChartValues<double> { 6, 7, 3, 4 ,6 },
-                    PointGeometry = null
-                },
-                new LineSeries
-                {
-                    Title = "Series 3",
-                    Values = new ChartValues<double> { 4,2,7,2,7 },
-                    PointGeometry = DefaultGeometries.Square,
-                    PointGeometrySize = 15
-                }
-            };
-
-            Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May" };
-            YFormatter = value => value.ToString("C");
-
-            //modifying the series collection will animate and update the chart
-            SeriesCollection.Add(new LineSeries
-            {
-                Title = "Series 4",
-                Values = new ChartValues<double> { 5, 3, 2, 4 },
-                LineSmoothness = 0, //0: straight lines, 1: really smooth lines
-                PointGeometry = Geometry.Parse("m 25 70.36218 20 -28 -20 22 -8 -6 z"),
-                PointGeometrySize = 50,
-                PointForeground = Brushes.Gray
-            });
-
-            //modifying any series values will also animate and update the chart
-            SeriesCollection[3].Values.Add(5d);
-
-            DataContext = this;
+            l = new LiveChartsDrawer(this);
+            l.Draw();
+            this.DataContext = l;
             #endregion
             /********************************* END OF LIVE CHART FUNCTIONS **********************************/
         }
-
-        public SeriesCollection SeriesCollection { get; set; }
-        public string[] Labels { get; set; }
-        public Func<double, string> YFormatter { get; set; }
-        
 
         /*
          * OnNewNote_Clicked - Handle event if Add New Note button is 
@@ -313,11 +281,13 @@ namespace MathsVisualisationTool
             {
                 Results.Items.Add(">>> \t" + this.inputBox.Text);
                 //Interpreter String called results
-                Interpreter i = new Interpreter();
+                Interpreter i = new Interpreter(ref l);
                 //string output = i.RunInterpreter(inputBox.Text);
                 try
                 {
                     Results.Items.Add(i.RunInterpreter(inputBox.Text));
+                    //Update the LiveChartsDrawer onto the mainWindow.
+                    this.DataContext = l;
                 } catch(Exception exp)
                 {
                     Results.Items.Add(exp.Message);
@@ -349,10 +319,12 @@ namespace MathsVisualisationTool
                 {
                     Results.Items.Add(">>> \t" + this.inputBox.Text);
                     //Interpreter String called results
-                    Interpreter i = new Interpreter();
+                    Interpreter i = new Interpreter(ref l);
                     try
                     {
                         Results.Items.Add(i.RunInterpreter(inputBox.Text));
+                        //Update the LiveChartsDrawer onto the mainWindow.
+                        this.DataContext = l;
                     }
                     catch (Exception exp)
                     {
@@ -382,11 +354,13 @@ namespace MathsVisualisationTool
             string content = inputBox.Text;
             inputBox.Clear();
 
-            Interpreter interp = new Interpreter();
+            Interpreter interp = new Interpreter(ref l);
 
             try
             {
                 string output = interp.RunInterpreter(content);
+                //Update the LiveChartsDrawer onto the mainWindow.
+                this.DataContext = l;
                 Console.WriteLine(output); //output onto the screen
             }
             catch (Exception e)

@@ -99,6 +99,7 @@
     <Compile Include="common\GraphDrawerController.cs" />
     <Compile Include="common\HelpLibraryController.cs" />
     <Compile Include="common\KeyPadController.cs" />
+    <Compile Include="common\LiveChartsDrawerController.cs" />
     <Compile Include="common\SettingsController.cs" />
     <Compile Include="variables\VariableJSONObject.cs" />
     <Compile Include="functions\PlotFunction.cs" />

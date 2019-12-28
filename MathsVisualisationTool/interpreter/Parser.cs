@@ -23,6 +23,8 @@ namespace MathsVisualisationTool
         private Hashtable variables = null;
         //Variable to store the newly added variable.
         public string varName = null;
+        //Variable for holding a reference to the LiveChartsDrawer.
+        private LiveChartsDrawer l = null;
 
         public Parser()
         {
@@ -32,6 +34,12 @@ namespace MathsVisualisationTool
         public Parser(Hashtable variables)
         {
             this.variables = variables;
+        }
+
+        public Parser(Hashtable variables,ref LiveChartsDrawer l)
+        {
+            this.variables = variables;
+            this.l = l;
         }
 
         /// <summary>
@@ -64,8 +72,15 @@ namespace MathsVisualisationTool
                     }
                     plot.getValues();
 
+                    //Draw the graph onto the canvas.
                     GraphDrawer gd = new GraphDrawer(plot){Topmost = true};
                     gd.Show();
+
+                    //Draw it also onto LiveCharts.
+                    MainWindow winRef = l.window;
+                    l = new LiveChartsDrawer(winRef);
+                    l.dataPoints = gd.plotFunc.dataPoints;
+                    l.canvasXLabels = gd.Xlabels;
 
                     return double.NaN;
                 }

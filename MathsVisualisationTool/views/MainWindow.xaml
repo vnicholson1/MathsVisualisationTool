@@ -292,17 +292,19 @@
                                 </StackPanel>
                                 
                             </TabItem>
-                            <TabItem Header="Graphs" ToolTip=" SolveIT Live Charts Display" Style="{StaticResource mainTab}">
+                            <TabItem Header="Graphs" ToolTip="SolveIT Live Charts Display" Style="{StaticResource mainTab}">
                                 <StackPanel x:Name="Graphs_StackPanel">
                                     <StackPanel Style="{StaticResource TabHeaderStackPanel_Style}"/>
                                     <TextBlock Text="Fancy Graphs will go here..."/>
                                     <Grid x:Name="LvChrt_Grid" Height="400">
-                                        <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Bottom" >
+                                        <lvc:CartesianChart Series="{Binding SeriesCollection}" ChartLegend="{x:Null}" >
                                             <lvc:CartesianChart.AxisY>
-                                                <lvc:Axis Title="Sales" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                                                <lvc:Axis x:Name="Y_Axis"></lvc:Axis>
                                             </lvc:CartesianChart.AxisY>
                                             <lvc:CartesianChart.AxisX>
-                                                <lvc:Axis Title="Month" Labels="{Binding Labels}"></lvc:Axis>
+                                                <lvc:Axis x:Name="X_Axis" Labels="{Binding Labels}">
+                                                    
+                                                </lvc:Axis>
                                             </lvc:CartesianChart.AxisX>
                                         </lvc:CartesianChart>
                                     </Grid>
