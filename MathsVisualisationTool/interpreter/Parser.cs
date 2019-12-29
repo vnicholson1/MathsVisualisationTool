@@ -109,6 +109,10 @@ namespace MathsVisualisationTool
                     //create the sin function and find a value.
                     SinFunction s = new SinFunction(tokens, i,false);
                     tokens = s.getNewEquation();
+                } else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.LOG)
+                {
+                    LogFunction l = new LogFunction(tokens, i, true);
+                    tokens = l.getNewEquation();
                 }
             }
             return processTokens(tokens);

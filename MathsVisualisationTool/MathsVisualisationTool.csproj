@@ -102,6 +102,7 @@
     <Compile Include="common\LiveChartsDrawerController.cs" />
     <Compile Include="common\SettingsController.cs" />
     <Compile Include="functions\CosFunction.cs" />
+    <Compile Include="functions\LogFunction.cs" />
     <Compile Include="functions\SinFunction.cs" />
     <Compile Include="functions\TanFunction.cs" />
     <Compile Include="functions\MathFunction.cs" />

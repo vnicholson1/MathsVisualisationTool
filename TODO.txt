@@ -1,3 +1,2 @@
-x = constant
-y = constant
-These work fine on canvas graph but not liveCharts.
+Display appropriate message for situations like plot(y=sin(x,10),1<x<10) and plot(y=log(x),1<x<10)
+Error should be sin only has one argument and log has two arguments.

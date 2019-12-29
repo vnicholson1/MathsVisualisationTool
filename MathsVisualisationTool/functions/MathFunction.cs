@@ -56,21 +56,61 @@ namespace MathsVisualisationTool
                 throw new SyntaxErrorException("Open Bracket expected at token position - " + index + ".");
             }
 
+            double result = getEnclosingExpression(equation, ref index, true);
+
+            firstParameter = new Token(Globals.SUPPORTED_TOKENS.CONSTANT, Convert.ToString(result));
+
+            if(hasSecondParameter)
+            {
+                result = getEnclosingExpression(equation, ref index, false);
+                secondParameter = new Token(Globals.SUPPORTED_TOKENS.CONSTANT, Convert.ToString(result));
+            }
+        }
+
+        /// <summary>
+        /// Private method to get the enclosing expression.
+        /// </summary>
+        /// <param name="equation"></param>
+        /// <param name="index"></param>
+        private double getEnclosingExpression(List<Token> equation, ref int index, bool isFirstRun)
+        {
+
             int bracketLevel = 0;
             List<Token> enclosingFunction = new List<Token>();
+            bool commaFound = false;
             //Get the equation enclosed in the brackets.
-            while(true)
+            while (true)
             {
-                enclosingFunction.Add(equation[index]);
-                if(equation[index].GetType() == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
+                if (equation[index].GetType() == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
                 {
                     bracketLevel++;
-                } else if (equation[index].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
+                }
+                else if (equation[index].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
                 {
                     bracketLevel--;
                 }
-
-                if(bracketLevel == 0)
+                else if (equation[index].GetType() == Globals.SUPPORTED_TOKENS.COMMA)
+                {
+                    bracketLevel--;
+                    commaFound = true;
+                    if (!hasSecondParameter)
+                    {
+                        //For functions that only have one parameter.
+                        throw new SyntaxErrorException("This function only has one argument.");
+                    }
+                    else if(!(isFirstRun))
+                    {
+                        //For functions that have two parameter.
+                        throw new SyntaxErrorException("This function only has two arguments.");
+                    } else
+                    {
+                        enclosingFunction.Add(new Token(Globals.SUPPORTED_TOKENS.CLOSE_BRACKET,")"));
+                        index++;
+                        break;
+                    }
+                }
+                enclosingFunction.Add(equation[index]);
+                if (bracketLevel == 0)
                 {
                     break;
                 }
@@ -81,9 +121,14 @@ namespace MathsVisualisationTool
                 index++;
             }
 
-            if(bracketLevel != 0)
+            if (bracketLevel != 0)
             {
                 throw new SyntaxErrorException("No closing bracket found for corresponding open bracket.");
+            }
+            //Only occurs if a function that has two arguments only has one present.
+            if(!(commaFound) && isFirstRun && hasSecondParameter)
+            {
+                throw new SyntaxErrorException("Second argument missing.");
             }
 
             //Read in the variables
@@ -93,8 +138,8 @@ namespace MathsVisualisationTool
             //Analyse the syntax of the enclosing function using the parser object.
             double result = p.AnalyseTokens(enclosingFunction);
 
-            firstParameter = new Token(Globals.SUPPORTED_TOKENS.CONSTANT, Convert.ToString(result));
-            lengthOfExpression = enclosingFunction.Count + 1;
+            lengthOfExpression += enclosingFunction.Count + 1;
+            return result;
         }
 
         /// <summary>
