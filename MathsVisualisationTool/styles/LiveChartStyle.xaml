@@ -29,7 +29,7 @@
     <Style TargetType="lvc:Axis">
         <Setter Property="FontSize" Value="{StaticResource Size}"></Setter>
         <Setter Property="FontFamily" Value="Calibri"></Setter>
-        <Setter Property="Foreground" Value="#99303030"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"></Setter>
     </Style>
 
     <Style TargetType="lvc:Separator">

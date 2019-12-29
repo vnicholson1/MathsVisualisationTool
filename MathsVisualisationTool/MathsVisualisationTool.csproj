@@ -398,6 +398,7 @@
     <Resource Include="images\icons\timer.png" />
     <Resource Include="images\icons\down.png" />
     <Resource Include="images\icons\up.png" />
+    <Resource Include="images\icons\error100.png" />
     <Content Include="manuals\clips\basicInput_V1.mpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

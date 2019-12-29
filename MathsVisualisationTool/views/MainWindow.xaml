@@ -207,8 +207,8 @@
 
                                         <StackPanel Style="{StaticResource leftTabStackPanel_Style}"  Grid.Column="0" Grid.RowSpan="5"/>
                                         <TextBlock Padding="8" Grid.Row="0" TextTrimming="CharacterEllipsis" Foreground="White" Text="Your Notes" Grid.RowSpan="2" Grid.Column="1"/>
-                                        <ToolBarTray Grid.Row="2" Grid.Column="1">
-                                            <ToolBar>
+                                        <ToolBarTray Grid.Row="2" Grid.Column="1" Style="{StaticResource ToolBarTray_Style}">
+                                            <ToolBar Style="{StaticResource ToolBar_Style}">
                                                 <Button Name="notesNew" ToolBar.OverflowMode="Never" ToolTip="Add Note" Click="OnNewNote_Clicked">
                                                     <Image Source="../images/icons/newFile.png" Width="20"/>
                                                 </Button>
@@ -224,10 +224,11 @@
                                             </ToolBar>
                                         </ToolBarTray>
                                         <TreeView Grid.Row="3" Grid.RowSpan="2" Grid.Column="1">
-                                            <TreeViewItem Header="My Solution">
-                                                <TreeViewItem Header="Project #1"/>
-                                                <TreeViewItem Header="Project #2"/>
-                                                <TreeViewItem Header="Project #3"/>
+                                            <TreeViewItem Header="Note 1">
+                                                <TreeViewItem Header="Note 1 - Subject"/>
+                                            </TreeViewItem>
+                                            <TreeViewItem Header="Note 2">
+                                                <TreeViewItem Header="Note 2 - Subject"/>
                                             </TreeViewItem>
                                         </TreeView>
                                     </Grid>
