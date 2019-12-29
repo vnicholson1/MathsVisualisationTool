@@ -329,7 +329,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <!-- INPUT TEXT BOX -->
-                        <TextBox Grid.Column="0" Text="plot(y=x^2,1&lt;x&lt;10)" Margin="0 0 0 3" Name="inputBox" FontSize="20" Padding="5"/>
+                        <TextBox Grid.Column="0" Text="plot(y=sin(x),1&lt;x&lt;10)" Margin="0 0 0 3" Name="inputBox" FontSize="20" Padding="5"/>
                         <!-- RUN/SUBMIT BUTTON -->
                         <Button Name="submitBtn" Click="OnRun_Clicked" IsDefault="True" Grid.Column="1" Margin="3 0 0 3"  Padding="5" Style="{StaticResource submitBtn_Style}">
                             <StackPanel Orientation="Horizontal">

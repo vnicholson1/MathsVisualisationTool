@@ -1,0 +1,3 @@
+x = constant
+y = constant
+These work fine on canvas graph but not liveCharts.

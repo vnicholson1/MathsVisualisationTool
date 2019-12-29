@@ -267,6 +267,8 @@ namespace MathsVisualisationTool
 
             Parser p;
             bool flag = false;
+            //Save the original equation.
+            List<Token> eqnCopy = new List<Token>(Equation);
             //Iterate through every value of X and get a Y value.
             for (int i=0;i<numIncrements;i++)
             {
@@ -276,10 +278,14 @@ namespace MathsVisualisationTool
                 {
                     //Update the value of the variable so that it can be used in the expression.
                     vars[varName] = Convert.ToString(Xvalue);
+                    //Save the change
+                    VariableFileHandle.saveVariables(vars);
 
                     p = new Parser(vars);
 
                     double Yvalue = p.AnalyseTokens(Equation);
+                    //Copy the Equation over incase it has been modified.
+                    Equation = new List<Token>(eqnCopy);
 
                     dataPoints.Add(new DataPoint(Xvalue, Yvalue));
                 } else

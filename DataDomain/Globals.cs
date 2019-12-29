@@ -14,7 +14,7 @@ namespace DataDomain
             PLUS, MINUS, DIVISION, MULTIPLICATION, ASSIGNMENT, INDICIES, //supported ops.
             VARIABLE_NAME, //tokens related to the assignment of variables
             WHITE_SPACE, OPEN_BRACKET, CLOSE_BRACKET, COMMA, LESS_THAN, //miscellaneous characters.
-            PLOT //supported functions
+            PLOT,SIN,COS,TAN //supported functions
         };
 
         //Config variables to determine whether to draw the graph onto the canvas, live charts or both.
@@ -22,7 +22,7 @@ namespace DataDomain
         public static bool SHOW_LIVE_CHARTS = true;
 
         //record the string rep of the keywords.
-        public static List<string> keyWords = new List<string>() { "plot" };
+        public static List<string> keyWords = new List<string>() { "plot","sin","cos","tan" };
         //record the SUPPORTED_TOKENS rep of the keywords.
         public static List<SUPPORTED_TOKENS> keyWordTokens = new List<SUPPORTED_TOKENS>() { SUPPORTED_TOKENS.PLOT };
         //record the order of each operation.
@@ -40,7 +40,17 @@ namespace DataDomain
             if(word == "plot")
             {
                 return SUPPORTED_TOKENS.PLOT;
-            } else
+            } else if (word == "sin")
+            {
+                return SUPPORTED_TOKENS.SIN;
+            } else if (word == "cos")
+            {
+                return SUPPORTED_TOKENS.COS;
+            } else if (word == "tan")
+            {
+                return SUPPORTED_TOKENS.TAN;
+            }
+            else
             {
                 //Normally shouldn't happen but if someone else makes a mistake then this
                 //should hopefully be clear enough.
