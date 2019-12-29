@@ -338,7 +338,7 @@ namespace MathsVisualisationTool
          */
         private void OnSqrt_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += "\u221A{}";
+            App.homeWindow.InputBoxValue += "sqrt()";
             // Use Unicode Escape Characters/Code to render special Characters
             // \u221A => Square Root
             // \u221B => Cube Root
@@ -378,7 +378,7 @@ namespace MathsVisualisationTool
          */
         private void OnN_Sqrt_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += "{}\u221A{}";
+            App.homeWindow.InputBoxValue += "root()";
             //this.inputBox.Text += "{}\u221A{}";
         }
 

@@ -23,15 +23,37 @@ namespace MathsVisualisationTool
         private Hashtable variables = null;
         //Variable to store the newly added variable.
         public string varName = null;
+        //Variable for holding a reference to the LiveChartsDrawer.
+        private LiveChartsDrawer l = null;
+        //Write to Variable File?
+        private readonly bool WRITE_TO_FILE; 
 
+        /// <summary>
+        /// Create a new parser object. This implementation has the WRITE_TO_FILE flag set to false.
+        /// </summary>
         public Parser()
         {
             variables = new Hashtable();
+            WRITE_TO_FILE = false;
         }
 
+        /// <summary>
+        /// Create a new parser object. This implementation has the WRITE_TO_FILE flag set to true.
+        /// </summary>
         public Parser(Hashtable variables)
         {
             this.variables = variables;
+            WRITE_TO_FILE = true;
+        }
+
+        /// <summary>
+        /// Create a new parser object. This implementation has the WRITE_TO_FILE flag set to true.
+        /// </summary>
+        public Parser(Hashtable variables,ref LiveChartsDrawer l)
+        {
+            this.variables = variables;
+            this.l = l;
+            WRITE_TO_FILE = true;
         }
 
         /// <summary>
@@ -64,10 +86,70 @@ namespace MathsVisualisationTool
                     }
                     plot.getValues();
 
-                    GraphDrawer gd = new GraphDrawer(plot){Topmost = true};
-                    gd.Show();
+                    //Draw the graph onto the canvas.
+                    GraphDrawer gd = new GraphDrawer(plot) { Topmost = true };
+                    if(Globals.SHOW_GRAPH_CANVAS)
+                    {
+                        gd.Show();
+                    }
+                    
+                    //Draw it also onto LiveCharts.
+                    l.dataPoints = gd.plotFunc.dataPoints;
+                    l.canvasXLabels = gd.Xlabels;
+                    l.Xname = gd.plotFunc.X;
+                    l.Yname = gd.plotFunc.Y;
+                    if(Globals.SHOW_LIVE_CHARTS)
+                    {
+                        l.Draw();
+                    }
 
                     return double.NaN;
+                } else if(tokens[i].GetType() == Globals.SUPPORTED_TOKENS.SIN)
+                {
+                    //create the sin function and find a value.
+                    SinFunction s = new SinFunction(tokens, i,false);
+                    tokens = s.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.COS)
+                {
+                    //create the sin function and find a value.
+                    CosFunction c = new CosFunction(tokens, i, false);
+                    tokens = c.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.TAN)
+                {
+                    //create the sin function and find a value.
+                    TanFunction t = new TanFunction(tokens, i, false);
+                    tokens = t.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.LOG)
+                {
+                    LogFunction l = new LogFunction(tokens, i, true);
+                    tokens = l.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.LN)
+                {
+                    //create the sin function and find a value.
+                    LnFunction l = new LnFunction(tokens, i, false);
+                    tokens = l.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.SQRT)
+                {
+                    //create the sin function and find a value.
+                    SqrtFunction s = new SqrtFunction(tokens, i, false);
+                    tokens = s.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.ROOT)
+                {
+                    //create the sin function and find a value.
+                    RootFunction r = new RootFunction(tokens, i, true);
+                    tokens = r.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.ABS)
+                {
+                    //create the sin function and find a value.
+                    AbsFunction a = new AbsFunction(tokens, i, false);
+                    tokens = a.getNewEquation();
                 }
             }
             return processTokens(tokens);
@@ -94,7 +176,11 @@ namespace MathsVisualisationTool
 
             double value = analyseExpressions(double.NaN);
 
-            VariableFileHandle.saveVariables(variables);
+            if(WRITE_TO_FILE)
+            {
+                VariableFileHandle.saveVariables(variables);
+            }
+            
 
             return value;
         }
@@ -247,12 +333,6 @@ namespace MathsVisualisationTool
             }
 
             right = new Constant(rightValue);
-
-            //Prevent division by zero
-            if (rightValue == 0 && op == Globals.SUPPORTED_TOKENS.DIVISION)
-            {
-                throw new DivideByZeroException("Cannot divide by zero");
-            }
 
             Expression ne = new Operation(left, op, right);
 

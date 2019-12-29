@@ -161,7 +161,7 @@ namespace MathsVisualisationTool
             //For situations like +3 or -3 or (-1) as an input
             for(int i=0;i < tokens.Count;i++)
             {
-                if(i == 0 /*|| tokens*/)
+                if(i == 0)
                 {
                     switch (tokens[i].GetType())
                     {
@@ -174,9 +174,27 @@ namespace MathsVisualisationTool
                             break;
                     }
                 }
+                //If assignment operator has been found
+                if(tokens[i].GetType() == Globals.SUPPORTED_TOKENS.ASSIGNMENT)
+                {
+                    if(tokens[(i+1)].GetType() == Globals.SUPPORTED_TOKENS.OPEN_BRACKET
+                        || tokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.CONSTANT
+                        || tokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
+                    {
+                        continue;
+                    }
+                    //if the expression is 'x = -3' you want it to become 'x = 0-3'
+                    tokens.Insert(i+1, new Token(Globals.SUPPORTED_TOKENS.CONSTANT, "0"));
+                }
+                if(tokens[i].GetType() == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
+                {
+                    if(tokens[(i+1)].GetType() == Globals.SUPPORTED_TOKENS.MINUS 
+                        || tokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.PLUS)
+                    {
+                        tokens.Insert(i+1, new Token(Globals.SUPPORTED_TOKENS.CONSTANT, "0"));
+                    }
+                }
             }
-
-            
 
             //implementing solution for:
             // (*) (-|+) number
