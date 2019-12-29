@@ -112,6 +112,7 @@ namespace MathsVisualisationTool
                 {
                     throw new SyntaxErrorException("Unexpectedly reached end of expression.");
                 }
+
             } catch (ArgumentOutOfRangeException e)
             {
                 //Occurs if someone was to put 'plot(y=x' as input.

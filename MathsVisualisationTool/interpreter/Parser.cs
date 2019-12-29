@@ -109,10 +109,47 @@ namespace MathsVisualisationTool
                     //create the sin function and find a value.
                     SinFunction s = new SinFunction(tokens, i,false);
                     tokens = s.getNewEquation();
-                } else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.LOG)
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.COS)
+                {
+                    //create the sin function and find a value.
+                    CosFunction c = new CosFunction(tokens, i, false);
+                    tokens = c.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.TAN)
+                {
+                    //create the sin function and find a value.
+                    TanFunction t = new TanFunction(tokens, i, false);
+                    tokens = t.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.LOG)
                 {
                     LogFunction l = new LogFunction(tokens, i, true);
                     tokens = l.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.LN)
+                {
+                    //create the sin function and find a value.
+                    LnFunction l = new LnFunction(tokens, i, false);
+                    tokens = l.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.SQRT)
+                {
+                    //create the sin function and find a value.
+                    SqrtFunction s = new SqrtFunction(tokens, i, false);
+                    tokens = s.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.ROOT)
+                {
+                    //create the sin function and find a value.
+                    RootFunction r = new RootFunction(tokens, i, true);
+                    tokens = r.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.ABS)
+                {
+                    //create the sin function and find a value.
+                    AbsFunction a = new AbsFunction(tokens, i, false);
+                    tokens = a.getNewEquation();
                 }
             }
             return processTokens(tokens);
