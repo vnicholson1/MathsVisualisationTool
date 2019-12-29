@@ -80,10 +80,24 @@ namespace MathsVisualisationTool
             //Skip over the plot and open bracket tokens.
             index += 2;
 
+            bool functionHasTwoArguments = false;
+
             try
             {
-                while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.COMMA)
+                while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.COMMA || functionHasTwoArguments)
                 {
+                    //if the function found is one with 2 arguments don't escape the loop.
+                    if(Globals.funcsWith2Args.Contains(tokens[index].GetValue()))
+                    {
+                        functionHasTwoArguments = true;
+                    }
+
+                    //if the comma has been found then reset the flag to false.
+                    if(tokens[index].GetType() == Globals.SUPPORTED_TOKENS.COMMA)
+                    {
+                        functionHasTwoArguments = false;
+                    }
+
                     //For situations like 'plot(y=x)'
                     if (tokens[index].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET && index+1 == tokens.Count)
                     {
@@ -98,6 +112,7 @@ namespace MathsVisualisationTool
                 {
                     throw new SyntaxErrorException("Unexpectedly reached end of expression.");
                 }
+
             } catch (ArgumentOutOfRangeException e)
             {
                 //Occurs if someone was to put 'plot(y=x' as input.
@@ -267,6 +282,8 @@ namespace MathsVisualisationTool
 
             Parser p;
             bool flag = false;
+            //Save the original equation.
+            List<Token> eqnCopy = new List<Token>(Equation);
             //Iterate through every value of X and get a Y value.
             for (int i=0;i<numIncrements;i++)
             {
@@ -276,10 +293,14 @@ namespace MathsVisualisationTool
                 {
                     //Update the value of the variable so that it can be used in the expression.
                     vars[varName] = Convert.ToString(Xvalue);
+                    //Save the change
+                    VariableFileHandle.saveVariables(vars);
 
                     p = new Parser(vars);
 
                     double Yvalue = p.AnalyseTokens(Equation);
+                    //Copy the Equation over incase it has been modified.
+                    Equation = new List<Token>(eqnCopy);
 
                     dataPoints.Add(new DataPoint(Xvalue, Yvalue));
                 } else

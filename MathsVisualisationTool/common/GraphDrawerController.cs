@@ -19,7 +19,7 @@ namespace MathsVisualisationTool
     public partial class GraphDrawer : Window
     {
 
-        private PlotFunction plotFunc;
+        public PlotFunction plotFunc;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         //Properties of the graph
@@ -48,17 +48,19 @@ namespace MathsVisualisationTool
         //Num pixels inbetween each data point on each axes.
         private double step;
         //Arrays storing the values of each marker on their respective axes.
-        private double[] Xlabels;
-        private double[] Ylabels;
+        public double[] Xlabels;
+        public double[] Ylabels;
 
 
         public GraphDrawer(PlotFunction plotFunc)
         {
             this.plotFunc = plotFunc;
             InitializeComponent();
+
+            BuildGraph();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void BuildGraph()
         {
             //The Canvas in the graph drawing window must be a square.
             if (graphCanvas.Height != graphCanvas.Width)
@@ -81,10 +83,11 @@ namespace MathsVisualisationTool
             //Calculate the difference between each marking on the axis.
             //Calculated by the length of the axis / (number of dataPoints)
             int numMarkers = 0;
-            if(plotFunc.dataPoints.Count > 10)
+            if (plotFunc.dataPoints.Count > 10)
             {
                 numMarkers = 9;
-            } else
+            }
+            else
             {
                 numMarkers = plotFunc.dataPoints.Count - 1;
             }

@@ -72,7 +72,7 @@
                     </StackPanel>
                 </TabItem>
                 <!-- ARITHMETIC FUNCTIONS TAB -->
-                <TabItem Header="Arithmetic Functions" Style="{StaticResource keypadTab}">
+                <TabItem Header="Functions/Operators" Style="{StaticResource keypadTab}">
                     <StackPanel Orientation="Horizontal">
                         <WrapPanel x:Name="functionPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="400">
                             <!-- FIRST ROW OF 3 ITEMS/FUNCTIONS -->
