@@ -101,6 +101,15 @@
     <Compile Include="common\KeyPadController.cs" />
     <Compile Include="common\LiveChartsDrawerController.cs" />
     <Compile Include="common\SettingsController.cs" />
+    <Compile Include="functions\AbsFunction.cs" />
+    <Compile Include="functions\CosFunction.cs" />
+    <Compile Include="functions\LnFunction.cs" />
+    <Compile Include="functions\LogFunction.cs" />
+    <Compile Include="functions\RootFunction.cs" />
+    <Compile Include="functions\SinFunction.cs" />
+    <Compile Include="functions\SqrtFunction.cs" />
+    <Compile Include="functions\TanFunction.cs" />
+    <Compile Include="functions\MathFunction.cs" />
     <Compile Include="variables\VariableJSONObject.cs" />
     <Compile Include="functions\PlotFunction.cs" />
     <Compile Include="variables\VariableFileHandle.cs" />

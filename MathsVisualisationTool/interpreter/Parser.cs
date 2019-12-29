@@ -28,18 +28,27 @@ namespace MathsVisualisationTool
         //Write to Variable File?
         private readonly bool WRITE_TO_FILE; 
 
+        /// <summary>
+        /// Create a new parser object. This implementation has the WRITE_TO_FILE flag set to false.
+        /// </summary>
         public Parser()
         {
             variables = new Hashtable();
             WRITE_TO_FILE = false;
         }
 
+        /// <summary>
+        /// Create a new parser object. This implementation has the WRITE_TO_FILE flag set to true.
+        /// </summary>
         public Parser(Hashtable variables)
         {
             this.variables = variables;
             WRITE_TO_FILE = true;
         }
 
+        /// <summary>
+        /// Create a new parser object. This implementation has the WRITE_TO_FILE flag set to true.
+        /// </summary>
         public Parser(Hashtable variables,ref LiveChartsDrawer l)
         {
             this.variables = variables;
@@ -95,6 +104,52 @@ namespace MathsVisualisationTool
                     }
 
                     return double.NaN;
+                } else if(tokens[i].GetType() == Globals.SUPPORTED_TOKENS.SIN)
+                {
+                    //create the sin function and find a value.
+                    SinFunction s = new SinFunction(tokens, i,false);
+                    tokens = s.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.COS)
+                {
+                    //create the sin function and find a value.
+                    CosFunction c = new CosFunction(tokens, i, false);
+                    tokens = c.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.TAN)
+                {
+                    //create the sin function and find a value.
+                    TanFunction t = new TanFunction(tokens, i, false);
+                    tokens = t.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.LOG)
+                {
+                    LogFunction l = new LogFunction(tokens, i, true);
+                    tokens = l.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.LN)
+                {
+                    //create the sin function and find a value.
+                    LnFunction l = new LnFunction(tokens, i, false);
+                    tokens = l.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.SQRT)
+                {
+                    //create the sin function and find a value.
+                    SqrtFunction s = new SqrtFunction(tokens, i, false);
+                    tokens = s.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.ROOT)
+                {
+                    //create the sin function and find a value.
+                    RootFunction r = new RootFunction(tokens, i, true);
+                    tokens = r.getNewEquation();
+                }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.ABS)
+                {
+                    //create the sin function and find a value.
+                    AbsFunction a = new AbsFunction(tokens, i, false);
+                    tokens = a.getNewEquation();
                 }
             }
             return processTokens(tokens);
@@ -278,12 +333,6 @@ namespace MathsVisualisationTool
             }
 
             right = new Constant(rightValue);
-
-            //Prevent division by zero
-            if (rightValue == 0 && op == Globals.SUPPORTED_TOKENS.DIVISION)
-            {
-                throw new DivideByZeroException("Cannot divide by zero");
-            }
 
             Expression ne = new Operation(left, op, right);
 

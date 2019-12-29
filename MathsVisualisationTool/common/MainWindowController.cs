@@ -889,7 +889,7 @@ namespace MathsVisualisationTool
             // \u221A => Square Root
             // \u221B => Cube Root
             // \u221C => Fourth Root
-            this.inputBox.Text += "\u221A";
+            this.inputBox.Text += "sqrt()";
         }
 
         /*
@@ -922,7 +922,7 @@ namespace MathsVisualisationTool
          */
         private void OnN_Sqrt_Clicked(object sender, RoutedEventArgs e)
         {
-            this.inputBox.Text += "{}\u221A{}";
+            this.inputBox.Text += "root()";
         }
 
         /*
@@ -933,7 +933,7 @@ namespace MathsVisualisationTool
          */
         private void OnSin_Clicked(object sender, RoutedEventArgs e)
         {
-            this.inputBox.Text += "/sin";
+            this.inputBox.Text += "sin()";
         }
 
         /*
@@ -944,7 +944,7 @@ namespace MathsVisualisationTool
          */
         private void OnCos_Clicked(object sender, RoutedEventArgs e)
         {
-            this.inputBox.Text += "/cos";
+            this.inputBox.Text += "cos()";
         }
 
         /*
@@ -955,7 +955,7 @@ namespace MathsVisualisationTool
          */
         private void OnTan_Clicked(object sender, RoutedEventArgs e)
         {
-            this.inputBox.Text += "/tan";
+            this.inputBox.Text += "tan()";
         }
 
         #endregion
