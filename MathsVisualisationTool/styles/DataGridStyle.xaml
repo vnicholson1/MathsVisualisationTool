@@ -6,11 +6,12 @@
         <Setter Property="Background" Value="{StaticResource MainColour_SubBackground}"/>
         <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
         <Setter Property="BorderBrush" Value="{StaticResource MainColour_BorderBrush}"/>
-        <!--<Setter Property="BorderThickness" Value="1"/>-->
+        <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="SeparatorBrush" Value="{StaticResource MainColour_BorderBrush}"/>
         <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Ubuntu Mono"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Padding" Value="4 0 0 0"/>
 
@@ -27,7 +28,15 @@
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource MainColour_MouseHover}" />
+                            <Setter Property="Background" Value="{StaticResource MainColour_MouseHover}"/>
+                            <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/> 
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="Background" Value="{StaticResource MainColour_SubBackground}"/>
+                            <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{StaticResource MainColour_MouseHover}"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -40,15 +49,16 @@
                     <Style.Triggers>
                         <!-- Highlight selected rows -->
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="#ff66ccff" />
+                            <Setter Property="Background" Value="{StaticResource MainColour_MouseHover}" />
                             <Setter Property="BorderBrush" Value="Transparent" />
-                            <Setter Property="Foreground" Value="Black" />
+                            <Setter Property="Foreground" Value="{StaticResource MainColour_Font}" />
                         </Trigger>
+
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" Value="#ff66ccff" />
+                            <Setter Property="Background" Value="{StaticResource MainColour_MouseHover}" />
                             <Setter Property="BorderBrush" Value="Black" />
                             <Setter Property="BorderThickness" Value="1"/>
-                            <Setter Property="Foreground" Value="Black" />
+                            <Setter Property="Foreground" Value="{StaticResource MainColour_Font}" />
                         </Trigger>
                     </Style.Triggers>
                     <!-- Add some padding around the contents of a cell -->
@@ -77,7 +87,6 @@
                 </Style>
             </Setter.Value>
         </Setter>
-        
     </Style>
 
 </ResourceDictionary>

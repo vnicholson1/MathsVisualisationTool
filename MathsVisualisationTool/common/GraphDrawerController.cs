@@ -60,7 +60,7 @@ namespace MathsVisualisationTool
             BuildGraph();
         }
 
-        private void BuildGraph()
+        public void BuildGraph()
         {
             //The Canvas in the graph drawing window must be a square.
             if (graphCanvas.Height != graphCanvas.Width)
