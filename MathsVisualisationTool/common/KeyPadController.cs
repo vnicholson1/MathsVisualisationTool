@@ -224,16 +224,15 @@ namespace MathsVisualisationTool
         /************************** ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS *************************/
         #region AlgebraFunctions
         /*
-         * onEquivilantClicked -   Function for the Equiviliant Button on the
+         * OnModulus_Clicked -   Function for the Modulus Button on the
          *                          keypad in the right side of the Main Window
          *                          Dock Panel - NOTE: Character can be created
          *                          with Unicode Escape Characters/Code
          */
-        private void OnApprox_Clicked(object sender, RoutedEventArgs e)
+        private void OnModulus_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += "\u2248";
             // NEED TO THINK ABOUT THIS
-            //this.inputBox.Text += "(";
+            App.homeWindow.InputBoxValue += "| |";
         }
 
         /*
@@ -244,9 +243,8 @@ namespace MathsVisualisationTool
          */
         private void OnLeftBracket_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += "(";
             // \u0028 => "(" => Left/Opening Parenthesis
-            //this.inputBox.Text += "(";
+            App.homeWindow.InputBoxValue += "(";
         }
 
         /*
@@ -257,9 +255,32 @@ namespace MathsVisualisationTool
          */
         private void OnRightBracket_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += ")";
             // \u0029 => ")" => Right/Closing Parenthesis
-            //this.inputBox.Text += ")";
+            App.homeWindow.InputBoxValue += ")";
+        }
+
+        /*
+         * OnLessEqual_Clicked -   Function for the Less Than or Equal to Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
+         */
+        private void OnLessEqual_Clicked(object sender, RoutedEventArgs e)
+        {
+            // \u0028 => "(" => Left/Opening Parenthesis
+            App.homeWindow.InputBoxValue += "<=";
+        }
+
+        /*
+         * OnMoreEqual_Clicked -  Function for the Greater than or Equal to Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
+         */
+        private void OnMoreEqual_Clicked(object sender, RoutedEventArgs e)
+        {
+            // \u0029 => ")" => Right/Closing Parenthesis
+            App.homeWindow.InputBoxValue += ">=";
         }
 
         /*
@@ -270,7 +291,6 @@ namespace MathsVisualisationTool
         private void OnIndice_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += "^";
-            //this.inputBox.Text += "^";
         }
 
         /*
@@ -281,11 +301,10 @@ namespace MathsVisualisationTool
          */
         private void OnMul_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += "\u00D7";
             // Use Unicode Escape Code/Characters
             // \u00D7 => \times => x
             // \u00B7 => \cdot => . (but in the middle of the line!)
-            //this.inputBox.Text += "\u00D7";
+            App.homeWindow.InputBoxValue += "\u00D7";
         }
 
         /*
@@ -296,38 +315,50 @@ namespace MathsVisualisationTool
          */
         private void OnDiv_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += "\u00F7";
             // Use Unicode Escape Code/Characters
             // \u00F7 => Division Sign
             // \u2215 => Division Slash => /
-            //this.inputBox.Text += "\u00F7";
+            App.homeWindow.InputBoxValue += "\u00F7";
         }
 
         /*
-         * onAddClicked -   Function for the Addition Button on the
+         * onFracClicked -  Function for the Fraction Button on the
          *                  keypad in the right side of the Main Window
          *                  Dock Panel - NOTE: Character can be created
          *                  with Unicode Escape Characters/Code
          */
-        private void OnAdd_Clicked(object sender, RoutedEventArgs e)
+        private void OnFrac_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += "+";
-            // Use Unicode Escape Code/Characters
-            // \u002B => + (Unicode Character)
-            //this.inputBox.Text += "+";
+            // Need to think about symbol since it clashes with above
+            // OnDivClicked
+            // \u2044 => Fraction Slash (Unicode Charatcer)
+            App.homeWindow.InputBoxValue += "/";
         }
 
         /*
-         * onSubClicked -   Function for the Subtraction Button on the
-         *                  keypad in the right side of the Main Window
-         *                  Dock Panel - NOTE: Character can be created
-         *                  with Unicode Escape Characters/Code
+         * onLessThanClicked -      Function for the Less than Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
          */
-        private void OnSub_Clicked(object sender, RoutedEventArgs e)
+        private void OnLessThan_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += "-";
-            // \u002D => Hypen-Minus in Unicode
-            //this.inputBox.Text += "-";
+            // \u0028 => "(" => Left/Opening Parenthesis
+            App.homeWindow.InputBoxValue += "<";
+        }
+
+
+
+        /*
+         * onGreaterThanClicked -   Function for the Greater than Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
+         */
+        private void OnGreaterThan_Clicked(object sender, RoutedEventArgs e)
+        {
+            // \u0029 => ")" => Right/Closing Parenthesis
+            App.homeWindow.InputBoxValue += ">";
         }
 
         /*
@@ -338,48 +369,44 @@ namespace MathsVisualisationTool
          */
         private void OnSqrt_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += "sqrt()";
             // Use Unicode Escape Characters/Code to render special Characters
             // \u221A => Square Root
             // \u221B => Cube Root
             // \u221C => Fourth Root
-            //this.inputBox.Text += "\u221A";
+            App.homeWindow.InputBoxValue += "sqrt()";
         }
 
         /*
-         * onPercentClicked -  Function for the Percentage Button on the
+         * onLogClicked -  Function for the Log Button on the
          *                  keypad in the right side of the Main Window
          *                  Dock Panel
          */
-        private void OnPercent_Clicked(object sender, RoutedEventArgs e)
+        private void OnLog_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += "%";
-            //this.inputBox.Text += "%";
+            App.homeWindow.InputBoxValue += "log";
         }
 
         /*
-         * onPiClicked -    Function for the Pi Button on the
+         * onLnClicked -    Function for the ln Button on the
          *                  keypad in the right side of the Main Window
          *                  Dock Panel - NOTE: Character can be created
          *                  with Unicode Escape Characters/Code
          */
-        private void OnPi_Clicked(object sender, RoutedEventArgs e)
+        private void OnLn_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += "\u03C0";
             // Use Unicode Escape Characters/Code to render special Characters
-            //this.inputBox.Text += "\u03C0";
+            App.homeWindow.InputBoxValue += "Ln";
         }
 
         /*
-         * onN_SqrtClicked - Function for the N Square Root Button on the
+         * OnEuler_Clicked - Function for the Euler's E Button on the
          *                   keypad in the right side of the Main Window
          *                   Dock Panel - NOTE: Character can be created
          *                   with Unicode Escape Characters/Code
          */
-        private void OnN_Sqrt_Clicked(object sender, RoutedEventArgs e)
+        private void OnEuler_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += "root()";
-            //this.inputBox.Text += "{}\u221A{}";
+            App.homeWindow.InputBoxValue += "\uD835\uDC52";
         }
 
         /*
@@ -391,7 +418,6 @@ namespace MathsVisualisationTool
         private void OnSin_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += "sin()";
-            //this.inputBox.Text += "/sin";
         }
 
         /*
@@ -403,7 +429,6 @@ namespace MathsVisualisationTool
         private void OnCos_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += "cos()";
-            //this.inputBox.Text += "/cos";
         }
 
         /*
@@ -415,49 +440,47 @@ namespace MathsVisualisationTool
         private void OnTan_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += "tan()";
-            //this.inputBox.Text += "/tan";
         }
+
         #endregion
         /********************** END OF ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS **********************/
         /************************************** NUMERICAL KEYPAD FUNCTIONS **********************************/
         #region Numerical
         /*
          * onEqualClicked -    Function for the equals Button on the
-    *                          keypad in the right side of the Main Window
-    *                          Dock Panel - NOTE: Character can be created
-    *                          with Unicode Escape Characters/Code
+         *                     keypad in the right side of the Main Window
+         *                     Dock Panel - NOTE: Character can be created
+         *                     with Unicode Escape Characters/Code
          */
         private void OnEqual_Clicked(object sender, RoutedEventArgs e)
         {
+            // \u0028 => "(" => Left/Opening Parenthesis
             App.homeWindow.InputBoxValue += "=";
-            // \u0028 => "(" => Left/Opening Parenthesis
-            //this.inputBox.Text += "=";
         }
 
         /*
-         * onLessThanClicked -      Function for the Less than Button on the
-         *                          keypad in the right side of the Main Window
-         *                          Dock Panel - NOTE: Character can be created
-         *                          with Unicode Escape Characters/Code
+         * onAddClicked -   Function for the Addition Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character can be created
+         *                  with Unicode Escape Characters/Code
          */
-        private void OnLessThan_Clicked(object sender, RoutedEventArgs e)
+        private void OnAdd_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += "<";
-            // \u0028 => "(" => Left/Opening Parenthesis
-            //this.inputBox.Text += "<";
+            // Use Unicode Escape Code/Characters
+            // \u002B => + (Unicode Character)
+            App.homeWindow.InputBoxValue += "+";
         }
 
         /*
-         * onGreaterThanClicked -   Function for the Greater than Button on the
-         *                          keypad in the right side of the Main Window
-         *                          Dock Panel - NOTE: Character can be created
-         *                          with Unicode Escape Characters/Code
+         * onSubClicked -   Function for the Subtraction Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character can be created
+         *                  with Unicode Escape Characters/Code
          */
-        private void OnGreaterThan_Clicked(object sender, RoutedEventArgs e)
+        private void OnSub_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += ">";
-            // \u0029 => ")" => Right/Closing Parenthesis
-            //this.inputBox.Text += ">";
+            // \u002D => Hypen-Minus in Unicode
+            App.homeWindow.InputBoxValue += "-";
         }
 
         /*
@@ -468,7 +491,6 @@ namespace MathsVisualisationTool
         private void OnDecimal_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += ".";
-            //this.inputBox.Text += ".";
         }
 
         /*
@@ -476,10 +498,9 @@ namespace MathsVisualisationTool
          *                  keypad in the right side of the Main
          *                  Window Dock Panel
          */
-        private void OnAns_Clicked(object sender, RoutedEventArgs e)
+        private void OnPi_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += "Ans";
-            //this.inputBox.Text += "Ans";
+            App.homeWindow.InputBoxValue += "\u03C0";
         }
 
         /*
@@ -490,7 +511,6 @@ namespace MathsVisualisationTool
         private void On0_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += "0";
-            //this.inputBox.Text += "0";
         }
 
         /*
@@ -501,7 +521,6 @@ namespace MathsVisualisationTool
         private void On1_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += "1";
-            //this.inputBox.Text += "1";
         }
 
         /*
@@ -512,7 +531,6 @@ namespace MathsVisualisationTool
         private void On2_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += "2";
-            //this.inputBox.Text += "2";
         }
 
         /*
@@ -523,7 +541,6 @@ namespace MathsVisualisationTool
         private void On3_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += "3";
-            //this.inputBox.Text += "3";
         }
 
         /*
@@ -534,7 +551,6 @@ namespace MathsVisualisationTool
         private void On4_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += "4";
-            //this.inputBox.Text += "4";
         }
 
         /*
@@ -545,7 +561,6 @@ namespace MathsVisualisationTool
         private void On5_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += "5";
-            //this.inputBox.Text += "5";
         }
 
         /*
@@ -556,7 +571,6 @@ namespace MathsVisualisationTool
         private void On6_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += "6";
-            //this.inputBox.Text += "6";
         }
 
         /*
@@ -567,7 +581,6 @@ namespace MathsVisualisationTool
         private void On7_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += "7";
-            //this.inputBox.Text += "7";
         }
 
         /*
@@ -578,7 +591,6 @@ namespace MathsVisualisationTool
         private void On8_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += "8";
-            //this.inputBox.Text += "8";
         }
 
         /*
@@ -589,7 +601,6 @@ namespace MathsVisualisationTool
         private void On9_Clicked(object sender, RoutedEventArgs e)
         {
             App.homeWindow.InputBoxValue += "9";
-            //this.inputBox.Text += "9";
         }
         #endregion
         /********************************** END OF NUMERICAL KEYPAD FUNCTIONS*******************************/
