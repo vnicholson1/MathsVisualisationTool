@@ -176,7 +176,10 @@ namespace MathsVisualisationTool
 
                     case Globals.SUPPORTED_TOKENS.LESS_THAN:
                         throw new SyntaxErrorException("< symbol found in unexpected position.");
-                        
+
+                    case Globals.SUPPORTED_TOKENS.GREATER_THAN:
+                        throw new SyntaxErrorException("> symbol found in unexpected position.");
+
                     default:
                         break;
                 }

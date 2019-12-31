@@ -13,7 +13,7 @@ namespace DataDomain
             CONSTANT, //supported data types
             PLUS, MINUS, DIVISION, MULTIPLICATION, ASSIGNMENT, INDICIES, //supported ops.
             VARIABLE_NAME, //tokens related to the assignment of variables
-            WHITE_SPACE, OPEN_BRACKET, CLOSE_BRACKET, COMMA, LESS_THAN, //miscellaneous characters.
+            WHITE_SPACE, OPEN_BRACKET, CLOSE_BRACKET, COMMA, LESS_THAN, GREATER_THAN, //miscellaneous characters.
             PLOT,SIN,COS,TAN,LOG,LN,SQRT,ROOT,ABS //supported functions
         };
 
@@ -25,8 +25,6 @@ namespace DataDomain
         public static List<string> keyWords = new List<string>() { "plot","sin","cos","tan","log","ln","sqrt","root","abs"};
         //record the functions that have more than one argument.
         public static List<string> funcsWith2Args = new List<string>() { "log","root" };
-        //record the SUPPORTED_TOKENS rep of the keywords.
-        public static List<SUPPORTED_TOKENS> keyWordTokens = new List<SUPPORTED_TOKENS>() { SUPPORTED_TOKENS.PLOT };
         //record the order of each operation.
         public static List<SUPPORTED_TOKENS> orderOfOperators = new List<SUPPORTED_TOKENS>()
         {SUPPORTED_TOKENS.INDICIES,SUPPORTED_TOKENS.DIVISION, SUPPORTED_TOKENS.MULTIPLICATION, SUPPORTED_TOKENS.PLUS,SUPPORTED_TOKENS.MINUS};
