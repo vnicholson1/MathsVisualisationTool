@@ -607,7 +607,7 @@
                                                 </Button>
                                                 <!-- SECOND ROW OF 3 ITEMS/FUNCTIONS -->
                                                 <!-- ADDITION BUTTON-->
-                                                <Button x:Name="lessThen_Btn" ToolTip="Arithmetic Value - '+'" Style="{StaticResource kepadBtns_Style}" Click="OnAdd_Clicked">
+                                                <Button x:Name="lessThen_Btn" ToolTip="Less Than" Style="{StaticResource kepadBtns_Style}" Click="OnLessEqual_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/lessThan.png" Height="40"/>
                                                         <!--<TextBlock Text="&#xd7;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
@@ -665,7 +665,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <!-- PI BUTTON-->
-                                                <Button x:Name="ln_Btn" ToolTip="Natural Logarithm" Style="{StaticResource kepadBtns_Style}" Click="OnPi_Clicked">
+                                                <Button x:Name="ln_Btn" ToolTip="Natural Logarithm" Style="{StaticResource kepadBtns_Style}" Click="OnLn_Clicked">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/ln.png" Height="40"/>
                                                         <!--<TextBlock Text="&#960;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->

@@ -76,11 +76,6 @@ namespace MathsVisualisationTool
             LvChrt.DataTooltip.Background = Brushes.Black;
             #endregion
             /********************************* END OF LIVE CHART FUNCTIONS **********************************/
-            /************************************ CANVAS CHART FUNCTIONS ************************************/
-            #region Canvas
-
-            #endregion
-            /******************************** END OF CANVAS CHART FUNCTIONS *********************************/
         }
 
         /*
@@ -755,7 +750,7 @@ namespace MathsVisualisationTool
         private void OnModulus_Clicked(object sender, RoutedEventArgs e)
         {
             // NEED TO THINK ABOUT THIS
-            this.inputBox.Text += "| |";
+            this.inputBox.Text += "abs()";
         }
 
         /*
@@ -791,7 +786,7 @@ namespace MathsVisualisationTool
         private void OnLessEqual_Clicked(object sender, RoutedEventArgs e)
         {
             // \u0028 => "(" => Left/Opening Parenthesis
-            this.inputBox.Text += "<=";
+            this.inputBox.Text += "<";
         }
 
         /*
@@ -803,7 +798,7 @@ namespace MathsVisualisationTool
         private void OnMoreEqual_Clicked(object sender, RoutedEventArgs e)
         {
             // \u0029 => ")" => Right/Closing Parenthesis
-            this.inputBox.Text += ">=";
+            this.inputBox.Text += ">";
         }
 
         /*
@@ -906,7 +901,7 @@ namespace MathsVisualisationTool
          */
         private void OnLog_Clicked(object sender, RoutedEventArgs e)
         {
-            this.inputBox.Text += "log";
+            this.inputBox.Text += "log()";
         }
 
         /*
@@ -918,7 +913,7 @@ namespace MathsVisualisationTool
         private void OnLn_Clicked(object sender, RoutedEventArgs e)
         {
             // Use Unicode Escape Characters/Code to render special Characters
-            this.inputBox.Text += "ln";
+            this.inputBox.Text += "ln()";
         }
 
         /*
