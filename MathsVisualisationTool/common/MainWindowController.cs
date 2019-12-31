@@ -78,7 +78,6 @@ namespace MathsVisualisationTool
             /********************************* END OF LIVE CHART FUNCTIONS **********************************/
             /************************************ CANVAS CHART FUNCTIONS ************************************/
             #region Canvas
-            
 
             #endregion
             /******************************** END OF CANVAS CHART FUNCTIONS *********************************/

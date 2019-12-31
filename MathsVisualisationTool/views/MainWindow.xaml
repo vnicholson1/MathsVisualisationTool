@@ -299,11 +299,9 @@
                             <TabItem Header="Canvas - Graph" ToolTip="SolveIT Live Charts Display" Style="{StaticResource mainTab}">
                                 <StackPanel x:Name="canvasGraphs_StackPanel">
                                     <StackPanel Style="{StaticResource TabHeaderStackPanel_Style}"/>
-                                    <!--<Grid Background="Red" MaxHeight="450" MaxWidth="450" Margin="5 20 5 5">-->
-                                        <Canvas Name="graphCanvas" Background="white" Opacity="0.5" Margin="10"
+                                    <Canvas x:Name="graphCanvas" Background="white" Opacity="0.5" Margin="10"
                                             Width="500" Height="500"
                                             VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    <!--</Grid>-->
                                 </StackPanel>
                             </TabItem>
                             <TabItem Header="Live Charts - Graph" ToolTip="SolveIT Live Charts Display" Style="{StaticResource mainTab}">
