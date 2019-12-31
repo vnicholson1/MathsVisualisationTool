@@ -152,11 +152,21 @@ namespace MathsVisualisationTool
 
             //get the Xmin
             elements[0] = GetXMinToken(tokens, ref index);
-            //Check the next token is a <
-            if(tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN)
+            bool hasGreaterThanSymbol = false;
+
+            //Check the next token is a < or >
+            if(tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN 
+                && tokens[index].GetType() != Globals.SUPPORTED_TOKENS.GREATER_THAN)
             {
-                throw new SyntaxErrorException("< symbol expected. " + tokens[index].GetValue() + " found instead.");
+                throw new SyntaxErrorException("< or > symbol expected. " + tokens[index].GetValue() + " found instead.");
+            } else
+            {
+                if(tokens[index].GetType() == Globals.SUPPORTED_TOKENS.GREATER_THAN)
+                {
+                    hasGreaterThanSymbol = true;
+                }
             }
+
             //Check the next token is the dependent variable. 
             index++;
             if (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
@@ -166,21 +176,43 @@ namespace MathsVisualisationTool
             {
                 varNameIndex = index;
             }
-            //Check the next token is a <
+            //Check the next token is a < or >
             index++;
-            if (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN)
+            if (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN
+                && tokens[index].GetType() != Globals.SUPPORTED_TOKENS.GREATER_THAN)
             {
                 throw new SyntaxErrorException("< symbol expected. " + tokens[index].GetValue() + " found instead.");
+            } else
+            {
+                //Cannot mix < or > so check if the symbols are consistent
+                if(tokens[index].GetType() == Globals.SUPPORTED_TOKENS.LESS_THAN)
+                {
+                    if(hasGreaterThanSymbol)
+                    {
+                        throw new SyntaxErrorException("Cannot mix < or > symbols");
+                    }
+                } else if (tokens[index].GetType() == Globals.SUPPORTED_TOKENS.GREATER_THAN)
+                {
+                    if (!hasGreaterThanSymbol)
+                    {
+                        throw new SyntaxErrorException("Cannot mix < or > symbols");
+                    }
+                }
             }
             index++;
             //get the Xmax
             elements[1] = GetXMaxToken(tokens, ref index);
 
+            if (hasGreaterThanSymbol)
+            {
+                swap(ref elements);
+            }
+
             //Calculate the increment to get the desired increment.
             double Xmin = Convert.ToDouble(elements[0].GetValue());
             double Xmax = Convert.ToDouble(elements[1].GetValue());
 
-            if(!(Xmax > Xmin))
+            if (!(Xmax > Xmin))
             {
                 throw new SyntaxErrorException("Xmax must be greater than Xmin.");
             }
@@ -196,6 +228,20 @@ namespace MathsVisualisationTool
         }
 
         /// <summary>
+        /// Function for swapping round the Xmin and Xmax.
+        /// </summary>
+        /// <param name="Xmin"></param>
+        /// <param name="Xmax"></param>
+        private static void swap(ref Token[] elements)
+        {
+            Token temp = elements[0];
+
+            elements[0] = elements[1];
+
+            elements[1] = temp;
+        }
+
+        /// <summary>
         /// Private method to extract the Xmin from the range argument.
         /// </summary>
         /// <param name="tokens"></param>
@@ -208,7 +254,8 @@ namespace MathsVisualisationTool
             List<Globals.SUPPORTED_TOKENS> supportedTypes = new List<Globals.SUPPORTED_TOKENS>
                 {Globals.SUPPORTED_TOKENS.CONSTANT,Globals.SUPPORTED_TOKENS.PLUS,Globals.SUPPORTED_TOKENS.MINUS};
 
-            while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN)
+            while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN 
+                && tokens[index].GetType() != Globals.SUPPORTED_TOKENS.GREATER_THAN)
             {
                 if (!(supportedTypes.Contains(tokens[index].GetType())))
                 {

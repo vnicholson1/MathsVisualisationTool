@@ -185,7 +185,6 @@ namespace MathsVisualisationTool
                 VariableFileHandle.saveVariables(variables);
             }
             
-
             return value;
         }
 

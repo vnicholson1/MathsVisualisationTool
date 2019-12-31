@@ -27,12 +27,22 @@ namespace MathsVisualisationTool
 
             if(input.Length == 0)
             {
-                throw new SyntaxErrorException("Put something in you stupid idiot.");
+                throw new SyntaxErrorException("Error: Empty input added.");
             }
 
             //Variable to record the token type currently stored in the list of characters.
             Globals.SUPPORTED_TOKENS typeInList = getFirstCharType(input[0]);
             List<char> characters = new List<char>() { input[0] };
+            int startPos;
+
+            //Because the unicode is 2 characters in length.
+            if(typeInList == Globals.SUPPORTED_TOKENS.EULER)
+            {
+                startPos = 2;
+            } else
+            {
+                startPos = 1;
+            }
 
             //Variable to store the token to be added into the list of tokens.
             Token tokenToAdd;
@@ -40,7 +50,7 @@ namespace MathsVisualisationTool
 
             //Go through the line of code added by the user.
             int i;
-            for(i=1;i<input.Length;i++)
+            for(i=startPos;i<input.Length;i++)
             {
                 //Is it a digit?
                 if(char.IsDigit(input[i]))
@@ -200,7 +210,6 @@ namespace MathsVisualisationTool
                     characters = new List<char>() { input[i] };
                     typeInList = Globals.SUPPORTED_TOKENS.COMMA;
                 }
-
                 else if (input[i] == '<')
                 {
                     tokenToAdd = TokeniseList(characters, typeInList);
@@ -213,6 +222,49 @@ namespace MathsVisualisationTool
                     tokens.Add(tokenToAdd);
                     characters = new List<char>() { input[i] };
                     typeInList = Globals.SUPPORTED_TOKENS.LESS_THAN;
+                }
+                else if (input[i] == '>')
+                {
+                    tokenToAdd = TokeniseList(characters, typeInList);
+                    //if the word gathered is a keyword.
+                    if (Globals.keyWords.Contains(tokenToAdd.GetValue()))
+                    {
+                        //get the keyword.
+                        tokenToAdd.SetType(Globals.getTokenFromKeyword(tokenToAdd.GetValue()));
+                    }
+                    tokens.Add(tokenToAdd);
+                    characters = new List<char>() { input[i] };
+                    typeInList = Globals.SUPPORTED_TOKENS.GREATER_THAN;
+                }
+                //Unicode for PI symbol
+                else if (input[i] == '\u03C0')
+                {
+                    tokenToAdd = TokeniseList(characters, typeInList);
+                    //if the word gathered is a keyword.
+                    if (Globals.keyWords.Contains(tokenToAdd.GetValue()))
+                    {
+                        //get the keyword.
+                        tokenToAdd.SetType(Globals.getTokenFromKeyword(tokenToAdd.GetValue()));
+                    }
+                    tokens.Add(tokenToAdd);
+                    characters = new List<char>() { input[i] };
+                    typeInList = Globals.SUPPORTED_TOKENS.PI;
+                }
+                //Unicode for Euler's number.
+                else if (input[i] == '\uD835')
+                {
+                    //skip because Euler's unicode has 2 characters
+                    i++;
+                    tokenToAdd = TokeniseList(characters, typeInList);
+                    //if the word gathered is a keyword.
+                    if (Globals.keyWords.Contains(tokenToAdd.GetValue()))
+                    {
+                        //get the keyword.
+                        tokenToAdd.SetType(Globals.getTokenFromKeyword(tokenToAdd.GetValue()));
+                    }
+                    tokens.Add(tokenToAdd);
+                    characters = new List<char>() { input[i] };
+                    typeInList = Globals.SUPPORTED_TOKENS.EULER;
                 }
                 else if (char.IsLetter(input[i]))
                 {
@@ -320,11 +372,11 @@ namespace MathsVisualisationTool
             {
                 return Globals.SUPPORTED_TOKENS.MINUS;
             }
-            else if (c == '*')
+            else if (c == '*' || c == '\u00D7')
             {
                 return Globals.SUPPORTED_TOKENS.MULTIPLICATION;
             }
-            else if (c == '/')
+            else if (c == '/' || c == '\u00F7')
             {
                 return Globals.SUPPORTED_TOKENS.DIVISION;
             }
@@ -344,6 +396,14 @@ namespace MathsVisualisationTool
             {
                 return Globals.SUPPORTED_TOKENS.ASSIGNMENT;
             }
+            else if (c == '\u03C0')
+            {
+                return Globals.SUPPORTED_TOKENS.PI;
+            }
+            else if (c == '\uD835')
+            {
+                return Globals.SUPPORTED_TOKENS.EULER;
+            }
             else if (char.IsLetter(c))
             {
                 return Globals.SUPPORTED_TOKENS.VARIABLE_NAME;
@@ -359,6 +419,10 @@ namespace MathsVisualisationTool
             else if (c == '<')
             {
                 return Globals.SUPPORTED_TOKENS.LESS_THAN;
+            }
+            else if (c == '>')
+            {
+                return Globals.SUPPORTED_TOKENS.GREATER_THAN;
             }
             else
             {
@@ -391,7 +455,17 @@ namespace MathsVisualisationTool
         {
             var value = "";
 
-            foreach(char c in listOfCharacters)
+            if(listType == Globals.SUPPORTED_TOKENS.PI)
+            {
+                return new Token(Globals.SUPPORTED_TOKENS.CONSTANT, Convert.ToString(Math.PI));
+            }
+
+            if (listType == Globals.SUPPORTED_TOKENS.EULER)
+            {
+                return new Token(Globals.SUPPORTED_TOKENS.CONSTANT, Convert.ToString(Math.E));
+            }
+
+            foreach (char c in listOfCharacters)
             {
                 value += c;
             }

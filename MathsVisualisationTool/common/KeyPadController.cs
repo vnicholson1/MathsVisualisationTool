@@ -232,7 +232,7 @@ namespace MathsVisualisationTool
         private void OnModulus_Clicked(object sender, RoutedEventArgs e)
         {
             // NEED TO THINK ABOUT THIS
-            App.homeWindow.InputBoxValue += "| |";
+            App.homeWindow.InputBoxValue += "abs()";
         }
 
         /*
@@ -268,7 +268,7 @@ namespace MathsVisualisationTool
         private void OnLessEqual_Clicked(object sender, RoutedEventArgs e)
         {
             // \u0028 => "(" => Left/Opening Parenthesis
-            App.homeWindow.InputBoxValue += "<=";
+            App.homeWindow.InputBoxValue += "<";
         }
 
         /*
@@ -280,7 +280,7 @@ namespace MathsVisualisationTool
         private void OnMoreEqual_Clicked(object sender, RoutedEventArgs e)
         {
             // \u0029 => ")" => Right/Closing Parenthesis
-            App.homeWindow.InputBoxValue += ">=";
+            App.homeWindow.InputBoxValue += ">";
         }
 
         /*
@@ -383,7 +383,7 @@ namespace MathsVisualisationTool
          */
         private void OnLog_Clicked(object sender, RoutedEventArgs e)
         {
-            App.homeWindow.InputBoxValue += "log";
+            App.homeWindow.InputBoxValue += "log()";
         }
 
         /*
@@ -395,7 +395,7 @@ namespace MathsVisualisationTool
         private void OnLn_Clicked(object sender, RoutedEventArgs e)
         {
             // Use Unicode Escape Characters/Code to render special Characters
-            App.homeWindow.InputBoxValue += "Ln";
+            App.homeWindow.InputBoxValue += "ln()";
         }
 
         /*
