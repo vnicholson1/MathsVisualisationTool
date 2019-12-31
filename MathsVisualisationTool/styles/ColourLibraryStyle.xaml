@@ -9,7 +9,8 @@
     <SolidColorBrush x:Key="MainColour_Font" Color="#F2F2F2"/> <!-- Main Font Colour -->
     <SolidColorBrush x:Key="MainColour_BorderBrush" Color="#212121"/> <!-- Main Border Brush Colour -->
     <SolidColorBrush x:Key="MainColour_MouseHover" Color="#1C97EA"/> <!-- Mouse Hovering over a Button/Item -->
-    
+    <SolidColorBrush x:Key="MainColour_LightBorder" Color="#656565"/>
+
     <!-- BUTTON COLOURS - SOLID COLOURS -->    
     <SolidColorBrush x:Key="Btn_Background" Color="#5E5E5E"/> <!-- Background of a Button-->       
     <SolidColorBrush x:Key="Btn_IsPressedBackground" Color="#3399FF"/> <!-- Colour of Button when pressed -->
@@ -30,24 +31,10 @@
     <SolidColorBrush x:Key="MenuBackground" Color="#3F3F46"/> <!-- Menu Background -->
     <SolidColorBrush x:Key="MenuBorder" Color="#5E5E5E"/> <!-- Menu Borders-->
     <SolidColorBrush x:Key="MenuForeground" Color="White"/> <!-- Menu Font/Foreground -->
-    <!--<SolidColorBrush x:Key="TabControlOuterBorder" Color="Red"/>
-    <SolidColorBrush x:Key="TabControlInnerBorder" Color="Pink"/>-->
     <SolidColorBrush x:Key="MenuItemIconBackground" Color="#424242" Opacity="0.9"/> <!-- Menu Icon Background (Drop Down Background) -->
     <SolidColorBrush x:Key="MenuItemBackground" Color="#5E5E5E" Opacity="0.9"/> <!-- Menu Item Background (Drop Down Background) -->
     <SolidColorBrush x:Key="MenuBorderHover" Color="#C7C9CC" Opacity="0.4"/> <!-- Menu Hover Border -->
     <SolidColorBrush x:Key="MenuBackgroundHover" Color="#C7C9CC" Opacity="0.4"/> <!-- Menu Hover -->
-
-    
-
-    <!-- GRADIENT COLOUR STYLE FOR TAB ITEMS -->
-    <LinearGradientBrush x:Key="GradientBackground_TabItem" StartPoint="0,0" EndPoint="0,1">
-        <LinearGradientBrush.GradientStops>
-            <GradientStop Color="#EAF6FD" Offset="0.15"/>
-            <GradientStop Color="#D9F0FC" Offset=".5"/>
-            <GradientStop Color="#BEE6FD" Offset=".5"/>
-            <GradientStop Color="#A7D9F5" Offset="1"/>
-        </LinearGradientBrush.GradientStops>
-    </LinearGradientBrush>
 
     <!-- COLOURS -->
     <SolidColorBrush x:Key="Background_ToolBar" Color="#3F3F46"/>

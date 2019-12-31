@@ -35,6 +35,7 @@ namespace MathsVisualisationTool
 
         //Fields for the MainWindow Class.
         LiveChartsDrawer l;
+        GraphDrawer c;
         //Stop Watch Variables.
         DispatcherTimer dt = new DispatcherTimer();
         Stopwatch stopWatch = new Stopwatch();
@@ -295,7 +296,6 @@ namespace MathsVisualisationTool
                     this.DataContext = l;
                 } catch(Exception exp)
                 {
-                    Results.Items.Add(exp.Message);
                     MessageBox.Show(exp.Message);
                     Results.Items.Add("Error 2.1");
                 }
@@ -741,15 +741,15 @@ namespace MathsVisualisationTool
         /************************** ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS *************************/
         #region AlgebraFunctions
         /*
-         * onApprox_Clicked -   Function for the Approx Button on the
+         * OnModulus_Clicked -   Function for the Modulus Button on the
          *                          keypad in the right side of the Main Window
          *                          Dock Panel - NOTE: Character can be created
          *                          with Unicode Escape Characters/Code
          */
-        private void OnApprox_Clicked(object sender, RoutedEventArgs e)
+        private void OnModulus_Clicked(object sender, RoutedEventArgs e)
         {
             // NEED TO THINK ABOUT THIS
-            this.inputBox.Text += "\u2248";
+            this.inputBox.Text += "abs()";
         }
 
         /*
@@ -785,7 +785,7 @@ namespace MathsVisualisationTool
         private void OnLessEqual_Clicked(object sender, RoutedEventArgs e)
         {
             // \u0028 => "(" => Left/Opening Parenthesis
-            this.inputBox.Text += "<=";
+            this.inputBox.Text += "<";
         }
 
         /*
@@ -797,7 +797,7 @@ namespace MathsVisualisationTool
         private void OnMoreEqual_Clicked(object sender, RoutedEventArgs e)
         {
             // \u0029 => ")" => Right/Closing Parenthesis
-            this.inputBox.Text += ">=";
+            this.inputBox.Text += ">";
         }
 
         /*
@@ -853,28 +853,29 @@ namespace MathsVisualisationTool
         }
 
         /*
-         * onAddClicked -   Function for the Addition Button on the
-         *                  keypad in the right side of the Main Window
-         *                  Dock Panel - NOTE: Character can be created
-         *                  with Unicode Escape Characters/Code
+         * onLessThanClicked -      Function for the Less than Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
          */
-        private void OnAdd_Clicked(object sender, RoutedEventArgs e)
+        private void OnLessThan_Clicked(object sender, RoutedEventArgs e)
         {
-            // Use Unicode Escape Code/Characters
-            // \u002B => + (Unicode Character)
-            this.inputBox.Text += "+";
+            // \u0028 => "(" => Left/Opening Parenthesis
+            this.inputBox.Text += "<";
         }
 
+
+
         /*
-         * onSubClicked -   Function for the Subtraction Button on the
-         *                  keypad in the right side of the Main Window
-         *                  Dock Panel - NOTE: Character can be created
-         *                  with Unicode Escape Characters/Code
+         * onGreaterThanClicked -   Function for the Greater than Button on the
+         *                          keypad in the right side of the Main Window
+         *                          Dock Panel - NOTE: Character can be created
+         *                          with Unicode Escape Characters/Code
          */
-        private void OnSub_Clicked(object sender, RoutedEventArgs e)
+        private void OnGreaterThan_Clicked(object sender, RoutedEventArgs e)
         {
-            // \u002D => Hypen-Minus in Unicode
-            this.inputBox.Text += "-";
+            // \u0029 => ")" => Right/Closing Parenthesis
+            this.inputBox.Text += ">";
         }
 
         /*
@@ -893,36 +894,36 @@ namespace MathsVisualisationTool
         }
 
         /*
-         * onPercentClicked -  Function for the Percentage Button on the
+         * onLogClicked -  Function for the Log Button on the
          *                  keypad in the right side of the Main Window
          *                  Dock Panel
          */
-        private void OnPercent_Clicked(object sender, RoutedEventArgs e)
+        private void OnLog_Clicked(object sender, RoutedEventArgs e)
         {
-            this.inputBox.Text += "%";
+            this.inputBox.Text += "log()";
         }
 
         /*
-         * onPiClicked -    Function for the Pi Button on the
+         * onLnClicked -    Function for the ln Button on the
          *                  keypad in the right side of the Main Window
          *                  Dock Panel - NOTE: Character can be created
          *                  with Unicode Escape Characters/Code
          */
-        private void OnPi_Clicked(object sender, RoutedEventArgs e)
+        private void OnLn_Clicked(object sender, RoutedEventArgs e)
         {
             // Use Unicode Escape Characters/Code to render special Characters
-            this.inputBox.Text += "\u03C0";
+            this.inputBox.Text += "ln()";
         }
 
         /*
-         * onN_SqrtClicked - Function for the N Square Root Button on the
+         * OnEuler_Clicked - Function for the Euler's E Button on the
          *                   keypad in the right side of the Main Window
          *                   Dock Panel - NOTE: Character can be created
          *                   with Unicode Escape Characters/Code
          */
-        private void OnN_Sqrt_Clicked(object sender, RoutedEventArgs e)
+        private void OnEuler_Clicked(object sender, RoutedEventArgs e)
         {
-            this.inputBox.Text += "root()";
+            this.inputBox.Text += "\uD835\uDC52";
         }
 
         /*
@@ -975,37 +976,28 @@ namespace MathsVisualisationTool
         }
 
         /*
-         * onLessThanClicked -      Function for the Less than Button on the
-         *                          keypad in the right side of the Main Window
-         *                          Dock Panel - NOTE: Character can be created
-         *                          with Unicode Escape Characters/Code
+         * onAddClicked -   Function for the Addition Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character can be created
+         *                  with Unicode Escape Characters/Code
          */
-        private void OnLessThan_Clicked(object sender, RoutedEventArgs e)
+        private void OnAdd_Clicked(object sender, RoutedEventArgs e)
         {
-            // \u0028 => "(" => Left/Opening Parenthesis
-            this.inputBox.Text += "<";
+            // Use Unicode Escape Code/Characters
+            // \u002B => + (Unicode Character)
+            this.inputBox.Text += "+";
         }
 
         /*
-         * onGreaterThanClicked -   Function for the Greater than Button on the
-         *                          keypad in the right side of the Main Window
-         *                          Dock Panel - NOTE: Character can be created
-         *                          with Unicode Escape Characters/Code
+         * onSubClicked -   Function for the Subtraction Button on the
+         *                  keypad in the right side of the Main Window
+         *                  Dock Panel - NOTE: Character can be created
+         *                  with Unicode Escape Characters/Code
          */
-        private void OnGreaterThan_Clicked(object sender, RoutedEventArgs e)
+        private void OnSub_Clicked(object sender, RoutedEventArgs e)
         {
-            // \u0029 => ")" => Right/Closing Parenthesis
-            this.inputBox.Text += ">";
-        }
-
-        /*
-         * onDel_Clicked -  Function for the Delete Button on the
-         *                  keypad in the right side of the Main
-         *                  Window Dock Panel
-         */
-        private void OnDel_Clicked(object sender, RoutedEventArgs e)
-        {
-            // Need to have a think about this one
+            // \u002D => Hypen-Minus in Unicode
+            this.inputBox.Text += "-";
         }
 
         /*
@@ -1023,9 +1015,9 @@ namespace MathsVisualisationTool
          *                  keypad in the right side of the Main
          *                  Window Dock Panel
          */
-        private void OnAns_Clicked(object sender, RoutedEventArgs e)
+        private void OnPi_Clicked(object sender, RoutedEventArgs e)
         {
-            this.inputBox.Text += "Ans";
+            this.inputBox.Text += "\u03C0";
         }
 
         /*

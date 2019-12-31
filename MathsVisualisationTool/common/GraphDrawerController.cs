@@ -16,7 +16,7 @@ using DataDomain;
 namespace MathsVisualisationTool
 {
 
-    public partial class GraphDrawer : Window
+    class GraphDrawer
     {
 
         public PlotFunction plotFunc;
@@ -50,29 +50,33 @@ namespace MathsVisualisationTool
         //Arrays storing the values of each marker on their respective axes.
         public double[] Xlabels;
         public double[] Ylabels;
+        //Reference to the MainWindow Controller of the program.
+        public MainWindow window;
 
 
-        public GraphDrawer(PlotFunction plotFunc)
+
+        public GraphDrawer(PlotFunction plotFunc, MainWindow windowToDrawOn)
         {
             this.plotFunc = plotFunc;
-            InitializeComponent();
 
-            BuildGraph();
+            window = windowToDrawOn;
         }
 
-        private void BuildGraph()
+        public void Draw()
         {
             //The Canvas in the graph drawing window must be a square.
-            if (graphCanvas.Height != graphCanvas.Width)
+            if (window.graphCanvas.Height != window.graphCanvas.Width)
             {
                 throw new Exception("Make sure height and width are the same - From Vince");
             }
 
+            window.graphCanvas.Children.Clear();
+
             //Setting up field variables for the canvas.
             xminCanvas = MARGIN;
-            xmaxCanvas = graphCanvas.Width - TAIL_OF_AXIS;
+            xmaxCanvas = window.graphCanvas.Width - TAIL_OF_AXIS;
             yminCanvas = MARGIN;
-            ymaxCanvas = graphCanvas.Height - TAIL_OF_AXIS;
+            ymaxCanvas = window.graphCanvas.Height - TAIL_OF_AXIS;
             AXIS_LENGTH = Convert.ToUInt32(xmaxCanvas - xminCanvas);
 
             //Setting up field variables in terms of the catesian space.
@@ -112,7 +116,7 @@ namespace MathsVisualisationTool
             GeometryGroup xaxis_geom = new GeometryGroup();
             //Create a straight horizontal line
             xaxis_geom.Children.Add(new LineGeometry(
-                new Point(xminCanvas, graphCanvas.Height - yminCanvas), new Point(graphCanvas.Width, graphCanvas.Height - yminCanvas)));
+                new Point(xminCanvas, window.graphCanvas.Height - yminCanvas), new Point(window.graphCanvas.Width, window.graphCanvas.Height - yminCanvas)));
 
             int count = 0;
             //Iterate through and add | markings to this line.
@@ -121,17 +125,17 @@ namespace MathsVisualisationTool
             {
                 string label = NumRounder.RoundToSignificantDigits(Xlabels[count], 4);
 
-                DrawText(x+6, graphCanvas.Height - (yminCanvas-6), label,true,true);
+                DrawText(x+6, window.graphCanvas.Height - (yminCanvas-6), label,true,true);
                 //Add | per each step.
                 xaxis_geom.Children.Add(new LineGeometry(
-                    new Point(x, graphCanvas.Height - yminCanvas - HEIGHT_OF_POINT_MARKERS / 2),
-                    new Point(x, graphCanvas.Height - yminCanvas + HEIGHT_OF_POINT_MARKERS / 2)));
+                    new Point(x, window.graphCanvas.Height - yminCanvas - HEIGHT_OF_POINT_MARKERS / 2),
+                    new Point(x, window.graphCanvas.Height - yminCanvas + HEIGHT_OF_POINT_MARKERS / 2)));
                 count++;
             }
 
             //add the variable name to the axis.
             //equation is to make the label center aligned
-            DrawText(MARGIN+(AXIS_LENGTH/2)-(((plotFunc.X.Length-1.0)*8.0)/2.0), graphCanvas.Height-30, plotFunc.X, false,false);
+            DrawText(MARGIN+(AXIS_LENGTH/2)-(((plotFunc.X.Length-1.0)*8.0)/2.0), window.graphCanvas.Height-30, plotFunc.X, false,false);
 
             //Then style the X axis.
             Path xaxis_path = new Path();
@@ -139,7 +143,7 @@ namespace MathsVisualisationTool
             xaxis_path.Stroke = Brushes.Black;
             xaxis_path.Data = xaxis_geom;
             //Add it to the graphCanvas.
-            graphCanvas.Children.Add(xaxis_path);
+            window.graphCanvas.Children.Add(xaxis_path);
         }
 
         /// <summary>
@@ -151,7 +155,7 @@ namespace MathsVisualisationTool
             GeometryGroup yaxis_geom = new GeometryGroup();
             //Create a vertical line 
             yaxis_geom.Children.Add(new LineGeometry(
-                new Point(xminCanvas, graphCanvas.Height - yminCanvas), new Point(xminCanvas, 0)));
+                new Point(xminCanvas, window.graphCanvas.Height - yminCanvas), new Point(xminCanvas, 0)));
 
             int count = 0;
             //Iterate through and add | markings to this line.
@@ -159,11 +163,11 @@ namespace MathsVisualisationTool
             {
                 string stringRep = NumRounder.RoundToSignificantDigits(Ylabels[count], 4);
 
-                DrawText((MARGIN-8) - (stringRep.Length*7), graphCanvas.Height - y - 6, stringRep, false,false);
+                DrawText((MARGIN-8) - (stringRep.Length*7), window.graphCanvas.Height - y - 6, stringRep, false,false);
                 //Add | per each step
                 yaxis_geom.Children.Add(new LineGeometry(
-                    new Point(xminCanvas - HEIGHT_OF_POINT_MARKERS / 2, graphCanvas.Height - y),
-                    new Point(xminCanvas + HEIGHT_OF_POINT_MARKERS / 2, graphCanvas.Height - y)));
+                    new Point(xminCanvas - HEIGHT_OF_POINT_MARKERS / 2, window.graphCanvas.Height - y),
+                    new Point(xminCanvas + HEIGHT_OF_POINT_MARKERS / 2, window.graphCanvas.Height - y)));
                 count++;
             }
 
@@ -176,7 +180,7 @@ namespace MathsVisualisationTool
             yaxis_path.Stroke = Brushes.Black;
             yaxis_path.Data = yaxis_geom;
             //Add it to the graph canvas
-            graphCanvas.Children.Add(yaxis_path);
+            window.graphCanvas.Children.Add(yaxis_path);
         }
 
         /// <summary>
@@ -197,7 +201,7 @@ namespace MathsVisualisationTool
             polyline.Stroke = colour;
             polyline.Points = points;
 
-            graphCanvas.Children.Add(polyline);
+            window.graphCanvas.Children.Add(polyline);
         }
 
         /// <summary>
@@ -241,7 +245,7 @@ namespace MathsVisualisationTool
 
             textBlock.Text = text;
             textBlock.FontFamily = new FontFamily("Courier New");
-
+            textBlock.FontSize = 12;
             textBlock.Foreground = new SolidColorBrush(Color.FromRgb(0,0,0));
 
             Canvas.SetLeft(textBlock, x);
@@ -259,7 +263,7 @@ namespace MathsVisualisationTool
                 }
             }
 
-            graphCanvas.Children.Add(textBlock);
+            window.graphCanvas.Children.Add(textBlock);
         }
 
         /// <summary>
