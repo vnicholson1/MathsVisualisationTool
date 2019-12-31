@@ -23,4 +23,8 @@
         <Setter Property="Foreground" Value="{StaticResource Foreground_ToolBar}"/>
     </Style>
 
+    <Style TargetType="ToolBarOverflowPanel" >
+        <Setter Property="Background" Value="{StaticResource Background_ToolBar}"/>
+    </Style>
+
 </ResourceDictionary>

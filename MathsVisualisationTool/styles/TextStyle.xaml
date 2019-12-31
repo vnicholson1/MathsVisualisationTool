@@ -35,4 +35,28 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
     </Style>
+
+    <!-- LABELS - STYLING FOR LABELS CONTAINING THE ERROR MESSAGE -->
+    <Style x:Key="errorLabel_Style" TargetType="{x:Type Label}">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
+    </Style>
+
+    <!-- TEXT BLOCK - STYLING FOR TEXT BLOCKS WITHIN ERROR MESSAGE -->
+    <Style x:Key="errorTextBlock_Style" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+
+    <!-- TEXT BOX - STYLING FOR THE INPUT TEXT BOX -->
+    <Style x:Key="inputText_Style" TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="{StaticResource MainColour_SubBackground}"/>
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource MainColour_BorderBrush}"/>
+        <Setter Property="FontFamily" Value="Ubuntu Mono"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Margin" Value="0 3 0 3"/>
+        <Setter Property="Padding" Value="5 10 5 5"/>
+    </Style>
 </ResourceDictionary>
