@@ -296,7 +296,6 @@ namespace MathsVisualisationTool
                     this.DataContext = l;
                 } catch(Exception exp)
                 {
-                    Results.Items.Add(exp.Message);
                     MessageBox.Show(exp.Message);
                     Results.Items.Add("Error 2.1");
                 }

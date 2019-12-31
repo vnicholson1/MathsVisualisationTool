@@ -47,11 +47,15 @@ namespace MathsVisualisationTool
                         //Prevent cases like 2e as you want the user to put 2*e.
                         if(i+1 != gatheredTokens.Count)
                         {
-                            if (gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.VARIABLE_NAME
-                                //for situations like 2pi - you want the user to put 2*pi.
-                                || gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.CONSTANT)
+                            if (gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
                             {
                                 throw new SyntaxErrorException("Cannot have variable name straight after constant. Did you mean " +
+                                    gatheredTokens[i].GetValue() + "*" + gatheredTokens[(i + 1)].GetValue() + "?");
+                            }
+                                //for situations like 2pi - you want the user to put 2*pi.
+                            if (gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.CONSTANT)
+                            {
+                                throw new SyntaxErrorException("Cannot have a constant straight after constant. Did you mean " +
                                     gatheredTokens[i].GetValue() + "*" + gatheredTokens[(i + 1)].GetValue() + "?");
                             }
                         }

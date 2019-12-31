@@ -10,7 +10,7 @@ namespace DataDomain
     {
         public enum SUPPORTED_TOKENS
         {
-            CONSTANT, //supported data types
+            CONSTANT,PI,EULER, //supported data types
             PLUS, MINUS, DIVISION, MULTIPLICATION, ASSIGNMENT, INDICIES, //supported ops.
             VARIABLE_NAME, //tokens related to the assignment of variables
             WHITE_SPACE, OPEN_BRACKET, CLOSE_BRACKET, COMMA, LESS_THAN, GREATER_THAN, //miscellaneous characters.
