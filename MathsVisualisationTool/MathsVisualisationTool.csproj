@@ -172,10 +172,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\GraphDrawer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="views\HelpLibrary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -368,8 +364,8 @@
     <Resource Include="images\numerical\four.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\numerical\lessThan.png" />
-    <Resource Include="images\numerical\moreThan.png" />
+    <Resource Include="images\arithmetic\lessThan.png" />
+    <Resource Include="images\arithmetic\moreThan.png" />
     <Resource Include="images\numerical\nine.png" />
   </ItemGroup>
   <ItemGroup>
@@ -406,6 +402,14 @@
     <Resource Include="images\icons\timer.png" />
     <Resource Include="images\icons\down.png" />
     <Resource Include="images\icons\up.png" />
+    <Resource Include="images\icons\error100.png" />
+    <Resource Include="images\imgs\panelback.png" />
+    <Resource Include="images\numerical\altAdd.png" />
+    <Resource Include="images\numerical\altSub.png" />
+    <Resource Include="images\arithmetic\modulus.png" />
+    <Resource Include="images\arithmetic\ln.png" />
+    <Resource Include="images\arithmetic\log.png" />
+    <Resource Include="images\arithmetic\euler.png" />
     <Content Include="manuals\clips\basicInput_V1.mpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

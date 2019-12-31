@@ -25,6 +25,8 @@ namespace MathsVisualisationTool
         public string varName = null;
         //Variable for holding a reference to the LiveChartsDrawer.
         private LiveChartsDrawer l = null;
+        //Variable for holding a reference to the GraphDrawer (Canvas).
+        private GraphDrawer g = null;
         //Write to Variable File?
         private readonly bool WRITE_TO_FILE; 
 
@@ -86,18 +88,20 @@ namespace MathsVisualisationTool
                     }
                     plot.getValues();
 
-                    //Draw the graph onto the canvas.
-                    GraphDrawer gd = new GraphDrawer(plot) { Topmost = true };
-                    if(Globals.SHOW_GRAPH_CANVAS)
+                    /////////////////////////////////////////////////////////////////
+                    //Draw onto the canvas.
+                    this.g = new GraphDrawer(plot, l.window);
+                    if (Globals.SHOW_GRAPH_CANVAS)
                     {
-                        gd.Show();
+                        g.Draw();
                     }
-                    
+                    /////////////////////////////////////////////////////////////////
+
                     //Draw it also onto LiveCharts.
-                    l.dataPoints = gd.plotFunc.dataPoints;
-                    l.canvasXLabels = gd.Xlabels;
-                    l.Xname = gd.plotFunc.X;
-                    l.Yname = gd.plotFunc.Y;
+                    l.dataPoints = g.plotFunc.dataPoints;
+                    l.canvasXLabels = g.Xlabels;
+                    l.Xname = g.plotFunc.X;
+                    l.Yname = g.plotFunc.Y;
                     if(Globals.SHOW_LIVE_CHARTS)
                     {
                         l.Draw();
