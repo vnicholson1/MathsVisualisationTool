@@ -113,6 +113,7 @@ namespace MathsVisualisationTool
                 }
             );
             window.X_Axis.Labels = Labels;
+
             ///////////////////////////////////////////////////////////////////////////////////////////
         }
     }

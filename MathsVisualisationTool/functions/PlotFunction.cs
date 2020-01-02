@@ -323,16 +323,10 @@ namespace MathsVisualisationTool
         {
             Parser p = new Parser();
             List<Token> XminList = new List<Token>();
-            List<Globals.SUPPORTED_TOKENS> supportedTypes = new List<Globals.SUPPORTED_TOKENS>
-                {Globals.SUPPORTED_TOKENS.CONSTANT,Globals.SUPPORTED_TOKENS.PLUS,Globals.SUPPORTED_TOKENS.MINUS};
 
             while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN 
                 && tokens[index].GetType() != Globals.SUPPORTED_TOKENS.GREATER_THAN)
             {
-                if (!(supportedTypes.Contains(tokens[index].GetType())))
-                {
-                    throw new SyntaxErrorException("Unexpected token " + tokens[index].GetValue() + " found.");
-                }
 
                 XminList.Add(tokens[index]);
                 index++;
@@ -357,15 +351,9 @@ namespace MathsVisualisationTool
         {
             Parser p = new Parser();
             List<Token> XmaxList = new List<Token>();
-            List<Globals.SUPPORTED_TOKENS> supportedTypes = new List<Globals.SUPPORTED_TOKENS>
-                {Globals.SUPPORTED_TOKENS.CONSTANT,Globals.SUPPORTED_TOKENS.PLUS,Globals.SUPPORTED_TOKENS.MINUS};
 
             while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
             {
-                if (!(supportedTypes.Contains(tokens[index].GetType())))
-                {
-                    throw new SyntaxErrorException("Unexpected token " + tokens[index].GetValue() + " found.");
-                }
 
                 XmaxList.Add(tokens[index]);
                 index++;
