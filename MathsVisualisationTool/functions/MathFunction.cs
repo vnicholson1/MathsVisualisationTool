@@ -14,9 +14,8 @@ namespace MathsVisualisationTool
         protected Token firstParameter;
         //The second parameter (if it exists)
         protected Token secondParameter = null;
-        //For recording the number of tokens that take up the sin function.
-        //This includes from the sin token all the way to the final closing bracket ).
-        protected int lengthOfExpression = 0;
+        protected int beginIndex = 0;
+        protected int endIndex = 0;
         //For storing the new modified equation.
         protected List<Token> newEquation;
         //For stating whether a function has a second parameter has some math functions do but others don't.
@@ -65,6 +64,8 @@ namespace MathsVisualisationTool
                 result = getEnclosingExpression(equation, ref index, false);
                 secondParameter = new Token(Globals.SUPPORTED_TOKENS.CONSTANT, Convert.ToString(result));
             }
+
+            endIndex = index;
         }
 
         /// <summary>
@@ -77,7 +78,18 @@ namespace MathsVisualisationTool
 
             int bracketLevel = 0;
             List<Token> enclosingFunction = new List<Token>();
+            if (!isFirstRun)
+            {
+                bracketLevel = 1;
+                enclosingFunction.Add(new Token(Globals.SUPPORTED_TOKENS.OPEN_BRACKET, "("));
+            }
             bool commaFound = false;
+
+            if(isFirstRun)
+            {
+                beginIndex = index -1 ;
+            }
+            
             //Get the equation enclosed in the brackets.
             while (true)
             {
@@ -138,7 +150,6 @@ namespace MathsVisualisationTool
             //Analyse the syntax of the enclosing function using the parser object.
             double result = p.AnalyseTokens(enclosingFunction);
 
-            lengthOfExpression += enclosingFunction.Count + 1;
             return result;
         }
 
@@ -149,7 +160,7 @@ namespace MathsVisualisationTool
         /// <param name="index"></param>
         private void modifyNewEquation(List<Token> equation, int index)
         {
-            equation.RemoveRange(index, lengthOfExpression);
+            equation.RemoveRange(index, endIndex - beginIndex + 1);
             equation.Insert(index, result);
 
             newEquation = equation;

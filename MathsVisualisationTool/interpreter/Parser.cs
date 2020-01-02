@@ -28,7 +28,10 @@ namespace MathsVisualisationTool
         //Variable for holding a reference to the GraphDrawer (Canvas).
         private GraphDrawer g = null;
         //Write to Variable File?
-        private readonly bool WRITE_TO_FILE; 
+        private readonly bool WRITE_TO_FILE;
+        //Variable to record the result of a command. This is so that the correct message is displayed in the testbox.
+        public enum STATUSES{VARIABLE_ASSIGNED,PLOT_FUNCTION_CALLED,UNASSIGNED_RESULT};
+        public STATUSES status = STATUSES.UNASSIGNED_RESULT;
 
         /// <summary>
         /// Create a new parser object. This implementation has the WRITE_TO_FILE flag set to false.
@@ -107,6 +110,7 @@ namespace MathsVisualisationTool
                         l.Draw();
                     }
 
+                    status = STATUSES.PLOT_FUNCTION_CALLED;
                     return double.NaN;
                 } else if(tokens[i].GetType() == Globals.SUPPORTED_TOKENS.SIN)
                 {
@@ -116,13 +120,11 @@ namespace MathsVisualisationTool
                 }
                 else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.COS)
                 {
-                    //create the sin function and find a value.
                     CosFunction c = new CosFunction(tokens, i, false);
                     tokens = c.getNewEquation();
                 }
                 else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.TAN)
                 {
-                    //create the sin function and find a value.
                     TanFunction t = new TanFunction(tokens, i, false);
                     tokens = t.getNewEquation();
                 }
@@ -133,25 +135,21 @@ namespace MathsVisualisationTool
                 }
                 else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.LN)
                 {
-                    //create the sin function and find a value.
                     LnFunction l = new LnFunction(tokens, i, false);
                     tokens = l.getNewEquation();
                 }
                 else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.SQRT)
                 {
-                    //create the sin function and find a value.
                     SqrtFunction s = new SqrtFunction(tokens, i, false);
                     tokens = s.getNewEquation();
                 }
                 else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.ROOT)
                 {
-                    //create the sin function and find a value.
                     RootFunction r = new RootFunction(tokens, i, true);
                     tokens = r.getNewEquation();
                 }
                 else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.ABS)
                 {
-                    //create the sin function and find a value.
                     AbsFunction a = new AbsFunction(tokens, i, false);
                     tokens = a.getNewEquation();
                 }
@@ -272,17 +270,19 @@ namespace MathsVisualisationTool
                 double val = analyseExpressions(double.NaN);
                 string varValue = null;
 
-                if(double.IsNaN(val))
-                {
-                    throw new SyntaxErrorException("Expression must equate to a value");
-                } else
-                {
+                //if(double.IsNaN(val))
+                //{
+                    //throw new SyntaxErrorException("Expression must equate to a value");
+                //} else
+                //{
                     varValue = Convert.ToString(val);
-                }
+                //}
                 
                 variables[name] = varValue;
 
                 varName = name;
+
+                status = STATUSES.VARIABLE_ASSIGNED;
 
                 return value;
             }
@@ -332,7 +332,6 @@ namespace MathsVisualisationTool
                         throw new VariableReferenceException(e.Message);
                     }
                 }
-                
             }
 
             right = new Constant(rightValue);
