@@ -3,13 +3,16 @@
                     xmlns:local="clr-namespace:MathsVisualisationTool">
    
     <!-- LIST BOX - STYLING FOR LIST BOXS -->
-    <Style x:Key="ListBox_Style" TargetType="{x:Type ListBox}">
+    <Style x:Key="resultListBox_Style" TargetType="{x:Type ListBox}">
         <Setter Property="Background" Value="{StaticResource MainColour_MainBackground}"/>
         <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
         <Setter Property="FontSize" Value="24"/>
         <Setter Property="Margin" Value="3 3 3 3"/>
         <Setter Property="Padding" Value="5"/>
         <Setter Property="BorderBrush" Value="{StaticResource MainColour_MainBackground}"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
     </Style>
 
     <!-- STOPWATCH LIST BOX - STYLING FOR LIST BOXS -->
