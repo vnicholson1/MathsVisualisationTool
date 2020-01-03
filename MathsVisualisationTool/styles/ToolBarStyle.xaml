@@ -6,6 +6,7 @@
     <Style x:Key="Btn_ToolBar" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{StaticResource Background_ToolBar}"/>
         <Setter Property="Padding" Value="3 2 3 2"/>
+        <Setter Property="Cursor" Value="Hand" />
     </Style>
 
     <!--<Style x:Key="{x:Static ToolBar.ButtonStyleKey}" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}" />-->
