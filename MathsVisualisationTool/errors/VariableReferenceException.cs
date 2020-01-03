@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace MathsVisualisationTool
 {
-    public class VariableReferenceException : SyntaxErrorException
+    /// <summary>
+    /// Error thrown if a variable is being used but no value has been assigned to it yet.
+    /// </summary>
+    class VariableReferenceException:SyntaxErrorException
     {
-
-        public VariableReferenceException(string message)
-        : base(message)
+        public VariableReferenceException(string message):base(message)
         {
             ErrorCode = "2";
         }
