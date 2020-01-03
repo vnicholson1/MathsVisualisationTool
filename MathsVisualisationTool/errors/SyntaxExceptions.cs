@@ -11,6 +11,7 @@ namespace MathsVisualisationTool
         public SyntaxErrorException(string message)
         : base(message)
         {
+            ErrorCode = "1";
         }
     }
 
@@ -35,7 +36,6 @@ namespace MathsVisualisationTool
             ErrorCode = "1.1";
         }
     }
-
 
     public class VariableReferenceException : SyntaxErrorException
     {

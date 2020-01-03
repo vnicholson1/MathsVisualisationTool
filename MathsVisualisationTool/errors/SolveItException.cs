@@ -28,7 +28,7 @@ namespace MathsVisualisationTool
     {
         public UnknownErrorException(string message) : base(message)
         {
-            ErrorCode = "5.0";
+            ErrorCode = "6";
         }
     }
 }

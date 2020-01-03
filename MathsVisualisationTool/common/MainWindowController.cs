@@ -330,7 +330,6 @@ namespace MathsVisualisationTool
             this.inputBox.Focus();
             this.inputBox.Clear();
             loadVarsIntoDataGrid();
-
         }
         #endregion
         /********************************* END OF FUNCTIONS TO RUN/SUBMIT INPUT *****************************/
