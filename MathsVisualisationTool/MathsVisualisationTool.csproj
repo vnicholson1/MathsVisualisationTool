@@ -101,7 +101,14 @@
     <Compile Include="common\KeyPadController.cs" />
     <Compile Include="common\LiveChartsDrawerController.cs" />
     <Compile Include="common\SettingsController.cs" />
-    <Compile Include="errors\SolveItException.cs" />
+    <Compile Include="errors\Exceptions.cs" />
+    <Compile Include="errors\IncorrectPlotFunctionPositionExceptions.cs" />
+    <Compile Include="errors\IncorrectPositionExceptions.cs" />
+    <Compile Include="errors\InvalidTypeExceptions.cs" />
+    <Compile Include="errors\MissingExpressionExceptions.cs" />
+    <Compile Include="errors\MissingOperatorExceptions.cs" />
+    <Compile Include="errors\ParanthesesExceptions.cs" />
+    <Compile Include="errors\SolveItExceptions.cs" />
     <Compile Include="functions\AbsFunction.cs" />
     <Compile Include="functions\CosFunction.cs" />
     <Compile Include="functions\LnFunction.cs" />

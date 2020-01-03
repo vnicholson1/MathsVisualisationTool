@@ -327,7 +327,7 @@ namespace MathsVisualisationTool
             {
                 if (exp is SolveItException)
                 {
-                    SolveItException s = new SolveItException(exp.Message);
+                    SolveItException s = (SolveItException) exp;
                     MessageBox.Show(s.Message);
                     Results.Items.Add("Error Code - " + s.ErrorCode);
                 }
