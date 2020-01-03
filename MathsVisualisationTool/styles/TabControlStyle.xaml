@@ -44,6 +44,7 @@
 
     <!-- STYLING FOR MAIN OUTPUT TAB ITEMS -->
     <Style x:Key="mainTab" TargetType="{x:Type TabItem}">
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TabItem">
@@ -69,6 +70,7 @@
 
     <!-- STYLING FOR THE KEYPAD TAB ITEMS -->
     <Style x:Key="keypadTab" TargetType="{x:Type TabItem}">
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TabItem">
@@ -94,6 +96,7 @@
 
     <!-- STYLING FOR TAB ITEMS THAT ARE ORIENTATED VERTICALLY TO THE LEFT -->
     <Style x:Key="leftTabStyle" TargetType="{x:Type TabItem}">
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TabItem">
@@ -135,6 +138,7 @@
 
     <!-- STYLING FOR TAB ITEMS THAT ARE ORIENTATED VERTICALLY TO THE RIGHT -->
     <Style x:Key="rightTabStyle" TargetType="{x:Type TabItem}">
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TabItem">

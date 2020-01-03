@@ -14,7 +14,7 @@ namespace MathsVisualisationTool
     {
         public ErrorMsg()
         {
-            //InitializeComponent();
+            InitializeComponent();
         }
     }
 }

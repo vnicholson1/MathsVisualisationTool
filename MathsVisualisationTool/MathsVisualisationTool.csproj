@@ -148,6 +148,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="styles\ScrollviewerStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="styles\StackPanelStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -410,6 +414,30 @@
     <Resource Include="images\arithmetic\ln.png" />
     <Resource Include="images\arithmetic\log.png" />
     <Resource Include="images\arithmetic\euler.png" />
+    <Resource Include="images\graph\plot.png" />
+    <Resource Include="images\graph\comma.png" />
+    <Resource Include="images\graph\c.png" />
+    <Resource Include="images\graph\x.png" />
+    <Resource Include="images\graph\y.png" />
+    <Resource Include="images\graph\altPlot.png" />
+    <Resource Include="images\tabIcons\tabGraph270.png" />
+    <Resource Include="images\tabIcons\tabKeypad270.png" />
+    <Resource Include="images\tabIcons\tabClock270.png" />
+    <Resource Include="images\tabIcons\tabFavs270.png" />
+    <Resource Include="images\tabIcons\tabNotes90.png" />
+    <Resource Include="images\tabIcons\tabDocs90.png" />
+    <Resource Include="images\tabIcons\tabCanvas.png" />
+    <Resource Include="images\tabIcons\tabLvc.png" />
+    <Resource Include="images\icons\quit.png" />
+    <Resource Include="images\icons\saveCon.png" />
+    <Resource Include="images\icons\saveDoc.png" />
+    <Resource Include="images\icons\saveGraph.png" />
+    <Resource Include="images\icons\saveRun.png" />
+    <Resource Include="images\icons\saveVar.png" />
+    <Resource Include="images\icons\library.png" />
+    <Resource Include="images\icons\trash.png" />
+    <Resource Include="images\icons\uninstallUpdates.png" />
+    <Resource Include="images\icons\downUpdates.png" />
     <Content Include="manuals\clips\basicInput_V1.mpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
