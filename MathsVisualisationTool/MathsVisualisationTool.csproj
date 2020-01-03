@@ -101,6 +101,7 @@
     <Compile Include="common\KeyPadController.cs" />
     <Compile Include="common\LiveChartsDrawerController.cs" />
     <Compile Include="common\SettingsController.cs" />
+    <Compile Include="errors\SolveItException.cs" />
     <Compile Include="functions\AbsFunction.cs" />
     <Compile Include="functions\CosFunction.cs" />
     <Compile Include="functions\LnFunction.cs" />

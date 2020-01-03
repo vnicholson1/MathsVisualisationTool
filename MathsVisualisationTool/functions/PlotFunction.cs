@@ -80,22 +80,42 @@ namespace MathsVisualisationTool
             //Skip over the plot and open bracket tokens.
             index += 2;
 
-            bool functionHasTwoArguments = false;
+            //For recording if the loop can escape when finding a comma.
+            List<bool> statusList = new List<bool>() { false };
+
+            bool functionFound = false;
+            bool hasFoundClosingBracket = false;
 
             try
             {
-                while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.COMMA || functionHasTwoArguments)
+                while (!canEscape(statusList))
                 {
-                    //if the function found is one with 2 arguments don't escape the loop.
-                    if(Globals.funcsWith2Args.Contains(tokens[index].GetValue()))
+                    if(Globals.keyWords.Contains(tokens[index].GetValue()))
                     {
-                        functionHasTwoArguments = true;
+                        functionFound = true;
+                        //if the function found is one with 2 arguments don't escape the loop.
+                        if (Globals.funcsWith2Args.Contains(tokens[index].GetValue()))
+                        {
+                            statusList.Add(false);
+                        }
                     }
 
-                    //if the comma has been found then reset the flag to false.
+                    //if the comma has been found then set the status to true.
                     if(tokens[index].GetType() == Globals.SUPPORTED_TOKENS.COMMA)
                     {
-                        functionHasTwoArguments = false;
+                        updateList(ref statusList);
+                    }
+
+                    //To check if the user has put in the correct number of arguments for one argument functions.
+                    if(tokens[index].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
+                    {
+                        hasFoundClosingBracket = true;
+                    }
+                    //If you find either < or > symbols then clearly something is wrong
+                    if(tokens[index].GetType() == Globals.SUPPORTED_TOKENS.LESS_THAN
+                        || tokens[index].GetType() == Globals.SUPPORTED_TOKENS.GREATER_THAN)
+                    {
+                        throw new SyntaxErrorException("Not enough arguments given in function declaration.");
                     }
 
                     //For situations like 'plot(y=x)'
@@ -103,9 +123,24 @@ namespace MathsVisualisationTool
                     {
                         throw new SyntaxErrorException("Missing range argument.");
                     }
+
                     equationTokens.Add(tokens[index]);
                     index++;
                 }
+
+                if(functionFound)
+                {
+                    if (!hasFoundClosingBracket)
+                    {
+                        throw new SyntaxErrorException("This function only has one argument");
+                    }
+                }
+                
+
+                //Because the comma token at the end is added to the list and we don't want that.
+                //we just want the equation.
+                equationTokens.RemoveAt(equationTokens.Count - 1);
+                index--;
 
                 //For situations like 'plot(y=x,'
                 if(index == (tokens.Count-1))
@@ -127,6 +162,43 @@ namespace MathsVisualisationTool
             }
 
             return equationTokens;
+        }
+
+        /// <summary>
+        /// Function for checking whether the listOfStatuses is true or not.
+        /// Its only true if all the bools in the list are true.
+        /// </summary>
+        /// <param name="listOfStatuses"></param>
+        /// <returns></returns>
+        private static bool canEscape(List<bool> listOfStatuses)
+        {
+            foreach(bool b in listOfStatuses)
+            {
+                if(b is false)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// If a comma has been found then only set one of the bools to true.
+        /// </summary>
+        /// <param name="listOfStatuses"></param>
+        private static void updateList(ref List<bool> listOfStatuses)
+        {
+            int counter = 0;
+            foreach(bool b in listOfStatuses)
+            {
+                if(b is false)
+                {
+                    listOfStatuses[counter] = true;
+                    return;
+                }
+                counter++;
+            }
         }
 
         /// <summary>
@@ -155,17 +227,18 @@ namespace MathsVisualisationTool
             bool hasGreaterThanSymbol = false;
 
             //Check the next token is a < or >
-            if(tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN 
+            /*if(tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN 
                 && tokens[index].GetType() != Globals.SUPPORTED_TOKENS.GREATER_THAN)
             {
                 throw new SyntaxErrorException("< or > symbol expected. " + tokens[index].GetValue() + " found instead.");
             } else
-            {
+            {*/
+                //Not sure if above Exception is ever thrown lol 
                 if(tokens[index].GetType() == Globals.SUPPORTED_TOKENS.GREATER_THAN)
                 {
                     hasGreaterThanSymbol = true;
                 }
-            }
+            //}
 
             //Check the next token is the dependent variable. 
             index++;
@@ -251,16 +324,10 @@ namespace MathsVisualisationTool
         {
             Parser p = new Parser();
             List<Token> XminList = new List<Token>();
-            List<Globals.SUPPORTED_TOKENS> supportedTypes = new List<Globals.SUPPORTED_TOKENS>
-                {Globals.SUPPORTED_TOKENS.CONSTANT,Globals.SUPPORTED_TOKENS.PLUS,Globals.SUPPORTED_TOKENS.MINUS};
 
             while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN 
                 && tokens[index].GetType() != Globals.SUPPORTED_TOKENS.GREATER_THAN)
             {
-                if (!(supportedTypes.Contains(tokens[index].GetType())))
-                {
-                    throw new SyntaxErrorException("Unexpected token " + tokens[index].GetValue() + " found.");
-                }
 
                 XminList.Add(tokens[index]);
                 index++;
@@ -285,15 +352,9 @@ namespace MathsVisualisationTool
         {
             Parser p = new Parser();
             List<Token> XmaxList = new List<Token>();
-            List<Globals.SUPPORTED_TOKENS> supportedTypes = new List<Globals.SUPPORTED_TOKENS>
-                {Globals.SUPPORTED_TOKENS.CONSTANT,Globals.SUPPORTED_TOKENS.PLUS,Globals.SUPPORTED_TOKENS.MINUS};
 
             while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
             {
-                if (!(supportedTypes.Contains(tokens[index].GetType())))
-                {
-                    throw new SyntaxErrorException("Unexpected token " + tokens[index].GetValue() + " found.");
-                }
 
                 XmaxList.Add(tokens[index]);
                 index++;

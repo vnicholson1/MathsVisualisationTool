@@ -67,7 +67,7 @@ namespace MathsVisualisationTool
                         {
                             throw new SyntaxErrorException("Cannot have more than one decimal point in number.");
                         }
-
+                        //if the number specified is just the decimal point.
                         if (gatheredTokens[i].GetValue() == ".")
                         {
                             throw new SyntaxErrorException("Unrecognised token - '.'.");

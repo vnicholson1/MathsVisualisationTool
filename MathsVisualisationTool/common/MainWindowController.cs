@@ -294,32 +294,7 @@ namespace MathsVisualisationTool
          */
         private void OnRun_Clicked(object sender, RoutedEventArgs e)
         {
-            //HandleTextEnter();
-            if (this.inputBox.Text != "")
-            {
-                Results.Items.Add(">>> \t" + this.inputBox.Text);
-                //Interpreter String called results
-                Interpreter i = new Interpreter(ref l);
-                //string output = i.RunInterpreter(inputBox.Text);
-                try
-                {
-                    Results.Items.Add(i.RunInterpreter(inputBox.Text));
-                    //Update the LiveChartsDrawer onto the mainWindow.
-                    this.DataContext = l;
-                } catch(Exception exp)
-                {
-                    MessageBox.Show(exp.Message);
-                    Results.Items.Add("Error 2.1");
-                }
-                this.inputBox.Focus();
-                this.inputBox.Clear();
-                loadVarsIntoDataGrid();
-            }
-            else
-            {
-                MessageBox.Show("ERROR");
-                this.inputBox.Focus();
-            }
+            HandleTextEnter();
         }
 
         /*
@@ -330,33 +305,8 @@ namespace MathsVisualisationTool
         {
             if (e.Key == Key.Return)
             {
-                //HandleTextEnter();
                 e.Handled = true;
-                if (this.inputBox.Text != " ")
-                {
-                    Results.Items.Add(">>> \t" + this.inputBox.Text);
-                    //Interpreter String called results
-                    Interpreter i = new Interpreter(ref l);
-                    try
-                    {
-                        Results.Items.Add(i.RunInterpreter(inputBox.Text));
-                    }
-                    catch (Exception exp)
-                    {
-                        Console.WriteLine(exp.ToString());
-                        //Results.Items.Add(exp.Message);
-                        MessageBox.Show(exp.Message);
-                        Results.Items.Add("Error 2.1");
-                    }
-                    this.inputBox.Focus();
-                    this.inputBox.Clear();
-                }
-                else
-                {
-                    MessageBox.Show("ERROR");
-                    this.inputBox.Focus();
-                }
-                loadVarsIntoDataGrid();
+                HandleTextEnter();
             }
         }
 
@@ -366,22 +316,32 @@ namespace MathsVisualisationTool
          */
         private void HandleTextEnter()
         {
-            string content = inputBox.Text;
-            inputBox.Clear();
-
-            Interpreter interp = new Interpreter(ref l);
-
+            Results.Items.Add(">>> \t" + this.inputBox.Text);
+            //Interpreter String called results
+            Interpreter i = new Interpreter(ref l);
             try
             {
-                string output = interp.RunInterpreter(content);
-                Console.WriteLine(output); //output onto the screen
+                Results.Items.Add(i.RunInterpreter(inputBox.Text));
             }
-            catch (Exception e)
+            catch (Exception exp)
             {
-                string output = e.ToString();
-                Console.WriteLine(output); //output onto the screen but in red.
+                if (exp is SolveItException)
+                {
+                    SolveItException s = new SolveItException(exp.Message);
+                    MessageBox.Show(s.Message);
+                    Results.Items.Add("Error Code - " + s.ErrorCode);
+                }
+                else
+                {
+                    //This shouldn't happen but cannot always pickup all bugs!
+                    UnknownErrorException u = new UnknownErrorException(exp.Message);
+                    MessageBox.Show("An unknown Error has occured. Please contact customer support.");
+                    Results.Items.Add("Error Code - " + u.ErrorCode);
+                }
             }
-
+            this.inputBox.Focus();
+            this.inputBox.Clear();
+            loadVarsIntoDataGrid();
         }
         #endregion
         /********************************* END OF FUNCTIONS TO RUN/SUBMIT INPUT *****************************/
