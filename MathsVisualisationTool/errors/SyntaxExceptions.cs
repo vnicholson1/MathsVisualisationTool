@@ -37,13 +37,5 @@ namespace MathsVisualisationTool
         }
     }
 
-    public class VariableReferenceException : SyntaxErrorException
-    {
-
-        public VariableReferenceException(string message)
-        : base(message)
-        {
-            ErrorCode = "67";
-        }
-    }
+    
 }
