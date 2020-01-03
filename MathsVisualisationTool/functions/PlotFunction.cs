@@ -227,17 +227,18 @@ namespace MathsVisualisationTool
             bool hasGreaterThanSymbol = false;
 
             //Check the next token is a < or >
-            if(tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN 
+            /*if(tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN 
                 && tokens[index].GetType() != Globals.SUPPORTED_TOKENS.GREATER_THAN)
             {
                 throw new SyntaxErrorException("< or > symbol expected. " + tokens[index].GetValue() + " found instead.");
             } else
-            {
+            {*/
+                //Not sure if above Exception is ever thrown lol 
                 if(tokens[index].GetType() == Globals.SUPPORTED_TOKENS.GREATER_THAN)
                 {
                     hasGreaterThanSymbol = true;
                 }
-            }
+            //}
 
             //Check the next token is the dependent variable. 
             index++;

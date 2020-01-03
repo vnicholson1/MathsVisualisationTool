@@ -270,13 +270,7 @@ namespace MathsVisualisationTool
                 double val = analyseExpressions(double.NaN);
                 string varValue = null;
 
-                //if(double.IsNaN(val))
-                //{
-                    //throw new SyntaxErrorException("Expression must equate to a value");
-                //} else
-                //{
-                    varValue = Convert.ToString(val);
-                //}
+                varValue = Convert.ToString(val);
                 
                 variables[name] = varValue;
 

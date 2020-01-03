@@ -6,27 +6,44 @@ using System.Threading.Tasks;
 
 namespace MathsVisualisationTool
 {
-    public class SyntaxErrorException : Exception
+    public class SyntaxErrorException : SolveItException
     {
-        public SyntaxErrorException()
-        {
-        }
-
         public SyntaxErrorException(string message)
         : base(message)
         {
         }
     }
 
+    /// <summary>
+    /// Error thrown when someone tries to send an empty string to the interpreter.
+    /// </summary>
+    public class EmptyInputException : SyntaxErrorException
+    {
+        public EmptyInputException(string message) : base(message)
+        {
+            ErrorCode = "1.0";
+        }
+    }
+
+    /// <summary>
+    /// Error thrown when someone tries to input an unrecognised character into the interpreter.
+    /// </summary>
+    public class UnknownCharacterException : SyntaxErrorException
+    {
+        public UnknownCharacterException(string message) : base(message)
+        {
+            ErrorCode = "1.1";
+        }
+    }
+
+
     public class VariableReferenceException : SyntaxErrorException
     {
-        public VariableReferenceException()
-        {
-        }
 
         public VariableReferenceException(string message)
         : base(message)
         {
+            ErrorCode = "67";
         }
     }
 }

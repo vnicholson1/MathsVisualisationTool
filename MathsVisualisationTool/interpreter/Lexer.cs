@@ -25,7 +25,7 @@ namespace MathsVisualisationTool
         public List<Token> TokeniseInput(string input)
         {
 
-            if(input.Length == 0)
+            if(string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
             {
                 throw new SyntaxErrorException("Error: Empty input added.");
             }
