@@ -101,6 +101,22 @@
     <Compile Include="common\KeyPadController.cs" />
     <Compile Include="common\LiveChartsDrawerController.cs" />
     <Compile Include="common\SettingsController.cs" />
+    <Compile Include="errors\Exceptions.cs" />
+    <Compile Include="errors\IncorrectPlotFunctionPositionExceptions.cs" />
+    <Compile Include="errors\IncorrectPositionExceptions.cs" />
+    <Compile Include="errors\InvalidEquationExceptions.cs" />
+    <Compile Include="errors\InvalidRangeExceptions.cs" />
+    <Compile Include="errors\InvalidTypeExceptions.cs" />
+    <Compile Include="errors\MathFunctionArgumentExceptions.cs" />
+    <Compile Include="errors\MathFunctionExceptions.cs" />
+    <Compile Include="errors\MathFunctionSyntaxExceptions.cs" />
+    <Compile Include="errors\MissingExpressionExceptions.cs" />
+    <Compile Include="errors\MissingOperatorExceptions.cs" />
+    <Compile Include="errors\ParanthesesExceptions.cs" />
+    <Compile Include="errors\PlotFunctionArgumentException.cs" />
+    <Compile Include="errors\PlotFunctionExceptions.cs" />
+    <Compile Include="errors\PlotFunctionSyntaxExceptions.cs" />
+    <Compile Include="errors\SolveItExceptions.cs" />
     <Compile Include="functions\AbsFunction.cs" />
     <Compile Include="functions\CosFunction.cs" />
     <Compile Include="functions\LnFunction.cs" />
@@ -148,6 +164,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="styles\ScrollviewerStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="styles\StackPanelStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -191,7 +211,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="errors\MathExceptions.cs" />
     <Compile Include="errors\SyntaxExceptions.cs" />
     <Compile Include="interpreter\Interpreter.cs" />
     <Compile Include="interpreter\Lexer.cs" />
@@ -410,6 +429,30 @@
     <Resource Include="images\arithmetic\ln.png" />
     <Resource Include="images\arithmetic\log.png" />
     <Resource Include="images\arithmetic\euler.png" />
+    <Resource Include="images\graph\plot.png" />
+    <Resource Include="images\graph\comma.png" />
+    <Resource Include="images\graph\c.png" />
+    <Resource Include="images\graph\x.png" />
+    <Resource Include="images\graph\y.png" />
+    <Resource Include="images\graph\altPlot.png" />
+    <Resource Include="images\tabIcons\tabGraph270.png" />
+    <Resource Include="images\tabIcons\tabKeypad270.png" />
+    <Resource Include="images\tabIcons\tabClock270.png" />
+    <Resource Include="images\tabIcons\tabFavs270.png" />
+    <Resource Include="images\tabIcons\tabNotes90.png" />
+    <Resource Include="images\tabIcons\tabDocs90.png" />
+    <Resource Include="images\tabIcons\tabCanvas.png" />
+    <Resource Include="images\tabIcons\tabLvc.png" />
+    <Resource Include="images\icons\quit.png" />
+    <Resource Include="images\icons\saveCon.png" />
+    <Resource Include="images\icons\saveDoc.png" />
+    <Resource Include="images\icons\saveGraph.png" />
+    <Resource Include="images\icons\saveRun.png" />
+    <Resource Include="images\icons\saveVar.png" />
+    <Resource Include="images\icons\library.png" />
+    <Resource Include="images\icons\trash.png" />
+    <Resource Include="images\icons\uninstallUpdates.png" />
+    <Resource Include="images\icons\downUpdates.png" />
     <Content Include="manuals\clips\basicInput_V1.mpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

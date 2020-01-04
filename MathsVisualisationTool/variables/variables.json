@@ -1,26 +1,14 @@
 [
   {
-    "name": "a",
-    "value": "1"
+    "name": "Ans",
+    "value": "-0.756802495307928"
   },
   {
     "name": "~x",
     "value": "10"
   },
   {
-    "name": "Ans",
-    "value": "2.71828182845905"
-  },
-  {
-    "name": "x",
-    "value": "1"
-  },
-  {
-    "name": "y",
-    "value": "2"
-  },
-  {
-    "name": "εεεε",
-    "value": "4"
+    "name": "~xz",
+    "value": "10"
   }
 ]

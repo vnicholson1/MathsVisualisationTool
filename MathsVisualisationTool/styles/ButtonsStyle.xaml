@@ -11,6 +11,7 @@
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Margin" Value="3"/>
         <Setter Property="MinWidth" Value="45"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -44,6 +45,7 @@
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Margin" Value="3 6 3 3"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -76,6 +78,7 @@
         <Setter Property="Foreground" Value="{StaticResource MainColour_Font}" />
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">

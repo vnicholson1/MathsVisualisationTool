@@ -21,6 +21,7 @@ using System.Windows.Threading;
 using System.Diagnostics;
 using LiveCharts;
 using LiveCharts.Wpf;
+using Microsoft.Win32;
 
 namespace MathsVisualisationTool
 {
@@ -76,6 +77,17 @@ namespace MathsVisualisationTool
             LvChrt.DataTooltip.Background = Brushes.Black;
             #endregion
             /********************************* END OF LIVE CHART FUNCTIONS **********************************/
+
+        }
+
+        private void OnSelected(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem lbi = e.Source as ListBoxItem;
+
+            if (lbi != null)
+            {
+                MessageBox.Show(lbi.Content.ToString() + " is selected.");
+            }
         }
 
         /*
@@ -282,32 +294,7 @@ namespace MathsVisualisationTool
          */
         private void OnRun_Clicked(object sender, RoutedEventArgs e)
         {
-            //HandleTextEnter();
-            if (this.inputBox.Text != "")
-            {
-                Results.Items.Add(">>> \t" + this.inputBox.Text);
-                //Interpreter String called results
-                Interpreter i = new Interpreter(ref l);
-                //string output = i.RunInterpreter(inputBox.Text);
-                try
-                {
-                    Results.Items.Add(i.RunInterpreter(inputBox.Text));
-                    //Update the LiveChartsDrawer onto the mainWindow.
-                    this.DataContext = l;
-                } catch(Exception exp)
-                {
-                    MessageBox.Show(exp.Message);
-                    Results.Items.Add("Error 2.1");
-                }
-                this.inputBox.Focus();
-                this.inputBox.Clear();
-                loadVarsIntoDataGrid();
-            }
-            else
-            {
-                MessageBox.Show("ERROR");
-                this.inputBox.Focus();
-            }
+            HandleTextEnter();
         }
 
         /*
@@ -318,33 +305,8 @@ namespace MathsVisualisationTool
         {
             if (e.Key == Key.Return)
             {
-                //HandleTextEnter();
                 e.Handled = true;
-                if (this.inputBox.Text != " ")
-                {
-                    Results.Items.Add(">>> \t" + this.inputBox.Text);
-                    //Interpreter String called results
-                    Interpreter i = new Interpreter(ref l);
-                    try
-                    {
-                        Results.Items.Add(i.RunInterpreter(inputBox.Text));
-                    }
-                    catch (Exception exp)
-                    {
-                        Console.WriteLine(exp.ToString());
-                        //Results.Items.Add(exp.Message);
-                        MessageBox.Show(exp.Message);
-                        Results.Items.Add("Error 2.1");
-                    }
-                    this.inputBox.Focus();
-                    this.inputBox.Clear();
-                }
-                else
-                {
-                    MessageBox.Show("ERROR");
-                    this.inputBox.Focus();
-                }
-                loadVarsIntoDataGrid();
+                HandleTextEnter();
             }
         }
 
@@ -354,22 +316,33 @@ namespace MathsVisualisationTool
          */
         private void HandleTextEnter()
         {
-            string content = inputBox.Text;
-            inputBox.Clear();
-
-            Interpreter interp = new Interpreter(ref l);
-
+            Results.Items.Add(">>> \t" + this.inputBox.Text);
+            //Interpreter String called results
+            Interpreter i = new Interpreter(ref l);
             try
             {
-                string output = interp.RunInterpreter(content);
-                Console.WriteLine(output); //output onto the screen
+                Results.Items.Add(i.RunInterpreter(inputBox.Text));
             }
-            catch (Exception e)
+            catch (Exception exp)
             {
-                string output = e.ToString();
-                Console.WriteLine(output); //output onto the screen but in red.
+                if (exp is SolveItException)
+                {
+                    SolveItException s = (SolveItException) exp;
+                    MessageBox.Show(s.Message);
+                    Results.Items.Add("Error Code - " + s.ErrorCode);
+                }
+                else
+                {
+                    //This shouldn't happen but cannot always pickup all bugs!
+                    UnknownErrorException u = new UnknownErrorException(exp.Message);
+                    MessageBox.Show("An unknown Error has occured. Please contact customer support.");
+                    Results.Items.Add("Error Code - " + u.ErrorCode);
+                }
+                Console.WriteLine(exp.ToString());
             }
-
+            this.inputBox.Focus();
+            this.inputBox.Clear();
+            loadVarsIntoDataGrid();
         }
         #endregion
         /********************************* END OF FUNCTIONS TO RUN/SUBMIT INPUT *****************************/
@@ -379,16 +352,16 @@ namespace MathsVisualisationTool
          * OnExitMenuClicked - Handle event if the Exit button is 
          *                  clicked from the standard File Menu.
          */
-        private void OnExitMenuClicked(object sender, RoutedEventArgs e)
+        private void OnExitMenu_Clicked(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Goodbye - Thankyou for using SolveIT!");
             Environment.Exit(0);
         }
-
+        
         /*
          * OnTestDocClicked -  
          */
-        private void OnTestDocClicked(object sender, RoutedEventArgs e)
+        private void OnTestDoc_Clicked(object sender, RoutedEventArgs e)
         {
             XpsDocument testDocument = new XpsDocument("../../manuals/documentation/testDoc.xps", FileAccess.Read);
             mainDocViewer.Document = testDocument.GetFixedDocumentSequence();
@@ -457,7 +430,20 @@ namespace MathsVisualisationTool
          */
         private void OnSave_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Save Clicked - Fix it");
+            // First Method - Saves Direct to the Debug File
+            if(Results.Items.Count > 0)
+            {
+                using(TextWriter TW = new StreamWriter("Results.txt"))
+                    foreach(string itemText in Results.Items)
+                        TW.WriteLine(itemText);
+                    
+                Process.Start("Results.txt");
+            }
+            else
+            {
+                ErrorMsg saveError= new ErrorMsg();
+                saveError.Show();
+            }
         }
 
         /*
@@ -466,7 +452,10 @@ namespace MathsVisualisationTool
          */
         private void OnSaveAs_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Save As Clicked - Fix it");
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == true)
+                foreach (string itemText in Results.Items)
+                    File.WriteAllText(saveFileDialog.FileName, itemText);
         }
 
         /*
@@ -475,7 +464,8 @@ namespace MathsVisualisationTool
          */
         private void OnPrint_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Print Clicked - Fix it");
+            PrintDialog printDlg = new PrintDialog();
+            printDlg.PrintVisual(Results, "Printing Results...");
         }
 
         /*
@@ -493,7 +483,7 @@ namespace MathsVisualisationTool
          */
         private void OnCut_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Cut Clicked - Fix it");
+            // MADE FUNCTIONAL THROUGH XAML COMMAND
         }
 
         /*
@@ -502,7 +492,7 @@ namespace MathsVisualisationTool
          */
         private void OnCopy_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Copy Clicked - Fix it");
+            // MADE FUNCTIONAL THROUGH XAML COMMAND
         }
 
         /*
@@ -511,7 +501,7 @@ namespace MathsVisualisationTool
          */
         private void OnPaste_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Paste Clicked - Fix it");
+            // MADE FUNCTIONAL THROUGH XAML COMMAND
         }
 
         /*
@@ -550,8 +540,32 @@ namespace MathsVisualisationTool
          */
         private void OnGraph_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Graph Clicked - Fix it");
+            if (graphComboBox.Text == "Canvas Graph")
+                outputTabCon.SelectedIndex = 1;
+            else if (graphComboBox.Text == "Live Charts")
+                outputTabCon.SelectedIndex = 2;
+            else
+                MessageBox.Show("Please use Drop Down Menu to select Chart Type");
         }
+
+        /*
+         * OnUpdate_Clicked - Handle event if the update button is 
+         *                  click from the toolbar
+         */
+        private void OnUpdate_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("You are up to date");
+        }
+
+        /*
+         * OnTrash_Clicked - Handle event if the trash button is 
+         *                  click from the toolbar
+         */
+        private void OnTrash_Clicked(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("FIX IT");
+        }
+
         #endregion
         /************************************ END OF TOOLBAR MENU FUNCTIONS *********************************/
         /********************************* GREEK CHARACTERS KEYPAD FUNCTIONS ********************************/
@@ -1164,7 +1178,67 @@ namespace MathsVisualisationTool
             //Set the itemSource of the datagrid to the ObservableCollection.
             varTable.ItemsSource = varInfoToAdd;
         }
-        #endregion    
+        #endregion
         /***********************************END OF VARIABLE TABLE FUNCTIONS*********************************/
+        /*************************************** GRAPH KEYPAD FUNCTIONS ************************************/
+        #region GraphKeypad
+
+        /*
+         * OnPlot_Clicked -    Function for the plot Button on the
+         *                     keypad in the right side of the Main Window
+         *                     Dock Panel - NOTE: Character can be created
+         *                     with Unicode Escape Characters/Code
+         */
+        private void OnPlot_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text += "plot";
+        }
+
+        /*
+         * OnComma_Clicked -    Function for the Comma Button on the
+         *                     keypad in the right side of the Main Window
+         *                     Dock Panel - NOTE: Character can be created
+         *                     with Unicode Escape Characters/Code
+         */
+        private void OnComma_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text += ",";
+        }
+
+        /*
+         * OnX_Clicked -    Function for the x Button on the
+         *                     keypad in the right side of the Main Window
+         *                     Dock Panel - NOTE: Character can be created
+         *                     with Unicode Escape Characters/Code
+         */
+        private void OnX_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text += "x";
+        }
+
+        /*
+         * OnY_Clicked -    Function for the y Button on the
+         *                     keypad in the right side of the Main Window
+         *                     Dock Panel - NOTE: Character can be created
+         *                     with Unicode Escape Characters/Code
+         */
+        private void OnY_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text += "y";
+        }
+
+        /*
+         * OnC_Clicked -    Function for the c Button on the
+         *                     keypad in the right side of the Main Window
+         *                     Dock Panel - NOTE: Character can be created
+         *                     with Unicode Escape Characters/Code
+         */
+        private void OnC_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.inputBox.Text += "c";
+        }
+
+        #endregion
+        /************************************ END OF GRAPH KEYPAD FUNCTIONS ********************************/
     }
 }

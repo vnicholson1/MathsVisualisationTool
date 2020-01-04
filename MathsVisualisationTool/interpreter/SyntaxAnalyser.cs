@@ -29,12 +29,17 @@ namespace MathsVisualisationTool
         {
             int bracketLevel = 0;
 
-            if(gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.MULTIPLICATION 
-                || gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.DIVISION
-                || gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET
-                || gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.INDICIES)
+            if(gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.MULTIPLICATION) {
+                throw new IncorrectMultiplicationOperatorPositionException("Expression cannot start with a multiplication operator");
+            } else if(gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.DIVISION)
             {
-                throw new SyntaxErrorException("Expression cannot start with a multiplication, division, indicies or a closing bracket.");
+                throw new IncorrectDivisionOperatorPositionException("Expression cannot start with a division operator");
+            } else if(gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
+            {
+                throw new IncorrectIndiciesOperatorPositionException("Expression cannot start with a close bracket");
+            } else if(gatheredTokens[0].GetType() == Globals.SUPPORTED_TOKENS.INDICIES)
+            {
+                throw new IncorrectCloseBracketPositionException("Expression cannot start with a indicies operator");
             }
 
             Globals.SUPPORTED_TOKENS previousToken = Globals.SUPPORTED_TOKENS.WHITE_SPACE;
@@ -49,13 +54,13 @@ namespace MathsVisualisationTool
                         {
                             if (gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
                             {
-                                throw new SyntaxErrorException("Cannot have variable name straight after constant. Did you mean " +
+                                throw new VariableAfterConstantException("Cannot have variable name straight after constant. Did you mean " +
                                     gatheredTokens[i].GetValue() + "*" + gatheredTokens[(i + 1)].GetValue() + "?");
                             }
                                 //for situations like 2pi - you want the user to put 2*pi.
                             if (gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.CONSTANT)
                             {
-                                throw new SyntaxErrorException("Cannot have a constant straight after constant. Did you mean " +
+                                throw new ConstantAfterConstantException("Cannot have a constant straight after constant. Did you mean " +
                                     gatheredTokens[i].GetValue() + "*" + gatheredTokens[(i + 1)].GetValue() + "?");
                             }
                         }
@@ -65,12 +70,12 @@ namespace MathsVisualisationTool
 
                         if(count > 1)
                         {
-                            throw new SyntaxErrorException("Cannot have more than one decimal point in number.");
+                            throw new InvalidNumberException("Cannot have more than one decimal point in number.");
                         }
-
+                        //if the number specified is just the decimal point.
                         if (gatheredTokens[i].GetValue() == ".")
                         {
-                            throw new SyntaxErrorException("Unrecognised token - '.'.");
+                            throw new InvalidNumberException("Unrecognised number - '.'.");
                         }
 
                         break;
@@ -79,13 +84,13 @@ namespace MathsVisualisationTool
                         bracketLevel++;
                         if(i+1 == gatheredTokens.Count)
                         {
-                            throw new SyntaxErrorException("Expression cannot finish with an open bracket.");
+                            throw new IncorrectOpenBracketPositionException("Expression cannot finish with an open bracket.");
                         }
 
                         //Remove the ability to add ()
                         if(gatheredTokens[(i+1)].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
                         {
-                            throw new SyntaxErrorException("Enclosing brackets must contain an expression.");
+                            throw new MissingExpressionBetweenBracketsException("Enclosing brackets must contain an expression.");
                         }
 
                         break;
@@ -95,12 +100,12 @@ namespace MathsVisualisationTool
                             || previousToken == Globals.SUPPORTED_TOKENS.DIVISION
                             || previousToken == Globals.SUPPORTED_TOKENS.INDICIES)
                         {
-                            throw new SyntaxErrorException("Integer expected at token position - " + i + " .");
+                            throw new IncorrectOpenBracketPositionException("Integer expected at token position - " + i + " .");
                         }
 
                         if(bracketLevel == 0)
                         {
-                            throw new SyntaxErrorException("Close bracket found without supporting open bracket at position - " + i + " .");
+                            throw new MissingOpenBracketException("Close bracket found without supporting open bracket at position - " + i + " .");
                         }
                         bracketLevel--;
                         break;
@@ -121,17 +126,17 @@ namespace MathsVisualisationTool
                             //Only a variable name can be before assignment symbol.
                             if(gatheredTokens[0].GetType() != Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
                             {
-                                throw new SyntaxErrorException("Only a variable can be before assignment operator");
+                                throw new InvalidTypeBeforeAssignmentOperatorException("Only a variable can be before assignment operator");
                             }
 
                             //Must have something after the assignment operator
                             if( (i+1) == gatheredTokens.Count)
                             {
-                                throw new SyntaxErrorException("Must have an expression that equates to a value after the assignment operator.");
+                                throw new MissingExpressionAfterOperatorException("Must have an expression that equates to a value after the assignment operator.");
                             }
                         } else
                         {
-                            throw new SyntaxErrorException("Assignment operator found in unexpected token position - " + i + ".");
+                            throw new IncorrectAssignmentOperatorPositionException("Assignment operator found in unexpected token position - " + i + ".");
                         }
 
                         if(gatheredTokens[(i+1)].GetType() != Globals.SUPPORTED_TOKENS.PLUS
@@ -140,14 +145,14 @@ namespace MathsVisualisationTool
                             && gatheredTokens[(i + 1)].GetType() != Globals.SUPPORTED_TOKENS.VARIABLE_NAME
                             && gatheredTokens[(i + 1)].GetType() != Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
                         {
-                            throw new SyntaxErrorException("Invalid token " + gatheredTokens[(i+1)].GetValue()  + " found after assignment operator.");
+                            throw new InvalidTypeAfterAssignmentOperatorException("Invalid token " + gatheredTokens[(i+1)].GetValue()  + " found after assignment operator.");
                         }
                         break;
 
                     case Globals.SUPPORTED_TOKENS.MINUS:
                         if((i+1) == gatheredTokens.Count)
                         {
-                            throw new SyntaxErrorException("Integer expected at token position - " + i + ".");
+                            throw new MissingExpressionAfterOperatorException("Integer expected at token position - " + i + ".");
                         }
 
                         if(gatheredTokens[(i+1)].GetType() == Globals.SUPPORTED_TOKENS.DIVISION
@@ -155,14 +160,14 @@ namespace MathsVisualisationTool
                             || gatheredTokens[(i+1)].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET
                             || gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.INDICIES)
                         {
-                            throw new SyntaxErrorException("Integer expected at token position - " + i + ".");
+                            throw new InvalidTypeAfterMinusOperatorException("Integer expected at token position - " + i + ".");
                         }
                         break;
 
                     case Globals.SUPPORTED_TOKENS.PLUS:
                         if ((i + 1) == gatheredTokens.Count)
                         {
-                            throw new SyntaxErrorException("Integer expected at token position - " + (i+1) + ".");
+                            throw new MissingExpressionAfterOperatorException("Integer expected at token position - " + (i+1) + ".");
                         }
 
                         if (gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.DIVISION
@@ -170,7 +175,7 @@ namespace MathsVisualisationTool
                             || gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET
                             || gatheredTokens[(i + 1)].GetType() == Globals.SUPPORTED_TOKENS.INDICIES)
                         {
-                            throw new SyntaxErrorException("Integer expected at token position - " + (i+1) + ".");
+                            throw new InvalidTypeAfterPlusOperatorException("Integer expected at token position - " + (i+1) + ".");
                         }
                         break;
 
@@ -179,10 +184,10 @@ namespace MathsVisualisationTool
                         break;
 
                     case Globals.SUPPORTED_TOKENS.LESS_THAN:
-                        throw new SyntaxErrorException("< symbol found in unexpected position.");
+                        throw new IncorrectLessThanOperatorPositionException("< symbol found in unexpected position.");
 
                     case Globals.SUPPORTED_TOKENS.GREATER_THAN:
-                        throw new SyntaxErrorException("> symbol found in unexpected position.");
+                        throw new IncorrectGreaterThanOperatorPositionException("> symbol found in unexpected position.");
 
                     default:
                         break;
@@ -193,7 +198,7 @@ namespace MathsVisualisationTool
 
             if(bracketLevel != 0)
             {
-                throw new SyntaxErrorException("No supporting closing bracket found.");
+                throw new MissingCloseBracketException("No supporting closing bracket found.");
             }
         }
 
@@ -206,12 +211,22 @@ namespace MathsVisualisationTool
                             || previousToken == Globals.SUPPORTED_TOKENS.INDICIES
                             || previousToken == Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
             {
-                throw new SyntaxErrorException("Integer expected at token position - " + index + ".");
+                if(gatheredTokens[index].GetType() == Globals.SUPPORTED_TOKENS.MULTIPLICATION)
+                {
+                    throw new InvalidTypeBeforeMultiplicationOperatorException("Integer expected at token position - " + index + ".");
+                } else if(gatheredTokens[index].GetType() == Globals.SUPPORTED_TOKENS.DIVISION)
+                {
+                    throw new InvalidTypeBeforeDivisionOperatorException("Integer expected at token position - " + index + ".");
+                } else if(gatheredTokens[index].GetType() == Globals.SUPPORTED_TOKENS.INDICIES)
+                {
+                    throw new InvalidTypeBeforeIndiciesOperatorException("Integer expected at token position - " + index + ".");
+                }
+                
             }
 
             if(index+1 == numTokens)
             {
-                throw new SyntaxErrorException("Integer expected at token position - " + (index + 1) + ".");
+                throw new MissingExpressionAfterOperatorException("Integer expected at token position - " + (index + 1) + ".");
             }
         }
     }

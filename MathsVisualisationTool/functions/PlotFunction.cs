@@ -80,53 +80,135 @@ namespace MathsVisualisationTool
             //Skip over the plot and open bracket tokens.
             index += 2;
 
-            bool functionHasTwoArguments = false;
+            if(tokens.Count < 2)
+            {
+                throw new MissingOpenBracketAfterPlotFunctionNameException("Missing open bracket after plot function declaration");
+            }
+
+            if (tokens[index-1].GetType() != Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
+            {
+                throw new MissingOpenBracketAfterPlotFunctionNameException("Missing open bracket after plot function declaration");
+            }
+
+            //For recording if the loop can escape when finding a comma.
+            List<bool> statusList = new List<bool>() { false };
+
+            bool functionFound = false;
+            bool hasFoundClosingBracket = false;
 
             try
             {
-                while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.COMMA || functionHasTwoArguments)
+                while (!canEscape(statusList))
                 {
-                    //if the function found is one with 2 arguments don't escape the loop.
-                    if(Globals.funcsWith2Args.Contains(tokens[index].GetValue()))
+                    if(Globals.keyWords.Contains(tokens[index].GetValue()))
                     {
-                        functionHasTwoArguments = true;
+                        functionFound = true;
+                        //if the function found is one with 2 arguments don't escape the loop.
+                        if (Globals.funcsWith2Args.Contains(tokens[index].GetValue()))
+                        {
+                            statusList.Add(false);
+                        }
                     }
 
-                    //if the comma has been found then reset the flag to false.
+                    //if the comma has been found then set the status to true.
                     if(tokens[index].GetType() == Globals.SUPPORTED_TOKENS.COMMA)
                     {
-                        functionHasTwoArguments = false;
+                        updateList(ref statusList);
+                    }
+
+                    //To check if the user has put in the correct number of arguments for one argument functions.
+                    if(tokens[index].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
+                    {
+                        hasFoundClosingBracket = true;
+                    }
+                    //If you find either < or > symbols then clearly something is wrong
+                    if(tokens[index].GetType() == Globals.SUPPORTED_TOKENS.LESS_THAN
+                        || tokens[index].GetType() == Globals.SUPPORTED_TOKENS.GREATER_THAN)
+                    {
+                        throw new TooLittleArgumentsException("Not enough arguments given in function declaration.");
                     }
 
                     //For situations like 'plot(y=x)'
                     if (tokens[index].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET && index+1 == tokens.Count)
                     {
-                        throw new SyntaxErrorException("Missing range argument.");
+                        throw new MissingRangeArgumentException("Missing range argument.");
                     }
+
                     equationTokens.Add(tokens[index]);
                     index++;
                 }
 
+                if(functionFound)
+                {
+                    if (!hasFoundClosingBracket)
+                    {
+                        throw new TooManyArgumentsException("This function only has one argument");
+                    }
+                }
+                
+
+                //Because the comma token at the end is added to the list and we don't want that.
+                //we just want the equation.
+                equationTokens.RemoveAt(equationTokens.Count - 1);
+                index--;
+
                 //For situations like 'plot(y=x,'
                 if(index == (tokens.Count-1))
                 {
-                    throw new SyntaxErrorException("Unexpectedly reached end of expression.");
+                    throw new UnexpectedlyReachedEndOfExpressionException("Unexpectedly reached end of expression.");
                 }
 
             } catch (ArgumentOutOfRangeException e)
             {
                 //Occurs if someone was to put 'plot(y=x' as input.
-                throw new SyntaxErrorException("Unexpectedly reached end of expression.");
+                throw new UnexpectedlyReachedEndOfExpressionException("Unexpectedly reached end of expression.");
             }
             
             
             //Minimum length of an equation has to be 3 i.e. "Y=3".
             if(equationTokens.Count < 3)
             {
-                throw new SyntaxErrorException("Invalid equation given in plot function.");
+                throw new TooShortEquationException("Invalid equation given in plot function.");
             }
 
             return equationTokens;
+        }
+
+        /// <summary>
+        /// Function for checking whether the listOfStatuses is true or not.
+        /// Its only true if all the bools in the list are true.
+        /// </summary>
+        /// <param name="listOfStatuses"></param>
+        /// <returns></returns>
+        private static bool canEscape(List<bool> listOfStatuses)
+        {
+            foreach(bool b in listOfStatuses)
+            {
+                if(b is false)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// If a comma has been found then only set one of the bools to true.
+        /// </summary>
+        /// <param name="listOfStatuses"></param>
+        private static void updateList(ref List<bool> listOfStatuses)
+        {
+            int counter = 0;
+            foreach(bool b in listOfStatuses)
+            {
+                if(b is false)
+                {
+                    listOfStatuses[counter] = true;
+                    return;
+                }
+                counter++;
+            }
         }
 
         /// <summary>
@@ -146,32 +228,25 @@ namespace MathsVisualisationTool
             //For situations like 'plot(y=x,)'
             if(tokens[index].GetType() == Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
             {
-                //Should be an illegal argument exception tbh.
-                throw new SyntaxErrorException("Empty range argument found.");
+                throw new EmptyRangeException("Empty range argument found.");
             }
 
             //get the Xmin
             elements[0] = GetXMinToken(tokens, ref index);
             bool hasGreaterThanSymbol = false;
 
-            //Check the next token is a < or >
-            if(tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN 
-                && tokens[index].GetType() != Globals.SUPPORTED_TOKENS.GREATER_THAN)
+
+            //Not sure if above Exception is ever thrown lol 
+            if(tokens[index].GetType() == Globals.SUPPORTED_TOKENS.GREATER_THAN)
             {
-                throw new SyntaxErrorException("< or > symbol expected. " + tokens[index].GetValue() + " found instead.");
-            } else
-            {
-                if(tokens[index].GetType() == Globals.SUPPORTED_TOKENS.GREATER_THAN)
-                {
-                    hasGreaterThanSymbol = true;
-                }
+                hasGreaterThanSymbol = true;
             }
 
             //Check the next token is the dependent variable. 
             index++;
             if (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.VARIABLE_NAME)
             {
-                throw new SyntaxErrorException("Variable name expected. " + tokens[index].GetValue() + " found instead.");
+                throw new IncorrectTypeInVariablePositionException("Variable name expected. " + tokens[index].GetValue() + " found instead.");
             } else
             {
                 varNameIndex = index;
@@ -181,7 +256,7 @@ namespace MathsVisualisationTool
             if (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN
                 && tokens[index].GetType() != Globals.SUPPORTED_TOKENS.GREATER_THAN)
             {
-                throw new SyntaxErrorException("< symbol expected. " + tokens[index].GetValue() + " found instead.");
+                throw new InvalidTypeAfterVariableNameException("< symbol expected. " + tokens[index].GetValue() + " found instead.");
             } else
             {
                 //Cannot mix < or > so check if the symbols are consistent
@@ -189,13 +264,13 @@ namespace MathsVisualisationTool
                 {
                     if(hasGreaterThanSymbol)
                     {
-                        throw new SyntaxErrorException("Cannot mix < or > symbols");
+                        throw new MixedRangeOperatorsException("Cannot mix < or > symbols");
                     }
                 } else if (tokens[index].GetType() == Globals.SUPPORTED_TOKENS.GREATER_THAN)
                 {
                     if (!hasGreaterThanSymbol)
                     {
-                        throw new SyntaxErrorException("Cannot mix < or > symbols");
+                        throw new MixedRangeOperatorsException("Cannot mix < or > symbols");
                     }
                 }
             }
@@ -214,7 +289,7 @@ namespace MathsVisualisationTool
 
             if (!(Xmax > Xmin))
             {
-                throw new SyntaxErrorException("Xmax must be greater than Xmin.");
+                throw new XminGreaterThanXmaxException("Xmax must be greater than Xmin.");
             }
 
             double inc = (Xmax - Xmin + 1) / NUM_DATA_POINTS;
@@ -251,16 +326,10 @@ namespace MathsVisualisationTool
         {
             Parser p = new Parser();
             List<Token> XminList = new List<Token>();
-            List<Globals.SUPPORTED_TOKENS> supportedTypes = new List<Globals.SUPPORTED_TOKENS>
-                {Globals.SUPPORTED_TOKENS.CONSTANT,Globals.SUPPORTED_TOKENS.PLUS,Globals.SUPPORTED_TOKENS.MINUS};
 
             while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.LESS_THAN 
                 && tokens[index].GetType() != Globals.SUPPORTED_TOKENS.GREATER_THAN)
             {
-                if (!(supportedTypes.Contains(tokens[index].GetType())))
-                {
-                    throw new SyntaxErrorException("Unexpected token " + tokens[index].GetValue() + " found.");
-                }
 
                 XminList.Add(tokens[index]);
                 index++;
@@ -268,7 +337,7 @@ namespace MathsVisualisationTool
                 //For situations like 'plot(y=x,2'
                 if (index == tokens.Count)
                 {
-                    throw new SyntaxErrorException("Unexpectedly reached end of expression.");
+                    throw new UnexpectedlyReachedEndOfExpressionException("Unexpectedly reached end of expression.");
                 }
             }
 
@@ -285,15 +354,9 @@ namespace MathsVisualisationTool
         {
             Parser p = new Parser();
             List<Token> XmaxList = new List<Token>();
-            List<Globals.SUPPORTED_TOKENS> supportedTypes = new List<Globals.SUPPORTED_TOKENS>
-                {Globals.SUPPORTED_TOKENS.CONSTANT,Globals.SUPPORTED_TOKENS.PLUS,Globals.SUPPORTED_TOKENS.MINUS};
 
             while (tokens[index].GetType() != Globals.SUPPORTED_TOKENS.CLOSE_BRACKET)
             {
-                if (!(supportedTypes.Contains(tokens[index].GetType())))
-                {
-                    throw new SyntaxErrorException("Unexpected token " + tokens[index].GetValue() + " found.");
-                }
 
                 XmaxList.Add(tokens[index]);
                 index++;
@@ -301,7 +364,7 @@ namespace MathsVisualisationTool
                 //For situations like 'plot(y=x,2<x<3'
                 if (index == tokens.Count)
                 {
-                    throw new SyntaxErrorException("Unexpectedly reached end of expression.");
+                    throw new UnexpectedlyReachedEndOfExpressionException("Unexpectedly reached end of expression.");
                 }
             }
 
@@ -376,7 +439,7 @@ namespace MathsVisualisationTool
             {
                 if (allTokens[varNameIndex].GetValue() != X)
                 {
-                    throw new SyntaxErrorException("Dependent variable " + X + " expected. " + allTokens[varNameIndex].GetValue() + " found instead.");
+                    throw new InvalidVariableNameInRangeException("Dependent variable " + X + " expected. " + allTokens[varNameIndex].GetValue() + " found instead.");
                 }
             }
 
@@ -406,14 +469,14 @@ namespace MathsVisualisationTool
                 {
                     if(X != null)
                     {
-                        throw new SyntaxErrorException("Only a maximum of two variables can be declared in the equation.");
+                        throw new TooManyVariablesException("Only a maximum of two variables can be declared in the equation.");
                     }
 
                     X = Equation[i].GetValue();
 
                     if(X == Y)
                     {
-                        throw new SyntaxErrorException("The dependent variable cannot have the same name as the independent variable.");
+                        throw new DependentAndIndependentVariablesWithSameNameException("The dependent variable cannot have the same name as the independent variable.");
                     }
 
                     //prepend a '~' character onto the variable, so if someone wants to define a variable called Y, then it won't be overwritten.
@@ -433,7 +496,7 @@ namespace MathsVisualisationTool
             if(Equation[0].GetType() != Globals.SUPPORTED_TOKENS.VARIABLE_NAME || 
                 Equation[1].GetType() != Globals.SUPPORTED_TOKENS.ASSIGNMENT)
             {
-                throw new SyntaxErrorException("First two tokens in the equation must be 'var_name1' followed by '='.");
+                throw new MissingDependentVariableException("First two tokens in the equation must be 'var_name1' followed by '='.");
             }
 
             Y = Equation[0].GetValue();
