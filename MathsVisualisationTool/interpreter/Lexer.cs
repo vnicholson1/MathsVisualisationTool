@@ -27,7 +27,7 @@ namespace MathsVisualisationTool
 
             if(string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
             {
-                throw new SyntaxErrorException("Error: Empty input added.");
+                throw new EmptyInputException("Error: Empty input added.");
             }
 
             //Variable to record the token type currently stored in the list of characters.
@@ -335,7 +335,7 @@ namespace MathsVisualisationTool
                     }
                 } else
                 {
-                    throw new SyntaxErrorException("Unknown character - " + input[i] + " .");
+                    throw new UnknownCharacterException("Unknown character - " + input[i] + " .");
                 }
             }
 
@@ -426,7 +426,7 @@ namespace MathsVisualisationTool
             }
             else
             {
-                throw new SyntaxErrorException("Unknown character - " + c + " .");
+                throw new UnknownCharacterException("Unknown character - " + c + " .");
             }
         }
 

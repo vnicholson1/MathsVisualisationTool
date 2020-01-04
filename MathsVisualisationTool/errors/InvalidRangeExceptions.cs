@@ -23,7 +23,6 @@ namespace MathsVisualisationTool
 
     /// <summary>
     /// Error thrown if the variable name is incorrect (i.e. it is a variable type but the name is wrong).
-    /// Note: has child classes.
     /// </summary>
     public class InvalidVariableNameInRangeException : InvalidRangeException
     {
@@ -69,9 +68,9 @@ namespace MathsVisualisationTool
     /// <summary>
     /// Error thrown if the Xmin is greater than or equal to the Xmax argument.
     /// </summary>
-    public class XminGreaterThanXmasException : InvalidRangeException
+    public class XminGreaterThanXmaxException : InvalidRangeException
     {
-        public XminGreaterThanXmasException(string message) : base(message)
+        public XminGreaterThanXmaxException(string message) : base(message)
         {
             ErrorCode = "5.1.2.5";
         }

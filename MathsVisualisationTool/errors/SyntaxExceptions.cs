@@ -92,4 +92,16 @@ namespace MathsVisualisationTool
             ErrorCode = "1.6";
         }
     }
+
+    /// <summary>
+    /// Error thrown if the number inputted isn't valid.
+    /// This includes entering "." as input or more than one decimal point.
+    /// </summary>
+    public class InvalidNumberException: SyntaxErrorException
+    {
+        public InvalidNumberException(string message) : base(message)
+        {
+            ErrorCode = "1.7";
+        } 
+    }
 }

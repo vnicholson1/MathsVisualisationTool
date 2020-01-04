@@ -338,6 +338,7 @@ namespace MathsVisualisationTool
                     MessageBox.Show("An unknown Error has occured. Please contact customer support.");
                     Results.Items.Add("Error Code - " + u.ErrorCode);
                 }
+                Console.WriteLine(exp.ToString());
             }
             this.inputBox.Focus();
             this.inputBox.Clear();

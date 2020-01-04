@@ -21,17 +21,6 @@ namespace MathsVisualisationTool
         }
     }
 
-    /// <summary>
-    /// Error thrown if there is no close bracket found for the plot function declaration. 
-    /// </summary>
-    public class MissingCloseBracketExceptionForPlotFunction : PlotFunctionSyntaxException
-    {
-        public MissingCloseBracketExceptionForPlotFunction(string message) : base(message)
-        {
-            ErrorCode = "5.0.1";
-        }
-    }
-
     // <summary>
     /// Error thrown if the parser unexpectedly reached the end of the input for the plot function. 
     /// </summary>
@@ -39,7 +28,7 @@ namespace MathsVisualisationTool
     {
         public UnexpectedlyReachedEndOfExpressionException(string message) : base(message)
         {
-            ErrorCode = "5.0.2";
+            ErrorCode = "5.0.1";
         }
     }
 }

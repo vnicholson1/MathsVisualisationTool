@@ -9,27 +9,6 @@ using System.Threading.Tasks;
  */
 namespace MathsVisualisationTool
 {
-    /// <summary>
-    /// Error thrown if there is an incorrect type found before the plus operator.
-    /// </summary>
-    public class InvalidTypeBeforePlusOperatorException : InvalidTypeException
-    {
-        public InvalidTypeBeforePlusOperatorException(string message) : base(message)
-        {
-            ErrorCode = "1.4.0";
-        }
-    }
-
-    /// <summary>
-    /// Error thrown if there is an incorrect type found before the minus operator.
-    /// </summary>
-    public class InvalidTypeBeforeMinusOperatorException : InvalidTypeException
-    {
-        public InvalidTypeBeforeMinusOperatorException(string message) : base(message)
-        {
-            ErrorCode = "1.4.1";
-        }
-    }
 
     /// <summary>
     /// Error thrown if there is an incorrect type found before the division operator.
@@ -38,7 +17,7 @@ namespace MathsVisualisationTool
     {
         public InvalidTypeBeforeDivisionOperatorException(string message) : base(message)
         {
-            ErrorCode = "1.4.2";
+            ErrorCode = "1.4.0";
         }
     }
 
@@ -49,7 +28,7 @@ namespace MathsVisualisationTool
     {
         public InvalidTypeBeforeMultiplicationOperatorException(string message) : base(message)
         {
-            ErrorCode = "1.4.3";
+            ErrorCode = "1.4.1";
         }
     }
 
@@ -60,7 +39,7 @@ namespace MathsVisualisationTool
     {
         public InvalidTypeBeforeAssignmentOperatorException(string message) : base(message)
         {
-            ErrorCode = "1.4.4";
+            ErrorCode = "1.4.2";
         }
     }
 
@@ -71,7 +50,7 @@ namespace MathsVisualisationTool
     {
         public InvalidTypeBeforeIndiciesOperatorException(string message) : base(message)
         {
-            ErrorCode = "1.4.5";
+            ErrorCode = "1.4.3";
         }
     }
 
@@ -82,7 +61,7 @@ namespace MathsVisualisationTool
     {
         public InvalidTypeAfterPlusOperatorException(string message) : base(message)
         {
-            ErrorCode = "1.4.6";
+            ErrorCode = "1.4.4";
         }
     }
 
@@ -93,29 +72,7 @@ namespace MathsVisualisationTool
     {
         public InvalidTypeAfterMinusOperatorException(string message) : base(message)
         {
-            ErrorCode = "1.4.7";
-        }
-    }
-
-    /// <summary>
-    /// Error thrown if there is an incorrect type found after the division operator.
-    /// </summary>
-    public class InvalidTypeAfterDivisionOperatorException : InvalidTypeException
-    {
-        public InvalidTypeAfterDivisionOperatorException(string message) : base(message)
-        {
-            ErrorCode = "1.4.8";
-        }
-    }
-
-    /// <summary>
-    /// Error thrown if there is an incorrect type found after the multiplication operator.
-    /// </summary>
-    public class InvalidTypeAfterMultiplicationOperatorException : InvalidTypeException
-    {
-        public InvalidTypeAfterMultiplicationOperatorException(string message) : base(message)
-        {
-            ErrorCode = "1.4.9";
+            ErrorCode = "1.4.5";
         }
     }
 
@@ -126,18 +83,7 @@ namespace MathsVisualisationTool
     {
         public InvalidTypeAfterAssignmentOperatorException(string message) : base(message)
         {
-            ErrorCode = "1.4.10";
-        }
-    }
-
-    /// <summary>
-    /// Error thrown if there is an incorrect type found after the indicies operator.
-    /// </summary>
-    public class InvalidTypeAfterIndiciesOperatorException : InvalidTypeException
-    {
-        public InvalidTypeAfterIndiciesOperatorException(string message) : base(message)
-        {
-            ErrorCode = "1.4.11";
+            ErrorCode = "1.4.6";
         }
     }
 }

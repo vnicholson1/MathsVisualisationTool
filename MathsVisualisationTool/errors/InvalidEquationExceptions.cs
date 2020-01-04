@@ -45,4 +45,15 @@ namespace MathsVisualisationTool
             ErrorCode = "5.1.1.2";
         }
     }
+
+    /// <summary>
+    /// Error thrown if the independent variable is the same as the dependent variable e.g. Y=Y^2 would throw this error.
+    /// </summary>
+    public class DependentAndIndependentVariablesWithSameNameException : InvalidVariableNameInRangeException
+    {
+        public DependentAndIndependentVariablesWithSameNameException(string message) : base(message)
+        {
+            ErrorCode = "5.1.1.3";
+        }
+    }
 }

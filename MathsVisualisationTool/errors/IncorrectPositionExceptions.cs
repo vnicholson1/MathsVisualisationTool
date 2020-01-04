@@ -80,13 +80,24 @@ namespace MathsVisualisationTool
     }
 
     /// <summary>
+    /// Error thrown for if an open bracket character is found in an incorrect position.
+    /// </summary>
+    public class IncorrectOpenBracketPositionException : IncorrectPositionException
+    {
+        public IncorrectOpenBracketPositionException(string message) : base(message)
+        {
+            ErrorCode = "1.2.6";
+        }
+    }
+
+    /// <summary>
     /// Error thrown if a less than operator is found outside the range argument of the plot function.
     /// </summary>
     public class IncorrectLessThanOperatorPositionException : IncorrectPositionException
     {
         public IncorrectLessThanOperatorPositionException(string message) : base(message)
         {
-            ErrorCode = "1.2.6";
+            ErrorCode = "1.2.7";
         }
     }
 
@@ -97,7 +108,7 @@ namespace MathsVisualisationTool
     {
         public IncorrectGreaterThanOperatorPositionException(string message) : base(message)
         {
-            ErrorCode = "1.2.7";
+            ErrorCode = "1.2.8";
         }
     }
 }
