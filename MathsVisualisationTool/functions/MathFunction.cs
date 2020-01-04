@@ -52,7 +52,7 @@ namespace MathsVisualisationTool
             //Next token after the sin must be an open bracket.
             if(equation[index].GetType() != Globals.SUPPORTED_TOKENS.OPEN_BRACKET)
             {
-                throw new SyntaxErrorException("Open Bracket expected at token position - " + index + ".");
+                throw new MissingOpenBracketAfterFunctionNameException("Open Bracket expected at token position - " + index + ".");
             }
 
             double result = getEnclosingExpression(equation, ref index, true);
@@ -108,12 +108,12 @@ namespace MathsVisualisationTool
                     if (!hasSecondParameter)
                     {
                         //For functions that only have one parameter.
-                        throw new SyntaxErrorException("This function only has one argument.");
+                        throw new TooManyArgumentsException("This function only has one argument.");
                     }
                     else if(!(isFirstRun))
                     {
                         //For functions that have two parameter.
-                        throw new SyntaxErrorException("This function only has two arguments.");
+                        throw new TooManyArgumentsException("This function only has two arguments.");
                     } else
                     {
                         enclosingFunction.Add(new Token(Globals.SUPPORTED_TOKENS.CLOSE_BRACKET,")"));
@@ -135,12 +135,12 @@ namespace MathsVisualisationTool
 
             if (bracketLevel != 0)
             {
-                throw new SyntaxErrorException("No closing bracket found for corresponding open bracket.");
+                throw new MissingCloseBracketExceptionForFunction("No closing bracket found for corresponding open bracket.");
             }
             //Only occurs if a function that has two arguments only has one present.
             if(!(commaFound) && isFirstRun && hasSecondParameter)
             {
-                throw new SyntaxErrorException("Second argument missing.");
+                throw new TooLittleArgumentsException("Second argument missing.");
             }
 
             //Read in the variables

@@ -327,7 +327,7 @@ namespace MathsVisualisationTool
             {
                 if (exp is SolveItException)
                 {
-                    SolveItException s = new SolveItException(exp.Message);
+                    SolveItException s = (SolveItException) exp;
                     MessageBox.Show(s.Message);
                     Results.Items.Add("Error Code - " + s.ErrorCode);
                 }
@@ -338,6 +338,7 @@ namespace MathsVisualisationTool
                     MessageBox.Show("An unknown Error has occured. Please contact customer support.");
                     Results.Items.Add("Error Code - " + u.ErrorCode);
                 }
+                Console.WriteLine(exp.ToString());
             }
             this.inputBox.Focus();
             this.inputBox.Clear();

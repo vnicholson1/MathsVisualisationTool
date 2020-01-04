@@ -80,14 +80,14 @@ namespace MathsVisualisationTool
                     //the plot function must be the first token.
                     if (i != 0)
                     {
-                        throw new SyntaxErrorException("Plot function found in unexpected token position " + i);
+                        throw new ItemsBeforePlotFunctionException("Plot function found in unexpected token position " + i);
                     }
 
                     PlotFunction plot = PlotFunction.plotFunctionHandle(tokens, i);
 
                     if(plot.curIndex != (tokens.Count - 1))
                     {
-                        throw new SyntaxErrorException("Nothing can follow after the plot function definition.");
+                        throw new ItemsAfterPlotFunctionException("Nothing can follow after the plot function definition.");
                     }
                     plot.getValues();
 

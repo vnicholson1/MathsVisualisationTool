@@ -41,7 +41,7 @@ namespace MathsVisualisationTool
                     return "\tCleared Variables.";
                 } else
                 {
-                    throw new SyntaxErrorException("'clear' can only be used on its own, nothing else can be added.");
+                    throw new ClearCommandException("'clear' can only be used on its own, nothing else can be added.");
                 }
             }
 
