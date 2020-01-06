@@ -2,6 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:MathsVisualisationTool">
 
+    <!-- DataGridStyle.xaml - FOCUSES PURELY ON STYLING FOR DATAGRID, PARTICULARLY THE VARIABLE TABLE -->
+
     <Style TargetType="{x:Type DataGridColumnHeader}">
         <Setter Property="Background" Value="{StaticResource MainColour_SubBackground}"/>
         <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
@@ -10,8 +12,8 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="SeparatorBrush" Value="{StaticResource MainColour_BorderBrush}"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontFamily" Value="Ubuntu Mono"/>
+        <Setter Property="FontSize" Value="18"/>
+        <!--<Setter Property="FontFamily" Value="Ubuntu Mono"/>-->
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Padding" Value="4 0 0 0"/>
 
@@ -22,7 +24,7 @@
         <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource MainColour_BorderBrush}"/>
         <Setter Property="VerticalGridLinesBrush" Value="{StaticResource MainColour_BorderBrush}"/>
         <Setter Property="Background" Value="{StaticResource MainColour_SubBackground}"/>
-
+        <Setter Property="FontSize" Value="16"/>
         <Setter Property="RowStyle">
             <Setter.Value>
                 <Style TargetType="DataGridRow">

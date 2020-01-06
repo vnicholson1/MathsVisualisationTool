@@ -140,7 +140,7 @@ namespace MathsVisualisationTool
             //Then style the X axis.
             Path xaxis_path = new Path();
             xaxis_path.StrokeThickness = 1;
-            xaxis_path.Stroke = Brushes.Black;
+            xaxis_path.Stroke = Brushes.White;
             xaxis_path.Data = xaxis_geom;
             //Add it to the graphCanvas.
             window.graphCanvas.Children.Add(xaxis_path);
@@ -177,7 +177,7 @@ namespace MathsVisualisationTool
             //Then style the Y axis
             Path yaxis_path = new Path();
             yaxis_path.StrokeThickness = 1;
-            yaxis_path.Stroke = Brushes.Black;
+            yaxis_path.Stroke = Brushes.White;
             yaxis_path.Data = yaxis_geom;
             //Add it to the graph canvas
             window.graphCanvas.Children.Add(yaxis_path);
@@ -189,7 +189,7 @@ namespace MathsVisualisationTool
         private void drawDataPoints()
         {
             // Make some data sets.
-            Brush colour = Brushes.Blue;
+            Brush colour = Brushes.Red;
             PointCollection points = new PointCollection();
             foreach (DataPoint point in plotFunc.dataPoints)
             {
@@ -246,7 +246,7 @@ namespace MathsVisualisationTool
             textBlock.Text = text;
             textBlock.FontFamily = new FontFamily("Courier New");
             textBlock.FontSize = 12;
-            textBlock.Foreground = new SolidColorBrush(Color.FromRgb(0,0,0));
+            textBlock.Foreground = new SolidColorBrush(Color.FromRgb(255,255,255));
 
             Canvas.SetLeft(textBlock, x);
 

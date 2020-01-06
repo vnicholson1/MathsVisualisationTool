@@ -26,6 +26,36 @@ namespace MathsVisualisationTool
             timer.Start();
         }
 
+        /******************************** POPUP FUNCTIONS FOR DOCUMENTS HELP ********************************/
+        #region DocHelpPopup
+        private void OnShowDocPopup_Clicked(object sender, RoutedEventArgs e)
+        {
+            DocHelp_Popup.IsOpen = true;
+        }
+
+        private void OnHideDocPopup_Clicked(object sender, RoutedEventArgs e)
+        {
+            DocHelp_Popup.IsOpen = false;
+        }
+        #endregion
+        /**************************** END OF POPUP FUNCTIONS FOR DOCUMENTS HELP *****************************/
+
+        /********************************** POPUP FUNCTIONS FOR VIDEO HELP **********************************/
+        #region VideoHelpPopup
+        private void OnShowVidPopup_Clicked(object sender, RoutedEventArgs e)
+        {
+            VidHelp_Popup.IsOpen = true;
+        }
+
+        private void OnHideVidPopup_Clicked(object sender, RoutedEventArgs e)
+        {
+            VidHelp_Popup.IsOpen = false;
+        }
+        #endregion
+        /****************************** END OF POPUP FUNCTIONS FOR VIDEO HELP *******************************/
+
+        /*********************************** FUNCTIONS FOR VIDEO PLAYER *************************************/
+        #region VideoPlayerFunctions
         void timer_Tick(object sender, EventArgs e)
         {
             if (VideoPlayer.Source != null)
@@ -46,32 +76,22 @@ namespace MathsVisualisationTool
         {
             VideoPlayer.Pause();
         }
+        #endregion
+        /******************************** END OF FUNCTIONS FOR VIDEO PLAYER *********************************/
 
-        /****************************************************************************************************/
-        /*********************************** FUNCTIONS FOR VIDEO LIBRARY ************************************/
+        /*************************** FUNCTIONS TO CALL VIDEOS FROM VIDEO LIBRARY ****************************/
         #region VideoFunctions
         /*
-         * 
-         * private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
-    {
-        OpenFileDialog openFileDialog = new OpenFileDialog();
-        openFileDialog.Filter = "Media files (*.mp3;*.mpg;*.mpeg)|*.mp3;*.mpg;*.mpeg|All files (*.*)|*.*";
-        if(openFileDialog.ShowDialog() == true)
-            mePlayer.Source = new Uri(openFileDialog.FileName);
-    }
-    */
-
-    /*
-     * OnBasicVid_Clicked -  
-     */
+         * OnBasicVid_Clicked -  
+         */
         private void OnBasicVid_Clicked(object sender, RoutedEventArgs e)
         {
             VideoPlayer.Source = new Uri("../../manuals/clips/basicInput_V1.mpg", UriKind.Relative);
         }
         #endregion
-        /******************************* END OF FUNCTIONS FOR VIDEO LIBRARY *********************************/
+        /*********************** END OF FUNCTIONS TO CALL VIDEOS FROM VIDEO LIBRARY *************************/
 
-        /******************************** FUNCTIONS FOR DOCUMENTS LIBRARY ***********************************/
+        /************************* FUNCTIONS TO CALL DOCS FROM DOCUMENTS LIBRARY ****************************/
         #region DocsFunctions
         /*
          * OnInputDoc_Clicked -  
@@ -82,6 +102,6 @@ namespace MathsVisualisationTool
             libraryDocViewer.Document = testDocument.GetFixedDocumentSequence();
         }
         #endregion
-        /***************************** END OF FUNCTIONS FOR DOCUMENTS LIBRARY *******************************/
+        /********************** END OF FUNCTIONS TO CALL DOCS FROM DOCUMENTS LIBRARY ************************/
     }
 }

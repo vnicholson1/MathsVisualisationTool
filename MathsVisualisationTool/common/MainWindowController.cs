@@ -22,6 +22,7 @@ using System.Diagnostics;
 using LiveCharts;
 using LiveCharts.Wpf;
 using Microsoft.Win32;
+using System.Windows.Controls.Primitives;
 
 namespace MathsVisualisationTool
 {
@@ -49,13 +50,14 @@ namespace MathsVisualisationTool
         {
             InitializeComponent();
             inputBox.KeyDown += new KeyEventHandler(InputBox_KeyDown);
+
             /**************************************** DATAGRID FUNCTIONS ************************************/
             #region DataGrid
             //To load the variables into the datagrid.
             loadVarsIntoDataGrid();
             var column = new DataGridTextColumn();
             #endregion
-            /************************************************************************************************/
+            
             /**************************************** CLOCK FUNCTIONS ***************************************/
             #region Clock
             dt.Tick += new EventHandler(MainStopwatch);
@@ -64,7 +66,7 @@ namespace MathsVisualisationTool
             //dt.Interval = TimeSpan.FromSeconds(1);
             dt.Start();
             #endregion
-            /************************************************************************************************/
+            
             /************************************* LIVE CHART FUNCTIONS *************************************/
             #region LiveCharts
             l = new LiveChartsDrawer(this);
@@ -76,18 +78,7 @@ namespace MathsVisualisationTool
             ///https://lvcharts.net/App/examples/v1/wf/Tooltips%20and%20Legends
             LvChrt.DataTooltip.Background = Brushes.Black;
             #endregion
-            /********************************* END OF LIVE CHART FUNCTIONS **********************************/
 
-        }
-
-        private void OnSelected(object sender, RoutedEventArgs e)
-        {
-            ListBoxItem lbi = e.Source as ListBoxItem;
-
-            if (lbi != null)
-            {
-                MessageBox.Show(lbi.Content.ToString() + " is selected.");
-            }
         }
 
         /*
@@ -250,7 +241,7 @@ namespace MathsVisualisationTool
 
         }
         #endregion
-        /******************** END OF CLOCK FUNCTIONS (INC. CLOCK/TIMER/STOPWATCH/CALENDAR) ******************/
+        
         /****************************** DRAG/DROP FUNCTIONS [NONE FUNCTIONAL ATM] ***************************/
         #region DragDropFunctions
         private void OnDrag(object sender, MouseButtonEventArgs e)
@@ -285,7 +276,7 @@ namespace MathsVisualisationTool
             return e.Data;
         }
         #endregion
-        /************************** END OF DRAG/DROP FUNCTIONS [NONE FUNCTIONAL ATM] ************************/
+
         /************************************ FUNCTIONS TO RUN/SUBMIT INPUT *********************************/
         #region RunSubmitFunctions
         /*
@@ -345,7 +336,158 @@ namespace MathsVisualisationTool
             loadVarsIntoDataGrid();
         }
         #endregion
-        /********************************* END OF FUNCTIONS TO RUN/SUBMIT INPUT *****************************/
+
+        /****************************************** ALL SAVE FUNCTIONS **************************************/
+        #region SaveFunctions
+
+        /* 
+         *  FOLLOWING REGION CONTAINS ALL FUNCTIONS RELATING TO SOLVEIT'S SAVE FEATURES/FUNCTIONS
+         *  Put in their own region since save buttons are situated both in the toolbar and the
+         *  main menu sections
+         */
+
+        /*
+         * OnSave_Clicked - Handle event if the Save button is 
+         *                  click from the toolbar. Saves the
+         *                  main numerical list box results
+         *                  straight to a text file
+         */
+        private void OnSave_Clicked(object sender, RoutedEventArgs e)
+        {
+            // First Method - Saves Direct to the Debug File in the main solution file
+            if (Results.Items.Count > 0)
+            {
+                using (TextWriter TW = new StreamWriter("Results.txt"))
+                    foreach (string itemText in Results.Items)
+                        TW.WriteLine(itemText);
+
+                Process.Start("Results.txt");
+            }
+            else
+            {
+                MessageBox.Show("This is a message.");
+            }
+        }
+
+        /*
+         * OnSaveAs_Clicked -   Handle event if the Save As button is 
+         *                      click from the toolbar. Enables save
+         *                      as functionality for the numerical
+         *                      workshop/list box outputs
+         */
+        private void OnSaveAs_Clicked(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveAs = new SaveFileDialog();
+            saveAs.Filter = "Text file(*.txt)|*.txt|Word Document(*.docx)|*.docx";
+            saveAs.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            if (saveAs.ShowDialog() == true)
+            {
+                using (TextWriter TW = new StreamWriter(saveAs.FileName))
+                    foreach (string itemText in Results.Items)
+                        TW.WriteLine(itemText);
+            }
+        }
+
+        /*
+         * OnSaveAll_Clicked -  Handle event if the Save All button is 
+         *                      click from the toolbar. Used to save 
+         *                      multiple aspects of SolveIT i.e. the
+         *                      variable table, numerical output etc.
+         */
+        private void OnSaveAll_Clicked(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveAs = new SaveFileDialog();
+            saveAs.Filter = "Text file(*.txt)|*.txt|Word Document(*.docx)|*.docx";
+            saveAs.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            if (saveAs.ShowDialog() == true)
+            {
+                using (TextWriter TW = new StreamWriter(saveAs.FileName))
+                    foreach (string itemText in Results.Items)
+                        TW.WriteLine(itemText);
+            }
+        }
+
+        /*
+         * OnSaveVar_Clicked -  Handle event if the Save Variable button 
+         *                      is clicked. Used to save the variable
+         *                      table.
+         */
+        private void OnSaveVar_Clicked(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        /*
+         * OnSaveCanvas_Clicked -   Handle event if the Save Canvas button 
+         *                          is clicked. Used to save the canvas
+         *                          graph as a PNG image.
+         */
+        private void OnSaveCanvas_Clicked(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveCanvas = new SaveFileDialog();
+            saveCanvas.Filter = "PNG file(*.png)|*.png";
+            saveCanvas.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            if (saveCanvas.ShowDialog() == true)
+            {
+                Rect bounds = VisualTreeHelper.GetDescendantBounds(graphCanvas);
+                double dpi = 96d;
+                RenderTargetBitmap rtb = new RenderTargetBitmap((int)bounds.Width, (int)bounds.Height, dpi, dpi, System.Windows.Media.PixelFormats.Default);
+                DrawingVisual dv = new DrawingVisual();
+                using (DrawingContext dc = dv.RenderOpen())
+                {
+                    VisualBrush vb = new VisualBrush(graphCanvas);
+                    dc.DrawRectangle(vb, null, new Rect(new Point(), bounds.Size));
+                }
+                rtb.Render(dv);
+                BitmapEncoder pngEncoder = new PngBitmapEncoder();
+                pngEncoder.Frames.Add(BitmapFrame.Create(rtb));
+
+                System.IO.MemoryStream memStream = new System.IO.MemoryStream();
+                pngEncoder.Save(memStream);
+                memStream.Close();
+                System.IO.File.WriteAllBytes(saveCanvas.FileName, memStream.ToArray());
+            }
+        }
+
+        /*
+         * OnSaveLVC_Clicked -  Handle event if the Save Canvas button 
+         *                      is clicked. Used to save the Live Charts
+         *                      graph as an image.
+         */
+        private void OnSaveLVC_Clicked(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveLVC = new SaveFileDialog();
+            saveLVC.Filter = "PNG file(*.png)|*.png";
+            saveLVC.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            if (saveLVC.ShowDialog() == true)
+            {
+                Rect bounds = VisualTreeHelper.GetDescendantBounds(LvChrt);
+                double dpi = 96d;
+                RenderTargetBitmap rtb = new RenderTargetBitmap((int)bounds.Width, (int)bounds.Height, dpi, dpi, System.Windows.Media.PixelFormats.Default);
+                DrawingVisual dv = new DrawingVisual();
+                using (DrawingContext dc = dv.RenderOpen())
+                {
+                    VisualBrush vb = new VisualBrush(LvChrt);
+                    dc.DrawRectangle(vb, null, new Rect(new Point(), bounds.Size));
+                }
+                rtb.Render(dv);
+                BitmapEncoder pngEncoder = new PngBitmapEncoder();
+                pngEncoder.Frames.Add(BitmapFrame.Create(rtb));
+
+                System.IO.MemoryStream memStream = new System.IO.MemoryStream();
+                pngEncoder.Save(memStream);
+                memStream.Close();
+                System.IO.File.WriteAllBytes(saveLVC.FileName, memStream.ToArray());
+            }
+
+        }
+
+        #endregion
+
         /************************************** STANDARD TOP MENU FUNCTIONS *********************************/
         #region TopMenuFunctions
         /*
@@ -354,10 +496,26 @@ namespace MathsVisualisationTool
          */
         private void OnExitMenu_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Goodbye - Thankyou for using SolveIT!");
+            MessageBoxResult exitMsg = MessageBox.Show("Are you sure you wish to leave?", "Caution", MessageBoxButton.YesNo);
+            switch (exitMsg)
+            {
+                case MessageBoxResult.Yes:
+                    Environment.Exit(0);
+                    break;
+                case MessageBoxResult.No:
+                    break;          
+            }
+        }
+
+        /*
+         * OnExitMenuClicked - Handle event if the Exit button is 
+         *                  clicked from the standard File Menu.
+         */
+        private void OnClose_Clicked(object sender, RoutedEventArgs e)
+        {
             Environment.Exit(0);
         }
-        
+
         /*
          * OnTestDocClicked -  
          */
@@ -367,16 +525,35 @@ namespace MathsVisualisationTool
             mainDocViewer.Document = testDocument.GetFixedDocumentSequence();
         }
         #endregion
-        /********************************** END OF STANDARD TOP MENU FUNCTIONS ******************************/
+
         /**************************************** TOOLBAR MENU FUNCTIONS ************************************/
         #region ToolBarFunctions
+
+        /*
+         * OnSearch_Clicked -   Handle event if the Search button is 
+         *                      click from the toolbar, searchs output
+         *                      listbox
+         */
+        private void OnSearch_Clicked(object sender, EventArgs e)
+        {
+            //Results.SelectedItems.Clear();
+            //for(int i = Results.Items.Count - 1; i>= 0;i--)
+            //{
+            //    if(Results.Items[i].ToString().ToLower().Contains(searchBox.Text.ToLower()))
+            //    {
+            //        Results.SetSelected(i,true);
+            //    }
+            //}
+            ///*label*/.Text=Results.SelectedItems.Count.ToString() + " items found"
+        }
+
         /*
          * OnUndo_Clicked -  Handle event if the Undo button is 
          *                      click from the toolbar
          */
         private void OnUndo_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Undo Clicked - Fix it");
+            // MADE FUNCTIONAL THROUGH XAML COMMAND / COMMAND BINDIN
         }
 
         /*
@@ -385,7 +562,7 @@ namespace MathsVisualisationTool
          */
         private void OnRedo_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Redo Clicked - Fix it");
+            // MADE FUNCTIONAL THROUGH XAML COMMAND / COMMAND BINDIN
         }
 
         /*
@@ -403,7 +580,8 @@ namespace MathsVisualisationTool
          */
         private void OnBack_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Back Clicked - Fix it");
+            MessageBox.Show("Hello World!\nHello World\nHello World!\nHello World\nHello World!\nHello World\nHello World!\nHello World\nHello World!\nHello World\nHello World!\nHello World\n");
+            //MessageBox.Show("Back Clicked - Fix it");
         }
 
         /*
@@ -425,40 +603,6 @@ namespace MathsVisualisationTool
         }
 
         /*
-         * OnSave_Clicked - Handle event if the Save button is 
-         *                  click from the toolbar
-         */
-        private void OnSave_Clicked(object sender, RoutedEventArgs e)
-        {
-            // First Method - Saves Direct to the Debug File
-            if(Results.Items.Count > 0)
-            {
-                using(TextWriter TW = new StreamWriter("Results.txt"))
-                    foreach(string itemText in Results.Items)
-                        TW.WriteLine(itemText);
-                    
-                Process.Start("Results.txt");
-            }
-            else
-            {
-                ErrorMsg saveError= new ErrorMsg();
-                saveError.Show();
-            }
-        }
-
-        /*
-         * OnSaveAs_Clicked - Handle event if the Save As button is 
-         *                  click from the toolbar
-         */
-        private void OnSaveAs_Clicked(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            if (saveFileDialog.ShowDialog() == true)
-                foreach (string itemText in Results.Items)
-                    File.WriteAllText(saveFileDialog.FileName, itemText);
-        }
-
-        /*
          * OnPrint_Clicked - Handle event if the Print button is 
          *                  click from the toolbar
          */
@@ -474,7 +618,13 @@ namespace MathsVisualisationTool
          */
         private void OnPageSetup_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Page Setup Clicked - Fix it");
+            var printDialog = new PrintDialog();
+            var dialogResult = printDialog.ShowDialog();
+
+            if(dialogResult == true)
+            {
+
+            }
         }
 
         /*
@@ -483,7 +633,7 @@ namespace MathsVisualisationTool
          */
         private void OnCut_Clicked(object sender, RoutedEventArgs e)
         {
-            // MADE FUNCTIONAL THROUGH XAML COMMAND
+            // MADE FUNCTIONAL THROUGH XAML COMMAND / COMMAND BINDING
         }
 
         /*
@@ -492,7 +642,7 @@ namespace MathsVisualisationTool
          */
         private void OnCopy_Clicked(object sender, RoutedEventArgs e)
         {
-            // MADE FUNCTIONAL THROUGH XAML COMMAND
+            // MADE FUNCTIONAL THROUGH XAML COMMAND /COMMAND BINDING
         }
 
         /*
@@ -501,7 +651,7 @@ namespace MathsVisualisationTool
          */
         private void OnPaste_Clicked(object sender, RoutedEventArgs e)
         {
-            // MADE FUNCTIONAL THROUGH XAML COMMAND
+            // MADE FUNCTIONAL THROUGH XAML COMMAND / COMMAND BINDING
         }
 
         /*
@@ -567,7 +717,7 @@ namespace MathsVisualisationTool
         }
 
         #endregion
-        /************************************ END OF TOOLBAR MENU FUNCTIONS *********************************/
+
         /********************************* GREEK CHARACTERS KEYPAD FUNCTIONS ********************************/
         #region GreekCharacters 
 
@@ -751,7 +901,7 @@ namespace MathsVisualisationTool
         }
 
         #endregion
-        /***************************** END OF GREEK CHARACTERS KEYPAD FUNCTIONS *****************************/
+
         /************************** ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS *************************/
         #region AlgebraFunctions
         /*
@@ -974,7 +1124,7 @@ namespace MathsVisualisationTool
         }
 
         #endregion
-        /********************** END OF ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS **********************/
+
         /************************************** NUMERICAL KEYPAD FUNCTIONS **********************************/
         #region Numerical
         /*
@@ -1134,7 +1284,7 @@ namespace MathsVisualisationTool
             this.inputBox.Text += "9";
         }
         #endregion
-        /********************************** END OF NUMERICAL KEYPAD FUNCTIONS*******************************/
+
         /*************************************** VARIABLE TABLE FUNCTIONS***********************************/
         #region VariableTable
 
@@ -1179,7 +1329,7 @@ namespace MathsVisualisationTool
             varTable.ItemsSource = varInfoToAdd;
         }
         #endregion
-        /***********************************END OF VARIABLE TABLE FUNCTIONS*********************************/
+
         /*************************************** GRAPH KEYPAD FUNCTIONS ************************************/
         #region GraphKeypad
 
@@ -1239,6 +1389,5 @@ namespace MathsVisualisationTool
         }
 
         #endregion
-        /************************************ END OF GRAPH KEYPAD FUNCTIONS ********************************/
     }
 }

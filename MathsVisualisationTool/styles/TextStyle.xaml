@@ -1,13 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:MathsVisualisationTool">
-   
+
+    <!-- TextStyle.xaml - STYLING FOCUSSING ON ANY TEXT 'HEAVY' ASPECTS OF SOLVEIT -->
+
     <!-- LIST BOX - STYLING FOR LIST BOXS -->
     <Style x:Key="resultListBox_Style" TargetType="{x:Type ListBox}">
         <Setter Property="Background" Value="{StaticResource MainColour_MainBackground}"/>
         <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
         <Setter Property="FontSize" Value="24"/>
-        <Setter Property="Margin" Value="3 3 3 3"/>
+        <Setter Property="Margin" Value="0 0 0 0"/>
         <Setter Property="Padding" Value="5"/>
         <Setter Property="BorderBrush" Value="{StaticResource MainColour_MainBackground}"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
@@ -61,5 +63,13 @@
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Margin" Value="0 3 0 3"/>
         <Setter Property="Padding" Value="5 10 5 5"/>
+    </Style>
+    
+    <!-- TEXT STYLING FOR HELP LIBRARY -->
+    <Style x:Key="libraryText_Style" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="FontSize" Value="18"/>
     </Style>
 </ResourceDictionary>

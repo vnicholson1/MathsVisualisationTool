@@ -2,9 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:MathsVisualisationTool">
 
+    <!-- MainMenuStyle.xaml - STYLING FOR SOLVEIT'S MAIN MENU -->
+    <!-- Referenced from Material Design -->
+
     <Style TargetType="{x:Type Menu}">
         <Setter Property="Background" Value="{StaticResource MainColour_SubBackground}"/>
         <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Menu}">
@@ -301,6 +305,15 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="rightMenuItemStyle" TargetType="{x:Type MenuItem}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="BorderBrush" Value="#C62323"/>
+                <Setter Property="Background" Value="#C62323"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 

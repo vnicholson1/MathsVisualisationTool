@@ -5,34 +5,91 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MathsVisualisationTool"
       mc:Ignorable="d" 
-      d:DesignHeight="200" d:DesignWidth="400"
+      d:DesignHeight="175" d:DesignWidth="400"
       SizeToContent="WidthAndHeight"
       ResizeMode="NoResize"
       Title="ERROR!"
-      Background="{StaticResource MainColour_MainBackground}">
+      Background="{StaticResource MainColour_MainBackground}"
+      WindowStartupLocation="CenterOwner"
+      ShowInTaskbar="False" 
+      Topmost="True"
+      TextOptions.TextFormattingMode="Display" 
+      TextOptions.TextRenderingMode="ClearType" 
+      UseLayoutRounding="True">
 
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource error_StackPanel}">
-            <Grid x:Name="ErrorGrid">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource error_StackPanel}" Width="400" Height="150">
+            <DockPanel x:Name="errMsgDock" LastChildFill="True" Width="auto">
+
+                <Image Source="../images/icons/error100.png" DockPanel.Dock="Left" Height="90" Margin="10"/>
+
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                    <Label Content="ERROR" FontSize="28" Style="{StaticResource errorLabel_Style}" HorizontalAlignment="Left" Margin="10" />
+                    <TextBlock x:Name="errorCode" FontSize="28" Style="{StaticResource errorTextBlock_Style}" HorizontalAlignment="Right"/>
+                </StackPanel>
+                
+                <TextBlock Name="erroMsgText" DockPanel.Dock="Top" Style="{StaticResource errorTextBlock_Style}"/>
+                
+            </DockPanel>
+
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110"/>
-                    <ColumnDefinition Width="260"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Image Source="../images/icons/error100.png" Grid.Column="0" Height="90" Margin="10"/>
-
-                <Grid x:Name="errorMsgGrid" Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-                    <Label Content="ERROR" FontSize="28" Grid.Row="0" Style="{StaticResource errorLabel_Style}" HorizontalAlignment="Left" Margin="10"/>
-                    
-                    <TextBlock Text="Error - " Grid.Row="1" Style="{StaticResource errorTextBlock_Style}"/>
-                </Grid>
-
+                <Button x:Name="okayBtn" Content="OK" Style="{StaticResource errorBtn_Style}" Grid.Column="0" Height="25"/>
+                <Button x:Name="cancelBtn" Content="Cancel" Style="{StaticResource errorBtn_Style}" Grid.Column="1"/>
+                
             </Grid>
+
         </StackPanel>
     </Grid>
+
+    <!--<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" MinHeight="69" Background="{StaticResource MainColour_SubBackground}">
+            <DockPanel>
+                <Image Source="../images/icons/error100.png" Name="Image_MessageBox" Width="32" Height="32" HorizontalAlignment="Left" DockPanel.Dock="Left" Margin="30,0,0,0" Visibility="Collapsed"/>
+                <TextBlock Name="TextBlock_Message" TextWrapping="Wrap" MaxWidth="500" Width="Auto"
+                       VerticalAlignment="Center" Margin="12,20,41,15" />
+            </DockPanel>
+        </Grid>
+        <Grid Grid.Row="1" Background="{StaticResource MainColour_MainBackground}" MinHeight="49">
+            <DockPanel Margin="5,0">
+
+                 --><!--Cancel Butto--><!--
+                <Button Name="Button_Cancel" MinWidth="88" MaxWidth="160" Height="26" Margin="5,0" HorizontalAlignment="Right" Visibility="Collapsed" IsCancel="True"
+                        DockPanel.Dock="Right" Click="Button_Cancel_Click">
+                    <Label Name="Label_Cancel" Padding="0" Margin="10,0">_Cancel</Label>
+                </Button>
+                 --><!--End Cancel Button 
+
+                 No Button--><!-- 
+                <Button Name="Button_No" MinWidth="88" MaxWidth="160" Height="26" Margin="5,0" HorizontalAlignment="Right" Visibility="Collapsed"
+                        DockPanel.Dock="Right" Click="Button_No_Click">
+                    <Label Name="Label_No" Padding="0" Margin="10,0">_No</Label>
+                </Button>
+                 --><!--End No Button 
+
+                 Yes Button--><!-- 
+                <Button Name="Button_Yes" MinWidth="88" MaxWidth="160" Height="26" Margin="35,0,5,0" HorizontalAlignment="Right" Visibility="Collapsed"
+                        DockPanel.Dock="Right" Click="Button_Yes_Click">
+                    <Label Name="Label_Yes" Padding="0" Margin="10,0">_Yes</Label>
+                </Button>
+                 --><!--End Yes Button 
+
+                 OK Button--><!-- 
+                <Button Name="Button_OK" MinWidth="88" MaxWidth="160" Margin="35,0,5,0" HorizontalAlignment="Right" Height="26"
+                        Click="Button_OK_Click">
+                    <Label Name="Label_Ok" Padding="0" Margin="10,0">_OK</Label>
+                </Button>
+                 --><!--End OK Button--><!-- 
+
+            </DockPanel>
+        </Grid>
+    </Grid>-->
 </Window>
