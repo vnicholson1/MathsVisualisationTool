@@ -2,6 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:MathsVisualisationTool">
 
+    <!-- StackPanelStyle.xaml - STYLING FOR STACK PANELS -->
+
     <Style x:Key="clock_StackPanel" TargetType="{x:Type StackPanel}">
         <Setter Property="Background" Value="{StaticResource MainColour_MainBackground}"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>

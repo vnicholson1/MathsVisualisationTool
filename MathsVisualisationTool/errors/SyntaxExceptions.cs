@@ -27,7 +27,7 @@ namespace MathsVisualisationTool
     public class UnknownCharacterException : SyntaxErrorException
     {
         public UnknownCharacterException(string message) : base(message)
-        {
+        {          
             ErrorCode = "1.1";
         }
     }

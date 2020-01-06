@@ -8,20 +8,16 @@
         mc:Ignorable="d"
         Title="SolveIt Interpreter"
         WindowState="Maximized"      
-        WindowStyle="ThreeDBorderWindow"
+        WindowStyle="none"
         Background="{StaticResource MainColour_MainBackground}"
         Icon="../images/icons/home.png"
         Width="1209.104" 
         Height="1021.726">
-    <!--Width="{Binding SystemParameters.Primar964yScreenWidth}" 
-        Height="{Binding SystemParameters.PrimaryScreenHeight}"-->
+    <!--Width="{Binding SystemParameters.Primar964yScreenWidth}"-->
+    <!--Height="{Binding SystemParameters.PrimaryScreenHeight}"-->
+    <!--ThreeDBorderWindow - ADDS TOP TITLE BAR TO WINDOWSTYLE -->
 
     <Window.CommandBindings>
-        <CommandBinding Command="New" CanExecute="CommonCommandBinding_CanExecute"/>
-        <CommandBinding Command="Open" CanExecute="CommonCommandBinding_CanExecute"/>
-        <CommandBinding Command="Save" CanExecute="CommonCommandBinding_CanExecute"/>
-        <CommandBinding Command="SaveAs" CanExecute="CommonCommandBinding_CanExecute"/>
-
         <CommandBinding Command="Cut" CanExecute="CommonCommandBinding_CanExecute"/>
         <CommandBinding Command="Copy" CanExecute="CommonCommandBinding_CanExecute"/>
         <CommandBinding Command="Paste" CanExecute="CommonCommandBinding_CanExecute"/>
@@ -33,9 +29,19 @@
     <Grid>
         <DockPanel LastChildFill="True">
             <!-- MAIN MENU/NAVIGATION MENU-->
-            <Menu DockPanel.Dock="Top" IsMainMenu="True">
+            <Menu DockPanel.Dock="Top" IsMainMenu="True" >
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <DockPanel HorizontalAlignment="Stretch" />
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+                <MenuItem VerticalAlignment="Center">
+                    <MenuItem.Icon>
+                        <Image Source="../images/icons/SolveIT.png" Width="30" Margin="0 0 -20 0"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <!--MAIN TOP MENU - FILE DROP DOWN-->
-                <MenuItem Header="_File">
+                <MenuItem Header="_File" VerticalAlignment="Center">
                     <MenuItem Header="_New">
                         <MenuItem.Icon>
                             <Image Source="../images/icons/newFile.png" Height="20"/>
@@ -59,12 +65,17 @@
                                 <Image Source="../images/icons/saveDoc.png" Height="20"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Save Graph">
+                        <MenuItem Header="Save Canvas Graph" Click="OnSaveCanvas_Clicked">
                             <MenuItem.Icon>
                                 <Image Source="../images/icons/saveGraph.png" Height="20"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Save Variables">
+                        <MenuItem Header="Save Live Charts Graph" Click="OnSaveLVC_Clicked">
+                            <MenuItem.Icon>
+                                <Image Source="../images/icons/saveGraph.png" Height="20"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Save Variables" Click="OnSaveVar_Clicked">
                             <MenuItem.Icon>
                                 <Image Source="../images/icons/saveVar.png" Height="20"/>
                             </MenuItem.Icon>
@@ -76,6 +87,22 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator/>
+                    <MenuItem Header="_Print..." ToolTip="Print">
+                        <MenuItem.Icon>
+                            <Image Source="../images/icons/print.png" Height="20"/>
+                        </MenuItem.Icon>
+                        <MenuItem Header="Print" Click="OnPrint_Clicked">
+                            <MenuItem.Icon>
+                                <Image Source="../images/icons/print.png" Height="20"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Page Setup" Click="OnPageSetup_Clicked">
+                            <MenuItem.Icon>
+                                <Image Source="../images/icons/pageSetup.png" Height="20"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                    <Separator/>
                     <MenuItem Header="E_xit" Click="OnExitMenu_Clicked">
                         <MenuItem.Icon>
                             <Image Source="../images/icons/quit.png" Height="20"/>
@@ -83,7 +110,18 @@
                     </MenuItem>
                 </MenuItem>
                 <!--MAIN TOP MENU - EDIT DROPDOWN-->
-                <MenuItem Header="_Edit">
+                <MenuItem Header="_Edit" VerticalAlignment="Center">
+                    <MenuItem Header="Undo" ToolTip="Undo (Ctrl+Z)" Click="OnUndo_Clicked">
+                        <MenuItem.Icon>
+                            <Image Source="../images/icons/undo.png" Height="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Redo" Click="OnRedo_Clicked">
+                        <MenuItem.Icon>
+                            <Image Source="../images/icons/redo.png" Height="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
                     <MenuItem Header="Cut" Command="Cut">
                         <MenuItem.Icon>
                             <Image Source="../images/icons/cut.png" Height="20"/>
@@ -101,13 +139,15 @@
                     </MenuItem>
                 </MenuItem>
                 <!--MAIN TOP MENU - VIEW DROPDOWN-->
-                <MenuItem Header="_View">
+                <MenuItem Header="_View" VerticalAlignment="Center">
 
                 </MenuItem>
                 <!--MAIN TOP MENU - TOOLS DROPDOWN-->
-                <MenuItem Header="_Tools"></MenuItem>
+                <MenuItem Header="_Tools" VerticalAlignment="Center">
+                    
+                </MenuItem>
                 <!--MAIN TOP MENU - HELP DROPDOWN-->
-                <MenuItem Header="_Help">
+                <MenuItem Header="_Help" VerticalAlignment="Center">
                     <MenuItem Header="Help Library">
                         <MenuItem.Icon>
                             <Image Source="../images/icons/library.png" Height="20"/>
@@ -124,55 +164,67 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
+
+                <MenuItem Click="OnClose_Clicked" ToolTip="Close" HorizontalAlignment="Right" Style="{StaticResource rightMenuItemStyle}">
+                    <MenuItem.Icon>
+                        <Image Source="../images/icons/normClose.png" Width="30" Margin="0 2 -15 2"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </Menu>
 
             <!-- TOOL BAR MENU -->
-            <ToolBarTray DockPanel.Dock="Top" Style="{StaticResource ToolBarTray_Style}">
-                <ToolBar DockPanel.Dock="Top" Style="{StaticResource ToolBar_Style}">
+            <ToolBarTray DockPanel.Dock="Top">
+                <ToolBar DockPanel.Dock="Top">
                     <!-- BACK BUTTON -->
-                    <Button x:Name="Back" ToolBar.OverflowMode="Never" ToolTip="Navigate Back" Click="OnBack_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="BackBtn" ToolBar.OverflowMode="Never" ToolTip="Navigate Back" Click="OnBack_Clicked">
                         <Image Source="../images/icons/back.png" Width="25"/>
                     </Button>
                     <!-- FOREWARD BUTTON -->
-                    <Button x:Name="Forward" ToolBar.OverflowMode="Never" ToolTip="Navigate Forward" Click="OnForward_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="ForwardBtn" ToolBar.OverflowMode="Never" ToolTip="Navigate Forward" Click="OnForward_Clicked">
                         <Image Source="../images/icons/forward.png" Width="25"/>
                     </Button>
                 <Separator/>
                     <!-- NEW BUTTON -->
-                    <Button Command="New" ToolBar.OverflowMode="Never" ToolTip="New SolveIT" Click="OnNew_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="newBtn" ToolBar.OverflowMode="Never" ToolTip="New SolveIT" Click="OnNew_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/newFile.png" Width="25"/>
                     </Button>
                     <!-- OPEN BUTTON -->
-                    <Button Command="Open" ToolBar.OverflowMode="Never" ToolTip="Open Previous SolveIT Solutions" Click="OnOpen_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="openBtn" ToolBar.OverflowMode="Never" ToolTip="Open Previous SolveIT Solutions" Click="OnOpen_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/openFolder.png" Width="25"/>
                     </Button>
+                <Separator/>
                     <!-- SAVE BUTTON -->
-                    <Button Command="Save" ToolBar.OverflowMode="Never" ToolTip="Save" Click="OnSave_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="saveBtn" ToolBar.OverflowMode="Never" ToolTip="Save" Click="OnSave_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/save.png" Width="25"/>
                     </Button>
                     <!-- SAVE AS BUTTON -->
-                    <Button Command="SaveAs" ToolBar.OverflowMode="Never" ToolTip="Save As" Click="OnSaveAs_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="saveAsBtn" ToolBar.OverflowMode="Never" ToolTip="Save As" Click="OnSaveAs_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/saveAs.png" Width="25"/>
                     </Button>
+                    <!-- SAVE ALL BUTTON -->
+                    <Button x:Name="saveAllBtn" ToolBar.OverflowMode="Never" ToolTip="Save All" Click="OnSaveAll_Clicked" Style="{StaticResource Btn_ToolBar}">
+                        <Image Source="../images/icons/saveAll.png" Width="25"/>
+                    </Button>
+                <Separator/>
                     <!-- PRINT BUTTON -->
-                    <Button ToolBar.OverflowMode="Never" ToolTip="Print SolveIT Solution" Click="OnPrint_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="printBtn" ToolBar.OverflowMode="Never" ToolTip="Print SolveIT Solution" Click="OnPrint_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/print.png" Width="25"/>
                     </Button>
                     <!-- PAGE SETUP BUTTON -->
-                    <Button ToolBar.OverflowMode="Never" ToolTip="Print SolveIT Solution" Click="OnPageSetup_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="pageBtn" ToolBar.OverflowMode="Never" ToolTip="Print SolveIT Solution" Click="OnPageSetup_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/pageSetup.png" Width="25"/>
                     </Button>
                 <Separator/>
                     <!-- CUT BUTTON -->
-                    <Button Command="Cut" ToolBar.OverflowMode="Never" ToolTip="Cut Selection to Windows Clipboard" Click="OnCut_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="cutBtn" Command="Cut" ToolBar.OverflowMode="Never" ToolTip="Cut Selection to Windows Clipboard" Click="OnCut_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/cut.png" Width="25"/>
                     </Button>
                     <!-- COPY BUTTON -->
-                    <Button Command="Copy" ToolBar.OverflowMode="Never" ToolTip="Copy Selection to Windows Clipboard" Click="OnCopy_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="copyBtn" Command="Copy" ToolBar.OverflowMode="Never" ToolTip="Copy Selection to Windows Clipboard" Click="OnCopy_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/copy.png" Width="25"/>
                     </Button>
                     <!-- PASTE BUTTON -->
-                    <Button Command="Paste" ToolBar.OverflowMode="Never" ToolTip="Paste From Windows Clipboard" Click="OnPaste_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="pasteBtn" Command="Paste" ToolBar.OverflowMode="Never" ToolTip="Paste From Windows Clipboard" Click="OnPaste_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/paste.png" Width="25"/>
                     </Button>
                     <!-- TRASH BUTTON -->
@@ -181,31 +233,31 @@
                     </Button>
                     <Separator/>
                     <!-- UNDO BUTTON -->
-                    <Button Command="Undo" ToolBar.OverflowMode="Never" ToolTip="Undo" Click="OnUndo_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="undoBtn" Command="Undo" ToolBar.OverflowMode="Never" ToolTip="Undo (Ctrl + Z)" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/undo.png" Width="25"/>
                     </Button>
                     <!-- REDO BUTTON -->
-                    <Button Command="Redo" ToolBar.OverflowMode="Never" ToolTip="Redo" Click="OnRedo_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="redoBtn" Command="Redo" ToolBar.OverflowMode="Never" ToolTip="Redo (Ctrl + Y)" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/redo.png" Width="25"/>
                     </Button>
                 <Separator/>
                     <!-- RUN/SUBMIT BUTTON -->
-                    <Button ToolTip="Run Input" ToolBar.OverflowMode="Never" Click="OnRun_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="altRunBtn" ToolTip="Run Input" ToolBar.OverflowMode="Never" Click="OnRun_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/run.png" Width="25"/>
                     </Button>
                     <!-- STAND ALONE KEYPAD BUTTON -->
-                    <Button ToolTip="Keypad" ToolBar.OverflowMode="Never" Click="OnKeypad_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="keypadBtn" ToolTip="Keypad" ToolBar.OverflowMode="Never" Click="OnKeypad_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/calculator.png" Width="25"/>
                     </Button>
                     <Separator/>
                     <!-- NONE FUNCTIONAL COMBO/DROP DOWN BOX -->
-                    <ComboBox x:Name="graphComboBox" Width="130" ToolBar.OverflowMode="Never" Padding="3 2 3 2">
+                    <ComboBox x:Name="graphComboBox" Style="{StaticResource comboBox_Style}" Width="130" ToolBar.OverflowMode="Never" Padding="3 2 3 2">
                         <ComboBoxItem Content="-- Select Chart --" IsSelected="True"/>
                         <ComboBoxItem Content="Canvas Graph"/>
                         <ComboBoxItem Content="Live Charts"/>
                     </ComboBox>
                     <!-- OPEN GRAPH BUTTON -->
-                    <Button ToolTip="Graph" ToolBar.OverflowMode="Never" Click="OnGraph_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <Button x:Name="graphSelectBtn" ToolTip="Graph" ToolBar.OverflowMode="Never" Click="OnGraph_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/lineChart.png" Width="25"/>
                     </Button>
                     <Separator/>
@@ -220,6 +272,11 @@
                     <!-- UPDATE BUTTON -->
                     <Button x:Name="UpdateBtn" ToolBar.OverflowMode="Never" ToolTip="SolveIT Updates" Click="OnUpdate_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/downUpdates.png" Width="25"/>
+                    </Button>
+                <Separator/>
+                    <TextBox x:Name="searchBox" Width="130"></TextBox>
+                    <Button x:Name="SearchBtn" ToolBar.OverflowMode="Never" ToolTip="Search Your Outputs" Click="OnSearch_Clicked" Style="{StaticResource Btn_ToolBar}">
+                        <Image Source="../images/icons/search.png" Width="25"/>
                     </Button>
                 </ToolBar>
             </ToolBarTray>
@@ -290,8 +347,8 @@
 
                                         <StackPanel Style="{StaticResource leftTabStackPanel_Style}"  Grid.Column="0" Grid.RowSpan="5"/>
                                         <TextBlock Padding="8" Grid.Row="0" TextTrimming="CharacterEllipsis" Foreground="White" Text="Your Notes" Grid.RowSpan="2" Grid.Column="1"/>
-                                        <ToolBarTray Grid.Row="2" Grid.Column="1" Style="{StaticResource ToolBarTray_Style}">
-                                            <ToolBar Style="{StaticResource ToolBar_Style}">
+                                        <ToolBarTray Grid.Row="2" Grid.Column="1">
+                                            <ToolBar>
                                                 <Button Name="notesNew" ToolBar.OverflowMode="Never" ToolTip="Add Note" Click="OnNewNote_Clicked">
                                                     <Image Source="../images/icons/newFile.png" Width="20"/>
                                                 </Button>
@@ -356,49 +413,46 @@
                     <Grid x:Name="mainOutputGrid" Margin="3" Grid.Row="0">
                         <TabControl x:Name="outputTabCon" Style="{StaticResource mainTabControlStyle}">
                             <TabItem Header="Numerical Workshop" ToolTip="SolveIT Numerical Workshop Display" Style="{StaticResource mainTab}">
-                                <!--<StackPanel x:Name="NumericalWorkshop_StackPanel" Style="{StaticResource result_StackPanel}" Orientation="Vertical">-->
-                                    
-                                    <DockPanel LastChildFill="True">
-                                        <StackPanel DockPanel.Dock="Top" Style="{StaticResource TabHeaderStackPanel_Style}"/>
-                                        <ListBox x:Name="Results" Style="{StaticResource resultListBox_Style}" SelectionMode="Single" ScrollViewer.CanContentScroll="True"/>
-                                        
-                                    </DockPanel>
-                                <!--</StackPanel>-->
+                                <DockPanel x:Name="numWorkDock"  LastChildFill="True">
+                                    <StackPanel DockPanel.Dock="Top" Style="{StaticResource TabHeaderStackPanel_Style}"/>
+                                    <ListBox x:Name="Results" Style="{StaticResource resultListBox_Style}" SelectionMode="Single" ScrollViewer.CanContentScroll="True">
+                                        <ListBox.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Cut" Command="Cut">
+                                                    <MenuItem.Icon>
+                                                        <Image Source="../images/icons/cut.png" Height="20"/>
+                                                    </MenuItem.Icon>
+                                                </MenuItem>
+                                                <MenuItem Header="Copy" Command="Copy">
+                                                    <MenuItem.Icon>
+                                                        <Image Source="../images/icons/copy.png" Height="20"/>
+                                                    </MenuItem.Icon>
+                                                </MenuItem>
+                                            </ContextMenu>
+                                        </ListBox.ContextMenu>
+                                    </ListBox>
+                                </DockPanel>
                             </TabItem>
                             <TabItem Header="Graph - Canvas Chart" ToolTip="SolveIT Live Charts Display" Style="{StaticResource mainTab}">
-                                <!--<TabItem.Header>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="../images/tabIcons/tabCanvas.png" Height="25"/>
-                                        <TextBlock Text="Graph - Canvas Chart" Padding="5"/>
-                                    </StackPanel>
-                                </TabItem.Header>-->
-                                <StackPanel x:Name="canvasGraphs_StackPanel">
-                                    <StackPanel Style="{StaticResource TabHeaderStackPanel_Style}"/>
-                                    <Canvas x:Name="graphCanvas" Background="white" Opacity="0.5" Margin="10"
+                                <DockPanel x:Name="canvasDock"  LastChildFill="True" Background="{StaticResource MainColour_MainBackground}">
+                                    <StackPanel DockPanel.Dock="Top" Style="{StaticResource TabHeaderStackPanel_Style}"/>
+                                    <Canvas x:Name="graphCanvas" Background="{StaticResource MainColour_MainBackground}" Margin="10"
                                             Width="500" Height="500"
                                             VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </StackPanel>
+                                </DockPanel>
                             </TabItem>
                             <TabItem Header="Graph - Live Chart" ToolTip="SolveIT Live Charts Display" Style="{StaticResource mainTab}">
-                                <!--<TabItem.Header>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="../images/tabIcons/tabLvc.png" Height="25"/>
-                                        <TextBlock Text="Graph - Live Chart" Padding="5"/>
-                                    </StackPanel>
-                                </TabItem.Header>-->
-                                <StackPanel x:Name="lvcGraphs_StackPanel">
-                                    <StackPanel Style="{StaticResource TabHeaderStackPanel_Style}"/>
-                                    <Grid x:Name="LvChrt_Grid" Height="400">
-                                        <lvc:CartesianChart x:Name="LvChrt" ChartLegend="{x:Null}" >
-                                            <lvc:CartesianChart.AxisY>
-                                                <lvc:Axis x:Name="Y_Axis"/>
-                                            </lvc:CartesianChart.AxisY>
-                                            <lvc:CartesianChart.AxisX>
-                                                <lvc:Axis x:Name="X_Axis" Labels="{Binding Labels}"/>
-                                            </lvc:CartesianChart.AxisX>
-                                        </lvc:CartesianChart>
-                                    </Grid>
-                                </StackPanel>
+                                <DockPanel x:Name="lvcDock"  LastChildFill="True">
+                                    <StackPanel DockPanel.Dock="Top" Style="{StaticResource TabHeaderStackPanel_Style}"/>
+                                    <lvc:CartesianChart x:Name="LvChrt" ChartLegend="{x:Null}" >
+                                        <lvc:CartesianChart.AxisY>
+                                            <lvc:Axis x:Name="Y_Axis"/>
+                                        </lvc:CartesianChart.AxisY>
+                                        <lvc:CartesianChart.AxisX>
+                                            <lvc:Axis x:Name="X_Axis" Labels="{Binding Labels}"/>
+                                        </lvc:CartesianChart.AxisX>
+                                    </lvc:CartesianChart>
+                                </DockPanel>
                             </TabItem>
                             <!--<TabItem Header="LaTeX Output" ToolTip="SolveIT LaTeX Output Display" Style="{StaticResource mainTab}">
                                 <StackPanel x:Name="Latex_StackPanel">
@@ -419,7 +473,27 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <!-- INPUT TEXT BOX -->
-                        <TextBox Name="inputBox" Style="{StaticResource inputText_Style}" Grid.Column="0" Text="plot(y=sin(x),10&gt;x&gt;1)"/>
+                        <TextBox Name="inputBox" Style="{StaticResource inputText_Style}" Grid.Column="0" Text="plot(y=sin(x),10&gt;x&gt;1)">
+                            <TextBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Cut" Command="Cut">
+                                        <MenuItem.Icon>
+                                            <Image Source="../images/icons/cut.png" Height="20"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Header="Copy" Command="Copy">
+                                        <MenuItem.Icon>
+                                            <Image Source="../images/icons/copy.png" Height="20"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Header="Paste" Command="Paste">
+                                        <MenuItem.Icon>
+                                            <Image Source="../images/icons/Paste.png" Height="20"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </TextBox.ContextMenu>
+                        </TextBox>
                         <!-- RUN/SUBMIT BUTTON -->
                         <Button Name="submitBtn" Click="OnRun_Clicked" IsDefault="True" Grid.Column="1" Margin="3 1 0 2"  Padding="5" Style="{StaticResource submitBtn_Style}">
                             <StackPanel Orientation="Horizontal">
