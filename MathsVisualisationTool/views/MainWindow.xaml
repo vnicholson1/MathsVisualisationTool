@@ -818,7 +818,7 @@
                                             <WrapPanel x:Name="functionPanel" Margin="3" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="400" MouseRightButtonDown="OnDrag">
                                                 <!-- FIRST ROW OF 3 ITEMS/FUNCTIONS -->
                                                 <!-- LEFT BRACKET BUTTON-->
-                                                <Button  x:Name="lBracket_Btn" ToolTip="Arithmetic Value - '('" Style="{StaticResource kepadBtns_Style}" Click="OnLeftBracket_Clicked">
+                                                <Button  x:Name="lBracket_Btn" ToolTip="Arithmetic Value - '('" Style="{StaticResource kepadBtns_Style}" Click="OnLeftBracket_Clicked" MouseRightButtonDown="OnDrag">
                                                     <StackPanel Orientation="Vertical">
                                                         <Image Source="../images/arithmetic/leftBracket.png" Height="40"/>
                                                         <!--<TextBlock Text="&#x2b;" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="34"/>-->
