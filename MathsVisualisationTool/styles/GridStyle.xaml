@@ -2,6 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:MathsVisualisationTool">
 
+    <!-- GridStyle.xaml - FOCUSES ON STYLING BOTH THE GRIDS AND FEATURES RELATING TO THE GRIDS -->
+
     <!-- VERTICAL GRID SPLITTER STYLE -->
     <Style x:Key="GrdSpltrVertical_Style" TargetType="{x:Type GridSplitter}">
         <Setter Property="Background" Value="{StaticResource MainColour_SubBackground}"/>

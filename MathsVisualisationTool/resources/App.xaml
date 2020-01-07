@@ -48,6 +48,8 @@
                 <ResourceDictionary Source="../styles/StackPanelStyle.xaml"/>
                 <ResourceDictionary Source="../styles/LiveChartStyle.xaml"/>
                 <ResourceDictionary Source="../styles/ScrollviewerStyle.xaml"/>
+                <ResourceDictionary Source="../styles/MiscStyle.xaml"/>
+                <ResourceDictionary Source="../styles/ContextMenuStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -10,11 +10,12 @@ using System.Windows.Media.Imaging;
 
 namespace MathsVisualisationTool
 {
-    public partial class ErrorMsg : Window
+    public partial class ErrorMsg
     {
         public ErrorMsg()
         {
             InitializeComponent();
         }
+
     }
 }

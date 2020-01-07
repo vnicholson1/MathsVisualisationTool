@@ -4,9 +4,12 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
                     xmlns:local="clr-namespace:MathsVisualisationTool">
 
+    <!-- LiveChartStyle.xaml - STYLING FOR LIVE CHARTS GRAPH -->
+    <!-- Sourced from Live Charts - lvcharts.net -->
+
     <lvc:ColorsCollection x:Key="ColorsCollection">
-        <Color A="255" R="33" G="149" B="242" />
         <Color A="255" R="243" G="67" B="54" />
+        <Color A="255" R="33" G="149" B="242" />
         <Color A="255" R="254" G="192" B="7" />
         <Color A="255" R="96" G="125" B="138" />
         <Color A="255" R="232" G="30" B="99" />
@@ -24,6 +27,7 @@
     <Style TargetType="lvc:CartesianChart">
         <Setter Property="AnimationsSpeed" Value="0:0:0.420"></Setter>
         <Setter Property="SeriesColors" Value="{StaticResource ColorsCollection}"/>
+        <Setter Property="Background" Value="{StaticResource MainColour_MainBackground}"/>
     </Style>
 
     <Style TargetType="lvc:Axis">

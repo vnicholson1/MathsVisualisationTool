@@ -41,8 +41,11 @@
                             <ColumnDefinition Width="7"/>
                             <ColumnDefinition Width="825"/>
                         </Grid.ColumnDefinitions>
+                        
                         <StackPanel Style="{StaticResource leftTabStackPanel_Style}" Grid.Column="0" Grid.RowSpan="2"/>
-                        <TextBlock VerticalAlignment="Center" Padding="8" TextTrimming="CharacterEllipsis" Background="#3F3F46" Foreground="#F2F2F2" Text="Library Index" Grid.Row="0" Grid.Column="1"/>
+                        
+                        <TextBlock VerticalAlignment="Center" Style="{StaticResource libraryText_Style}" Text="Library Index" Grid.Row="0" Grid.Column="1"/>
+                        
                         <TreeView x:Name="DocsTree" Grid.Row="1" Grid.Column="1" Margin="2">
                             <TreeViewItem Header="User Manual" >
                                 <TreeViewItem Header="Quick Guide"/>
@@ -53,8 +56,27 @@
                                 <TreeViewItem Header="Error Codes"/>
                             </TreeViewItem>
                         </TreeView>
+                        
                         <GridSplitter x:Name="Library_Splitter" Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource LibrarySplitter_Style}"/>
-                        <TextBlock VerticalAlignment="Center" Padding="8" TextTrimming="CharacterEllipsis" Background="#3F3F46" Foreground="#F2F2F2" Text="Document" Grid.Row="0" Grid.Column="3"/>
+                        
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" Margin="0,5">
+                            
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left"  Text="Document" Style="{StaticResource libraryText_Style}"/>
+                            
+                            <Button x:Name="infoDocBtn" ToolTip="How To Use This Library" Click="OnShowDocPopup_Clicked" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right">
+                                <Image Source="../images/icons/help.png" Width="30"/>
+                            </Button>
+                            <Popup Name="DocHelp_Popup" Placement="Mouse" Width="auto">
+                                <StackPanel Background="{StaticResource MainColour_Popup}">
+                                    <Label HorizontalAlignment="Left" Content="How To..." FontWeight="Bold"/>
+                                    <Label FontWeight="DemiBold">
+                                        <TextBlock>Select desired help document <LineBreak/> from list opposite, double click <LineBreak/> to view desired manual</TextBlock>
+                                    </Label>
+
+                                    <Button x:Name="hidePopBtn" Content="Okay" Click="OnHideDocPopup_Clicked" Margin="10"/>
+                                </StackPanel>
+                            </Popup>
+                        </StackPanel>
                         <DocumentViewer x:Name="libraryDocViewer" Grid.Row="1" Grid.Column="3" Margin="2"/>
                     </Grid>
                 </TabItem>
@@ -62,7 +84,8 @@
                     <Grid x:Name="VidGrid">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
-                            <RowDefinition/>
+                            <RowDefinition Height="36*"/>
+                            <RowDefinition Height="553*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2"/>
@@ -70,22 +93,42 @@
                             <ColumnDefinition Width="7"/>
                             <ColumnDefinition Width="825"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Style="{StaticResource leftTabStackPanel_Style}" Grid.Column="0" Grid.RowSpan="2"/>
-                        <TextBlock VerticalAlignment="Center" Padding="8" TextTrimming="CharacterEllipsis" Background="#3F3F46" Foreground="#F2F2F2" Text="Library Index" Grid.Row="0" Grid.Column="1"/>
-                        <TreeView x:Name="VidsTree" Grid.Row="1" Grid.Column="1" Margin="2">
+                        <StackPanel Style="{StaticResource leftTabStackPanel_Style}" Grid.Column="0" Grid.RowSpan="3" Margin="-2,-2,2,0"/>
+                        <TextBlock VerticalAlignment="Center" Style="{StaticResource libraryText_Style}" Text="Library Index" Grid.Row="0" Grid.Column="1" Margin="0,5"/>
+                        <TreeView x:Name="VidsTree" Grid.Row="1" Grid.Column="1" Margin="2" Grid.RowSpan="2">
                             <TreeViewItem Header="User Videos">
                                 <TreeViewItem Header="Basic Arthmetic Input" MouseDoubleClick="OnBasicVid_Clicked"/>
                                 <TreeViewItem Header="Defining Variables"/>
                             </TreeViewItem>
                         </TreeView>
-                        <GridSplitter x:Name="Video_Splitter" Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource LibrarySplitter_Style}"/>
-                        <TextBlock VerticalAlignment="Center" Padding="8" TextTrimming="CharacterEllipsis" Background="#3F3F46" Foreground="#F2F2F2" Text="Video" Grid.Row="0" Grid.Column="3"/>
-                        <Grid x:Name="clipLayoutGrid" Grid.Row="1" Grid.Column="3">
+                        <GridSplitter x:Name="Video_Splitter" Grid.Column="2" Grid.RowSpan="3" Style="{StaticResource LibrarySplitter_Style}" Margin="2,0,3,0"/>
+                        
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" Margin="0,5">
+                            
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left"  Text="Video" Style="{StaticResource libraryText_Style}"/>
+                            
+                            <Button x:Name="infoVidBtn" ToolTip="How To Use This Library" Click="OnShowVidPopup_Clicked" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right">
+                                <Image Source="../images/icons/help.png" Width="30"/>
+                            </Button>
+                            
+                            <Popup Name="VidHelp_Popup" Placement="Mouse" Width="auto">
+                                <StackPanel Background="{StaticResource MainColour_Popup}">
+                                    <Label HorizontalAlignment="Left" Content="How To..." FontWeight="Bold"/>
+                                    <Label FontWeight="DemiBold">
+                                        <TextBlock>Select desired video from list,<LineBreak/>once selected click play below</TextBlock>
+                                    </Label>
+
+                                    <Button x:Name="hideVidPopBtn" Content="Okay" Click="OnHideVidPopup_Clicked" Margin="10"/>
+                                </StackPanel>
+                            </Popup>
+                        </StackPanel>
+                        
+                        <Grid x:Name="clipLayoutGrid" Grid.Row="1" Grid.Column="3" Grid.RowSpan="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <Border Grid.Row="0" BorderBrush="Black" BorderThickness="2" Margin="5" Padding="5">
+                            <Border Grid.Row="0" BorderBrush="{StaticResource MainColour_LightBorder}" BorderThickness="2" Margin="5" Padding="5">
                                 <MediaElement x:Name="VideoPlayer" LoadedBehavior="Manual" Margin="3"/>
                             </Border>
                             <!-- Alt Test Vid - http://hubblesource.stsci.edu/sources/video/clips/details/images/hst_1.mpg -->
@@ -101,7 +144,7 @@
                                     <Button x:Name="pauseBtn" Style="{StaticResource kepadBtns_Style}" Click="OnPause_Clicked">
                                         <Image Source="../images/icons/pause.png" Height="40"/>
                                     </Button>
-                                    <Button x:Name="skipEndBtn" Style="{StaticResource kepadBtns_Style}"> 
+                                    <Button x:Name="skipEndBtn" Style="{StaticResource kepadBtns_Style}">
                                         <Image Source="../images/icons/skipEnd.png" Height="40"/>
                                     </Button>
                                 </WrapPanel>

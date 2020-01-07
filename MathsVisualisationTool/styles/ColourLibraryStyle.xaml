@@ -2,7 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:MathsVisualisationTool">
     
-    <!-- ************************************************************************************************ -->
+    <!-- ColourLibraryStyle.xaml - CENTRAL COLOUR LIBRARY THAT IS USED ACROSS ALL STYLE FILES -->
+    <!-- Makes styling a bit easier keeping all the used colours in one location -->
+
     <!-- MAIN COLOURS - SOLID COLOURS -->
     <SolidColorBrush x:Key="MainColour_MainBackground" Color="#2D2D30"/> <!-- Main Background Colour -->
     <SolidColorBrush x:Key="MainColour_SubBackground" Color="#3F3F46"/> <!-- Sub Background (inc. Menus/Toolbars/Grid Splitters) -->
@@ -10,6 +12,8 @@
     <SolidColorBrush x:Key="MainColour_BorderBrush" Color="#212121"/> <!-- Main Border Brush Colour -->
     <SolidColorBrush x:Key="MainColour_MouseHover" Color="#1C97EA"/> <!-- Mouse Hovering over a Button/Item -->
     <SolidColorBrush x:Key="MainColour_LightBorder" Color="#656565"/>
+    <SolidColorBrush x:Key="MainColour_Gray" Color="#5A5A5B"/>
+    <SolidColorBrush x:Key="MainColour_Popup" Color="#DCDCE0"/>
 
     <!-- BUTTON COLOURS - SOLID COLOURS -->    
     <SolidColorBrush x:Key="Btn_Background" Color="#5E5E5E"/> <!-- Background of a Button-->       
@@ -22,22 +26,8 @@
     <!-- TREEVIEW & TREEVIEW ITEMS COLOURS - SOLID COLOURS -->
     <SolidColorBrush x:Key="TreeView_Background" Color="#252526"/>
 
-    <!-- MAIN MENU COLOURS -->
-    <!--<LinearGradientBrush x:Key="MenuSelected" EndPoint="0,1" StartPoint="0,0">
-        <GradientStop Color="#424242" Offset="0"/>
-        <GradientStop Color="#5E5E5E" Offset="1"/>
-    </LinearGradientBrush>-->
-    
-    <!--<SolidColorBrush x:Key="MenuBackground" Color="#3F3F46"/>--> <!-- Menu Background -->
-    <!--<SolidColorBrush x:Key="MenuBorder" Color="#5E5E5E"/>--> <!-- Menu Borders-->
-    <!--<SolidColorBrush x:Key="MenuForeground" Color="White"/>--> <!-- Menu Font/Foreground -->
-    <!--<SolidColorBrush x:Key="MenuItemIconBackground" Color="#424242" Opacity="0.9"/>--> <!-- Menu Icon Background (Drop Down Background) -->
-    <!--<SolidColorBrush x:Key="MenuItemBackground" Color="#5E5E5E" Opacity="0.9"/>--> <!-- Menu Item Background (Drop Down Background) -->
-    <!--<SolidColorBrush x:Key="MenuBorderHover" Color="#C7C9CC" Opacity="0.4"/>--> <!-- Menu Hover Border -->
-    <!--<SolidColorBrush x:Key="MenuBackgroundHover" Color="#C7C9CC" Opacity="0.4"/>--> <!-- Menu Hover -->
-
     <!-- COLOURS -->
-    <SolidColorBrush x:Key="Background_ToolBar" Color="#3F3F46"/>
-    <SolidColorBrush x:Key="Foreground_ToolBar" Color="#F2F2F2"/>
+    <!--<SolidColorBrush x:Key="Background_ToolBar" Color="#3F3F46"/>
+    <SolidColorBrush x:Key="Foreground_ToolBar" Color="#F2F2F2"/>-->
     
 </ResourceDictionary>

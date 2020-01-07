@@ -2,6 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:MathsVisualisationTool">
 
+    <!-- TreeViewStyle.xaml - STYLING FOR TREE VIEWS -->
+
     <Style TargetType="{x:Type TreeView}">
         <Setter Property="Background" Value="{StaticResource TreeView_Background}"/>
         <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
