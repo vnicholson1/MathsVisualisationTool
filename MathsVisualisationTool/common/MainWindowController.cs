@@ -571,7 +571,8 @@ namespace MathsVisualisationTool
          */
         private void OnForward_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Forward Clicked - Fix it");
+            int newIndex = outputTabCon.SelectedIndex + 1;
+            outputTabCon.SelectedIndex = newIndex % 3;
         }
 
         /*
@@ -580,8 +581,12 @@ namespace MathsVisualisationTool
          */
         private void OnBack_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Hello World!\nHello World\nHello World!\nHello World\nHello World!\nHello World\nHello World!\nHello World\nHello World!\nHello World\nHello World!\nHello World\n");
-            //MessageBox.Show("Back Clicked - Fix it");
+            int newIndex = outputTabCon.SelectedIndex - 1;
+            if(newIndex < 0)
+            {
+                newIndex = 2;
+            }
+            outputTabCon.SelectedIndex = newIndex % 3;
         }
 
         /*
