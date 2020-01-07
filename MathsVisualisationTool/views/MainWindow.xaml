@@ -6,16 +6,26 @@
         xmlns:local="clr-namespace:MathsVisualisationTool"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="SolveIt Interpreter"
-        WindowState="Maximized"      
-        WindowStyle="ThreeDBorderWindow"
+        Title="SolveIt Interpreter"    
         Background="{StaticResource MainColour_MainBackground}"
-        Icon="../images/icons/home.png"
-        Width="1209.104" 
-        Height="1021.726">
+        
+        Width="1209.104"
+        Height="1021.726"
+        WindowState="Maximized"      
+        WindowStyle="none"
+        
+        
+        Icon="../images/icons/home.png">
     <!--Width="{Binding SystemParameters.Primar964yScreenWidth}"-->
     <!--Height="{Binding SystemParameters.PrimaryScreenHeight}"-->
+
+    <!--Width="1209.104" 
+        Height="1021.726"-->
+
     <!--ThreeDBorderWindow - ADDS TOP TITLE BAR TO WINDOWSTYLE -->
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="25"/>
+    </WindowChrome.WindowChrome>
 
     <Window.CommandBindings>
         <CommandBinding Command="Cut" CanExecute="CommonCommandBinding_CanExecute"/>
@@ -28,32 +38,54 @@
 
     <Grid>
         <DockPanel LastChildFill="True">
+            <Grid VerticalAlignment="Top" Background="{StaticResource MainColour_SubBackground}" DockPanel.Dock="Top">
+                <StackPanel WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Height="30">
+                    <Image Source="../images/icons/SolveIT.png" Margin="2 2 0 0" HorizontalAlignment="Left"/>
+                    <Label Content="SolveIT!" Foreground="{StaticResource MainColour_Font}" FontSize="16"/>
+                </StackPanel>
+                <StackPanel WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Height="30">
+                    <Button Name="MiniBtn" Style="{StaticResource titleBtn_Style}" Margin="0 2 2 0" HorizontalAlignment="Right" Click="OnMinimise_Clicked">
+                        <Image Source="../images/icons/mini.png" Height="20"/>
+                    </Button>
+                    <Button Name="MaxBtn" Style="{StaticResource titleBtn_Style}" Margin="0 2 2 0" HorizontalAlignment="Right" Click="OnResize_Clicked">
+                        <Image Source="../images/icons/resize.png" Height="20"/>
+                    </Button>
+                    <Button Name="CloseBtn" ToolTip="Quit" Style="{StaticResource closeBtn_Style}" Margin="0 2 2 0" HorizontalAlignment="Right" Click="OnClose_Clicked">
+                        <Image Source="../images/icons/close.png" Height="25"/>
+                    </Button>
+                </StackPanel>
+            </Grid> 
+
             <!-- MAIN MENU/NAVIGATION MENU-->
             <Menu DockPanel.Dock="Top" IsMainMenu="True" >
-                <Menu.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <DockPanel HorizontalAlignment="Stretch" />
-                    </ItemsPanelTemplate>
-                </Menu.ItemsPanel>
-                <MenuItem VerticalAlignment="Center">
+                <!--<MenuItem VerticalAlignment="Center">
                     <MenuItem.Icon>
                         <Image Source="../images/icons/SolveIT.png" Width="30" Margin="0 0 -20 0"/>
                     </MenuItem.Icon>
-                </MenuItem>
+                </MenuItem>-->
                 <!--MAIN TOP MENU - FILE DROP DOWN-->
                 <MenuItem Header="_File" VerticalAlignment="Center">
-                    <MenuItem Header="_New">
+                    <MenuItem Header="_New" ToolTip="New Workshop" Click="OnNew_Clicked">
                         <MenuItem.Icon>
                             <Image Source="../images/icons/newFile.png" Height="20"/>
                         </MenuItem.Icon>
-                        <MenuItem Header="New Workshop" ToolTip="New Numerical Workshop"/>
-                        <MenuItem Header="New Canvas Graph" ToolTip="N0964ew Canvas Graph"/>
-                        <MenuItem Header="New Live Charts Graph" ToolTip="New Live Charts Graph"/>
                     </MenuItem>
                     <MenuItem Header="_Open" ToolTip="Open saved SolveIT file">
                         <MenuItem.Icon>
                             <Image Source="../images/icons/openFolder.png" Height="20"/>
                         </MenuItem.Icon>
+                        <!-- OPEN PREVIOUSLY SAVED VARIABLES TABLE -->
+                        <MenuItem Header="Open Variable File" ToolTip="Open saved variables" Click="OnOpenVar_Clicked">
+                            <MenuItem.Icon>
+                                <Image Source="../images/icons/openVar.png" Height="20"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <!-- OPEN PREVIOUSLY SAVED WORKSHOP FILE -->
+                        <MenuItem Header="Open Workshop File" ToolTip="Open saved variables" Click="OnOpenNum_Clicked">
+                            <MenuItem.Icon>
+                                <Image Source="../images/icons/openNum.png" Height="20"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
                     </MenuItem>
                     <Separator/>
                     <MenuItem Header="_Save..." ToolTip="Save">
@@ -140,7 +172,42 @@
                 </MenuItem>
                 <!--MAIN TOP MENU - VIEW DROPDOWN-->
                 <MenuItem Header="_View" VerticalAlignment="Center">
-
+                    <MenuItem Header="Go to...">
+                        <MenuItem.Icon>
+                            <Image Source="../images/icons/goTo.png" Height="20"/>
+                        </MenuItem.Icon>
+                        <MenuItem Header="Go To... Workshop" Click="OnGoToWorkshop_Clicked">
+                            <MenuItem.Icon>
+                                <Image Source="../images/icons/document.png" Height="20"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Go To... Canvas Graph" Click="OnGoToCanvas_Clicked">
+                            <MenuItem.Icon>
+                                <Image Source="../images/icons/canvas.png" Height="20"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Go To... Live Charts Graph" Click="OnGoToLVC_Clicked">
+                            <MenuItem.Icon>
+                                <Image Source="../images/icons/LVC.png" Height="20"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                <Separator/>
+                    <MenuItem Header="Fullscreen" Name="maximiseMenuItem" Click="OnMaximise_Clicked">
+                        <MenuItem.Icon>
+                            <Image Source="../images/icons/maxi.png" Height="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Restore Size" Click="OnResize_Clicked">
+                        <MenuItem.Icon>
+                            <Image Source="../images/icons/resize.png" Height="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Minimize" Click="OnMinimise_Clicked">
+                        <MenuItem.Icon>
+                            <Image Source="../images/icons/mini.png" Height="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
                 <!--MAIN TOP MENU - TOOLS DROPDOWN-->
                 <MenuItem Header="_Tools" VerticalAlignment="Center">
@@ -164,12 +231,6 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-
-                <MenuItem Click="OnClose_Clicked" ToolTip="Close" HorizontalAlignment="Right" Style="{StaticResource rightMenuItemStyle}">
-                    <MenuItem.Icon>
-                        <Image Source="../images/icons/normClose.png" Width="30" Margin="0 2 -15 2"/>
-                    </MenuItem.Icon>
-                </MenuItem>
             </Menu>
 
             <!-- TOOL BAR MENU -->
@@ -188,11 +249,15 @@
                     <Button x:Name="newBtn" ToolBar.OverflowMode="Never" ToolTip="New SolveIT" Click="OnNew_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/newFile.png" Width="25"/>
                     </Button>
-                    <!-- OPEN BUTTON -->
-                    <Button x:Name="openBtn" ToolBar.OverflowMode="Never" ToolTip="Open Previous SolveIT Solutions" Click="OnOpen_Clicked" Style="{StaticResource Btn_ToolBar}">
-                        <Image Source="../images/icons/openFolder.png" Width="25"/>
+                    <!-- OPEN VARIABLES BUTTON -->
+                    <Button x:Name="openVarBtn" ToolBar.OverflowMode="Never" ToolTip="Open Previous SolveIT Variables" Click="OnOpenVar_Clicked" Style="{StaticResource Btn_ToolBar}">
+                        <Image Source="../images/icons/openVar.png" Width="25"/>
                     </Button>
-                <Separator/>
+                    <!-- OPEN WORKSHOP BUTTON -->
+                    <Button x:Name="openNumBtn" ToolBar.OverflowMode="Never" ToolTip="Open Previous SolveIT Workshop" Click="OnOpenNum_Clicked" Style="{StaticResource Btn_ToolBar}">
+                        <Image Source="../images/icons/openNum.png" Width="25"/>
+                    </Button>
+                    <Separator/>
                     <!-- SAVE BUTTON -->
                     <Button x:Name="saveBtn" ToolBar.OverflowMode="Never" ToolTip="Save" Click="OnSave_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/save.png" Width="25"/>
@@ -415,7 +480,7 @@
                             <TabItem Header="Numerical Workshop" ToolTip="SolveIT Numerical Workshop Display" Style="{StaticResource mainTab}">
                                 <DockPanel x:Name="numWorkDock"  LastChildFill="True">
                                     <StackPanel DockPanel.Dock="Top" Style="{StaticResource TabHeaderStackPanel_Style}"/>
-                                    <ListBox x:Name="Results" Style="{StaticResource resultListBox_Style}" SelectionMode="Single" ScrollViewer.CanContentScroll="True">
+                                    <ListBox x:Name="Results" Style="{StaticResource resultListBox_Style}" SelectionMode="Multiple" ScrollViewer.CanContentScroll="True">
                                         <ListBox.ContextMenu>
                                             <ContextMenu>
                                                 <MenuItem Header="Cut" Command="Cut">
@@ -1070,5 +1135,6 @@
 
             <!-- TESTING TESTING -->
         </DockPanel>
+
     </Grid>
 </Window>

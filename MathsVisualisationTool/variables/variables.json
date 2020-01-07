@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "name": "a",
+    "value": "1"
+  },
+  {
+    "name": "~x",
+    "value": "10"
+  },
+  {
+    "name": "Ans",
+    "value": "2"
+  },
+  {
+    "name": "z",
+    "value": "15"
+  },
+  {
+    "name": "x",
+    "value": "5"
+  },
+  {
+    "name": "y",
+    "value": "10"
+  }
+]
