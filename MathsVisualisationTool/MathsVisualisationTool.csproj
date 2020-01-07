@@ -62,6 +62,9 @@
     <ApplicationIcon>SolveIT.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CustomChrome, Version=0.4.0.0, Culture=neutral, PublicKeyToken=7deb2b8928f548ee, processorArchitecture=MSIL">
+      <HintPath>..\packages\CustomChrome.0.4.0.0\lib\net20\CustomChrome.dll</HintPath>
+    </Reference>
     <Reference Include="FSharp.Core, Version=4.7.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\FSharp.Core.4.7.0\lib\net45\FSharp.Core.dll</HintPath>
     </Reference>
@@ -498,6 +501,15 @@
     <Resource Include="images\icons\normClose.png" />
     <Resource Include="images\icons\redBack.png" />
     <Resource Include="images\icons\redClose.png" />
+    <Resource Include="images\icons\mini.png" />
+    <Resource Include="images\icons\resize.png" />
+    <Resource Include="images\icons\maxi.png" />
+    <Resource Include="images\icons\openNum.png" />
+    <Resource Include="images\icons\openVar.png" />
+    <Resource Include="images\icons\goTo.png" />
+    <Resource Include="images\icons\document.png" />
+    <Resource Include="images\icons\canvas.png" />
+    <Resource Include="images\icons\LVC.png" />
     <Content Include="manuals\clips\basicInput_V1.mpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
