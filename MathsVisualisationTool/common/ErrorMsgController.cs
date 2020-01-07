@@ -12,9 +12,13 @@ namespace MathsVisualisationTool
 {
     public partial class ErrorMsg
     {
-        public ErrorMsg()
+
+
+        public ErrorMsg(string errorMessage,string code)
         {
             InitializeComponent();
+            errorCode.Text = code;
+            errorMsgText.Text = errorMessage;
         }
 
     }
