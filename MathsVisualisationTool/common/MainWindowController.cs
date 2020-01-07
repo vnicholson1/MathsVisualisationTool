@@ -319,14 +319,16 @@ namespace MathsVisualisationTool
                 if (exp is SolveItException)
                 {
                     SolveItException s = (SolveItException) exp;
-                    MessageBox.Show(s.Message);
+                    ErrorMsg e = new ErrorMsg(s.Message, s.ErrorCode);
+                    e.ShowDialog();
                     Results.Items.Add("Error Code - " + s.ErrorCode);
                 }
                 else
                 {
                     //This shouldn't happen but cannot always pickup all bugs!
                     UnknownErrorException u = new UnknownErrorException(exp.Message);
-                    MessageBox.Show("An unknown Error has occured. Please contact customer support.");
+                    ErrorMsg e = new ErrorMsg(u.Message, u.ErrorCode);
+                    e.ShowDialog();
                     Results.Items.Add("Error Code - " + u.ErrorCode);
                 }
                 Console.WriteLine(exp.ToString());
@@ -365,7 +367,7 @@ namespace MathsVisualisationTool
             }
             else
             {
-                MessageBox.Show("This is a message.");
+                MessageBox.Show("Numerical Workshop is empty");
             }
         }
 
@@ -378,7 +380,7 @@ namespace MathsVisualisationTool
         private void OnSaveAs_Clicked(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveAs = new SaveFileDialog();
-            saveAs.Filter = "Text file(*.txt)|*.txt|Word Document(*.docx)|*.docx";
+            saveAs.Filter = "Text file(*.txt)|*.txt";
             saveAs.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
             if (saveAs.ShowDialog() == true)
@@ -398,7 +400,7 @@ namespace MathsVisualisationTool
         private void OnSaveAll_Clicked(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveAs = new SaveFileDialog();
-            saveAs.Filter = "Text file(*.txt)|*.txt|Word Document(*.docx)|*.docx";
+            saveAs.Filter = "Text file(*.txt)|*.txt";
             saveAs.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
             if (saveAs.ShowDialog() == true)
@@ -416,7 +418,20 @@ namespace MathsVisualisationTool
          */
         private void OnSaveVar_Clicked(object sender, RoutedEventArgs e)
         {
-            
+            SaveFileDialog saveVar = new SaveFileDialog();
+            saveVar.Filter = "JSON file(*.json)|*.json";
+            saveVar.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            if (saveVar.ShowDialog() == true)
+            {
+                TextWriter TW = new StreamWriter(saveVar.FileName);
+                TW.WriteLine("[");
+                foreach (string itemText in Results.Items)
+                   TW.WriteLine(itemText);
+                TW.WriteLine("]");
+                TW.Close();
+                    
+            }
         }
 
         /*
@@ -571,7 +586,8 @@ namespace MathsVisualisationTool
          */
         private void OnForward_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Forward Clicked - Fix it");
+            int newIndex = outputTabCon.SelectedIndex + 1;
+            outputTabCon.SelectedIndex = newIndex % 3;
         }
 
         /*
@@ -580,8 +596,12 @@ namespace MathsVisualisationTool
          */
         private void OnBack_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Hello World!\nHello World\nHello World!\nHello World\nHello World!\nHello World\nHello World!\nHello World\nHello World!\nHello World\nHello World!\nHello World\n");
-            //MessageBox.Show("Back Clicked - Fix it");
+            int newIndex = outputTabCon.SelectedIndex - 1;
+            if(newIndex < 0)
+            {
+                newIndex = 2;
+            }
+            outputTabCon.SelectedIndex = newIndex % 3;
         }
 
         /*
