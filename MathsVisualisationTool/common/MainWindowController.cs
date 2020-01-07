@@ -418,19 +418,54 @@ namespace MathsVisualisationTool
          */
         private void OnSaveVar_Clicked(object sender, RoutedEventArgs e)
         {
+            Hashtable vars = VariableFileHandle.getVariables();
+            //if the variable table is empty then throw an error.
+            //NOTE: Not 0 with ~a - FIX LATER........
+            if (vars.Count == 0)
+            {
+                EmptyVarSaveException err = new EmptyVarSaveException("Variables Table is Empty.");
+                ErrorMsg eMsg = new ErrorMsg(err.Message, err.ErrorCode);
+                eMsg.ShowDialog();
+                return;
+            }
+
+            //Save the variables
             SaveFileDialog saveVar = new SaveFileDialog();
             saveVar.Filter = "JSON file(*.json)|*.json";
             saveVar.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
             if (saveVar.ShowDialog() == true)
             {
                 TextWriter TW = new StreamWriter(saveVar.FileName);
+                int counter = 0;
+                int total = vars.Count;
+
                 TW.WriteLine("[");
-                foreach (string itemText in Results.Items)
-                   TW.WriteLine(itemText);
+                foreach (DictionaryEntry pair in vars)
+                {
+                    string key = (string)pair.Key;
+                    string value = (string)pair.Value;
+                    if (key.Contains("~"))
+                    {
+                        total--;
+                        continue;
+                    }
+
+                    TW.WriteLine("\t{");
+                    TW.WriteLine("\t\t\"name\": " + "\"" + key + "\",");
+                    TW.WriteLine("\t\t\"value\": " + "\"" + value + "\"");
+
+                    if (counter == (total - 1))
+                    {
+                        TW.WriteLine("\t}");
+                    }
+                    else
+                    {
+                        TW.WriteLine("\t},");
+                    }
+                    counter++;
+                }
                 TW.WriteLine("]");
                 TW.Close();
-                    
             }
         }
 
