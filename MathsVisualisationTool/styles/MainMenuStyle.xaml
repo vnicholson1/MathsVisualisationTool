@@ -307,15 +307,4 @@
         </Setter>
     </Style>
 
-    <Style x:Key="rightMenuItemStyle" TargetType="{x:Type MenuItem}">
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="BorderBrush" Value="#C62323"/>
-                <Setter Property="Background" Value="#C62323"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-
-
 </ResourceDictionary>

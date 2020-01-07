@@ -501,6 +501,15 @@
     <Resource Include="images\icons\normClose.png" />
     <Resource Include="images\icons\redBack.png" />
     <Resource Include="images\icons\redClose.png" />
+    <Resource Include="images\icons\mini.png" />
+    <Resource Include="images\icons\resize.png" />
+    <Resource Include="images\icons\maxi.png" />
+    <Resource Include="images\icons\openNum.png" />
+    <Resource Include="images\icons\openVar.png" />
+    <Resource Include="images\icons\goTo.png" />
+    <Resource Include="images\icons\document.png" />
+    <Resource Include="images\icons\canvas.png" />
+    <Resource Include="images\icons\LVC.png" />
     <Content Include="manuals\clips\basicInput_V1.mpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,6 +14,7 @@
     <SolidColorBrush x:Key="MainColour_LightBorder" Color="#656565"/>
     <SolidColorBrush x:Key="MainColour_Gray" Color="#5A5A5B"/>
     <SolidColorBrush x:Key="MainColour_Popup" Color="#DCDCE0"/>
+    <SolidColorBrush x:Key="MainColour_CloseRed" Color="#C62323"/>
 
     <!-- BUTTON COLOURS - SOLID COLOURS -->    
     <SolidColorBrush x:Key="Btn_Background" Color="#5E5E5E"/> <!-- Background of a Button-->       
