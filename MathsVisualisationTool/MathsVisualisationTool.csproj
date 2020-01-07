@@ -123,6 +123,7 @@
     <Compile Include="errors\PlotFunctionExceptions.cs" />
     <Compile Include="errors\PlotFunctionSyntaxExceptions.cs" />
     <Compile Include="errors\SolveItExceptions.cs" />
+    <Compile Include="errors\UIErrorExceptions.cs" />
     <Compile Include="functions\AbsFunction.cs" />
     <Compile Include="functions\CosFunction.cs" />
     <Compile Include="functions\LnFunction.cs" />

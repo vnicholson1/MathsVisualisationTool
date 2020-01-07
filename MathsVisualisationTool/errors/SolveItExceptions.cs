@@ -80,4 +80,12 @@ namespace MathsVisualisationTool
             ErrorCode = "6";
         }
     }
+
+    public class UIErrorException : SolveItException
+    {
+        public UIErrorException(string message) : base(message)
+        {
+            ErrorCode = "7";
+        }
+    }
 }
