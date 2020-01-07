@@ -28,7 +28,7 @@
                     <TextBlock x:Name="errorCode" FontSize="28" Style="{StaticResource errorTextBlock_Style}" HorizontalAlignment="Right"/>
                 </StackPanel>
                 
-                <TextBlock Name="erroMsgText" DockPanel.Dock="Top" Style="{StaticResource errorTextBlock_Style}"/>
+                <TextBlock Name="errorMsgText" DockPanel.Dock="Top" Style="{StaticResource errorTextBlock_Style}"/>
                 
             </DockPanel>
 
