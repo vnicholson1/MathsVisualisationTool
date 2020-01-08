@@ -49,15 +49,6 @@ namespace MathsVisualisationTool
             homeWindow = new MainWindow();
             homeWindow.Show();
 
-            //var keyPad = new KeyPad { Owner = mainWindow };
-            //keyPad.Show();
-
-            //var graph = new GraphDrawer { Owner = mainWindow };
-            //graph.Show();
-            
-            //var library = new HelpLibrary { Owner = mainWindow };
-            //library.Show();
-
             var mutex = new Mutex(true, "MathsVisualisationTool", out bool isNewInstance);
             if (!isNewInstance)
             {

@@ -26,6 +26,44 @@ namespace MathsVisualisationTool
             timer.Start();
         }
 
+        /************************************** STANDARD TOP MENU FUNCTIONS *********************************/
+        #region TopMenuFunctions
+
+        /*
+         * OnOkay_Clicked - Handle event if the Okay button is 
+         *                  clicked on the error message
+         */
+        private void OnClose_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        /*
+         * OnResize_Clicked - Handle event if the Resize button is 
+         *                  clicked from the View Menu or title bar.
+         */
+        private void OnResize_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                this.WindowState = WindowState.Maximized;
+            }
+        }
+
+        /*
+         * OnMinimise_Clicked - Handle event if the Minimise button is 
+         *                      clicked from the View Menu or title bar.
+         */
+        private void OnMinimise_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+        #endregion
+
         /******************************** POPUP FUNCTIONS FOR DOCUMENTS HELP ********************************/
         #region DocHelpPopup
         private void OnShowDocPopup_Clicked(object sender, RoutedEventArgs e)
@@ -38,7 +76,6 @@ namespace MathsVisualisationTool
             DocHelp_Popup.IsOpen = false;
         }
         #endregion
-        /**************************** END OF POPUP FUNCTIONS FOR DOCUMENTS HELP *****************************/
 
         /********************************** POPUP FUNCTIONS FOR VIDEO HELP **********************************/
         #region VideoHelpPopup
@@ -52,7 +89,6 @@ namespace MathsVisualisationTool
             VidHelp_Popup.IsOpen = false;
         }
         #endregion
-        /****************************** END OF POPUP FUNCTIONS FOR VIDEO HELP *******************************/
 
         /*********************************** FUNCTIONS FOR VIDEO PLAYER *************************************/
         #region VideoPlayerFunctions
@@ -77,7 +113,6 @@ namespace MathsVisualisationTool
             VideoPlayer.Pause();
         }
         #endregion
-        /******************************** END OF FUNCTIONS FOR VIDEO PLAYER *********************************/
 
         /*************************** FUNCTIONS TO CALL VIDEOS FROM VIDEO LIBRARY ****************************/
         #region VideoFunctions
@@ -89,7 +124,6 @@ namespace MathsVisualisationTool
             VideoPlayer.Source = new Uri("../../manuals/clips/basicInput_V1.mpg", UriKind.Relative);
         }
         #endregion
-        /*********************** END OF FUNCTIONS TO CALL VIDEOS FROM VIDEO LIBRARY *************************/
 
         /************************* FUNCTIONS TO CALL DOCS FROM DOCUMENTS LIBRARY ****************************/
         #region DocsFunctions
@@ -102,6 +136,5 @@ namespace MathsVisualisationTool
             libraryDocViewer.Document = testDocument.GetFixedDocumentSequence();
         }
         #endregion
-        /********************** END OF FUNCTIONS TO CALL DOCS FROM DOCUMENTS LIBRARY ************************/
     }
 }

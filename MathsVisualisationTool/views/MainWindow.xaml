@@ -9,12 +9,10 @@
         Title="SolveIt Interpreter"    
         Background="{StaticResource MainColour_MainBackground}"
         
-        Width="1209.104"
-        Height="1021.726"
+        Width="{Binding SystemParameters.Primar964yScreenWidth}"
+        Height="{Binding SystemParameters.PrimaryScreenHeight}"
         WindowState="Maximized"      
         WindowStyle="none"
-        
-        
         Icon="../images/icons/home.png">
     <!--Width="{Binding SystemParameters.Primar964yScreenWidth}"-->
     <!--Height="{Binding SystemParameters.PrimaryScreenHeight}"-->

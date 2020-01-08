@@ -24,6 +24,23 @@ namespace MathsVisualisationTool
             InitializeComponent();
         }
 
+        /*
+         * OnClose_Clicked - Handle event if the Close button is 
+         *                  clicked on the title bar
+         */
+        private void OnClose_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        /*
+         * OnMinimise_Clicked - Handle event if the Minimise button is 
+         *                      clicked from the  title bar.
+         */
+        private void OnMinimise_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
         /********************************* GREEK CHARACTERS KEYPAD FUNCTIONS ********************************/
         #region GreekCharacters
         /*
@@ -220,7 +237,7 @@ namespace MathsVisualisationTool
             //this.inputBox.Text += "\u03A3";
         }
         #endregion
-        /***************************** END OF GREEK CHARACTERS KEYPAD FUNCTIONS *****************************/
+
         /************************** ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS *************************/
         #region AlgebraFunctions
         /*
@@ -443,7 +460,7 @@ namespace MathsVisualisationTool
         }
 
         #endregion
-        /********************** END OF ALGEBRA/MATHEMATICAL FUNCTIONS KEYPAD FUNCTIONS **********************/
+
         /************************************** NUMERICAL KEYPAD FUNCTIONS **********************************/
         #region Numerical
         /*
@@ -603,6 +620,6 @@ namespace MathsVisualisationTool
             App.homeWindow.InputBoxValue += "9";
         }
         #endregion
-        /********************************** END OF NUMERICAL KEYPAD FUNCTIONS*******************************/
+
     }
 }
