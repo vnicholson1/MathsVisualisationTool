@@ -5,31 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MathsVisualisationTool"
         mc:Ignorable="d"
-        WindowStyle="ThreeDBorderWindow"
+        WindowStyle="None"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="True" 
         Icon="../images/icons/lifebuoy.png"
         Background="{StaticResource MainColour_MainBackground}"
+        BorderBrush="{StaticResource MainColour_LightBorder}"
+        BorderThickness="1"
         Title="Help Library" 
         Height="700"
         Width="1100">
 
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="25"/>
+    </WindowChrome.WindowChrome>
+
     <Grid>
         <DockPanel LastChildFill="True">
-            <!-- MAIN MENU/NAVIGATION MENU-->
-            <Menu DockPanel.Dock="Top">
-                <!--MAIN TOP MENU - FILE DROP DOWN-->
-                <MenuItem Header="_File"></MenuItem>
-                <!--MAIN TOP MENU - EDIT DROPDOWN-->
-                <MenuItem Header="_Edit"></MenuItem>
-                <!--MAIN TOP MENU - VIEW DROPDOWN-->
-                <MenuItem Header="_View"></MenuItem>
-                <!--MAIN TOP MENU - TOOLS DROPDOWN-->
-                <MenuItem Header="_Tools"></MenuItem>
-                <!--MAIN TOP MENU - HELP DROPDOWN-->
-                <MenuItem Header="_Help"></MenuItem>
-            </Menu>
-
+            <Grid VerticalAlignment="Top" Background="{StaticResource MainColour_SubBackground}" DockPanel.Dock="Top">
+                <StackPanel WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Height="25">
+                    <Image Source="../images/icons/lifebuoy.png" Margin="2 2 0 0" HorizontalAlignment="Left"/>
+                    <Label Content="Help Library" Foreground="{StaticResource MainColour_Font}" FontSize="12"/>
+                </StackPanel>
+                <StackPanel WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Height="25">
+                    <Button Name="MiniBtn" Style="{StaticResource titleBtn_Style}" Margin="0 2 2 0" HorizontalAlignment="Right" Click="OnMinimise_Clicked">
+                        <Image Source="../images/icons/mini.png" Height="20"/>
+                    </Button>
+                    <Button Name="MaxBtn" Style="{StaticResource titleBtn_Style}" Margin="0 2 2 0" HorizontalAlignment="Right" Click="OnResize_Clicked">
+                        <Image Source="../images/icons/resize.png" Height="20"/>
+                    </Button>
+                    <Button Name="CloseBtn" ToolTip="Quit" Style="{StaticResource closeBtn_Style}" Margin="0 2 2 0" HorizontalAlignment="Right" Click="OnClose_Clicked">
+                        <Image Source="../images/icons/close.png" Height="20"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+           
             <TabControl x:Name="BottomLeft_TabMenu"  TabStripPlacement="Left" Style="{StaticResource mainTabControlStyle}" Margin="0 2 0 0">
-                <TabItem Header="Document Library" Style="{StaticResource LeftTab}" Margin="0 -2 -1 0">
+                <TabItem Style="{StaticResource LeftTab}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Document Library" FontSize="15" Margin="0 0 0 3" Padding="5"/>
+                            <Image Source="../images/tabIcons/tabDocs90.png" Height="25"/>
+                        </StackPanel>
+                    </TabItem.Header>
                     <Grid x:Name="DocGrid">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
@@ -37,9 +55,9 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2"/>
-                            <ColumnDefinition MinWidth="175"/>
+                            <ColumnDefinition MinWidth="175" MaxWidth="200"/>
                             <ColumnDefinition Width="7"/>
-                            <ColumnDefinition Width="825"/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         
                         <StackPanel Style="{StaticResource leftTabStackPanel_Style}" Grid.Column="0" Grid.RowSpan="2"/>
@@ -80,7 +98,14 @@
                         <DocumentViewer x:Name="libraryDocViewer" Grid.Row="1" Grid.Column="3" Margin="2"/>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Video Library" Style="{StaticResource LeftTab}" Margin="0 0 -1 0">
+                
+                <TabItem Style="{StaticResource LeftTab}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Video Library" FontSize="15" Margin="0 0 0 3" Padding="5"/>
+                            <Image Source="../images/tabIcons/vids90.png" Height="25"/>
+                        </StackPanel>
+                    </TabItem.Header>
                     <Grid x:Name="VidGrid">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
@@ -89,9 +114,9 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2"/>
-                            <ColumnDefinition MinWidth="175"/>
+                            <ColumnDefinition MinWidth="175" MaxWidth="200"/>
                             <ColumnDefinition Width="7"/>
-                            <ColumnDefinition Width="825"/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Style="{StaticResource leftTabStackPanel_Style}" Grid.Column="0" Grid.RowSpan="3" Margin="-2,-2,2,0"/>
                         <TextBlock VerticalAlignment="Center" Style="{StaticResource libraryText_Style}" Text="Library Index" Grid.Row="0" Grid.Column="1" Margin="0,5"/>
@@ -132,19 +157,19 @@
                                 <MediaElement x:Name="VideoPlayer" LoadedBehavior="Manual" Margin="3"/>
                             </Border>
                             <!-- Alt Test Vid - http://hubblesource.stsci.edu/sources/video/clips/details/images/hst_1.mpg -->
-                            <StackPanel Grid.Row="1">
+                            <StackPanel Grid.Row="1" Margin=" 0 5 0 25">
                                 <Label Name="lblStatus" Content="Not playing..." HorizontalContentAlignment="Center" Margin="5" />
                                 <WrapPanel HorizontalAlignment="Center">
-                                    <Button x:Name="skipStartBtn" Style="{StaticResource kepadBtns_Style}">
+                                    <Button x:Name="skipStartBtn" Style="{StaticResource kepadBtns_Style}" Width="100">
                                         <Image Source="../images/icons/skipStart.png" Height="40"/>
                                     </Button>
-                                    <Button x:Name="playBtn" Style="{StaticResource kepadBtns_Style}" Click="OnPlay_Clicked">
+                                    <Button x:Name="playBtn" Style="{StaticResource kepadBtns_Style}" Width="100" Click="OnPlay_Clicked">
                                         <Image Source="../images/icons/play.png" Height="40"/>
                                     </Button>
-                                    <Button x:Name="pauseBtn" Style="{StaticResource kepadBtns_Style}" Click="OnPause_Clicked">
+                                    <Button x:Name="pauseBtn" Style="{StaticResource kepadBtns_Style}" Width="100" Click="OnPause_Clicked">
                                         <Image Source="../images/icons/pause.png" Height="40"/>
                                     </Button>
-                                    <Button x:Name="skipEndBtn" Style="{StaticResource kepadBtns_Style}">
+                                    <Button x:Name="skipEndBtn" Style="{StaticResource kepadBtns_Style}" Width="100">
                                         <Image Source="../images/icons/skipEnd.png" Height="40"/>
                                     </Button>
                                 </WrapPanel>

@@ -10,13 +10,12 @@ using System.Windows.Media.Imaging;
 
 namespace MathsVisualisationTool
 {
-    public partial class ErrorMsg
+    public partial class CustomMsg
     {
-        public ErrorMsg(string errorMessage,string code)
+        public CustomMsg(string customMessage)
         {
             InitializeComponent();
-            errorCode.Text = code;
-            errorMsgText.Text = errorMessage;
+            customMsgText.Text = customMessage;
         }
 
         /*
@@ -36,6 +35,5 @@ namespace MathsVisualisationTool
         {
             this.Close();
         }
-
     }
 }

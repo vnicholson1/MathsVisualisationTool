@@ -1,4 +1,4 @@
-﻿<Window x:Class="MathsVisualisationTool.ErrorMsg"
+﻿<Window x:Class="MathsVisualisationTool.CustomMsg"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       SizeToContent="WidthAndHeight"
       ResizeMode="NoResize"
-      Title="ERROR!"
+      Title="Caution"
       Background="{StaticResource MainColour_MainBackground}"
       BorderBrush="{StaticResource MainColour_LightBorder}"
       BorderThickness="1"
@@ -15,19 +15,16 @@
       ShowInTaskbar="False" 
       WindowStyle="none">
 
-      <!--Height="200" 
-      Width="400"-->
-
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="25"/>
     </WindowChrome.WindowChrome>
 
     <Grid>
-        <DockPanel x:Name="errDock" LastChildFill="True">
+        <DockPanel x:Name="cautionDock" LastChildFill="True">
             <Grid VerticalAlignment="Top" Background="{StaticResource MainColour_SubBackground}" DockPanel.Dock="Top">
                 <StackPanel WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Height="25">
-                    <Image Source="../images/icons/error.png" Margin="2 2 0 0" HorizontalAlignment="Left"/>
-                    <Label Content="Error!" Foreground="{StaticResource MainColour_Font}" FontSize="12"/>
+                    <Image Source="../images/icons/caution.png" Margin="2 2 0 0" HorizontalAlignment="Left"/>
+                    <Label Content="Caution!" Foreground="{StaticResource MainColour_Font}" FontSize="12"/>
                 </StackPanel>
                 <StackPanel WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Height="25">
                     <Button Name="CloseBtn" ToolTip="Quit" Style="{StaticResource closeBtn_Style}" Margin="0 2 2 0" HorizontalAlignment="Right" Click="OnCancel_Clicked">
@@ -37,7 +34,7 @@
             </Grid>
 
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource error_StackPanel}" MaxWidth="450" Height="auto">
-                <DockPanel x:Name="errContentsDock" LastChildFill="True">
+                <DockPanel x:Name="cautionContentsDock" LastChildFill="True">
 
                     <!-- BOTTOM OF ERROR MESSAGE -->
                     <Grid DockPanel.Dock="Bottom">
@@ -51,21 +48,12 @@
 
                     </Grid>
 
-                    <Border Style="{StaticResource errorMsgBorder}" Margin="10 0 10 0" DockPanel.Dock="Bottom">
-                        <TextBlock Text="Please refer to User Manuals - specifically 'Error Code -Cheat Sheet'"
-                               TextWrapping="Wrap" FontSize="14" Style="{StaticResource errorNoteTextBlock_Style}" 
-                               HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Margin="10 5 10 5"/>
-                    </Border>
-
-                    <Image Source="../images/icons/error.png" DockPanel.Dock="Left" Height="90" Margin="10"/>
+                    <Image Source="../images/icons/caution.png" DockPanel.Dock="Left" Height="90" Margin="10"/>
 
                     <Border Style="{StaticResource errorMsgBorder}" Margin="5 10 5 10" DockPanel.Dock="Top">
                         <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="ERROR:" Style="{StaticResource errorMainTextBlock_Style}"  />
-                                <TextBlock x:Name="errorCode" Style="{StaticResource errorMainTextBlock_Style}"/>
-                            </StackPanel>
-                            <TextBlock Name="errorMsgText" Style="{StaticResource errorSubTextBlock_Style}" />
+                            <TextBlock Text="Caution:" Style="{StaticResource errorSubTextBlock_Style}"  />
+                            <TextBlock Name="customMsgText" Style="{StaticResource errorNoteTextBlock_Style}" />
                         </StackPanel>
                     </Border>
                 </DockPanel>

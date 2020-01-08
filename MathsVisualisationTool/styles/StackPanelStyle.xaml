@@ -14,10 +14,4 @@
         <Setter Property="Background" Value="{StaticResource MainColour_MainBackground}"/>
     </Style>
 
-    <Style x:Key="error_StackPanel" TargetType="{x:Type StackPanel}">
-        <Setter Property="Background" Value="{StaticResource MainColour_SubBackground}"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-    </Style>
-
 </ResourceDictionary>
