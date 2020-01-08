@@ -3,9 +3,11 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MathsVisualisationTool
 {
@@ -25,7 +27,19 @@ namespace MathsVisualisationTool
             if (dialogResult == true)
             {
                 var filename = openfileDialog.FileName;
-                JArray array = null; 
+                JArray array = null;
+
+                //Display a warning before proceeding.
+                string msgBoxText = "Are you sure you want to continue? This will override all variables currently stored in the table.";
+                string caption = "Load Variable File";
+                MessageBoxButton button = MessageBoxButton.YesNo;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult res = MessageBox.Show(msgBoxText, caption, button, icon);
+
+                if(res == MessageBoxResult.No)
+                {
+                    return;
+                }
 
                 try
                 {
@@ -70,10 +84,59 @@ namespace MathsVisualisationTool
             var dialogResult = openfileDialog.ShowDialog();
             if (dialogResult == true)
             {
-                var varFile = openfileDialog.FileName;
-            }
+                var filename = openfileDialog.FileName;
 
-            // LOAD IN LISTBOX HERE
+                //Display a warning before proceeding.
+                string msgBoxText = "Are you sure you want to continue? This will override everything currently in the Numerical Workshop.";
+                string caption = "Load Text File";
+                MessageBoxButton button = MessageBoxButton.YesNo;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult res = MessageBox.Show(msgBoxText, caption, button, icon);
+
+                if (res == MessageBoxResult.No)
+                {
+                    return;
+                }
+
+                try
+                {
+                    string[] lines = File.ReadAllLines(filename);
+                    w.Results.Items.Clear();
+
+                    string lineToAdd = "";
+                    bool flag = false;
+                    for (int i=0;i<lines.Length;i++)
+                    {
+                        string line = lines[i];
+
+                        if (line.Contains(">>>") || line.Contains("Refer to figure."))
+                        {
+                            w.Results.Items.Add(line);
+                        } else
+                        {
+                            if (flag)
+                            {
+                                lineToAdd += line;
+                                w.Results.Items.Add(lineToAdd);
+                                lineToAdd = "";
+                                flag = false;
+                            } else
+                            {
+                                lineToAdd += line + "\n";
+                                flag = true;
+                            }
+                        }
+
+                        //w.Results.Items.Add(lines[i]);
+                    }
+
+                } catch(Exception e)
+                {
+                    ErrorLoadingNumericalWorkshopFileException e1 = new ErrorLoadingNumericalWorkshopFileException("Error loading text file.");
+                    ErrorMsg err = new ErrorMsg(e1.Message, e1.ErrorCode);
+                    err.ShowDialog();
+                }
+            }
         }
     }
 }
