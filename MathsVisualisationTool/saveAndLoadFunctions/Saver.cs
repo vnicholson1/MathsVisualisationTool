@@ -20,8 +20,9 @@ namespace MathsVisualisationTool
         public static void saveVariablesIntoExternalFile()
         {
             Hashtable vars = VariableFileHandle.getVariables();
+            removeIrrelevantVariables(vars);
+
             //if the variable table is empty then throw an error.
-            //NOTE: Not 0 with ~a - FIX LATER........
             if (vars.Count == 0)
             {
                 EmptyVarSaveException err = new EmptyVarSaveException("Variables Table is Empty.");
@@ -45,11 +46,6 @@ namespace MathsVisualisationTool
                 {
                     string key = (string)pair.Key;
                     string value = (string)pair.Value;
-                    if (key.Contains("~"))
-                    {
-                        total--;
-                        continue;
-                    }
 
                     TW.WriteLine("\t{");
                     TW.WriteLine("\t\t\"name\": " + "\"" + key + "\",");
@@ -68,6 +64,28 @@ namespace MathsVisualisationTool
                 TW.WriteLine("]");
                 TW.Close();
             }
+        }
+
+        /// <summary>
+        /// Function used to remove the variables in the json file that begin with
+        /// the '~' character.
+        /// </summary>
+        /// <param name="vars"></param>
+        private static Hashtable removeIrrelevantVariables(Hashtable vars)
+        {
+            List<string> keys = vars.Keys.Cast<string>().ToList();
+
+            foreach(object keyObject in keys)
+            {
+                string key = (string)keyObject;
+
+                if(key.Contains("~"))
+                {
+                    vars.Remove(key);
+                }
+            }
+
+            return vars;
         }
 
         /// <summary>
