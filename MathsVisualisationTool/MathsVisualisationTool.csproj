@@ -133,6 +133,8 @@
     <Compile Include="functions\SqrtFunction.cs" />
     <Compile Include="functions\TanFunction.cs" />
     <Compile Include="functions\MathFunction.cs" />
+    <Compile Include="saveAndLoadFunctions\Loader.cs" />
+    <Compile Include="saveAndLoadFunctions\Saver.cs" />
     <Compile Include="variables\VariableJSONObject.cs" />
     <Compile Include="functions\PlotFunction.cs" />
     <Compile Include="variables\VariableFileHandle.cs" />
@@ -512,5 +514,6 @@
     <Resource Include="images\icons\LVC.png" />
     <Content Include="manuals\clips\basicInput_V1.mpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
