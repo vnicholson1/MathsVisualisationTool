@@ -9,8 +9,8 @@
         Title="SolveIt Interpreter"    
         Background="{StaticResource MainColour_MainBackground}"
         
-        Width="{Binding SystemParameters.Primar964yScreenWidth}"
-        Height="{Binding SystemParameters.PrimaryScreenHeight}"
+        Width="1209.104"
+        Height="1021.726"
         WindowState="Maximized"      
         WindowStyle="none"
         Icon="../images/icons/home.png">
@@ -337,7 +337,7 @@
                         <Image Source="../images/icons/downUpdates.png" Width="25"/>
                     </Button>
                 <Separator/>
-                    <TextBox x:Name="searchBox" Width="130"></TextBox>
+                    <TextBox x:Name="searchBox" Style="{StaticResource searchTextBoxStyle}"></TextBox>
                     <Button x:Name="SearchBtn" ToolBar.OverflowMode="Never" ToolTip="Search Your Outputs" Click="OnSearch_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/search.png" Width="25"/>
                     </Button>

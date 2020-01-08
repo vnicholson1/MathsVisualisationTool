@@ -12,9 +12,10 @@ namespace MathsVisualisationTool
 {
     public partial class CustomMsg
     {
-        public CustomMsg(string customMessage)
+        public CustomMsg(string customMessage, string customCaption)
         {
             InitializeComponent();
+            customCaptionText.Text = customCaption;
             customMsgText.Text = customMessage;
         }
 
