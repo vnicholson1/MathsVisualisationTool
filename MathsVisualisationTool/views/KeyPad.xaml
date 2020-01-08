@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:MathsVisualisationTool"
         mc:Ignorable="d"
         Background="{StaticResource MainColour_MainBackground}"
+        BorderBrush="{StaticResource MainColour_LightBorder}"
+        BorderThickness="1"
         Icon="../images/icons/calculator.png"
         Title="KeyPad" 
         SizeToContent="WidthAndHeight"
