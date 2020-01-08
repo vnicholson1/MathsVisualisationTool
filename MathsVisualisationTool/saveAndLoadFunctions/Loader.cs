@@ -1,5 +1,7 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,9 +24,37 @@ namespace MathsVisualisationTool
             var dialogResult = openfileDialog.ShowDialog();
             if (dialogResult == true)
             {
-                var varFile = openfileDialog.FileName;
+                var filename = openfileDialog.FileName;
+                JArray array = null; 
+
+                try
+                {
+                    array = VariableFileHandle.LoadFromExternalFile(filename);
+
+                    Hashtable vars = new Hashtable();
+
+                    // Put all the variables loaded into a hashtable of the form
+                    // key -> Name
+                    // value -> Tuple( Value, Type).
+                    foreach (JObject variable in array)
+                    {
+                        string variableName = variable["name"].ToString();
+                        string variableValue = variable["value"].ToString();
+
+                        vars.Add(variableName, variableValue);
+                    }
+
+                    VariableFileHandle.saveVariables(vars);
+
+                    w.loadVarsIntoDataGrid();
+
+                } catch(Exception e)
+                {
+                    ErrorLoadingVariableFileException e1 = new ErrorLoadingVariableFileException("Error loading variable file.");
+                    ErrorMsg err = new ErrorMsg(e1.Message,e1.ErrorCode);
+                    err.ShowDialog();
+                }
             }
-            // LOAD IN JSON HERE
         }
 
         /// <summary>

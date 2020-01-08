@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*
+ * File containing all the direct children of SolveItException.UIErrorException
+ */
 namespace MathsVisualisationTool
 {
 
@@ -16,6 +19,17 @@ namespace MathsVisualisationTool
         public EmptyVarSaveException(string message) : base(message)
         {
             ErrorCode = "7.0";
+        }
+    }
+
+    /// <summary>
+    /// Error thrown if there are any problems loading in the variable file.
+    /// </summary>
+    public class ErrorLoadingVariableFileException : UIErrorException
+    {
+        public ErrorLoadingVariableFileException(string message) : base(message)
+        {
+            ErrorCode = "7.1";
         }
     }
 }

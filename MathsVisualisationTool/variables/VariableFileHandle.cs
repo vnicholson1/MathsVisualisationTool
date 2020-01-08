@@ -73,6 +73,18 @@ namespace MathsVisualisationTool
         }
 
         /// <summary>
+        /// Function to load an external variable json file.
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public static JArray LoadFromExternalFile(string filename)
+        {
+            JArray arrayOfVars = JArray.Parse(File.ReadAllText(filename));
+
+            return arrayOfVars;
+        }
+
+        /// <summary>
         /// Method for writing the collected variables into the variables.json file.
         /// </summary>
         /// <param name="vars"></param>
