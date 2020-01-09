@@ -1366,7 +1366,7 @@ namespace MathsVisualisationTool
             varTable.ItemsSource = varInfoToAdd;
         }
         #endregion
-
+        
         /*************************************** GRAPH KEYPAD FUNCTIONS ************************************/
         #region GraphKeypad
 
@@ -1427,6 +1427,8 @@ namespace MathsVisualisationTool
 
         #endregion
 
+        /************************ WINDOWS CHROME FUNCTIOANLITY (keeps taskbar visible) *********************/
+        #region TackbarVisiblity
         private static IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
@@ -1541,5 +1543,6 @@ namespace MathsVisualisationTool
         [DllImport("User32")]
         internal static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
 
+        #endregion
     }
 }

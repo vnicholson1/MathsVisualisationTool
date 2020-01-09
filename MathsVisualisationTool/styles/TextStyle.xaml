@@ -59,4 +59,13 @@
         <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
         <Setter Property="FontSize" Value="18"/>
     </Style>
+    
+    <!-- TEXTBOX STYLING FOR SEARCH BOX -->
+    <Style x:Key="searchTextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+        <Setter Property="Background" Value="{StaticResource MainColour_Gray}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource MainColour_BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Width" Value="130"/>
+    </Style>
 </ResourceDictionary>
