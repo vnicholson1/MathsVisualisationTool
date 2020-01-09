@@ -52,7 +52,10 @@
 
                     <Border Style="{StaticResource errorMsgBorder}" Margin="5 10 5 10" DockPanel.Dock="Top">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Caution:" Style="{StaticResource errorSubTextBlock_Style}"  />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Caution:" Style="{StaticResource errorSubTextBlock_Style}"  />
+                                <TextBlock x:Name="customCaptionText" Style="{StaticResource errorSubTextBlock_Style}"/>
+                            </StackPanel>
                             <TextBlock Name="customMsgText" Style="{StaticResource errorNoteTextBlock_Style}" />
                         </StackPanel>
                     </Border>
