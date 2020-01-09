@@ -120,8 +120,6 @@ namespace MathsVisualisationTool
                                 flag = true;
                             }
                         }
-
-                        //w.Results.Items.Add(lines[i]);
                     }
 
                 } catch(Exception e)

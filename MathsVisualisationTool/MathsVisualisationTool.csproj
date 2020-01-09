@@ -107,6 +107,7 @@
     <Compile Include="common\HelpLibraryController.cs" />
     <Compile Include="common\KeyPadController.cs" />
     <Compile Include="common\LiveChartsDrawerController.cs" />
+    <Compile Include="common\SaveAllDialog.cs" />
     <Compile Include="common\SettingsController.cs" />
     <Compile Include="errors\Exceptions.cs" />
     <Compile Include="errors\IncorrectPlotFunctionPositionExceptions.cs" />
@@ -231,6 +232,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="common\MainWindowController.cs" />
+    <Page Include="views\SaveAllDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="views\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

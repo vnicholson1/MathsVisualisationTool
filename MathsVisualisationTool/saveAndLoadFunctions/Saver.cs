@@ -149,5 +149,19 @@ namespace MathsVisualisationTool
                 System.IO.File.WriteAllBytes(saveCanvas.FileName, memStream.ToArray());
             }
         }
+
+        public static void saveWorkshop(MainWindow w)
+        {
+            SaveFileDialog saveAs = new SaveFileDialog();
+            saveAs.Filter = "Text file(*.txt)|*.txt";
+            saveAs.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            if (saveAs.ShowDialog() == true)
+            {
+                using (TextWriter TW = new StreamWriter(saveAs.FileName))
+                    foreach (string itemText in w.Results.Items)
+                        TW.WriteLine(itemText);
+            }
+        }
     }
 }

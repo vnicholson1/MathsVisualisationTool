@@ -372,7 +372,7 @@ namespace MathsVisualisationTool
                     foreach (string itemText in Results.Items)
                         TW.WriteLine(itemText);
 
-                Process.Start("Results.txt");
+                //Process.Start("Results.txt");
             }
             else
             {
