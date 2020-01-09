@@ -41,6 +41,10 @@
     <!-- TEXT BLOCK - ERROR MESSAGE FOR ERROR NOTES -->
     <Style x:Key="errorNoteTextBlock_Style" TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="5 0 5 5"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
     
     <!-- BORDER - ERROR MESSAGE BORDERS -->

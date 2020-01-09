@@ -50,7 +50,7 @@
                 <ResourceDictionary Source="../styles/ScrollviewerStyle.xaml"/>
                 <ResourceDictionary Source="../styles/MiscStyle.xaml"/>
                 <ResourceDictionary Source="../styles/ContextMenuStyle.xaml"/>
-                <ResourceDictionary Source="../styles/ErrorMsgStyle.xaml"/>
+                <ResourceDictionary Source="../styles/MsgStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
