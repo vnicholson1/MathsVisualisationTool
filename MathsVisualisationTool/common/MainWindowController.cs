@@ -87,7 +87,6 @@ namespace MathsVisualisationTool
             ///https://lvcharts.net/App/examples/v1/wf/Tooltips%20and%20Legends
             LvChrt.DataTooltip.Background = Brushes.Black;
             #endregion
-
         }
 
         /*
@@ -342,9 +341,45 @@ namespace MathsVisualisationTool
                 }
                 Console.WriteLine(exp.ToString());
             }
+            var scrollViewer = GetDescendantByType(Results, typeof(ScrollViewer)) as ScrollViewer;
+            scrollViewer.ScrollToBottom();
             this.inputBox.Focus();
             this.inputBox.Clear();
             loadVarsIntoDataGrid();
+        }
+
+        /// <summary>
+        /// Function to extract the ScrollViewer from the listBox.
+        /// Code Referenced from Stackoverflow.
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static Visual GetDescendantByType(Visual element, Type type)
+        {
+            if (element == null)
+            {
+                return null;
+            }
+            if (element.GetType() == type)
+            {
+                return element;
+            }
+            Visual foundElement = null;
+            if (element is FrameworkElement)
+            {
+                (element as FrameworkElement).ApplyTemplate();
+            }
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
+            {
+                Visual visual = VisualTreeHelper.GetChild(element, i) as Visual;
+                foundElement = GetDescendantByType(visual, type);
+                if (foundElement != null)
+                {
+                    break;
+                }
+            }
+            return foundElement;
         }
         #endregion
 
@@ -365,39 +400,7 @@ namespace MathsVisualisationTool
          */
         private void OnSave_Clicked(object sender, RoutedEventArgs e)
         {
-            // First Method - Saves Direct to the Debug File in the main solution file
-            if (Results.Items.Count > 0)
-            {
-                using (TextWriter TW = new StreamWriter("Results.txt"))
-                    foreach (string itemText in Results.Items)
-                        TW.WriteLine(itemText);
-
-                //Process.Start("Results.txt");
-            }
-            else
-            {
-                MessageBox.Show("Numerical Workshop is empty");
-            }
-        }
-
-        /*
-         * OnSaveAs_Clicked -   Handle event if the Save As button is 
-         *                      click from the toolbar. Enables save
-         *                      as functionality for the numerical
-         *                      workshop/list box outputs
-         */
-        private void OnSaveAs_Clicked(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog saveAs = new SaveFileDialog();
-            saveAs.Filter = "Text file(*.txt)|*.txt";
-            saveAs.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-            if (saveAs.ShowDialog() == true)
-            {
-                using (TextWriter TW = new StreamWriter(saveAs.FileName))
-                    foreach (string itemText in Results.Items)
-                        TW.WriteLine(itemText);
-            }
+            Saver.saveWorkshop(this);
         }
 
         /*
@@ -408,7 +411,7 @@ namespace MathsVisualisationTool
          */
         private void OnSaveAll_Clicked(object sender, RoutedEventArgs e)
         {
-
+            Saver.saveAll(this);
         }
 
         /*
@@ -428,7 +431,14 @@ namespace MathsVisualisationTool
          */
         private void OnSaveCanvas_Clicked(object sender, RoutedEventArgs e)
         {
-            Saver.saveCanvasGraphOntoExternalFile(this);
+            try
+            {
+                Saver.saveCanvasGraphOntoExternalFile(this);
+            } catch (Exception err)
+            {
+                UnknownErrorException u = new UnknownErrorException("An unknown error has occured - make sure that the canvas graph tab has been rendered before saving and that the directory given is correct..");
+                ErrorMsg e2 = new ErrorMsg(u.Message, u.ErrorCode);
+            }
         }
 
         /*
@@ -438,7 +448,14 @@ namespace MathsVisualisationTool
          */
         private void OnSaveLVC_Clicked(object sender, RoutedEventArgs e)
         {
-            Saver.saveLiveChartsToExternalFile(this);
+            try
+            {
+                Saver.saveLiveChartsToExternalFile(this);
+            } catch(Exception err)
+            {
+                UnknownErrorException u = new UnknownErrorException("An unknown error has occured - make sure that the live charts tab has been rendered before saving and that the directory given is correct.");
+                ErrorMsg e2 = new ErrorMsg(u.Message, u.ErrorCode);
+            }
         }
 
         #endregion

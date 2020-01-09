@@ -4,7 +4,15 @@
     "value": "3"
   },
   {
+    "name": "y",
+    "value": "5"
+  },
+  {
     "name": "~x",
     "value": "10"
+  },
+  {
+    "name": "Ans",
+    "value": "48"
   }
 ]

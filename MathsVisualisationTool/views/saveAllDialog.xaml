@@ -1,20 +1,21 @@
 ﻿<Window x:Class="MathsVisualisationTool.SaveAllDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-          xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-          xmlns:local="clr-namespace:MathsVisualisationTool"
-          mc:Ignorable="d" 
-          SizeToContent="WidthAndHeight"
-          ResizeMode="NoResize"
-          Title="Caution"
-          Background="{StaticResource MainColour_MainBackground}"
-          BorderBrush="{StaticResource MainColour_LightBorder}"
-          BorderThickness="1"
-          WindowStartupLocation="CenterOwner"
-          ShowInTaskbar="False" 
-          WindowStyle="none"
-            Width="500">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:MathsVisualisationTool"
+        mc:Ignorable="d" 
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        Title="Caution"
+        Background="{StaticResource MainColour_MainBackground}"
+        BorderBrush="{StaticResource MainColour_LightBorder}"
+        BorderThickness="1"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False" 
+        WindowStyle="none"
+        Width="500"
+        Height="300">
 
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="25"/>
@@ -57,9 +58,26 @@
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Directory:" Style="{StaticResource errorSubTextBlock_Style}"  />
-                                <TextBox x:Name="customCaptionText" Width="200"/>
+                                <TextBox x:Name="ChosenDirectory" Width="200" IsReadOnly="True"/>
+                                
                             </StackPanel>
                             <TextBlock x:Name="infoText" Text="Please select folder" Style="{StaticResource errorNoteTextBlock_Style}" />
+                            <StackPanel Orientation="Horizontal" x:Name="numCheckPanel">
+                                <TextBlock Text="Save Workshop:  "/>
+                                <CheckBox x:Name="workshopCheck"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" x:Name="canvasCheckPanel">
+                                <TextBlock Text="Save Canvas:  "/>
+                                <CheckBox x:Name="canvasCheck"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" x:Name="lvcCheckPanel">
+                                <TextBlock Text="Save LiveCharts:  "/>
+                                <CheckBox x:Name="lvcCheck"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" x:Name="varCheckPanel">
+                                <TextBlock Text="Save Variables:  "/>
+                                <CheckBox x:Name="varCheck"/>
+                            </StackPanel>
                         </StackPanel>
                     </Border>
                 </DockPanel>
