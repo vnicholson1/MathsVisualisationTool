@@ -64,19 +64,19 @@
                             <TextBlock x:Name="infoText" Text="Please select folder" Style="{StaticResource errorNoteTextBlock_Style}" />
                             <StackPanel Orientation="Horizontal" x:Name="numCheckPanel">
                                 <TextBlock Text="Save Workshop:  "/>
-                                <CheckBox x:Name="workshopCheck"/>
+                                <CheckBox x:Name="workshopCheck" IsChecked="True"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" x:Name="canvasCheckPanel">
                                 <TextBlock Text="Save Canvas:  "/>
-                                <CheckBox x:Name="canvasCheck"/>
+                                <CheckBox x:Name="canvasCheck" IsChecked="True"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" x:Name="lvcCheckPanel">
                                 <TextBlock Text="Save LiveCharts:  "/>
-                                <CheckBox x:Name="lvcCheck"/>
+                                <CheckBox x:Name="lvcCheck" IsChecked="True"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" x:Name="varCheckPanel">
                                 <TextBlock Text="Save Variables:  "/>
-                                <CheckBox x:Name="varCheck"/>
+                                <CheckBox x:Name="varCheck" IsChecked="True"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>

@@ -436,8 +436,9 @@ namespace MathsVisualisationTool
                 Saver.saveCanvasGraphOntoExternalFile(this);
             } catch (Exception err)
             {
-                UnknownErrorException u = new UnknownErrorException("An unknown error has occured - make sure that the canvas graph tab has been rendered before saving and that the directory given is correct..");
+                UnknownErrorException u = new UnknownErrorException("An unknown error has occured - make sure that the canvas graph tab has been rendered before saving and that the directory given is correct.");
                 ErrorMsg e2 = new ErrorMsg(u.Message, u.ErrorCode);
+                e2.ShowDialog();
             }
         }
 
@@ -455,6 +456,7 @@ namespace MathsVisualisationTool
             {
                 UnknownErrorException u = new UnknownErrorException("An unknown error has occured - make sure that the live charts tab has been rendered before saving and that the directory given is correct.");
                 ErrorMsg e2 = new ErrorMsg(u.Message, u.ErrorCode);
+                e2.ShowDialog();
             }
         }
 

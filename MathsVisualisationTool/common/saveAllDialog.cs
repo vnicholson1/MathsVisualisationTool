@@ -45,14 +45,45 @@ namespace MathsVisualisationTool
         {
             try
             {
+                string curDay = DateTime.Now.Day.ToString();
+                if (curDay.Length == 1)
+                {
+                    curDay = "0" + curDay;
+                }
+                string curMonth = DateTime.Now.Month.ToString();
+                if(curMonth.Length == 1)
+                {
+                    curMonth = "0" + curMonth;
+                }
+                string curYear = DateTime.Now.Year.ToString();
+                string date = curDay + "-" + curMonth + "-" + curYear;
+                string newName = "SolveIt " + date;
+                string newDirectory = Path.Combine(ChosenDirectory.Text, newName);  
+
+                Directory.CreateDirectory(newDirectory);
+
                 //For this, save each 4 files individually
-                Saver.saveWorkshop(w, Path.Combine(ChosenDirectory.Text, "workshop.txt"));
-                Saver.saveCanvasGraphOntoExternalFile(w, Path.Combine(ChosenDirectory.Text, "canvas.png"));
-                Saver.saveLiveChartsToExternalFile(w, Path.Combine(ChosenDirectory.Text, "liveCharts.png"));
-                Saver.saveVariablesIntoExternalFile(Path.Combine(ChosenDirectory.Text, "vars.json"));
+                if((bool)workshopCheck.IsChecked)
+                {
+                    Saver.saveWorkshop(w, Path.Combine(newDirectory, date + " " + "Your Numerical Workshop.txt"));
+                } 
+                if((bool)canvasCheck.IsChecked)
+                {
+                    Saver.saveCanvasGraphOntoExternalFile(w, Path.Combine(newDirectory, date + " " + "Your Graph Canvas.png"));
+                }
+                if((bool)lvcCheck.IsChecked)
+                {
+                    Saver.saveLiveChartsToExternalFile(w, Path.Combine(newDirectory, date + " " + "Your Live Charts.png"));
+                }
+                if((bool)varCheck.IsChecked)
+                {
+                    Saver.saveVariablesIntoExternalFile(Path.Combine(newDirectory, date + " " + "Your Variables.json"));
+                }
+                
                 this.Close();
             } catch (Exception err)
             {
+                Console.WriteLine(err.ToString());
                 UnknownErrorException u = new UnknownErrorException("An unknown error has occured - make sure that the live charts AND canvas graph tabs have been rendered before saving and that the directory given is correct.");
                 ErrorMsg e2 = new ErrorMsg(u.Message, u.ErrorCode);
                 e2.ShowDialog();
