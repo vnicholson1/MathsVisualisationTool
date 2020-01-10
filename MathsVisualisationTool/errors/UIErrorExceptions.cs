@@ -11,8 +11,7 @@ namespace MathsVisualisationTool
 {
 
     /// <summary>
-    /// Error thrown if there are any syntax errors related to the plot function.
-    /// Note: has child classes.
+    /// Error thrown if the user tries to save an empty variable table.
     /// </summary>
     public class EmptyVarSaveException : UIErrorException
     {
@@ -41,6 +40,28 @@ namespace MathsVisualisationTool
         public ErrorLoadingNumericalWorkshopFileException(string message) : base(message)
         {
             ErrorCode = "7.2";
+        }
+    }
+
+    /// <summary>
+    /// Error thrown if the user tries to save an empty workshop.
+    /// </summary>
+    public class EmptyWorkshopException : UIErrorException
+    {
+        public EmptyWorkshopException(string message) : base(message)
+        {
+            ErrorCode = "7.3";
+        }
+    }
+
+    /// <summary>
+    /// Error thrown if the directory given in the save all function is invalid.
+    /// </summary>
+    public class InvalidDirectoryException : UIErrorException
+    {
+        public InvalidDirectoryException(string message):base(message)
+        {
+            ErrorCode = "7.4";
         }
     }
 }

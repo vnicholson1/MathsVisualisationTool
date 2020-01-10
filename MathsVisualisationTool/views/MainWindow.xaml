@@ -68,7 +68,7 @@
                             <Image Source="../images/icons/newFile.png" Height="20"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="_Open" ToolTip="Open saved SolveIT file">
+                    <MenuItem Header="_Open..." ToolTip="Open saved SolveIT file">
                         <MenuItem.Icon>
                             <Image Source="../images/icons/openFolder.png" Height="20"/>
                         </MenuItem.Icon>
@@ -86,34 +86,34 @@
                         </MenuItem>
                     </MenuItem>
                     <Separator/>
-                    <MenuItem Header="_Save..." ToolTip="Save">
+                    <MenuItem Header="_Save As..." ToolTip="Save">
                         <MenuItem.Icon>
-                            <Image Source="../images/icons/save.png" Height="20"/>
+                            <Image Source="../images/icons/saveAs.png" Height="20"/>
                         </MenuItem.Icon>
-                        <MenuItem Header="Save _Workshop" Click="OnSave_Clicked">
+                        <MenuItem Header="Save Workshop As" Click="OnSave_Clicked">
                             <MenuItem.Icon>
                                 <Image Source="../images/icons/saveDoc.png" Height="20"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Save Canvas Graph" Click="OnSaveCanvas_Clicked">
+                        <MenuItem Header="Save Canvas Graph As" Click="OnSaveCanvas_Clicked">
                             <MenuItem.Icon>
                                 <Image Source="../images/icons/saveGraph.png" Height="20"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Save Live Charts Graph" Click="OnSaveLVC_Clicked">
+                        <MenuItem Header="Save Live Charts Graph As" Click="OnSaveLVC_Clicked">
                             <MenuItem.Icon>
                                 <Image Source="../images/icons/saveGraph.png" Height="20"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Save Variables" Click="OnSaveVar_Clicked">
+                        <MenuItem Header="Save Variables As" Click="OnSaveVar_Clicked">
                             <MenuItem.Icon>
                                 <Image Source="../images/icons/saveVar.png" Height="20"/>
                             </MenuItem.Icon>
                         </MenuItem>
                     </MenuItem>
-                    <MenuItem Header="Save As" Click="OnSaveAs_Clicked">
+                    <MenuItem Header="Save All" Click="OnSaveAll_Clicked">
                         <MenuItem.Icon>
-                            <Image Source="../images/icons/saveAs.png" Height="20"/>
+                            <Image Source="../images/icons/saveAll.png" Height="20"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator/>
@@ -209,7 +209,22 @@
                 </MenuItem>
                 <!--MAIN TOP MENU - TOOLS DROPDOWN-->
                 <MenuItem Header="_Tools" VerticalAlignment="Center">
-                    
+                    <MenuItem Header="SolveIT Updates">
+                        <MenuItem.Icon>
+                            <Image Source="../images/icons/downUpdates.png" Height="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="SolveIT Package Library">
+                        <MenuItem.Icon>
+                            <Image Source="../images/icons/downUpdates.png" Height="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                <Separator/>
+                    <MenuItem Header="SolveIT Options">
+                        <MenuItem.Icon>
+                            <Image Source="../images/icons/settings.png" Height="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
                 <!--MAIN TOP MENU - HELP DROPDOWN-->
                 <MenuItem Header="_Help" VerticalAlignment="Center">
@@ -256,16 +271,24 @@
                         <Image Source="../images/icons/openNum.png" Width="25"/>
                     </Button>
                     <Separator/>
-                    <!-- SAVE BUTTON -->
-                    <Button x:Name="saveBtn" ToolBar.OverflowMode="Never" ToolTip="Save" Click="OnSave_Clicked" Style="{StaticResource Btn_ToolBar}">
-                        <Image Source="../images/icons/save.png" Width="25"/>
+                    <!-- SAVE WORKSHOP AS BUTTON -->
+                    <Button x:Name="saveDocBtn" ToolBar.OverflowMode="Never" ToolTip="Save Workshop As" Click="OnSave_Clicked" Style="{StaticResource Btn_ToolBar}">
+                        <Image Source="../images/icons/saveDoc.png" Width="25"/>
                     </Button>
-                    <!-- SAVE AS BUTTON -->
-                    <Button x:Name="saveAsBtn" ToolBar.OverflowMode="Never" ToolTip="Save As" Click="OnSaveAs_Clicked" Style="{StaticResource Btn_ToolBar}">
-                        <Image Source="../images/icons/saveAs.png" Width="25"/>
+                    <!-- SAVE CANVAS AS BUTTON -->
+                    <Button x:Name="saveCanvasBtn" ToolBar.OverflowMode="Never" ToolTip="Save Canvas Graph As" Click="OnSaveCanvas_Clicked" Style="{StaticResource Btn_ToolBar}">
+                        <Image Source="../images/icons/saveGraph.png" Width="25"/>
                     </Button>
-                    <!-- SAVE ALL BUTTON -->
-                    <Button x:Name="saveAllBtn" ToolBar.OverflowMode="Never" ToolTip="Save All" Click="OnSaveAll_Clicked" Style="{StaticResource Btn_ToolBar}">
+                    <!-- SAVE LVC AS BUTTON -->
+                    <Button x:Name="saveLVCBtn" ToolBar.OverflowMode="Never" ToolTip="Save Live Charts As" Click="OnSaveLVC_Clicked" Style="{StaticResource Btn_ToolBar}">
+                        <Image Source="../images/icons/saveGraph.png" Width="25"/>
+                    </Button>
+                    <!-- SAVE VARIABLES AS BUTTON -->
+                    <Button x:Name="saveVarBtn" ToolBar.OverflowMode="Never" ToolTip="Save Live Charts As" Click="OnSaveVar_Clicked" Style="{StaticResource Btn_ToolBar}">
+                        <Image Source="../images/icons/saveVar.png" Width="25"/>
+                    </Button>
+                    <!-- SAVE ALL AS BUTTON -->
+                    <Button x:Name="saveAllBtn" ToolBar.OverflowMode="Never" ToolTip="Save All As" Click="OnSaveAll_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/saveAll.png" Width="25"/>
                     </Button>
                 <Separator/>
