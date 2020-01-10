@@ -30,13 +30,10 @@ namespace MathsVisualisationTool
                 JArray array = null;
 
                 //Display a warning before proceeding.
-                string msgBoxText = "Are you sure you want to continue? This will override all variables currently stored in the table.";
-                string caption = "Load Variable File";
-                MessageBoxButton button = MessageBoxButton.YesNo;
-                MessageBoxImage icon = MessageBoxImage.Warning;
-                MessageBoxResult res = MessageBox.Show(msgBoxText, caption, button, icon);
-
-                if(res == MessageBoxResult.No)
+                CustomMsg c = new CustomMsg("Are you sure you want to continue? This will override all variables currently stored in the table.", "Load Variable File");
+                c.ShowDialog();
+                bool? res = c.DialogResult;
+                if(!((bool) res))
                 {
                     return;
                 }
@@ -87,13 +84,10 @@ namespace MathsVisualisationTool
                 var filename = openfileDialog.FileName;
 
                 //Display a warning before proceeding.
-                string msgBoxText = "Are you sure you want to continue? This will override everything currently in the Numerical Workshop.";
-                string caption = "Load Text File";
-                MessageBoxButton button = MessageBoxButton.YesNo;
-                MessageBoxImage icon = MessageBoxImage.Warning;
-                MessageBoxResult res = MessageBox.Show(msgBoxText, caption, button, icon);
-
-                if (res == MessageBoxResult.No)
+                CustomMsg c = new CustomMsg("Are you sure you want to continue? This will override everything currently in the Numerical Workshop.", "Load Text File");
+                c.ShowDialog();
+                bool? res = c.DialogResult;
+                if (!((bool)res))
                 {
                     return;
                 }
@@ -126,8 +120,6 @@ namespace MathsVisualisationTool
                                 flag = true;
                             }
                         }
-
-                        //w.Results.Items.Add(lines[i]);
                     }
 
                 } catch(Exception e)

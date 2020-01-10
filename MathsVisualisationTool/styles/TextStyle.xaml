@@ -66,6 +66,6 @@
         <Setter Property="Background" Value="{StaticResource MainColour_Gray}"/>
         <Setter Property="BorderBrush" Value="{StaticResource MainColour_BorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Width" Value="130"/>
+        <Setter Property="Width" Value="100"/>
     </Style>
 </ResourceDictionary>

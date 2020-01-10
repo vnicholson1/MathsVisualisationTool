@@ -261,4 +261,4 @@ __pycache__/
 *.pyc
 
 #Variable file
-MathsVisualisationTool/config/variables.json
+MathsVisualisationTool/variables/variables.json

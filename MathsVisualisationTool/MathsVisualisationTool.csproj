@@ -84,6 +84,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -107,6 +108,7 @@
     <Compile Include="common\HelpLibraryController.cs" />
     <Compile Include="common\KeyPadController.cs" />
     <Compile Include="common\LiveChartsDrawerController.cs" />
+    <Compile Include="common\SaveAllDialog.cs" />
     <Compile Include="common\SettingsController.cs" />
     <Compile Include="errors\Exceptions.cs" />
     <Compile Include="errors\IncorrectPlotFunctionPositionExceptions.cs" />
@@ -162,7 +164,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="styles\ErrorMsgStyle.xaml">
+    <Page Include="styles\MsgStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,6 +233,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="common\MainWindowController.cs" />
+    <Page Include="views\SaveAllDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="views\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1,0 +1,87 @@
+﻿<Window x:Class="MathsVisualisationTool.SaveAllDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:MathsVisualisationTool"
+        mc:Ignorable="d" 
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        Title="Caution"
+        Background="{StaticResource MainColour_MainBackground}"
+        BorderBrush="{StaticResource MainColour_LightBorder}"
+        BorderThickness="1"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False" 
+        WindowStyle="none"
+        Width="500"
+        Height="300">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="25"/>
+    </WindowChrome.WindowChrome>
+
+    <Grid>
+        <DockPanel x:Name="cautionDock" LastChildFill="True">
+            <Grid VerticalAlignment="Top" Background="{StaticResource MainColour_SubBackground}" DockPanel.Dock="Top">
+                <StackPanel WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Height="25">
+                    <Image Source="../images/icons/caution.png" Margin="2 2 0 0" HorizontalAlignment="Left"/>
+                    <Label Content="Caution!" Foreground="{StaticResource MainColour_Font}" FontSize="12"/>
+                </StackPanel>
+                <StackPanel WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Height="25">
+                    <Button Name="CloseBtn" ToolTip="Quit" Style="{StaticResource closeBtn_Style}" Margin="0 2 2 0" HorizontalAlignment="Right" Click="OnCancel_Clicked">
+                        <Image Source="../images/icons/close.png" Height="20"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource error_StackPanel}" MaxWidth="450" Height="auto">
+                <DockPanel x:Name="cautionContentsDock" LastChildFill="True">
+
+                    <!-- BOTTOM OF ERROR MESSAGE -->
+                    <Grid DockPanel.Dock="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="BrowseBtn" Content="Browse" Style="{StaticResource errorBtn_Style}" Grid.Column="0" Height="35" Click="OnBrowse_Clicked"/>
+                        <Button x:Name="SaveBtn" Content="Save All" Style="{StaticResource errorBtn_Style}" Grid.Column="1" Height="35" Click="OnSaveAll_Clicked"/>
+                        <Button x:Name="cancelBtn" Content="Cancel" Style="{StaticResource errorBtn_Style}" Grid.Column="2" Height="35" Click="OnCancel_Clicked"/>
+
+                    </Grid>
+
+                    <Image Source="../images/icons/caution.png" DockPanel.Dock="Left" Height="90" Margin="10"/>
+
+                    <Border Style="{StaticResource errorMsgBorder}" Margin="5 10 5 10" DockPanel.Dock="Top">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Directory:" Style="{StaticResource errorSubTextBlock_Style}"  />
+                                <TextBox x:Name="ChosenDirectory" Width="200" IsReadOnly="True"/>
+                                
+                            </StackPanel>
+                            <TextBlock x:Name="infoText" Text="Please select folder" Style="{StaticResource errorNoteTextBlock_Style}" />
+                            <StackPanel Orientation="Horizontal" x:Name="numCheckPanel">
+                                <TextBlock Text="Save Workshop:  "/>
+                                <CheckBox x:Name="workshopCheck" IsChecked="True"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" x:Name="canvasCheckPanel">
+                                <TextBlock Text="Save Canvas:  "/>
+                                <CheckBox x:Name="canvasCheck" IsChecked="True"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" x:Name="lvcCheckPanel">
+                                <TextBlock Text="Save LiveCharts:  "/>
+                                <CheckBox x:Name="lvcCheck" IsChecked="True"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" x:Name="varCheckPanel">
+                                <TextBlock Text="Save Variables:  "/>
+                                <CheckBox x:Name="varCheck" IsChecked="True"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DockPanel>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>
