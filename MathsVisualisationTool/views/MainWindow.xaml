@@ -232,10 +232,52 @@
                         <MenuItem.Icon>
                             <Image Source="../images/icons/library.png" Height="20"/>
                         </MenuItem.Icon>
-                        <MenuItem Header="Test Document" Click="OnTestDoc_Clicked">
+
+                        <!-- MANUALS SECTION -->
+                        <MenuItem Header="User Manuals..." Click="OnErrorCodes_Clicked">
                             <MenuItem.Icon>
-                                <Image Source="../images/icons/book.png" Height="20"/>
+                                <Image Source="../images/icons/userMan.png" Height="20"/>
                             </MenuItem.Icon>
+                        </MenuItem>
+                        
+                    <Separator/>
+                        <!-- HOW TO SECTION -->
+                        <MenuItem Header="How To...">
+                            <MenuItem.Icon>
+                                <Image Source="../images/icons/userMan.png" Height="20"/>
+                            </MenuItem.Icon>
+
+                            <MenuItem Header="...Basic Inputs" Click="OnBasicInput_Clicked">
+                                <MenuItem.Icon>
+                                    <Image Source="../images/icons/book.png" Height="20"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+
+                            <MenuItem Header="...Work With Variables" Click="OnVariables_Clicked">
+                                <MenuItem.Icon>
+                                    <Image Source="../images/icons/book.png" Height="20"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </MenuItem>
+
+                        <Separator/>
+                        <!-- CHEAT SHEET SECTION -->
+                        <MenuItem Header="'Cheat' Sheets...">
+                            <MenuItem.Icon>
+                                <Image Source="../images/icons/userMan.png" Height="20"/>
+                            </MenuItem.Icon>
+
+                            <MenuItem Header="SolveIT Inputs" Click="OnInputDoc_Clicked">
+                                <MenuItem.Icon>
+                                    <Image Source="../images/icons/book.png" Height="20"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+
+                            <MenuItem Header="Error Codes" Click="OnErrorCodes_Clicked">
+                                <MenuItem.Icon>
+                                    <Image Source="../images/icons/book.png" Height="20"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
                         </MenuItem>
                     </MenuItem>
                     <MenuItem Header="View Help" Click="OnHelp_Clicked">
@@ -277,11 +319,11 @@
                     </Button>
                     <!-- SAVE CANVAS AS BUTTON -->
                     <Button x:Name="saveCanvasBtn" ToolBar.OverflowMode="Never" ToolTip="Save Canvas Graph As" Click="OnSaveCanvas_Clicked" Style="{StaticResource Btn_ToolBar}">
-                        <Image Source="../images/icons/saveGraph.png" Width="25"/>
+                        <Image Source="../images/icons/saveCanvas.png" Width="25"/>
                     </Button>
                     <!-- SAVE LVC AS BUTTON -->
                     <Button x:Name="saveLVCBtn" ToolBar.OverflowMode="Never" ToolTip="Save Live Charts As" Click="OnSaveLVC_Clicked" Style="{StaticResource Btn_ToolBar}">
-                        <Image Source="../images/icons/saveGraph.png" Width="25"/>
+                        <Image Source="../images/icons/saveLVC.png" Width="25"/>
                     </Button>
                     <!-- SAVE VARIABLES AS BUTTON -->
                     <Button x:Name="saveVarBtn" ToolBar.OverflowMode="Never" ToolTip="Save Live Charts As" Click="OnSaveVar_Clicked" Style="{StaticResource Btn_ToolBar}">
@@ -359,11 +401,11 @@
                     <Button x:Name="UpdateBtn" ToolBar.OverflowMode="Never" ToolTip="SolveIT Updates" Click="OnUpdate_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/downUpdates.png" Width="25"/>
                     </Button>
-                <Separator/>
-                    <TextBox x:Name="searchBox" Style="{StaticResource searchTextBoxStyle}"></TextBox>
+                <!--<Separator/>-->
+                    <!--<TextBox x:Name="searchBox" Style="{StaticResource searchTextBoxStyle}"></TextBox>
                     <Button x:Name="SearchBtn" ToolBar.OverflowMode="Never" ToolTip="Search Your Outputs" Click="OnSearch_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/search.png" Width="25"/>
-                    </Button>
+                    </Button>-->
                 </ToolBar>
             </ToolBarTray>
 

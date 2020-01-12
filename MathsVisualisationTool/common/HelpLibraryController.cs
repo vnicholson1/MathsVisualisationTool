@@ -128,11 +128,38 @@ namespace MathsVisualisationTool
         /************************* FUNCTIONS TO CALL DOCS FROM DOCUMENTS LIBRARY ****************************/
         #region DocsFunctions
         /*
-         * OnInputDoc_Clicked -  
+         * OnVariables_Clicked - Basic Inputs Documentation
+         */
+        private void OnVariables_Clicked(object sender, RoutedEventArgs e)
+        {
+            XpsDocument testDocument = new XpsDocument("../../manuals/documentation/variables.xps", FileAccess.Read);
+            libraryDocViewer.Document = testDocument.GetFixedDocumentSequence();
+        }
+
+        /*
+         * OnBasicInput_Clicked - Basic Inputs Documentation
+         */
+        private void OnBasicInput_Clicked(object sender, RoutedEventArgs e)
+        {
+            XpsDocument testDocument = new XpsDocument("../../manuals/documentation/basicInput.xps", FileAccess.Read);
+            libraryDocViewer.Document = testDocument.GetFixedDocumentSequence();
+        }
+
+        /*
+         * OnInputDoc_Clicked - Maths Commands Documentation
          */
         private void OnInputDoc_Clicked(object sender, RoutedEventArgs e)
         {
-            XpsDocument testDocument = new XpsDocument("../../manuals/documentation/testDoc.xps", FileAccess.Read);
+            XpsDocument testDocument = new XpsDocument("../../manuals/documentation/MathsCommands.xps", FileAccess.Read);
+            libraryDocViewer.Document = testDocument.GetFixedDocumentSequence();
+        }
+
+        /*
+         * OnErrorCodes_Clicked - Error Codes Documentation
+         */
+        private void OnErrorCodes_Clicked(object sender, RoutedEventArgs e)
+        {
+            XpsDocument testDocument = new XpsDocument("../../manuals/documentation/ErrorCodes.xps", FileAccess.Read);
             libraryDocViewer.Document = testDocument.GetFixedDocumentSequence();
         }
         #endregion

@@ -64,4 +64,26 @@ namespace MathsVisualisationTool
             ErrorCode = "7.4";
         }
     }
+
+    /// <summary>
+    /// Error thrown if one or more save all item is empty upon save all.
+    /// </summary>
+    public class EmptySaveAllFieldException : UIErrorException
+    {
+        public EmptySaveAllFieldException(string message) : base(message)
+        {
+            ErrorCode = "7.5";
+        }
+    }
+
+    /// <summary>
+    /// Error thrown if both graphs are not rendered prior to saving.
+    /// </summary>
+    public class UnrenderedGraphErrorException : UIErrorException
+    {
+        public UnrenderedGraphErrorException(string message): base(message)
+        {
+            ErrorCode = "7.6";
+        }
+    }
 }
