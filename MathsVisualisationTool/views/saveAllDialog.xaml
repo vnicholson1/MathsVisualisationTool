@@ -13,9 +13,7 @@
         BorderThickness="1"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False" 
-        WindowStyle="none"
-        Width="500"
-        Height="300">
+        WindowStyle="none">
 
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="25"/>
@@ -43,12 +41,10 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button x:Name="BrowseBtn" Content="Browse" Style="{StaticResource errorBtn_Style}" Grid.Column="0" Height="35" Click="OnBrowse_Clicked"/>
-                        <Button x:Name="SaveBtn" Content="Save All" Style="{StaticResource errorBtn_Style}" Grid.Column="1" Height="35" Click="OnSaveAll_Clicked"/>
-                        <Button x:Name="cancelBtn" Content="Cancel" Style="{StaticResource errorBtn_Style}" Grid.Column="2" Height="35" Click="OnCancel_Clicked"/>
+                        <Button x:Name="SaveBtn" Content="Save All" Style="{StaticResource errorBtn_Style}" Grid.Column="0" Height="35" Click="OnSaveAll_Clicked"/>
+                        <Button x:Name="cancelBtn" Content="Cancel" Style="{StaticResource errorBtn_Style}" Grid.Column="1" Height="35" Click="OnCancel_Clicked"/>
 
                     </Grid>
 
@@ -56,28 +52,46 @@
 
                     <Border Style="{StaticResource errorMsgBorder}" Margin="5 10 5 10" DockPanel.Dock="Top">
                         <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Directory:" Style="{StaticResource errorSubTextBlock_Style}"  />
-                                <TextBox x:Name="ChosenDirectory" Width="200" IsReadOnly="True"/>
+                            <TextBlock Text="Select a Directory..." Style="{StaticResource saveAllMainTextBlock_Style}"  />
+                            <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
                                 
+                                <TextBox x:Name="ChosenDirectory" Width="200" Height="25" IsReadOnly="True" Style="{StaticResource cdTextBoxStyle}" Margin="5 0 0 0"/>
+                                <Button x:Name="BrowseBtn" Content=" Browse " Style="{StaticResource browseBtn_Style}" Click="OnBrowse_Clicked"/>
                             </StackPanel>
-                            <TextBlock x:Name="infoText" Text="Please select folder" Style="{StaticResource errorNoteTextBlock_Style}" />
-                            <StackPanel Orientation="Horizontal" x:Name="numCheckPanel">
-                                <TextBlock Text="Save Workshop:  "/>
-                                <CheckBox x:Name="workshopCheck" IsChecked="True"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" x:Name="canvasCheckPanel">
-                                <TextBlock Text="Save Canvas:  "/>
-                                <CheckBox x:Name="canvasCheck" IsChecked="True"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" x:Name="lvcCheckPanel">
-                                <TextBlock Text="Save LiveCharts:  "/>
-                                <CheckBox x:Name="lvcCheck" IsChecked="True"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" x:Name="varCheckPanel">
-                                <TextBlock Text="Save Variables:  "/>
-                                <CheckBox x:Name="varCheck" IsChecked="True"/>
-                            </StackPanel>
+                            <TextBlock x:Name="infoText" Text="Which Items do you wish to save..." Style="{StaticResource saveAllTextBlock_Style}" />
+
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Text="Select All:  " Style="{StaticResource saveAllTextBlock_Style}" Grid.Column="0" Grid.Row="0"/>
+                                <CheckBox x:Name="saveAllCheck" IsThreeState="True" Checked="saveAll_CheckChange" Unchecked="saveAll_CheckChange" Grid.Column="1" Grid.Row="0"/>
+
+                                <TextBlock Text="Save Workshop:  " Style="{StaticResource saveAllTextBlock_Style}" Grid.Column="0" Grid.Row="1"/>
+                                <CheckBox x:Name="workshopCheck" IsChecked="False" Checked="isCheckChange" Unchecked="isCheckChange" Grid.Column="1" Grid.Row="1"/>
+
+                                <TextBlock Text="Save Canvas:  " Style="{StaticResource saveAllTextBlock_Style}" Grid.Column="0" Grid.Row="2"/>
+                                <CheckBox x:Name="canvasCheck" IsChecked="False" Checked="isCheckChange" Unchecked="isCheckChange" Grid.Column="1" Grid.Row="2"/>
+
+                                <TextBlock Text="Save LiveCharts:  " Style="{StaticResource saveAllTextBlock_Style}" Grid.Column="3" Grid.Row="1"/>
+                                <CheckBox x:Name="lvcCheck" IsChecked="False" Checked="isCheckChange" Unchecked="isCheckChange" Grid.Column="4" Grid.Row="1"/>
+
+                                <TextBlock Text="Save Variables:  " Style="{StaticResource saveAllTextBlock_Style}" Grid.Column="3" Grid.Row="2"/>
+                                <CheckBox x:Name="varCheck" IsChecked="False" Checked="isCheckChange" Unchecked="isCheckChange" Grid.Column="4" Grid.Row="2"/>
+                                
+                                
+                                
+                            </Grid>
                         </StackPanel>
                     </Border>
                 </DockPanel>
