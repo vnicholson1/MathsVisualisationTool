@@ -73,6 +73,41 @@
         </Setter>
     </Style>
 
+    <!-- BROWSE BUTTONS - BUTTON STYLING -->
+    <Style x:Key="browseBtn_Style" TargetType="{x:Type Button}">
+        <!--<Setter Property="Padding" Value="5"/>-->
+        <Setter Property="Background" Value="{StaticResource Btn_Background}" />
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}" />
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border CornerRadius="1" BorderBrush="{StaticResource MainColour_BorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}">
+                        <Grid>
+                            <ContentPresenter x:Name="ButtonContent" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource MainColour_MouseHover}"/>
+                            <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{StaticResource Btn_IsPressedBackground}" />
+                            <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- SUBMIT BUTTONS - BUTTON STYLING -->
     <Style x:Key="submitBtn_Style" TargetType="{x:Type Button}">
         <Setter Property="Padding" Value="5"/>

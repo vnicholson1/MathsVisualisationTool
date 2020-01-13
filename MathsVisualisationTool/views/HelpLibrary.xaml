@@ -55,7 +55,7 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2"/>
-                            <ColumnDefinition MinWidth="175" MaxWidth="200"/>
+                            <ColumnDefinition MinWidth="200" MaxWidth="225"/>
                             <ColumnDefinition Width="7"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
@@ -65,14 +65,93 @@
                         <TextBlock VerticalAlignment="Center" Style="{StaticResource libraryText_Style}" Text="Library Index" Grid.Row="0" Grid.Column="1"/>
                         
                         <TreeView x:Name="DocsTree" Grid.Row="1" Grid.Column="1" Margin="2">
-                            <TreeViewItem Header="User Manual" >
-                                <TreeViewItem Header="Quick Guide"/>
-                                <TreeViewItem Header="User Manual"/>
+                            <TreeViewItem x:Name="userManual" >
+                                <TreeViewItem.Header>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="../images/icons/userMan.png" Height="20"/>
+                                        <TextBlock Text="User Manuals..." Margin="5 0 0 0"/>
+                                    </StackPanel>
+                                </TreeViewItem.Header>
+                                <!-- USER MANUAL - TREE VIEW CHILD ITEM-->
+                                <TreeViewItem x:Name="subUserManual">
+                                    <TreeViewItem.Header>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Image Source="../images/icons/book.png" Height="20"/>
+                                            <TextBlock Text="...Quick Guide" Margin="5 0 0 0"/>
+                                        </StackPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                                <!-- USER MANUAL - TREE VIEW ChILD ITEM -->
+                                <TreeViewItem x:Name="Manual">
+                                    <TreeViewItem.Header>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Image Source="../images/icons/book.png" Height="20"/>
+                                            <TextBlock Text="...Spare" Margin="5 0 0 0"/>
+                                        </StackPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
                             </TreeViewItem>
-                            <TreeViewItem Header="'Cheat' Sheets">
-                                <TreeViewItem Header="Input References" MouseDoubleClick="OnInputDoc_Clicked"/>
-                                <TreeViewItem Header="Error Codes"/>
+
+                            <!-- HOW TO... - TREE VIEW ITEM -->
+                            <TreeViewItem x:Name="HowTo">
+                                <TreeViewItem.Header>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="../images/icons/userMan.png" Height="20"/>
+                                        <TextBlock Text="How To..." Margin="5 0 0 0"/>
+                                    </StackPanel>
+                                </TreeViewItem.Header>
+                                
+                                <!-- ...BASIC EQUATIONS - TREE VIEW CHILD ITEM -->
+                                <TreeViewItem x:Name="basicHowTo" MouseDoubleClick="OnBasicInput_Clicked">
+                                    <TreeViewItem.Header>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Image Source="../images/icons/book.png" Height="20"/>
+                                            <TextBlock Text="...Basic Equations" Margin="5 0 0 0"/>
+                                        </StackPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                                
+                                <!-- ...VARIABLES - TREE VIEW CHILD ITEM -->
+                                <TreeViewItem x:Name="varHowTo" MouseDoubleClick="OnVariables_Clicked">
+                                    <TreeViewItem.Header>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Image Source="../images/icons/book.png" Height="20"/>
+                                            <TextBlock Text="...Work With Variables" Margin="5 0 0 0"/>
+                                        </StackPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
                             </TreeViewItem>
+                            
+                            <!-- CHEAT SHEETS - TREE VIEW ITEMS -->
+                            <TreeViewItem x:Name="cheatSheets">
+                                <TreeViewItem.Header>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="../images/icons/userMan.png" Height="20"/>
+                                        <TextBlock Text="'Cheat' Sheets..." Margin="5 0 0 0"/>
+                                    </StackPanel>
+                                </TreeViewItem.Header>
+                                
+                                <!-- INPUT CHEAT SHEET - TREE VIEW CHILD ITEMS -->
+                                <TreeViewItem x:Name="inputRef" MouseDoubleClick="OnInputDoc_Clicked">
+                                    <TreeViewItem.Header>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Image Source="../images/icons/book.png" Height="20"/>
+                                            <TextBlock Text="...Input References" Margin="5 0 0 0"/>
+                                        </StackPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                                
+                                <!-- ERROR CODES CHEAT SHEET - TREE VIEW CHILD ITEM-->
+                                <TreeViewItem x:Name="errCodes" MouseDoubleClick="OnErrorCodes_Clicked">
+                                    <TreeViewItem.Header>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Image Source="../images/icons/book.png" Height="20"/>
+                                            <TextBlock Text="...Error Codes" Margin="5 0 0 0"/>
+                                        </StackPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                            </TreeViewItem>
+                            
                         </TreeView>
                         
                         <GridSplitter x:Name="Library_Splitter" Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource LibrarySplitter_Style}"/>

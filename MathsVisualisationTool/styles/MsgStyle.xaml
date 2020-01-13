@@ -46,7 +46,27 @@
         <Setter Property="TextAlignment" Value="Justify"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
-    
+
+    <!-- TEXT BLOCK - SAVE ALL MESSAGE FOR SAVE ALL NOTES -->
+    <Style x:Key="saveAllTextBlock_Style" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="5 0 5 5"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <!-- TEXT BLOCK - SAVE ALL MESSAGE TEXTBLOCK FOR MAIN TITLES -->
+    <Style x:Key="saveAllMainTextBlock_Style" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="5 0 5 5"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
     <!-- BORDER - ERROR MESSAGE BORDERS -->
     <Style x:Key="errorMsgBorder" TargetType="{x:Type Border}">
         <Setter Property="BorderBrush" Value="{StaticResource MainColour_LightBorder}"/>
@@ -55,6 +75,15 @@
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Padding" Value="5"/>
         <Setter Property="Background" Value="{StaticResource MainColour_SubBackground}"/>
+    </Style>
+    
+    <!-- TEXT BOX STYLE - FOR SAVEL ALL DIRECTORY -->
+    <Style x:Key="cdTextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Foreground" Value="{StaticResource MainColour_Font}"/>
+        <Setter Property="Background" Value="{StaticResource MainColour_LightBorder}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource MainColour_BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Width" Value="150"/>
     </Style>
 
 </ResourceDictionary>
