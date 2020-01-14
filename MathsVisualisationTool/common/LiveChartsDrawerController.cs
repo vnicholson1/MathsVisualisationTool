@@ -11,7 +11,7 @@ using DataDomain;
 
 namespace MathsVisualisationTool
 {
-    class LiveChartsDrawer
+    public class LiveChartsDrawer
     {
         //Required for live charts
         public string[] Labels { get; set; }

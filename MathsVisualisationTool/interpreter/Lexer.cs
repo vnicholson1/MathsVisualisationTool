@@ -11,7 +11,7 @@ using DataDomain;
 namespace MathsVisualisationTool
 {
 
-    class Lexer
+    public class Lexer
     {
         
         public Lexer()

@@ -8,7 +8,7 @@ using DataDomain;
 
 namespace MathsVisualisationTool
 {
-    class Parser
+    public class Parser
     {
         //List of tokens gathered by the lexer.
         private List<Token> tokens;
