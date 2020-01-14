@@ -266,6 +266,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="manuals\documentation\basicInput.xps" />
+    <None Include="manuals\documentation\ErrorCodes.xps" />
+    <None Include="manuals\documentation\MathsCommands.xps" />
+    <None Include="manuals\documentation\variables.xps" />
     <None Include="variables\variables.json" />
     <None Include="manuals\documentation\testDoc.xps" />
     <None Include="packages.config" />
@@ -506,7 +510,6 @@
     <Resource Include="images\icons\saveDoc.png" />
     <Resource Include="images\icons\saveGraph.png" />
     <Resource Include="images\icons\saveRun.png" />
-    <Resource Include="images\icons\saveVar.png" />
     <Resource Include="images\icons\library.png" />
     <Resource Include="images\icons\trash.png" />
     <Resource Include="images\icons\uninstallUpdates.png" />
@@ -528,6 +531,9 @@
     <Resource Include="images\tabIcons\vids90.png" />
     <Resource Include="images\icons\caution.png" />
     <Resource Include="images\icons\error.png" />
+    <Resource Include="images\icons\saveCanvas.png" />
+    <Resource Include="images\icons\saveLVC.png" />
+    <Resource Include="images\icons\saveVar.png" />
     <Content Include="manuals\clips\basicInput_V1.mpg" />
   </ItemGroup>
   <ItemGroup />

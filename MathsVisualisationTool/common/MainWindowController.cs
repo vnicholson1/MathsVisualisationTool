@@ -552,11 +552,38 @@ namespace MathsVisualisationTool
         }
 
         /*
-         * OnTestDocClicked -  
+         * OnVariables_Clicked - Basic Inputs Documentation
          */
-        private void OnTestDoc_Clicked(object sender, RoutedEventArgs e)
+        private void OnVariables_Clicked(object sender, RoutedEventArgs e)
         {
-            XpsDocument testDocument = new XpsDocument("../../manuals/documentation/testDoc.xps", FileAccess.Read);
+            XpsDocument testDocument = new XpsDocument("../../manuals/documentation/variables.xps", FileAccess.Read);
+            mainDocViewer.Document = testDocument.GetFixedDocumentSequence();
+        }
+
+        /*
+         * OnBasicInput_Clicked - Basic Inputs Documentation
+         */
+        private void OnBasicInput_Clicked(object sender, RoutedEventArgs e)
+        {
+            XpsDocument testDocument = new XpsDocument("../../manuals/documentation/basicInput.xps", FileAccess.Read);
+            mainDocViewer.Document = testDocument.GetFixedDocumentSequence();
+        }
+
+        /*
+         * OnInputDoc_Clicked - Maths Commands Documentation
+         */
+        private void OnInputDoc_Clicked(object sender, RoutedEventArgs e)
+        {
+            XpsDocument testDocument = new XpsDocument("../../manuals/documentation/MathsCommands.xps", FileAccess.Read);
+            mainDocViewer.Document = testDocument.GetFixedDocumentSequence();
+        }
+
+        /*
+         * OnErrorCodes_Clicked - Error Codes Documentation
+         */
+        private void OnErrorCodes_Clicked(object sender, RoutedEventArgs e)
+        {
+            XpsDocument testDocument = new XpsDocument("../../manuals/documentation/ErrorCodes.xps", FileAccess.Read);
             mainDocViewer.Document = testDocument.GetFixedDocumentSequence();
         }
         #endregion
@@ -1447,7 +1474,7 @@ namespace MathsVisualisationTool
         #endregion
 
         /************************ WINDOWS CHROME FUNCTIOANLITY (keeps taskbar visible) *********************/
-        #region TackbarVisiblity
+        #region TaskbarVisiblity
         private static IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
