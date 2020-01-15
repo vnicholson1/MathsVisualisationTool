@@ -7,7 +7,7 @@ using DataDomain;
 
 namespace MathsVisualisationTool
 {
-    class Preprocessor
+    public class Preprocessor
     {
 
         private List<Token> gatheredTokens;
@@ -30,6 +30,8 @@ namespace MathsVisualisationTool
             createNegativeAndPositiveNumbers(gatheredTokens);
 
             List<Token> updatedTokens = parenthesiseTokens(gatheredTokens);
+
+            PrintTokens(updatedTokens);
 
             return updatedTokens;
         }
@@ -296,6 +298,21 @@ namespace MathsVisualisationTool
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Method to print out the list of collected tokens. Mainly for debugging purposes.
+        /// </summary>
+        /// <param name="tokens"></param>
+        /// <returns></returns>
+        private void PrintTokens(List<Token> tokens)
+        {
+            foreach (Token t in tokens)
+            {
+                Console.WriteLine(t.ToString());
+            }
+
+            Console.WriteLine("--------------------------------------------------");
         }
     }
 }

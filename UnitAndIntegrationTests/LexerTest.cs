@@ -227,7 +227,7 @@ namespace UnitAndIntegrationTests
 
             for(int i=0;i<l1.Count;i++)
             {
-                bool sameType = l1[i].GetTokenType() == l2[i].GetTokenType();
+                bool sameType = l1[i].GetType() == l2[i].GetType();
                 bool sameValue = l1[i].GetValue() == l2[i].GetValue();
 
                 if(!sameType || !sameValue)

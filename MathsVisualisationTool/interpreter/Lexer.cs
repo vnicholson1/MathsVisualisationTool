@@ -349,7 +349,7 @@ namespace MathsVisualisationTool
             }
             tokens.Add(tokenToAdd);
 
-            PrintTokens(tokens);
+            //PrintTokens(tokens);
 
             return tokens;
         }

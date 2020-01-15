@@ -60,14 +60,24 @@ namespace MathsVisualisationTool
         /// <returns></returns>
         private static JArray LoadVariableFile()
         {
-            //Get current WORKING directory (i.e. \bin\debug)
+
             string workingDirectory = Directory.GetCurrentDirectory();
-
-            //Get PROJECT directory 
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
+            JArray arrayOfVars;
 
-            string filePath = Path.GetFullPath(Path.Combine(projectDirectory + "\\variables\\variables.json"));
-            JArray arrayOfVars = JArray.Parse(File.ReadAllText(filePath));
+
+            try
+            {
+                //Test if in the debug folder.
+                string filePath = Path.GetFullPath(Path.Combine(projectDirectory + "\\variables\\variables.json"));
+                arrayOfVars = JArray.Parse(File.ReadAllText(filePath));
+            } catch(Exception e2)
+            {
+                projectDirectory = Directory.GetParent(workingDirectory).FullName;
+                //if this fails, it must be in the release folder.
+                string filePath = Path.GetFullPath(Path.Combine(projectDirectory + "\\variables\\variables.json"));
+                arrayOfVars = JArray.Parse(File.ReadAllText(filePath));
+            }
 
             return arrayOfVars;
         }

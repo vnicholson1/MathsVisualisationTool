@@ -28,7 +28,7 @@ namespace MathsVisualisationTool
         //Variable for holding a reference to the GraphDrawer (Canvas).
         private GraphDrawer g = null;
         //Write to Variable File?
-        private readonly bool WRITE_TO_FILE;
+        public bool WRITE_TO_FILE;
         //Variable to record the result of a command. This is so that the correct message is displayed in the testbox.
         public enum STATUSES{VARIABLE_ASSIGNED,PLOT_FUNCTION_CALLED,UNASSIGNED_RESULT};
         public STATUSES status = STATUSES.UNASSIGNED_RESULT;
