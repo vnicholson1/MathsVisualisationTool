@@ -492,8 +492,13 @@
                                             </ToolBar>
                                         </ToolBarTray>
                                         <TreeView Grid.Row="3" Grid.RowSpan="2" Grid.Column="1">
-                                            <TreeViewItem Header="Note 1">
-                                                <TreeViewItem Header="Note 1 - Subject"/>
+                                            <TreeViewItem Header="F# Features">
+                                                <TreeViewItem Header="Factorial">
+                                                    <TreeViewItem Header="fac(n)"/>
+                                                </TreeViewItem>
+                                                <TreeViewItem Header="Fibonnaci Sequence">
+                                                    <TreeViewItem Header="fib(n)"/>
+                                                </TreeViewItem>
                                             </TreeViewItem>
                                             <TreeViewItem Header="Note 2">
                                                 <TreeViewItem Header="Note 2 - Subject"/>
@@ -601,7 +606,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <!-- INPUT TEXT BOX -->
-                        <TextBox Name="inputBox" Style="{StaticResource inputText_Style}" Grid.Column="0" Text="plot(y=sin(x),10&gt;x&gt;1)">
+                        <TextBox Name="inputBox" Style="{StaticResource inputText_Style}" Grid.Column="0">
                             <TextBox.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Header="Cut" Command="Cut">
