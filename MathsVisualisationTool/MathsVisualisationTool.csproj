@@ -126,6 +126,7 @@
     <Compile Include="errors\UIErrorExceptions.cs" />
     <Compile Include="functions\AbsFunction.cs" />
     <Compile Include="functions\CosFunction.cs" />
+    <Compile Include="functions\FactorialFunction.cs" />
     <Compile Include="functions\FibonacciFunction.cs" />
     <Compile Include="functions\LnFunction.cs" />
     <Compile Include="functions\LogFunction.cs" />

@@ -157,6 +157,11 @@ namespace MathsVisualisationTool
                     FibonacciFunction f = new FibonacciFunction(tokens, i, false);
                     tokens = f.getNewEquation();
                 }
+                else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.FACTORIAL)
+                {
+                    FactorialFunction f = new FactorialFunction(tokens, i, false);
+                    tokens = f.getNewEquation();
+                }
             }
             return processTokens(tokens);
         }
