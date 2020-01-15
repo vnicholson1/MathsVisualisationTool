@@ -14,7 +14,7 @@ namespace DataDomain
             PLUS, MINUS, DIVISION, MULTIPLICATION, ASSIGNMENT, INDICIES, //supported ops.
             VARIABLE_NAME, //tokens related to the assignment of variables
             WHITE_SPACE, OPEN_BRACKET, CLOSE_BRACKET, COMMA, LESS_THAN, GREATER_THAN, //miscellaneous characters.
-            PLOT,SIN,COS,TAN,LOG,LN,SQRT,ROOT,ABS //supported functions
+            PLOT,SIN,COS,TAN,LOG,LN,SQRT,ROOT,ABS,FIBONACCI //supported functions
         };
 
         //Config variables to determine whether to draw the graph onto the canvas, live charts or both.
@@ -22,7 +22,7 @@ namespace DataDomain
         public static bool SHOW_LIVE_CHARTS = true;
 
         //record the string rep of the keywords.
-        public static List<string> keyWords = new List<string>() { "plot","sin","cos","tan","log","ln","sqrt","root","abs"};
+        public static List<string> keyWords = new List<string>() { "plot","sin","cos","tan","log","ln","sqrt","root","abs","fib"};
         //record the functions that have more than one argument.
         public static List<string> funcsWith2Args = new List<string>() { "log","root" };
         //record the order of each operation.
@@ -68,6 +68,10 @@ namespace DataDomain
             else if (word == "abs")
             {
                 return SUPPORTED_TOKENS.ABS;
+            } 
+            else if (word == "fib")
+            {
+                return SUPPORTED_TOKENS.FIBONACCI;
             }
             else
             {

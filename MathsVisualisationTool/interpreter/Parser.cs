@@ -152,6 +152,10 @@ namespace MathsVisualisationTool
                 {
                     AbsFunction a = new AbsFunction(tokens, i, false);
                     tokens = a.getNewEquation();
+                } else if (tokens[i].GetType() == Globals.SUPPORTED_TOKENS.FIBONACCI)
+                {
+                    FibonacciFunction f = new FibonacciFunction(tokens, i, false);
+                    tokens = f.getNewEquation();
                 }
             }
             return processTokens(tokens);

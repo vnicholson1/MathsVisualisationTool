@@ -77,9 +77,6 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Parser">
-      <HintPath>..\Parser\obj\Debug\Parser.dll</HintPath>
-    </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -129,6 +126,7 @@
     <Compile Include="errors\UIErrorExceptions.cs" />
     <Compile Include="functions\AbsFunction.cs" />
     <Compile Include="functions\CosFunction.cs" />
+    <Compile Include="functions\FibonacciFunction.cs" />
     <Compile Include="functions\LnFunction.cs" />
     <Compile Include="functions\LogFunction.cs" />
     <Compile Include="functions\RootFunction.cs" />
@@ -326,6 +324,10 @@
     <ProjectReference Include="..\DataDomain\DataDomain.csproj">
       <Project>{e99a2845-a6ab-48aa-acfd-16fc9afce5cf}</Project>
       <Name>DataDomain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Parser\MathFunctions.fsproj">
+      <Project>{354f4fa4-92b0-4285-8b4b-ea3a8656c701}</Project>
+      <Name>MathFunctions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

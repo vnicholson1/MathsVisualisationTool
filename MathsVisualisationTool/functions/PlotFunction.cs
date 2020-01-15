@@ -469,7 +469,10 @@ namespace MathsVisualisationTool
                 {
                     if(X != null)
                     {
-                        throw new TooManyVariablesException("Only a maximum of two variables can be declared in the equation.");
+                        if(X != Equation[i].GetValue())
+                        {
+                            throw new TooManyVariablesException("Only a maximum of two variables can be declared in the equation.");
+                        }
                     }
 
                     X = Equation[i].GetValue();

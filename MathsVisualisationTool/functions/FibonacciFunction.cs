@@ -8,20 +8,20 @@ using MathFunctionsFSharp;
 
 namespace MathsVisualisationTool
 {
-    class AbsFunction : MathFunction
+    class FibonacciFunction : MathFunction
     {
         /// <summary>
         /// Constructor is the same for the TrigFunction class.
         /// </summary>
         /// <param name="equation"></param>
-        public AbsFunction(List<Token> equation, int index, bool hasSecondParameter)
+        public FibonacciFunction(List<Token> equation, int index, bool hasSecondParameter)
             : base(equation, index, hasSecondParameter)
         {
         }
 
         protected override double Evaluate()
         {
-            return Math.Abs(Convert.ToDouble(firstParameter.GetValue()));
+            return MathFunctions.fibonacci(Convert.ToDouble(firstParameter.GetValue()));
         }
     }
 }

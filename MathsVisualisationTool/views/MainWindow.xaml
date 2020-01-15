@@ -52,7 +52,7 @@
                         <Image Source="../images/icons/close.png" Height="25"/>
                     </Button>
                 </StackPanel>
-            </Grid> 
+            </Grid>
 
             <!-- MAIN MENU/NAVIGATION MENU-->
             <Menu DockPanel.Dock="Top" IsMainMenu="True" >
@@ -190,7 +190,7 @@
                             </MenuItem.Icon>
                         </MenuItem>
                     </MenuItem>
-                <Separator/>
+                    <Separator/>
                     <MenuItem Header="Fullscreen" Name="maximiseMenuItem" Click="OnMaximise_Clicked">
                         <MenuItem.Icon>
                             <Image Source="../images/icons/maxi.png" Height="20"/>
@@ -219,7 +219,7 @@
                             <Image Source="../images/icons/downUpdates.png" Height="20"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                <Separator/>
+                    <Separator/>
                     <MenuItem Header="SolveIT Options">
                         <MenuItem.Icon>
                             <Image Source="../images/icons/settings.png" Height="20"/>
@@ -239,8 +239,8 @@
                                 <Image Source="../images/icons/userMan.png" Height="20"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        
-                    <Separator/>
+
+                        <Separator/>
                         <!-- HOW TO SECTION -->
                         <MenuItem Header="How To...">
                             <MenuItem.Icon>
@@ -299,7 +299,7 @@
                     <Button x:Name="ForwardBtn" ToolBar.OverflowMode="Never" ToolTip="Navigate Forward" Click="OnForward_Clicked">
                         <Image Source="../images/icons/forward.png" Width="25"/>
                     </Button>
-                <Separator/>
+                    <Separator/>
                     <!-- NEW BUTTON -->
                     <Button x:Name="newBtn" ToolBar.OverflowMode="Never" ToolTip="New SolveIT" Click="OnNew_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/newFile.png" Width="25"/>
@@ -333,7 +333,7 @@
                     <Button x:Name="saveAllBtn" ToolBar.OverflowMode="Never" ToolTip="Save All As" Click="OnSaveAll_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/saveAll.png" Width="25"/>
                     </Button>
-                <Separator/>
+                    <Separator/>
                     <!-- PRINT BUTTON -->
                     <Button x:Name="printBtn" ToolBar.OverflowMode="Never" ToolTip="Print SolveIT Solution" Click="OnPrint_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/print.png" Width="25"/>
@@ -342,7 +342,7 @@
                     <Button x:Name="pageBtn" ToolBar.OverflowMode="Never" ToolTip="Print SolveIT Solution" Click="OnPageSetup_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/pageSetup.png" Width="25"/>
                     </Button>
-                <Separator/>
+                    <Separator/>
                     <!-- CUT BUTTON -->
                     <Button x:Name="cutBtn" Command="Cut" ToolBar.OverflowMode="Never" ToolTip="Cut Selection to Windows Clipboard" Click="OnCut_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/cut.png" Width="25"/>
@@ -368,7 +368,7 @@
                     <Button x:Name="redoBtn" Command="Redo" ToolBar.OverflowMode="Never" ToolTip="Redo (Ctrl + Y)" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/redo.png" Width="25"/>
                     </Button>
-                <Separator/>
+                    <Separator/>
                     <!-- RUN/SUBMIT BUTTON -->
                     <Button x:Name="altRunBtn" ToolTip="Run Input" ToolBar.OverflowMode="Never" Click="OnRun_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/run.png" Width="25"/>
@@ -401,7 +401,7 @@
                     <Button x:Name="UpdateBtn" ToolBar.OverflowMode="Never" ToolTip="SolveIT Updates" Click="OnUpdate_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/downUpdates.png" Width="25"/>
                     </Button>
-                <!--<Separator/>-->
+                    <!--<Separator/>-->
                     <!--<TextBox x:Name="searchBox" Style="{StaticResource searchTextBoxStyle}"></TextBox>
                     <Button x:Name="SearchBtn" ToolBar.OverflowMode="Never" ToolTip="Search Your Outputs" Click="OnSearch_Clicked" Style="{StaticResource Btn_ToolBar}">
                         <Image Source="../images/icons/search.png" Width="25"/>
@@ -428,7 +428,7 @@
                     <ColumnDefinition x:Name="LeftGridSplitter_Column" Width="7"/>
                     <ColumnDefinition x:Name="Centre_Column" Width="*"/>
                     <ColumnDefinition x:Name="RightGridSplitter_Column" Width="7"/>
-                    <ColumnDefinition x:Name="Right_Column" Width="305" MinWidth="290"/>
+                    <ColumnDefinition x:Name="Right_Column" Width="305" MinWidth="290" MaxWidth="310"/>
                 </Grid.ColumnDefinitions>
                 <!-- LEFT COLUMN OF CENTRE GRID-->
                 <!-- Left Section to include a Variable Table
@@ -640,12 +640,13 @@
                 functions that can be taken from the below keypad selector -->
                 <Grid x:Name="rightGridColumn" Margin="3 0 0 0" Grid.Column="4">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="17*"/>
+                        <RowDefinition Height="377*"/>
                         <RowDefinition Height="11"/>
-                        <RowDefinition Height="*" MinHeight="490"/>
+                        <RowDefinition Height="490*" MinHeight="490"/>
                     </Grid.RowDefinitions>
 
-                    <TabControl x:Name="TopRight_TabMenu"  TabStripPlacement="Right" Style="{StaticResource mainTabControlStyle}" Grid.Column="2">
+                    <TabControl x:Name="TopRight_TabMenu"  TabStripPlacement="Right" Style="{StaticResource mainTabControlStyle}" Grid.RowSpan="2">
                         <TabItem ToolTip="Users Favourite/Most Used Functions/Buttons" Style="{StaticResource RightTab}" >
                             <TabItem.Header>
                                 <StackPanel Orientation="Horizontal">
@@ -687,7 +688,7 @@
                                             <RowDefinition Height="240"/>
                                             <RowDefinition Height="86"/>
                                         </Grid.RowDefinitions>
-                                        
+
                                         <WrapPanel x:Name="graphPanel" Margin="3 0 3 0" ItemWidth="80" ItemHeight="80" MaxWidth="240" MaxHeight="240" Grid.Row="0">
                                             <!-- FIRST ROW OF 3 ITEMS/FUNCTIONS -->
                                             <Button x:Name="openBracket_Btn" ToolTip="Graph Value - '('" Style="{StaticResource kepadBtns_Style}" FontSize="30" Click="OnLeftBracket_Clicked">
@@ -738,15 +739,15 @@
 
 
                                     </Grid>
-                            </StackPanel>
+                                </StackPanel>
                             </Grid>
                         </TabItem>
                     </TabControl>
-                    
+
                     <!-- *********************************************************************************************************** -->
-                    <GridSplitter x:Name="FavouriteKeypadSplitter" Grid.Row="1" Style="{StaticResource GrdSpltrHorizontal_Style}"/>
+                    <GridSplitter x:Name="FavouriteKeypadSplitter" Grid.Row="2" Style="{StaticResource GrdSpltrHorizontal_Style}" Margin="-5,4"/>
                     <!-- *********************************************************************************************************** -->
-                    <Grid x:Name="keypadSelector" Margin="3 3 3 3" Grid.Row="2">
+                    <Grid x:Name="keypadSelector" Margin="3 3 3 3" Grid.Row="3">
                         <TabControl x:Name="BottomRight_TabMenu"  TabStripPlacement="Right" Style="{StaticResource mainTabControlStyle}">
                             <TabItem ToolTip="Clock and Calendar Features" Style="{StaticResource RightTab}" Margin="0 0 -1 0">
                                 <TabItem.Header>
